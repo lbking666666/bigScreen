@@ -1,6 +1,6 @@
 <template>
     <div class="map-chart">
-        地图
+        地图1
     </div>
 </template>
 
