@@ -1,6 +1,8 @@
 <template>
     <div class="home">
-        <barChart />
+        <div class="bar-chart">
+            <barChart></barChart>
+        </div>
         <mapChart />
         <lineChart />
     </div>
@@ -36,3 +38,12 @@ export default {
     }
 }
 </script>
+<style lang="less" scoped>
+    .home{
+        .bar-chart{
+            width: 300px;
+            height: 200px;
+        }
+    }
+
+</style>
