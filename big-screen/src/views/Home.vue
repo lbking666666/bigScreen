@@ -1,5 +1,6 @@
 <template>
     <div class="home">
+        <div class="header"></div>
         <div class="bar-chart">
             <barChart></barChart>
         </div>
@@ -128,17 +129,33 @@ export default {
 </script>
 <style lang="less" scoped>
     .home{
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        background: #233A80;
+        display: flex;
+        flex-direction: column;
+        .header{
+            width: 100%;
+            height: 89px;
+            background: url("../assets/img/biaoti .png") no-repeat;
+            background-size: 100% 100%;
+        }
         .bar-chart{
             width: 860px;
             height: 320px;
         }
         .line-chart{
-            width: 300px;
-            height: 200px;
+            background: url("../assets/img/border.png") no-repeat;
+            background-size: 100% 100%;
+            width: 500px;
+            height: 300px;
         }
         .line-chart2{
-            width: 300px;
-            height: 200px;
+            background: url("../assets/img/border.png") no-repeat;
+            background-size: 100% 100%;
+            width: 500px;
+            height: 300px;
         }
     }
 
