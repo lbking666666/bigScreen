@@ -4,7 +4,12 @@
             <barChart></barChart>
         </div>
         <mapChart />
-        <lineChart />
+        <div class="line-chart">
+            <lineChart :color="'rgba(110, 239, 155, 1)'"></lineChart>
+        </div>
+        <div class="line-chart2">
+            <lineChart :color="'rgba(91, 167, 255, 1)'"></lineChart>
+        </div>
     </div>
 </template>
 <script>
@@ -124,6 +129,14 @@ export default {
 <style lang="less" scoped>
     .home{
         .bar-chart{
+            width: 860px;
+            height: 320px;
+        }
+        .line-chart{
+            width: 300px;
+            height: 200px;
+        }
+        .line-chart2{
             width: 300px;
             height: 200px;
         }

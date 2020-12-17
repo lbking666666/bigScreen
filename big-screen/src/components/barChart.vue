@@ -96,7 +96,7 @@
                     xAxis: [
                         {
                             type: 'category',
-                            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            data: ['北京', '上海', '广州', '深圳', '哈尔滨', '吉林', '辽宁','北京', '上海', '广州', '深圳', '哈尔滨',],
                             axisLine:{
                                 lineStyle:{
                                     color:'#2EB2B3'
@@ -132,13 +132,24 @@
                         }
                     ],
                     series: [
+                        { // For shadow
+                            type: 'bar',
+                            itemStyle: {
+                                color: 'rgba(0,0,0,0.05)'
+                            },
+                            barGap: '100%',
+                            barCategoryGap: '0%',
+                            data: [0, 400,0, 400,0, 400,0, 400,0, 400,0, 400],
+                            animation: false
+                        },
                         {
                             type: 'custom',
                             renderItem: function (params, api) {
                                 let location = api.coord([api.value(0), api.value(1)]);
                                 return {
                                     type: 'group',
-                                    children: [{
+                                    children: [
+                                    {
                                         type: 'MyCubeRect',
                                         shape: {
                                         api,
@@ -174,7 +185,7 @@
                                     }]
                                 };
                             },
-                            data: [10, 52, 200, 334, 390, 330, 220]
+                            data: [10, 52, 200, 334, 390, 330,10, 52, 200, 334, 390, 330]
                         }
                     ]
                 };
