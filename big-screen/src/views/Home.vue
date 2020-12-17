@@ -1,12 +1,18 @@
 <template>
     <div class="home">
+        <div class="header"></div>
         <div class="bar-chart">
             <barChart></barChart>
         </div>
         <mapChart />
-        <lineChart />
         <noticeBord :userData='noticeBordData.userData'
                     :externalData='noticeBordData.externalData' />
+        <div class="line-chart">
+            <lineChart :color="'rgba(110, 239, 155, 1)'"></lineChart>
+        </div>
+        <div class="line-chart2">
+            <lineChart :color="'rgba(91, 167, 255, 1)'"></lineChart>
+        </div>
     </div>
 </template>
 <script>
@@ -129,9 +135,33 @@ export default {
 </script>
 <style lang="less" scoped>
     .home{
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        background: #233A80;
+        display: flex;
+        flex-direction: column;
+        .header{
+            width: 100%;
+            height: 89px;
+            background: url("../assets/img/biaoti .png") no-repeat;
+            background-size: 100% 100%;
+        }
         .bar-chart{
-            width: 300px;
-            height: 200px;
+            width: 860px;
+            height: 320px;
+        }
+        .line-chart{
+            background: url("../assets/img/border.png") no-repeat;
+            background-size: 100% 100%;
+            width: 500px;
+            height: 300px;
+        }
+        .line-chart2{
+            background: url("../assets/img/border.png") no-repeat;
+            background-size: 100% 100%;
+            width: 500px;
+            height: 300px;
         }
     }
 
