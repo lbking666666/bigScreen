@@ -129,8 +129,8 @@ export default {
 <style lang="less" scoped>
     .home{
         .bar-chart{
-            width: 300px;
-            height: 200px;
+            width: 860px;
+            height: 320px;
         }
         .line-chart{
             width: 300px;
