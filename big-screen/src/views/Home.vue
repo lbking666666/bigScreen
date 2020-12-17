@@ -5,6 +5,8 @@
         </div>
         <mapChart />
         <lineChart />
+        <noticeBord :userData='noticeBordData.userData'
+                    :externalData='noticeBordData.externalData' />
     </div>
 </template>
 <script>
@@ -12,13 +14,15 @@
 import barChart from '@/components/barChart.vue';
 import mapChart from '@/components/mapChart.vue';
 import lineChart from '@/components/lineChart.vue';
+import noticeBord from '@/components/noticeBord.vue'
 import { addAreaUser, addAreaExternal, areaExternalRank, showWechat, trends, areaExternal, showTask, showArea } from '@/api/index.js';
 export default {
     name: 'Home',
     components: {
         barChart,
         mapChart,
-        lineChart
+        lineChart,
+        noticeBord
     },
     data() {
         return {
@@ -26,6 +30,7 @@ export default {
             flag2: 10,
             flag3: 11,
             areaCode: 1,
+            noticeBordData: {}
         }
     },
     mounted() {
@@ -86,7 +91,8 @@ export default {
                 areaCode: this.areaCode
             }
             trends(params).then(res => {
-                console.log(res)
+                console.log('趋势', res)
+                this.noticeBordData = res.data
             })
         },
         getAreaExternal() {
