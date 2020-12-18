@@ -99,6 +99,9 @@
                         </div>
                     </div>
                     <!--组件引入-->
+                    <div class="mainten-box">
+                        <mainten :maintenData="maintenData" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -112,6 +115,7 @@ import lineChart from '@/components/lineChart.vue';
 import noticeBord from '@/components/noticeBord.vue';
 import ranking from '@/components/ranking.vue';
 import interaction from '@/components/interaction.vue';
+import mainten from '@/components/mainten.vue';
 import { addAreaUser, addAreaExternal, areaExternalRank, showWechat, trends, areaExternal, showTask, showArea } from '@/api/index.js';
 export default {
     name: 'Home',
@@ -121,7 +125,8 @@ export default {
         lineChart,
         noticeBord,
         ranking,
-        interaction
+        interaction,
+        mainten
     },
     data() {
         return {
@@ -130,7 +135,8 @@ export default {
             flag3: 11,
             areaCode: 1,
             noticeBordData: {},
-            rankingList: {}
+            rankingList: [],
+            maintenData: {}
         }
     },
     mounted() {
@@ -173,7 +179,7 @@ export default {
                 areaCode: this.areaCode
             }
             areaExternalRank(params).then(res => {
-                console.log('排行榜', res)
+                // console.log('排行榜', res)
                 this.rankingList = res.data.list.slice(0, 5)
             })
         },
@@ -212,7 +218,8 @@ export default {
                 areaCode: this.areaCode
             }
             showTask(params).then(res => {
-                console.log(res)
+                // console.log('维系任务', res.data)
+                this.maintenData = res.data
             })
         },
         getShowArea() {
@@ -340,7 +347,6 @@ export default {
                 display: flex;
                 flex-direction: column;
                 .map-chart-home{
-                    border: 1px solid red;
                     display: flex;
                     flex: 1;
                 }
