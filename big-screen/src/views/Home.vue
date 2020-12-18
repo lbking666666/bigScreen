@@ -54,6 +54,10 @@
             </div>
             <div class="center-box">
                 <div class="map-chart-home">
+                    <div class="number-bord-box">
+                        <numberBord :title="'外部客户累积量'" :bordNumber="'12345'" />
+                    </div>
+                    
                     <mapChart @reName="selectName"></mapChart>
                 </div>
 
@@ -122,7 +126,9 @@ import noticeBord from '@/components/noticeBord.vue';
 import ranking from '@/components/ranking.vue';
 import interaction from '@/components/interaction.vue';
 import mainten from '@/components/mainten.vue';
+import numberBord from '@/components/numberBord.vue';
 import { addAreaUser, addAreaExternal, areaExternalRank, showWechat, trends, areaExternal, showTask, showArea } from '@/api/index.js';
+
 export default {
     name: 'Home',
     components: {
@@ -132,7 +138,8 @@ export default {
         noticeBord,
         ranking,
         interaction,
-        mainten
+        mainten,
+        numberBord
     },
     data() {
         return {
@@ -423,6 +430,10 @@ export default {
                 .map-chart-home{
                     display: flex;
                     flex: 1;
+                    .number-bord-box{
+                        position: absolute;
+                        top: 20px;
+                    }
                 }
                 .bar-chart-home{
                     width: 100%;
