@@ -92,7 +92,7 @@
                     </div>
                     <!--组件引入-->
                     <div class="interaction-box">
-                        <interaction></interaction>
+                        <interaction :showWechatData="showWechatData"></interaction>
                     </div>
                 </div>
                 <div class="task common-style">
@@ -154,6 +154,7 @@ export default {
             barYData: [], // 各省数据汇总y轴数据
             maxDataNum: 0, // 汇总图y轴最大值
             provinceName:'', // 选择的省份
+            showWechatData: {}, // 互动数接口
         }
     },
     mounted() {
@@ -225,6 +226,9 @@ export default {
             }
             showWechat(params).then(res => {
                 console.log(res)
+                if(res.code == 200){
+                    this.showWechatData = res.data
+                }
             })
         },
         getTrends() {
