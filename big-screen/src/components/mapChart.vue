@@ -133,6 +133,7 @@ export default {
         },
         reBack() {
             if (this.back) {
+                this.$emit('reName','全国','1')
                 this.initMap('china');
             }
 
@@ -166,7 +167,7 @@ export default {
         },
         showProvince(eName, param) {
             let self = this
-            this.$emit('reName',param)
+            this.$emit('reName',param,'11')
             this.back = true
             this.isAll = false
             axios.get(`./map/province/${eName}.json`).then(res => {

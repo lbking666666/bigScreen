@@ -23,15 +23,15 @@
                             <img src="../assets/img/waibuzengliang.png" alt="">
                         </div>
                         <div class="title-text">
-                            河南新增外部客户量
+                            {{provinceName||'全国'}}新增外部客户量
                         </div>
                         <div class="query-option">
-                            <div class="options opt-active"><div>月</div></div>
-                            <div class="options"><div>日</div></div>
+                            <div class="options" :class="flag2==11?'opt-active':''" @click="selExternal(11)"><div>月</div></div>
+                            <div class="options" :class="flag2==10?'opt-active':''" @click="selExternal(10)"><div>日</div></div>
                         </div>
                     </div>
                     <div class="line-chart">
-                        <lineChart :color="'rgba(110, 239, 155, 1)'"></lineChart>
+                        <lineChart :xData="externalXData" :yData="externalYData" :color="'rgba(110, 239, 155, 1)'"></lineChart>
                     </div>
                 </div>
                 <div class="inside common-style">
@@ -40,15 +40,15 @@
                             <img src="../assets/img/neibuzengliang.png" alt="">
                         </div>
                         <div class="title-text">
-                            河南新增内部员工量
+                            {{provinceName||'全国'}}新增内部员工量
                         </div>
                         <div class="query-option">
-                            <div class="options opt-active"><div>月</div></div>
-                            <div class="options"><div>日</div></div>
+                            <div class="options" :class="flag1==11?'opt-active':''" @click="selInside(11)"><div>月</div></div>
+                            <div class="options" :class="flag1==10?'opt-active':''" @click="selInside(10)"><div>日</div></div>
                         </div>
                     </div>
                     <div class="line-chart">
-                        <lineChart :color="'rgba(91, 167, 255, 1)'"></lineChart>
+                        <lineChart :xData="insideXData" :yData="insideYData" :color="'rgba(91, 167, 255, 1)'"></lineChart>
                     </div>
                 </div>
             </div>
@@ -56,8 +56,14 @@
                 <div class="map-chart-home">
                     <mapChart @reName="selectName"></mapChart>
                 </div>
+
                 <div class="bar-chart-home">
-                    <barChart></barChart>
+                    <div class="bar-chart-option">
+                        <div class="options" :class="flag3==365?'opt-active':''" @click="selTotal(365)"><div>年</div></div>
+                        <div class="options" :class="flag3==30?'opt-active':''" @click="selTotal(30)"><div>月</div></div>
+                        <div class="options" :class="flag3==7?'opt-active':''" @click="selTotal(7)"><div>日</div></div>
+                    </div>
+                    <barChart :xData="barXData" :yData="barYData" :maxDataNum="maxDataNum"></barChart>
                 </div>
             </div>
             <div class="right-box">
@@ -85,6 +91,9 @@
                         </div>
                     </div>
                     <!--组件引入-->
+                    <div class="interaction-box">
+                        <interaction></interaction>
+                    </div>
                 </div>
                 <div class="task common-style">
                     <div class="title">
@@ -96,6 +105,9 @@
                         </div>
                     </div>
                     <!--组件引入-->
+                    <div class="mainten-box">
+                        <mainten :maintenData="maintenData" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,6 +120,8 @@ import mapChart from '@/components/mapChart.vue';
 import lineChart from '@/components/lineChart.vue';
 import noticeBord from '@/components/noticeBord.vue';
 import ranking from '@/components/ranking.vue';
+import interaction from '@/components/interaction.vue';
+import mainten from '@/components/mainten.vue';
 import { addAreaUser, addAreaExternal, areaExternalRank, showWechat, trends, areaExternal, showTask, showArea } from '@/api/index.js';
 export default {
     name: 'Home',
@@ -116,17 +130,30 @@ export default {
         mapChart,
         lineChart,
         noticeBord,
-        ranking
+        ranking,
+        interaction,
+        mainten
     },
     data() {
         return {
             flag1: 10,
             flag2: 10,
-            flag3: 11,
+            flag3: 30,
             areaCode: 1,
             noticeBordData: {},
-            rankingList: {},
-            provinceName:'',
+            rankingList: [],
+            maintenData: {},
+            externalList: [], // 外部客户量数据
+            externalXData: [], // 外部x轴数据
+            externalYData: [], // 外部y轴数据
+            insideList: [], // 内部客户量数据
+            insideXData: [], // 内部x轴数据
+            insideYData: [], // 内部y轴数据
+            provinceTotalList: [], // 各省数据汇总
+            barXData: [], // 各省数据汇总x轴数据
+            barYData: [], // 各省数据汇总y轴数据
+            maxDataNum: 0, // 汇总图y轴最大值
+            provinceName:'', // 选择的省份
         }
     },
     mounted() {
@@ -151,6 +178,15 @@ export default {
             }
             addAreaUser(params).then(res => {
                 console.log(res)
+                if(res.code == 200){
+                    this.insideList = res.data.list
+                    this.insideXData =  this.insideList.map(data=>{
+                        return data.objDate
+                    })
+                    this.insideYData =  this.insideList.map(data=>{
+                        return data.addNum
+                    })
+                }
             })
         },
         getAddAreaExternal() {
@@ -161,6 +197,15 @@ export default {
             }
             addAreaExternal(params).then(res => {
                 console.log(res)
+                if(res.code == 200){
+                    this.externalList = res.data.list
+                    this.externalXData =  this.externalList.map(data=>{
+                        return data.objDate
+                    })
+                    this.externalYData =  this.externalList.map(data=>{
+                        return data.addNum
+                    })
+                }
             })
         },
         getAreaExternalRank() {
@@ -169,7 +214,7 @@ export default {
                 areaCode: this.areaCode
             }
             areaExternalRank(params).then(res => {
-                console.log('排行榜', res)
+                // console.log('排行榜', res)
                 this.rankingList = res.data.list.slice(0, 5)
             })
         },
@@ -200,6 +245,16 @@ export default {
             }
             areaExternal(params).then(res => {
                 console.log(res)
+                if(res.code == 200){
+                    this.provinceTotalList = res.data.list
+                    this.barXData =  this.provinceTotalList.map(data=>{
+                        return data.areaName
+                    })
+                    this.barYData =  this.provinceTotalList.map(data=>{
+                        return data.totalNum
+                    })
+                    this.maxDataNum = Math.max(...this.barYData)
+                }
             })
         },
         getShowTask() {
@@ -208,7 +263,8 @@ export default {
                 areaCode: this.areaCode
             }
             showTask(params).then(res => {
-                console.log(res)
+                // console.log('维系任务', res.data)
+                this.maintenData = res.data
             })
         },
         getShowArea() {
@@ -220,9 +276,26 @@ export default {
                 console.log(res)
             })
         },
-        selectName(name){
-            console.log(name)
+        // 外部客户量选择筛选条件
+        selExternal(sel){
+            this.flag2 = sel
+            this.getAddAreaExternal()
+        },
+        // 内部客户量选择筛选条件
+        selInside(sel){
+            this.flag1 = sel
+            this.getAreaUser()
+        },
+        //
+        selTotal(sel){
+            this.flag3 = sel
+            this.getAreaExternal()
+        },
+        selectName(name,code){
             this.provinceName = name
+            this.areaCode = code
+            this.getAreaUser() //全国新增内部员工量
+            this.getAddAreaExternal() //全国新增外部客户量接口
         }
 
     }
@@ -269,6 +342,7 @@ export default {
                 border: 1px solid #308BFD;
                 transform: skew(-45deg);
                 margin-right: 5px;
+                cursor: pointer;
                 div{
                     transform: skewX(45deg);
                 }
@@ -346,6 +420,35 @@ export default {
                 .bar-chart-home{
                     width: 100%;
                     height: 320px;
+                    position: relative;
+                    .bar-chart-option{
+                        position: absolute;
+                        z-index: 99;
+                        top: 0;
+                        right: 20px;
+                        display: flex;
+                        height: 20px;
+                        .options{
+                            width: 40px;
+                            height: 19px;
+                            line-height: 19px;
+                            font-size: 14px;
+                            font-family: PingFangSC-Medium, PingFang SC;
+                            font-weight: 500;
+                            color: #308BFD;
+                            border: 1px solid #308BFD;
+                            transform: skew(-45deg);
+                            margin-right: 5px;
+                            cursor: pointer;
+                            div{
+                                transform: skewX(45deg);
+                            }
+                        }
+                        .opt-active{
+                            color: #FFFFFF;
+                            background: linear-gradient(270deg, #7CF1E0 0%, #2C48A5 100%);
+                        }
+                    }
                 }
             }
             .right-box{
@@ -358,6 +461,11 @@ export default {
                 }
                 .interaction{
                     margin-bottom: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    .interaction-box{
+                        flex: 1;
+                    }
                 }
                 .task{
 

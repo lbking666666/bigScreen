@@ -13,7 +13,15 @@
             color:{
                 type:String,
                 default: '#fff',
-            }
+            },
+            xData:{
+                type: Array,
+                default: []
+            },
+            yData:{
+                type: Array,
+                default: []
+            },
         },
         data(){
             return{
@@ -21,6 +29,9 @@
             }
         },
         mounted() {
+            this.drawChart()
+        },
+        updated() {
             this.drawChart()
         },
         methods:{
@@ -41,7 +52,7 @@
                         },
                         name: '(人)',
                         nameLocation: 'start',
-                        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                        data: this.xData
                     },
                     yAxis: {
                         type: 'value',
@@ -68,8 +79,9 @@
                         containLabel: true
                     },
                     series: [{
-                        data: [820, 932, 901, 934, 1290, 1330, 1320],
+                        data: this.yData,
                         type: 'line',
+                        smooth: true,
                         symbol: 'circle',
                         symbolSize: 8,
                         itemStyle: {
