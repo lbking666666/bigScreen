@@ -6,7 +6,7 @@
                     发消息量
                 </div>
                 <div class="msg-count count">
-                    {{showWechatData.messageCnt}}
+                    {{showWechatData.messageCnt||0}}
                 </div>
             </div>
             <div class="box">
@@ -14,7 +14,7 @@
                     聊天总量
                 </div>
                 <div class="msg-total-count count">
-                    {{showWechatData.chatCnt}}
+                    {{showWechatData.chatCnt||0}}
                 </div>
             </div>
             <div class="box">
@@ -22,7 +22,7 @@
                     平均回复时长
                 </div>
                 <div class="msg-res-count count">
-                    {{showWechatData.avgReplyTime}}s
+                    {{showWechatData.avgReplyTime||0}}s
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <div class="ring-chart">
                 <canvas id="canvas" width="223" height="223"></canvas>
                 <div class="center-text">
-                    <div class="percent">{{showWechatData.replyPercentage}}<span>%</span></div>
+                    <div class="percent">{{showWechatData.replyPercentage||0}}<span>%</span></div>
                     <div class="text">聊天回复占比</div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
         },
         mounted() {
             this.drawCanvas()
-            console.log('this.showWechatData.replyPercentage', this.showWechatData.replyPercentage)
+            // console.log('this.showWechatData.replyPercentage', this.showWechatData.replyPercentage)
         },
         updated() {
             this.drawCanvas()
