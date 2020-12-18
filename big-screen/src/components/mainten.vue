@@ -7,7 +7,7 @@
         <div class="fake-proportion">
             <div class="proportion-title">维系任务完成占比</div>
             <div class="proportion-value">
-                <span>{{maintenData.taskRate.split('%')[0]}}</span>
+                <span>{{parseFloat(maintenData.taskRate)}}</span>
                 <span class="percent-sign">%</span>
             </div>
         </div>
