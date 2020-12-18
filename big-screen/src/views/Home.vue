@@ -1,14 +1,90 @@
 <template>
     <div class="home">
-        <div class="bar-chart">
-            <barChart></barChart>
-        </div>
-        <mapChart />
-        <div class="line-chart">
-            <lineChart :color="'rgba(110, 239, 155, 1)'"></lineChart>
-        </div>
-        <div class="line-chart2">
-            <lineChart :color="'rgba(91, 167, 255, 1)'"></lineChart>
+        <div class="header"></div>
+        <div class="container">
+            <div class="left-box">
+                <div class="notice-wrap common-style-high">
+                    <noticeBord :userData='noticeBordData.userData'
+                                :externalData='noticeBordData.externalData' />
+                </div>
+                <div class="external common-style">
+                    <div class="title">
+                        <div class="icons">
+                            <img src="../assets/img/gaoshiban.png" alt="">
+                        </div>
+                        <div class="title-text">
+                            河南新增外部客户量
+                        </div>
+                        <div class="query-option">
+                            <div class="options opt-active"><div>月</div></div>
+                            <div class="options"><div>日</div></div>
+                        </div>
+                    </div>
+                    <div class="line-chart">
+                        <lineChart :color="'rgba(110, 239, 155, 1)'"></lineChart>
+                    </div>
+                </div>
+                <div class="inside common-style">
+                    <div class="title">
+                        <div class="icons">
+                            <img src="../assets/img/neibuzengliang.png" alt="">
+                        </div>
+                        <div class="title-text">
+                            河南新增内部员工量
+                        </div>
+                        <div class="query-option">
+                            <div class="options opt-active"><div>月</div></div>
+                            <div class="options"><div>日</div></div>
+                        </div>
+                    </div>
+                    <div class="line-chart">
+                        <lineChart :color="'rgba(91, 167, 255, 1)'"></lineChart>
+                    </div>
+                </div>
+            </div>
+            <div class="center-box">
+                <div class="map-chart-home">
+                    <mapChart></mapChart>
+                </div>
+                <div class="bar-chart-home">
+                    <barChart></barChart>
+                </div>
+            </div>
+            <div class="right-box">
+                <div class="rank common-style-high">
+                    <div class="title">
+                        <div class="icons">
+                            <img src="../assets/img/quanguo.png" alt="">
+                        </div>
+                        <div class="title-text">
+                            全国涨幅省份排行榜
+                        </div>
+                    </div>
+                    <!--组件引入-->
+                </div>
+                <div class="interaction common-style">
+                    <div class="title">
+                        <div class="icons">
+                            <img src="../assets/img/hudong.png" alt="">
+                        </div>
+                        <div class="title-text">
+                            发展客户互动数
+                        </div>
+                    </div>
+                    <!--组件引入-->
+                </div>
+                <div class="task common-style">
+                    <div class="title">
+                        <div class="icons">
+                            <img src="../assets/img/hudong.png" alt="">
+                        </div>
+                        <div class="title-text">
+                            维系任务量
+                        </div>
+                    </div>
+                    <!--组件引入-->
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -17,13 +93,15 @@
 import barChart from '@/components/barChart.vue';
 import mapChart from '@/components/mapChart.vue';
 import lineChart from '@/components/lineChart.vue';
+import noticeBord from '@/components/noticeBord.vue'
 import { addAreaUser, addAreaExternal, areaExternalRank, showWechat, trends, areaExternal, showTask, showArea } from '@/api/index.js';
 export default {
     name: 'Home',
     components: {
         barChart,
         mapChart,
-        lineChart
+        lineChart,
+        noticeBord
     },
     data() {
         return {
@@ -31,6 +109,7 @@ export default {
             flag2: 10,
             flag3: 11,
             areaCode: 1,
+            noticeBordData: {}
         }
     },
     mounted() {
@@ -91,7 +170,8 @@ export default {
                 areaCode: this.areaCode
             }
             trends(params).then(res => {
-                console.log(res)
+                console.log('趋势', res)
+                this.noticeBordData = res.data
             })
         },
         getAreaExternal() {
@@ -127,18 +207,136 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+    /*功能title样式*/
+    .title{
+        width: 100%;
+        height: 30px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 13px 19px 3px 17px;
+        .icons{
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .title-text {
+            font-size: 22px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #ECFCFF;
+            text-shadow: 0px 2px 6px #4CB5FF;
+        }
+        .query-option{
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            .options{
+                width: 40px;
+                height: 19px;
+                line-height: 19px;
+                font-size: 14px;
+                font-family: PingFangSC-Medium, PingFang SC;
+                font-weight: 500;
+                color: #308BFD;
+                border: 1px solid #308BFD;
+                transform: skew(-45deg);
+                margin-right: 5px;
+                div{
+                    transform: skewX(45deg);
+                }
+            }
+            .opt-active{
+                color: #FFFFFF;
+                background: linear-gradient(270deg, #7CF1E0 0%, #2C48A5 100%);
+            }
+        }
+    }
     .home{
-        .bar-chart{
-            width: 860px;
-            height: 320px;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        background: #010B3D;
+        display: flex;
+        flex-direction: column;
+        .header{
+            display: flex;
+            width: 100%;
+            height: 89px;
+            background: url("../assets/img/biaoti .png") no-repeat;
+            background-size: 100% 100%;
         }
-        .line-chart{
-            width: 300px;
-            height: 200px;
-        }
-        .line-chart2{
-            width: 300px;
-            height: 200px;
+        .container{
+            display: flex;
+            flex-direction: row;
+            padding: 0 30px;
+            // 通用样式 高的div
+            .common-style-high{
+                width: 500px;
+                height: 328px;
+                background: url("../assets/img/dingbukuang.png") no-repeat;
+                background-size: 100% 100%;
+                margin-bottom: 24px;
+            }
+            // 通用样式 低的div
+            .common-style{
+                width: 500px;
+                height: 300px;
+                background: url("../assets/img/dingbukuang.png") no-repeat;
+                background-size: 100% 100%;
+            }
+            .left-box{
+                margin-right: 17px;
+                .notice-wrap{
+
+                }
+                .external{
+                    margin-bottom: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    .line-chart{
+                        width: 100%;
+                        height: 257px;
+                    }
+                }
+                .inside {
+                    .line-chart{
+                        width: 100%;
+                        height: 257px;
+                    }
+                }
+
+            }
+            .center-box{
+                width: 860px;
+                margin-right: 19px;
+                display: flex;
+                flex-direction: column;
+                .map-chart-home{
+                    border: 1px solid red;
+                    display: flex;
+                    flex: 1;
+                }
+                .bar-chart-home{
+                    width: 100%;
+                    height: 320px;
+                }
+            }
+            .right-box{
+                .rank{
+
+                }
+                .interaction{
+                    margin-bottom: 20px;
+                }
+                .task{
+
+                }
+            }
         }
     }
 
