@@ -23,15 +23,15 @@
                             <img src="../assets/img/waibuzengliang.png" alt="">
                         </div>
                         <div class="title-text">
-                            河南新增外部客户量
+                            {{provinceName||'全国'}}新增外部客户量
                         </div>
                         <div class="query-option">
-                            <div class="options opt-active"><div>月</div></div>
-                            <div class="options"><div>日</div></div>
+                            <div class="options" :class="flag2==11?'opt-active':''" @click="selExternal(11)"><div>月</div></div>
+                            <div class="options" :class="flag2==10?'opt-active':''" @click="selExternal(10)"><div>日</div></div>
                         </div>
                     </div>
                     <div class="line-chart">
-                        <lineChart :color="'rgba(110, 239, 155, 1)'"></lineChart>
+                        <lineChart :xData="externalXData" :yData="externalYData" :color="'rgba(110, 239, 155, 1)'"></lineChart>
                     </div>
                 </div>
                 <div class="inside common-style">
@@ -40,15 +40,15 @@
                             <img src="../assets/img/neibuzengliang.png" alt="">
                         </div>
                         <div class="title-text">
-                            河南新增内部员工量
+                            {{provinceName||'全国'}}新增内部员工量
                         </div>
                         <div class="query-option">
-                            <div class="options opt-active"><div>月</div></div>
-                            <div class="options"><div>日</div></div>
+                            <div class="options" :class="flag1==11?'opt-active':''" @click="selInside(11)"><div>月</div></div>
+                            <div class="options" :class="flag1==10?'opt-active':''" @click="selInside(10)"><div>日</div></div>
                         </div>
                     </div>
                     <div class="line-chart">
-                        <lineChart :color="'rgba(91, 167, 255, 1)'"></lineChart>
+                        <lineChart  :xData="insideXData" :yData="insideYData" :color="'rgba(91, 167, 255, 1)'"></lineChart>
                     </div>
                 </div>
             </div>
@@ -136,7 +136,14 @@ export default {
             areaCode: 1,
             noticeBordData: {},
             rankingList: [],
-            maintenData: {}
+            maintenData: {},
+            externalList: [], // 外部客户量数据
+            externalXData: [], // 外部x轴数据
+            externalYData: [], // 外部y轴数据
+            insideList: [], // 内部客户量数据
+            insideXData: [], // 内部x轴数据
+            insideYData: [], // 内部y轴数据
+            provinceName:'', // 选择的省份
         }
     },
     mounted() {
@@ -161,6 +168,15 @@ export default {
             }
             addAreaUser(params).then(res => {
                 console.log(res)
+                if(res.code == 200){
+                    this.insideList = res.data.list
+                    this.insideXData =  this.insideList.map(data=>{
+                        return data.objDate
+                    })
+                    this.insideYData =  this.insideList.map(data=>{
+                        return data.addNum
+                    })
+                }
             })
         },
         getAddAreaExternal() {
@@ -171,6 +187,15 @@ export default {
             }
             addAreaExternal(params).then(res => {
                 console.log(res)
+                if(res.code == 200){
+                    this.externalList = res.data.list
+                    this.externalXData =  this.externalList.map(data=>{
+                        return data.objDate
+                    })
+                    this.externalYData =  this.externalList.map(data=>{
+                        return data.addNum
+                    })
+                }
             })
         },
         getAreaExternalRank() {
@@ -230,7 +255,17 @@ export default {
             showArea(params).then(res => {
                 console.log(res)
             })
-        }
+        },
+        // 外部客户量选择筛选条件
+        selExternal(sel){
+            this.flag2 = sel
+            this.getAddAreaExternal()
+        },
+        // 内部客户量选择筛选条件
+        selInside(sel){
+            this.flag1 = sel
+            this.getAreaUser()
+        },
 
     }
 }
@@ -276,6 +311,7 @@ export default {
                 border: 1px solid #308BFD;
                 transform: skew(-45deg);
                 margin-right: 5px;
+                cursor: pointer;
                 div{
                     transform: skewX(45deg);
                 }
