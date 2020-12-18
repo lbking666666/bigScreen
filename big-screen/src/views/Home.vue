@@ -417,6 +417,8 @@ export default {
                 margin-right: 19px;
                 display: flex;
                 flex-direction: column;
+                background: url("../assets/img/img_bg.png") no-repeat center top;
+                background-size: 788px 788px;
                 .map-chart-home{
                     display: flex;
                     flex: 1;
