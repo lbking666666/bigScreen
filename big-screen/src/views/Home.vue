@@ -342,7 +342,6 @@ export default {
                 display: flex;
                 flex-direction: column;
                 .map-chart-home{
-                    border: 1px solid red;
                     display: flex;
                     flex: 1;
                 }

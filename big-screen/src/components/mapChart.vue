@@ -1,6 +1,6 @@
 <template>
     <div class="map-chart">
-        <div ref="map" style="width:100%;height:100%"></div>
+        <div ref="map" style="width:100%;height:100%" @click="reBack"></div>
     </div>
 </template>
 <script>
@@ -12,6 +12,8 @@ export default {
     name: "mapChart",
     data() {
         return {
+            back: false,
+            isAll:true,
             //定义全国省份的数组
             provinces: {
                 // 23个省
@@ -63,6 +65,20 @@ export default {
         initMap(name) { //初始化中国地图
             map = echarts.init(this.$refs.map)
             let option = {
+                tooltip: {
+                    //show:this.isAll?true:false,
+                    backgroundColor:'rgba(0,0,0,0.4)',
+                    textStyle:{
+                        color:'#fff',
+                        fontSize:16,
+                    },
+                    borderWidth:0,
+                    trigger: 'item',
+                    formatter:function(params){
+                        console.log(params)
+                        return (params.value?params.value:0) + '<br />' + params.name +'每天新增客户量'
+                    } 
+                },
                 geo: {
                     map: name,
                     roam: false,
@@ -91,23 +107,53 @@ export default {
                             areaColor: "#2569BB",
                             shadowOffsetX: 0,
                             shadowOffsetY: 0,
-                            shadowBlur: 20,
-                            borderWidth: 0,
-                            shadowColor: "rgba(0, 0, 0, 0.5)"
+                            /*shadowBlur: 20,
+                            borderWidth: 0,*/
+                            //shadowColor: "rgba(0, 0, 0, 0.5)"
                         }
                     }
                 },
                 series: [{
-                    name: "中国地图",
+                    name:'已接入',
                     type: "map",
-                    //这里是'china',及因为js中注册的名字，如果是上海市，则该出需pName 指的是'shanghai'
                     mapType: name,
-                    geoIndex: 0
-                    // data: dataList
+                    geoIndex: 0,
+                    data: [{
+                        name: "安徽", 
+                        "areaCode": "3401", 
+                        value: "10000"
+                    }]
+                },
+                {
+                    name:'省份自建平台',
+                    type: "map",
+                    mapType: name,
+                    geoIndex: 0,
+                    data: [{
+                        name: "黑龙江", 
+                        "areaCode": "3401", 
+                        value: "10000"
+                    }]
+                },{
+                    name:'未接入',
+                    type: "map",
+                    mapType: name,
+                    geoIndex: 0,
+                    data: [{
+                        name: "沈阳", 
+                        "areaCode": "3401", 
+                        value: "10000"
+                    }]
                 }]
             };
             map.setOption(option);
             this.HandleClick()
+        },
+        reBack() {
+            if (this.back) {
+                this.initMap('china');
+            }
+
         },
         HandleClick() {
             // 点击触发
@@ -121,7 +167,9 @@ export default {
                             break;
                         }
                     }
-                } 
+                } else {
+                    console.log(2222)
+                }
                 /*else if (param.name in cityMap) {
                     // 处理市模块
                     let names = param.name;
@@ -134,15 +182,15 @@ export default {
                 }*/
             });
         },
-        showProvince(eName,param) {
-        	console.log(eName,param)
-        	let self = this
-        	axios.get(`./map/province/${eName}.json`).then(res=>{
-        		console.log(res)
-        		echarts.registerMap(eName, eName+'Map');
-        		self.initMap(eName+'Map');
-        	})
-	      }
+        showProvince(eName, param) {
+            let self = this
+            this.back = true
+            this.isAll = false
+            axios.get(`./map/province/${eName}.json`).then(res => {
+                echarts.registerMap(eName, res.data);
+                self.initMap(eName);
+            })
+        }
     }
 }
 </script>

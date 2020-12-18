@@ -1,11 +1,11 @@
 module.exports = {
     devServer: {
         proxy: {
-            '/screen': {
-                target: 'http://210.73.216.2',
+            '/bigScreen': {
+                target: 'http://10.124.193.151:8082/wep-oms',
                 changeOrigin: true,
                 ws: false,
-                pathRewrite: { '^/screen': '/screen' }
+                pathRewrite: { '^/bigScreen': '/screen' }
             },
         }
     }
