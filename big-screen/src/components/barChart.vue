@@ -96,13 +96,18 @@
                 let chart = this.$refs.chart
                 let myChart = echarts.init(chart)
                 let options = {
-                    // color: '#3398DB',
-                    // tooltip: {
-                    //     trigger: 'axis',
-                    //     axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    //         type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    //     }
-                    // },
+                    tooltip: {
+                        trigger: 'item',
+                        position:'top',
+                        padding: [5, 15],
+                        formatter(params) {
+                            const currentData = params.data;
+                            let text = '';
+                            text = `<span style="color: #fff;font-size: 22px;font-weight: 600;">${currentData}</span>`
+                            return text;
+                        },
+                        backgroundColor:'rgba(77, 237, 242, 0.7)'
+                    },
                     grid: {
                         left: '3%',
                         right: '4%',
