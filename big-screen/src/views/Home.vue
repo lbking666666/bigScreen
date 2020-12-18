@@ -85,6 +85,9 @@
                         </div>
                     </div>
                     <!--组件引入-->
+                    <div class="interaction-box">
+                        <interaction></interaction>
+                    </div>
                 </div>
                 <div class="task common-style">
                     <div class="title">
@@ -108,6 +111,7 @@ import mapChart from '@/components/mapChart.vue';
 import lineChart from '@/components/lineChart.vue';
 import noticeBord from '@/components/noticeBord.vue';
 import ranking from '@/components/ranking.vue';
+import interaction from '@/components/interaction.vue';
 import { addAreaUser, addAreaExternal, areaExternalRank, showWechat, trends, areaExternal, showTask, showArea } from '@/api/index.js';
 export default {
     name: 'Home',
@@ -116,7 +120,8 @@ export default {
         mapChart,
         lineChart,
         noticeBord,
-        ranking
+        ranking,
+        interaction
     },
     data() {
         return {
@@ -354,6 +359,11 @@ export default {
                 }
                 .interaction{
                     margin-bottom: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    .interaction-box{
+                        flex: 1;
+                    }
                 }
                 .task{
 
