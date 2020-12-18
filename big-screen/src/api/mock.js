@@ -61,13 +61,10 @@ const showWechat = function() {
         code: "200", //类型：String  必有字段  备注：状态码
         "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
         data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
-            "list|20": [ //类型：Array  必有字段  备注：内部员工数组
-                { //类型：Object  必有字段  备注：无
-                    "chatCnt": Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：聊天总数
-                    "messageCnt": Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：发消息数
-                    "replyPercentage": Mock.mock('@integer(1, 20)')+'%' //类型：String  必有字段  备注：回复占比
-                }
-            ]
+            "chatCnt": Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：聊天总数
+            "messageCnt": Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：发消息数
+            "avgReplyTime": Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：回复时长
+            "replyPercentage": Mock.mock('@integer(1, 20)') //类型：String  必有字段  备注：回复占比
         })
     }
 }

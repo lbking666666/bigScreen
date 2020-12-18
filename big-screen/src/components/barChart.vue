@@ -206,6 +206,10 @@
                     ]
                 };
                 myChart.setOption(options)
+                window.addEventListener('resize', () => {
+                    // 自动渲染echarts
+                    myChart.resize();
+                })
             }
         }
     }

@@ -6,7 +6,7 @@
                     发消息量
                 </div>
                 <div class="msg-count count">
-                    98287
+                    {{showWechatData.messageCnt}}
                 </div>
             </div>
             <div class="box">
@@ -14,7 +14,7 @@
                     聊天总量
                 </div>
                 <div class="msg-total-count count">
-                    9887
+                    {{showWechatData.chatCnt}}
                 </div>
             </div>
             <div class="box">
@@ -22,7 +22,7 @@
                     平均回复时长
                 </div>
                 <div class="msg-res-count count">
-                    30s
+                    {{showWechatData.avgReplyTime}}s
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <div class="ring-chart">
                 <canvas id="canvas" width="223" height="223"></canvas>
                 <div class="center-text">
-                    <div class="percent">{{percent}}<span>%</span></div>
+                    <div class="percent">{{showWechatData.replyPercentage}}<span>%</span></div>
                     <div class="text">聊天回复占比</div>
                 </div>
             </div>
@@ -47,7 +47,16 @@
                 percent: 63
             }
         },
+        props:{
+            showWechatData:{
+                type:Object
+            }
+        },
         mounted() {
+            this.drawCanvas()
+            console.log('this.showWechatData.replyPercentage', this.showWechatData.replyPercentage)
+        },
+        updated() {
             this.drawCanvas()
         },
         methods:{
@@ -64,7 +73,7 @@
                 ctx.stroke();
                 ctx.beginPath();
                 ctx.strokeStyle = 'rgba(42, 244, 255, 1)';
-                ctx.arc(width/2, height/2, (width/2)-11*2, -0.25*2*Math.PI, (Math.PI * 2 * (this.percent/100))-0.25*2*Math.PI);
+                ctx.arc(width/2, height/2, (width/2)-11*2, -0.25*2*Math.PI, (Math.PI * 2 * (Number(this.showWechatData.replyPercentage)/100))-0.25*2*Math.PI);
                 ctx.stroke();
             }
         }
