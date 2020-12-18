@@ -294,6 +294,7 @@ export default {
         selectName(name,code){
             this.provinceName = name
             this.areaCode = code
+            console.log(code)
             this.getAreaUser() //全国新增内部员工量
             this.getAddAreaExternal() //全国新增外部客户量接口
         }
