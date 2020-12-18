@@ -305,6 +305,7 @@ export default {
         selectName(name,code){
             this.provinceName = name
             this.areaCode = code
+            console.log(code)
             this.getAreaUser() //全国新增内部员工量
             this.getAddAreaExternal() //全国新增外部客户量接口
         }
@@ -424,6 +425,8 @@ export default {
                 margin-right: 19px;
                 display: flex;
                 flex-direction: column;
+                background: url("../assets/img/img_bg.png") no-repeat center top;
+                background-size: 788px 788px;
                 .map-chart-home{
                     display: flex;
                     flex: 1;

@@ -139,11 +139,11 @@ const showArea = function() {
     }
 }
 
-Mock.mock('/screen/addAreaUser', 'get', addAreaUser);
-Mock.mock('/screen/addAreaExternal', 'get', addAreaExternal);
-Mock.mock('/screen/areaExternalRank', 'get', areaExternalRank);
-Mock.mock('/screen/showWechat', 'get', showWechat);
-Mock.mock('/screen/trends', 'get', trends);
-Mock.mock('/screen/areaExternal', 'get', areaExternal);
-Mock.mock('/screen/showTask', 'get', showTask);
-Mock.mock('/screen/showArea', 'get', showArea);
+Mock.mock('/wep-oms/bigScreen/addAreaUser', 'get', addAreaUser);
+Mock.mock('/wep-oms/bigScreen/addAreaExternal', 'get', addAreaExternal);
+Mock.mock('/wep-oms/bigScreen/areaExternalRank', 'get', areaExternalRank);
+Mock.mock('/wep-oms/bigScreen/showWechat', 'get', showWechat);
+Mock.mock('/wep-oms/bigScreen/trends', 'get', trends);
+Mock.mock('/wep-oms/bigScreen/areaExternal', 'get', areaExternal);
+Mock.mock('/wep-oms/bigScreen/showTask', 'get', showTask);
+Mock.mock('/wep-oms/bigScreen/showArea', 'get', showArea);
