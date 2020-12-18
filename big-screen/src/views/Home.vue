@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="line-chart">
-                        <lineChart  :xData="insideXData" :yData="insideYData" :color="'rgba(91, 167, 255, 1)'"></lineChart>
+                        <lineChart :xData="insideXData" :yData="insideYData" :color="'rgba(91, 167, 255, 1)'"></lineChart>
                     </div>
                 </div>
             </div>
@@ -56,8 +56,14 @@
                 <div class="map-chart-home">
                     <mapChart></mapChart>
                 </div>
+
                 <div class="bar-chart-home">
-                    <barChart></barChart>
+                    <div class="bar-chart-option">
+                        <div class="options" :class="flag3==365?'opt-active':''" @click="selTotal(365)"><div>年</div></div>
+                        <div class="options" :class="flag3==30?'opt-active':''" @click="selTotal(30)"><div>月</div></div>
+                        <div class="options" :class="flag3==7?'opt-active':''" @click="selTotal(7)"><div>日</div></div>
+                    </div>
+                    <barChart :xData="barXData" :yData="barYData" :maxDataNum="maxDataNum"></barChart>
                 </div>
             </div>
             <div class="right-box">
@@ -132,7 +138,7 @@ export default {
         return {
             flag1: 10,
             flag2: 10,
-            flag3: 11,
+            flag3: 30,
             areaCode: 1,
             noticeBordData: {},
             rankingList: [],
@@ -143,6 +149,10 @@ export default {
             insideList: [], // 内部客户量数据
             insideXData: [], // 内部x轴数据
             insideYData: [], // 内部y轴数据
+            provinceTotalList: [], // 各省数据汇总
+            barXData: [], // 各省数据汇总x轴数据
+            barYData: [], // 各省数据汇总y轴数据
+            maxDataNum: 0, // 汇总图y轴最大值
             provinceName:'', // 选择的省份
         }
     },
@@ -235,6 +245,16 @@ export default {
             }
             areaExternal(params).then(res => {
                 console.log(res)
+                if(res.code == 200){
+                    this.provinceTotalList = res.data.list
+                    this.barXData =  this.provinceTotalList.map(data=>{
+                        return data.areaName
+                    })
+                    this.barYData =  this.provinceTotalList.map(data=>{
+                        return data.totalNum
+                    })
+                    this.maxDataNum = Math.max(...this.barYData)
+                }
             })
         },
         getShowTask() {
@@ -266,6 +286,11 @@ export default {
             this.flag1 = sel
             this.getAreaUser()
         },
+        //
+        selTotal(sel){
+            this.flag3 = sel
+            this.getAreaExternal()
+        }
 
     }
 }
@@ -389,6 +414,35 @@ export default {
                 .bar-chart-home{
                     width: 100%;
                     height: 320px;
+                    position: relative;
+                    .bar-chart-option{
+                        position: absolute;
+                        z-index: 99;
+                        top: 0;
+                        right: 20px;
+                        display: flex;
+                        height: 20px;
+                        .options{
+                            width: 40px;
+                            height: 19px;
+                            line-height: 19px;
+                            font-size: 14px;
+                            font-family: PingFangSC-Medium, PingFang SC;
+                            font-weight: 500;
+                            color: #308BFD;
+                            border: 1px solid #308BFD;
+                            transform: skew(-45deg);
+                            margin-right: 5px;
+                            cursor: pointer;
+                            div{
+                                transform: skewX(45deg);
+                            }
+                        }
+                        .opt-active{
+                            color: #FFFFFF;
+                            background: linear-gradient(270deg, #7CF1E0 0%, #2C48A5 100%);
+                        }
+                    }
                 }
             }
             .right-box{

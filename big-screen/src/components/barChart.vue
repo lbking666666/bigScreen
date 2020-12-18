@@ -8,6 +8,20 @@
     import * as echarts from 'echarts'
     export default {
         name: "barChart",
+        props:{
+            xData:{
+                type: Array,
+                default: []
+            },
+            yData:{
+                type: Array,
+                default: []
+            },
+            maxDataNum:{
+                type: Number,
+                default: 0
+            }
+        },
         data(){
             return{
                 dataAxis:[]
@@ -16,8 +30,10 @@
         mounted() {
             this.drawChart()
         },
+        updated() {
+            this.drawChart()
+        },
         methods:{
-
             drawChart(){
                 var MyCubeRect = echarts.graphic.extendShape({
                     shape: {
@@ -96,7 +112,7 @@
                     xAxis: [
                         {
                             type: 'category',
-                            data: ['北京', '上海', '广州', '深圳', '哈尔滨', '吉林', '辽宁','北京', '上海', '广州', '深圳', '哈尔滨',],
+                            data: this.xData,
                             axisLine:{
                                 lineStyle:{
                                     color:'#2EB2B3'
@@ -139,7 +155,7 @@
                             },
                             barGap: '100%',
                             barCategoryGap: '0%',
-                            data: [0, 400,0, 400,0, 400,0, 400,0, 400,0, 400],
+                            data: [0, this.maxDataNum,0, this.maxDataNum,0, this.maxDataNum,0, this.maxDataNum,0, this.maxDataNum,0, this.maxDataNum],
                             animation: false
                         },
                         {
@@ -185,7 +201,7 @@
                                     }]
                                 };
                             },
-                            data: [10, 52, 200, 334, 390, 330,10, 52, 200, 334, 390, 330]
+                            data: this.yData
                         }
                     ]
                 };
