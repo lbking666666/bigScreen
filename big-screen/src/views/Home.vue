@@ -54,7 +54,7 @@
             </div>
             <div class="center-box">
                 <div class="map-chart-home">
-                    <mapChart></mapChart>
+                    <mapChart @reName="selectName"></mapChart>
                 </div>
                 <div class="bar-chart-home">
                     <barChart></barChart>
@@ -125,7 +125,8 @@ export default {
             flag3: 11,
             areaCode: 1,
             noticeBordData: {},
-            rankingList: {}
+            rankingList: {},
+            provinceName:'',
         }
     },
     mounted() {
@@ -218,6 +219,10 @@ export default {
             showArea(params).then(res => {
                 console.log(res)
             })
+        },
+        selectName(name){
+            console.log(name)
+            this.provinceName = name
         }
 
     }

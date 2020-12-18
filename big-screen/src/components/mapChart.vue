@@ -13,7 +13,7 @@ export default {
     data() {
         return {
             back: false,
-            isAll:true,
+            isAll: true,
             //定义全国省份的数组
             provinces: {
                 // 23个省
@@ -67,86 +67,68 @@ export default {
             let option = {
                 tooltip: {
                     //show:this.isAll?true:false,
-                    backgroundColor:'rgba(0,0,0,0.4)',
-                    textStyle:{
-                        color:'#fff',
-                        fontSize:16,
+                    backgroundColor: 'rgba(0,0,0,0.4)',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 16,
                     },
-                    borderWidth:0,
+                    borderWidth: 0,
                     trigger: 'item',
-                    formatter:function(params){
+                    formatter: function(params) {
                         console.log(params)
-                        return (params.value?params.value:0) + '<br />' + params.name +'每天新增客户量'
-                    } 
+                        return (params.value ? params.value : 0) + '<br />' + params.name + '每天新增客户量'
+                    }
                 },
-                geo: {
-                    map: name,
-                    roam: false,
-                    scaleLimit: {
-                        min: 1.2,
-                        max: 3
-                    },
-                    zoom: 1.2,
-                    //图形上的文本标签，可用于说明图形的一些数据信息
-                    label: {
-                        normal: {
-                            show: true,
-                            fontSize: "10",
-                            color: "#fff"
-                        }
-                    },
-                    //地图区域的多边形 图形样式，有 normal 和 emphasis 两个状态
+                legend: {
+                    show: true
+                },
+                series: [{
+                    name: '地图',
+                    type: "map",
+                    mapType: name,
                     itemStyle: {
-                        //normal 是图形在默认状态下的样式；
                         normal: {
                             borderColor: "#2569BB",
                             areaColor: "#2569BB",
+                            color: '#2569BB',
+                            label: {
+                                show: true,
+                                color: '#fff'
+                            },
                         },
-                        //emphasis 是图形在高亮状态下的样式，比如在鼠标悬浮或者图例联动高亮时。
                         emphasis: {
-                            areaColor: "#2569BB",
-                            shadowOffsetX: 0,
-                            shadowOffsetY: 0,
-                            /*shadowBlur: 20,
-                            borderWidth: 0,*/
-                            //shadowColor: "rgba(0, 0, 0, 0.5)"
+                            areaColor: '#1ACFFF',
+                            color: "#1ACFFF",
+                            label: {
+                                show: true,
+                                color: '#fff'
+                            },
                         }
-                    }
-                },
-                series: [{
-                    name:'已接入',
-                    type: "map",
-                    mapType: name,
-                    geoIndex: 0,
+                    },
+
+                    emphasis: {
+                        areaColor: '#1ACFFF',
+                        color: "#FFFF02",
+                    },
                     data: [{
-                        name: "安徽", 
-                        "areaCode": "3401", 
-                        value: "10000"
-                    }]
-                },
-                {
-                    name:'省份自建平台',
-                    type: "map",
-                    mapType: name,
-                    geoIndex: 0,
-                    data: [{
-                        name: "黑龙江", 
-                        "areaCode": "3401", 
-                        value: "10000"
-                    }]
-                },{
-                    name:'未接入',
-                    type: "map",
-                    mapType: name,
-                    geoIndex: 0,
-                    data: [{
-                        name: "沈阳", 
-                        "areaCode": "3401", 
-                        value: "10000"
+                        name: "安徽",
+                        value: "10000",
+                        itemStyle: {
+                            normal: {
+                                borderColor: "#2569BB",
+                                areaColor: "#2569BB",
+                                color: '#FFFF02',
+                            },
+                            emphasis: {
+                                areaColor: '#1ACFFF',
+                                color: "#FFFF02",
+                            }
+                        }
                     }]
                 }]
             };
-            map.setOption(option);
+            map.setOption(option,true);
+            window.addEventListener("resize", () => { map.resize(); });
             this.HandleClick()
         },
         reBack() {
@@ -184,6 +166,7 @@ export default {
         },
         showProvince(eName, param) {
             let self = this
+            this.$emit('reName',param)
             this.back = true
             this.isAll = false
             axios.get(`./map/province/${eName}.json`).then(res => {
