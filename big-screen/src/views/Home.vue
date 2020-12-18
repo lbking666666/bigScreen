@@ -4,13 +4,23 @@
         <div class="container">
             <div class="left-box">
                 <div class="notice-wrap common-style-high">
-                    <noticeBord :userData='noticeBordData.userData'
-                                :externalData='noticeBordData.externalData' />
+                    <div class="title">
+                        <div class="icons">
+                            <img src="../assets/img/gaoshiban.png" alt="">
+                        </div>
+                        <div class="title-text">
+                            告示板
+                        </div>
+                    </div>
+                    <div class="line-chart">
+                        <noticeBord :userData='noticeBordData.userData'
+                                    :externalData='noticeBordData.externalData' />
+                    </div>
                 </div>
                 <div class="external common-style">
                     <div class="title">
                         <div class="icons">
-                            <img src="../assets/img/gaoshiban.png" alt="">
+                            <img src="../assets/img/waibuzengliang.png" alt="">
                         </div>
                         <div class="title-text">
                             河南新增外部客户量
@@ -61,6 +71,9 @@
                         </div>
                     </div>
                     <!--组件引入-->
+                    <div class="ranking-box">
+                        <ranking :rankingList='rankingList' />
+                    </div>
                 </div>
                 <div class="interaction common-style">
                     <div class="title">
@@ -76,7 +89,7 @@
                 <div class="task common-style">
                     <div class="title">
                         <div class="icons">
-                            <img src="../assets/img/hudong.png" alt="">
+                            <img src="../assets/img/renwu.png" alt="">
                         </div>
                         <div class="title-text">
                             维系任务量
@@ -93,7 +106,8 @@
 import barChart from '@/components/barChart.vue';
 import mapChart from '@/components/mapChart.vue';
 import lineChart from '@/components/lineChart.vue';
-import noticeBord from '@/components/noticeBord.vue'
+import noticeBord from '@/components/noticeBord.vue';
+import ranking from '@/components/ranking.vue';
 import { addAreaUser, addAreaExternal, areaExternalRank, showWechat, trends, areaExternal, showTask, showArea } from '@/api/index.js';
 export default {
     name: 'Home',
@@ -101,7 +115,8 @@ export default {
         barChart,
         mapChart,
         lineChart,
-        noticeBord
+        noticeBord,
+        ranking
     },
     data() {
         return {
@@ -109,7 +124,8 @@ export default {
             flag2: 10,
             flag3: 11,
             areaCode: 1,
-            noticeBordData: {}
+            noticeBordData: {},
+            rankingList: {}
         }
     },
     mounted() {
@@ -152,7 +168,8 @@ export default {
                 areaCode: this.areaCode
             }
             areaExternalRank(params).then(res => {
-                console.log(res)
+                console.log('排行榜', res)
+                this.rankingList = res.data.list.slice(0, 5)
             })
         },
         getShowWechat() {
@@ -170,7 +187,7 @@ export default {
                 areaCode: this.areaCode
             }
             trends(params).then(res => {
-                console.log('趋势', res)
+                // console.log('趋势', res)
                 this.noticeBordData = res.data
             })
         },
@@ -210,15 +227,16 @@ export default {
     /*功能title样式*/
     .title{
         width: 100%;
-        height: 30px;
+        height: 44px;
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 13px 19px 3px 17px;
+        padding: 12px 19px 0px 12px;
         .icons{
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
+            width: 32px;
+            height: 32px;
+            margin-right: 3px;
+            margin-top: 3px;
             img{
                 width: 100%;
                 height: 100%;
@@ -328,7 +346,11 @@ export default {
             }
             .right-box{
                 .rank{
-
+                    width: 500px;
+                    height: 330px;
+                    .ranking-box{
+                        height: 240px;
+                    }
                 }
                 .interaction{
                     margin-bottom: 20px;
