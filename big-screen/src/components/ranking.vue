@@ -10,7 +10,7 @@
 		</div>
 		<div class="ranking-body">
 			<div class="rank-item" v-for="(item, index) in rankingList" :key="index">
-				<div class="order-number">{{index}}</div>
+				<div class="order-number">{{String(index+1)}}</div>
 				<div class="province">{{item.areaName}}</div>
 				<div class="month-increase">{{item.monthExternalNum}}</div>
 				<div class="last-month-increase">{{item.lastMonthExternalNum}}</div>
@@ -50,7 +50,7 @@
 	font-size: 14px;
 	padding: 0 31px 0 30px;
 	.ranking-header{
-		height: 39px;
+		line-height: 39px;
 		margin-top: 1px;
 		color: #01FFFF;
 		font-weight: 500;

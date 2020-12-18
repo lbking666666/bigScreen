@@ -96,6 +96,9 @@
                         </div>
                     </div>
                     <!--组件引入-->
+                    <div class="mainten-box">
+                        <mainten :maintenData="maintenData" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,6 +111,7 @@ import mapChart from '@/components/mapChart.vue';
 import lineChart from '@/components/lineChart.vue';
 import noticeBord from '@/components/noticeBord.vue';
 import ranking from '@/components/ranking.vue';
+import mainten from '@/components/mainten.vue';
 import { addAreaUser, addAreaExternal, areaExternalRank, showWechat, trends, areaExternal, showTask, showArea } from '@/api/index.js';
 export default {
     name: 'Home',
@@ -116,7 +120,8 @@ export default {
         mapChart,
         lineChart,
         noticeBord,
-        ranking
+        ranking,
+        mainten
     },
     data() {
         return {
@@ -125,7 +130,8 @@ export default {
             flag3: 11,
             areaCode: 1,
             noticeBordData: {},
-            rankingList: {}
+            rankingList: [],
+            maintenData: {}
         }
     },
     mounted() {
@@ -168,7 +174,7 @@ export default {
                 areaCode: this.areaCode
             }
             areaExternalRank(params).then(res => {
-                console.log('排行榜', res)
+                // console.log('排行榜', res)
                 this.rankingList = res.data.list.slice(0, 5)
             })
         },
@@ -207,7 +213,8 @@ export default {
                 areaCode: this.areaCode
             }
             showTask(params).then(res => {
-                console.log(res)
+                // console.log('维系任务', res.data)
+                this.maintenData = res.data
             })
         },
         getShowArea() {
