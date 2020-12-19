@@ -54,6 +54,23 @@
                         nameLocation: 'start',
                         data: this.xData
                     },
+                    tooltip:{
+                        show:true,
+                        backgroundColor: 'rgba(0,0,0,0.4)',
+                        textStyle: {
+                            color: '#fff',
+                            fontSize: 12,
+                        },
+                        borderWidth: 0,
+                        trigger: 'item',
+                        formatter: function(params) {
+                            let nums = (String(params.value).length>4)?(Number(params.value/10000).toFixed(1)+'W'):String(params.value)
+
+                            console.log(nums)
+                            return nums
+                        }
+                        
+                    },
                     yAxis: {
                         type: 'value',
                         show:true,

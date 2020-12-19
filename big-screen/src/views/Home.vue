@@ -402,6 +402,8 @@ export default {
             this.areaCode = code
             this.getAreaUser() //全国新增内部员工量
             this.getAddAreaExternal() //全国新增外部客户量接口
+            this.getShowWechat() //发展客户互动数接口
+            this.getShowTask() //维系任务统计接口
         }
 
     }
