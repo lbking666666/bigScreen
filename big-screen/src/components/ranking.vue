@@ -103,15 +103,15 @@
 	}
 	.province{
 		width: 62px;
-		text-align: right;
+		text-align: center;
 	}
 	.month-increase{
 		width: 140px;
-		text-align: right;
+		text-align: center;
 	}
 	.last-month-increase{
 		width: 140px;
-		text-align: right;
+		text-align: center;
 	}
 	.growth-rate{
 		width: 65px;
