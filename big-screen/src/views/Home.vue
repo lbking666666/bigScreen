@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="map-chart-home">
-                    <mapChart @reName="selectName" :mapData="mapData"></mapChart>
+                    <mapChart @reName="selectName" :remap="remap" :remap2="remap2" :mapData="mapData"></mapChart>
                 </div>
 
                 <div class="bar-chart-home">
@@ -152,6 +152,8 @@ export default {
             flag3: 30,
             areaCode: 1,
             noticeBordData: {},
+            remap:0,
+            remap2:0,
             rankingList: [],
             maintenData: {},
             externalList: [], // 外部客户量数据
@@ -201,6 +203,7 @@ export default {
                 areaCode: this.areaCode,
                 flag: this.flag1
             }
+            this.remap = 0
             addAreaUser(params).then(res => {
                 //console.log(res)
                 if(res.code == 200){
@@ -208,6 +211,7 @@ export default {
                     this.insideXData =  this.insideList.map(data=>{
                         return data.objDate
                     })
+                    this.remap = 1
                     this.insideYData =  this.insideList.map(data=>{
                         return data.addNum
                     })
@@ -220,6 +224,7 @@ export default {
                 areaCode: this.areaCode,
                 flag: this.flag2
             }
+            this.remap2 = 0
             addAreaExternal(params).then(res => {
                 //console.log(res)
                 if(res.code == 200){
@@ -227,6 +232,7 @@ export default {
                     this.externalXData =  this.externalList.map(data=>{
                         return data.objDate
                     })
+                    this.remap2 = 1
                     this.externalYData =  this.externalList.map(data=>{
                         return data.addNum
                     })
@@ -394,7 +400,6 @@ export default {
         selectName(name,code){
             this.provinceName = name
             this.areaCode = code
-            console.log(code)
             this.getAreaUser() //全国新增内部员工量
             this.getAddAreaExternal() //全国新增外部客户量接口
         }

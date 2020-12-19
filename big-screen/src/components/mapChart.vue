@@ -14,6 +14,14 @@ export default {
         mapData: {
             type: Object,
             default: () => ({})
+        },
+        remap:{
+            type:Number,
+            default:0
+        },
+        remap2:{
+            type:Number,
+            default:0
         }
     },
     data() {
@@ -304,10 +312,14 @@ export default {
         },
         showProvince(eName, param, code) {
             let self = this
-            this.$emit('reName', param, code)
+
             axios.get(`./map/province/${eName}.json`).then(res => {
                 echarts.registerMap(eName, res.data);
-                self.initMap(eName);
+                this.$emit('reName', param, code)
+                if(self.remap==1&&self.remap2==1){
+                    self.initMap(eName);
+                }
+                
             })
         }
     }
