@@ -156,7 +156,7 @@
                         { // For shadow
                             type: 'bar',
                             itemStyle: {
-                                color: 'rgba(0,0,0,0.05)'
+                                color: 'rgba(59, 157, 230, 0.1)'
                             },
                             barGap: '100%',
                             barCategoryGap: '0%',
