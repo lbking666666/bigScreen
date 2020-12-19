@@ -41,7 +41,7 @@ axios.interceptors.response.use((response) => {
 })
 //get 方法
 export function getApi(url, data) {
-  return axios.get(url, data).then((res) => {
+  return axios.get(url, {params:data}).then((res) => {
     return Promise.resolve(res.data)
   })
 }
