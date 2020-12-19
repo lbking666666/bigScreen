@@ -53,11 +53,15 @@
                 </div>
             </div>
             <div class="center-box">
-                <div class="map-chart-home">
+                <div class="number-boxs">
                     <div class="number-bord-box">
-                        <numberBord :title="'外部客户累积量'" :bordNumber="'12345'" />
+                        <numberBord :title="'外部客户累积量'" :bordNumber="externalTotal" />
                     </div>
-                    
+                    <div class="number-bord-box">
+                        <numberBord :title="'外部客户新增量'" :bordNumber="externalAdd" />
+                    </div>
+                </div>
+                <div class="map-chart-home">
                     <mapChart @reName="selectName" :mapData="mapData"></mapChart>
                 </div>
 
@@ -163,13 +167,21 @@ export default {
             provinceName:'', // 选择的省份
             showWechatData: {}, // 互动数接口
             mapData:[],//地图数据
+            externalTotal: 0,//外部客户累积量
+            externalAdd: 0,//外部客户新增量
         }
     },
     mounted() {
         this.getData()
         setInterval(()=>{
-
-        },2000)
+            this.showExternal() //客户新增量和客户总量查询接口
+            this.getTrends() //发展趋势接口
+        },5000)
+        setInterval(()=>{
+            this.getAreaUser() //全国新增内部员工量
+            this.getAddAreaExternal() //全国新增外部客户量接口
+            this.getAreaExternal() //各省客户汇总数据接口
+        },3600000)
     },
     methods: {
         getData() {
@@ -248,7 +260,7 @@ export default {
         getTrends() {
             //发展趋势接口
             let params = {
-                areaCode: this.areaCode
+                areaCode: 1
             }
             trends(params).then(res => {
                 // console.log('趋势', res)
@@ -273,7 +285,7 @@ export default {
                             return data.areaName
                         })
                         this.barYData =  this.provinceTotalList.map(data=>{
-                            return data.totalNum
+                            return data.addNum
                         })
                         this.maxDataNum = Math.max(...this.barYData)
                     }
@@ -304,14 +316,13 @@ export default {
         showExternal() {
             //全国区域查询接口
             let params = {
-                areaCode: this.areaCode
+                areaCode: 1
             }
             showExternal(params).then(res => {
                 console.log(res)
                 if(res.code == 200){
-                    let mapData = res.data
-                    this.mapData = mapData
-                    console.log(this.mapData)
+                    this.externalTotal =res.data.totalExternal
+                    this.externalAdd = res.data.addExternal
                 }
             })
         },
@@ -455,13 +466,20 @@ export default {
                 flex-direction: column;
                 background: url("../assets/img/img_bg.png") no-repeat center top;
                 background-size: 788px 788px;
+                padding-top: 21px;
+                .number-boxs{
+                    display: flex;
+                    justify-content: space-around;
+                    width: 100%;
+                    height: 100px;
+                    .number-bord-box{
+                        height: 62px;
+                    }
+                }
                 .map-chart-home{
                     display: flex;
                     flex: 1;
-                    .number-bord-box{
-                        position: absolute;
-                        top: 20px;
-                    }
+                    flex-direction: column;
                 }
                 .bar-chart-home{
                     width: 100%;

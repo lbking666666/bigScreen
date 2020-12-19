@@ -31,7 +31,7 @@
 		},
 		methods:{
             transNumber(){
-                let nums = this.bordNumber.split('').reverse() // 获取之后反转顺序
+                let nums = String(this.bordNumber).split('').reverse() // 获取之后反转顺序
                 console.log(nums)
                 let allNum = nums.length
                 let newArray = []
@@ -91,6 +91,7 @@
         padding: 3px 8px 9px 17px;
         display: flex;
         box-sizing: border-box;
+        justify-content: flex-end;
         .number-item{
             position: relative;
             width: 30px;
