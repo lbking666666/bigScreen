@@ -74,8 +74,9 @@
 		methods:{
 			fixedNum(num){
 				if(num){
-					let str = (String(this.userData.lastRate).indexOf('-') >= 0)?String(num).split('-')[1]:String(num)
-					let backStr =  String((Number(str)*100).toFixed(2)) +'%'
+					let str = (String(num).indexOf('-') >= 0)?String(num).split('-')[1]:num
+					let backStr =  str +'%'
+					
 					return backStr
 				}
 				
