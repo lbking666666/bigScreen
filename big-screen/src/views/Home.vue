@@ -127,7 +127,7 @@ import ranking from '@/components/ranking.vue';
 import interaction from '@/components/interaction.vue';
 import mainten from '@/components/mainten.vue';
 import numberBord from '@/components/numberBord.vue';
-import { addAreaUser, addAreaExternal, areaExternalRank, showWechat, trends, areaExternal, showTask, showArea } from '@/api/index.js';
+import { addAreaUser, addAreaExternal, areaExternalRank, showWechat, trends, areaExternal, showTask, showArea, showExternal } from '@/api/index.js';
 
 export default {
     name: 'Home',
@@ -167,6 +167,9 @@ export default {
     },
     mounted() {
         this.getData()
+        setInterval(()=>{
+
+        },2000)
     },
     methods: {
         getData() {
@@ -178,6 +181,7 @@ export default {
             this.getAreaExternal() //各省客户汇总数据接口
             this.getShowTask() //维系任务统计接口
             this.getShowArea()//全国区域查询接口
+            this.showExternal() //客户新增量和客户总量查询接口
         },
         getAreaUser() {
             //全国新增内部员工量
@@ -251,7 +255,7 @@ export default {
                 if(res.code == 200){
                    this.noticeBordData = res.data
                 }
-                
+
             })
         },
         getAreaExternal() {
@@ -263,17 +267,16 @@ export default {
             areaExternal(params).then(res => {
                 console.log(res)
                 if(res.code == 200){
-                    this.provinceTotalList = res.data.list
                     if(res.data.list){
+                        this.provinceTotalList = res.data.list
                         this.barXData =  this.provinceTotalList.map(data=>{
-                        return data.areaName
-                    })
-                    this.barYData =  this.provinceTotalList.map(data=>{
-                        return data.totalNum
-                    })
-                    this.maxDataNum = Math.max(...this.barYData)
+                            return data.areaName
+                        })
+                        this.barYData =  this.provinceTotalList.map(data=>{
+                            return data.totalNum
+                        })
+                        this.maxDataNum = Math.max(...this.barYData)
                     }
-                    
                 }
             })
         },
@@ -295,6 +298,16 @@ export default {
                 areaCode: this.areaCode
             }
             showArea(params).then(res => {
+                console.log(res)
+            })
+        },
+        showExternal() {
+            //全国区域查询接口
+            let params = {
+                areaCode: this.areaCode
+            }
+            showExternal(params).then(res => {
+                console.log(res)
                 if(res.code == 200){
                     let mapData = res.data
                     this.mapData = mapData

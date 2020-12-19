@@ -4,36 +4,36 @@
 		<div class="bord-body">
 			<div class="bord-user">
 				<p>今日新增内部员工量{{ userData.totalNum }}，较昨日
-					<span class="font-red" v-if="userData.lastRate.indexOf('-') >= 0">下降{{userData.lastRate.split('-')[1]}}</span>
-					<span class="font-green" v-else-if="userData.lastRate.indexOf('-') == -1">上升{{userData.lastRate}}</span>
+					<span class="font-red" v-if="userData.lastRate&&userData.lastRate.indexOf('-') >= 0">下降{{userData.lastRate.split('-')[1]}}</span>
+					<span class="font-green" v-else-if="userData.lastRate&&userData.lastRate.indexOf('-') == -1">上升{{userData.lastRate}}</span>
 					<span v-else>持平</span>，
 				</p>
 				<p>较7日均值
-					<span class="font-red" v-if="userData.sevenRate.indexOf('-') >= 0">下降{{userData.sevenRate.split('-')[1]}}</span>
-					<span class="font-green" v-else-if="userData.sevenRate.indexOf('-') == -1">上升{{userData.sevenRate}}</span>
+					<span class="font-red" v-if="userData.sevenRate&&userData.sevenRate.indexOf('-') >= 0">下降{{userData.sevenRate.split('-')[1]}}</span>
+					<span class="font-green" v-else-if="userData.sevenRate&&userData.sevenRate.indexOf('-') == -1">上升{{userData.sevenRate}}</span>
 					<span v-else>持平</span>，
 				</p>
 				<p>较上月同期
-					<span class="font-red" v-if="userData.lastMonthRate.indexOf('-') >= 0">下降{{userData.lastMonthRate.split('-')[1]}}</span>
-					<span class="font-green" v-else-if="userData.lastMonthRate.indexOf('-') == -1">上升{{userData.lastMonthRate}}</span>
+					<span class="font-red" v-if="userData.lastMonthRate&&userData.lastMonthRate.indexOf('-') >= 0">下降{{userData.lastMonthRate.split('-')[1]}}</span>
+					<span class="font-green" v-else-if="userData.lastMonthRate&&userData.lastMonthRate.indexOf('-') == -1">上升{{userData.lastMonthRate}}</span>
 					<span v-else>持平</span>；
 				</p>
 			</div>
 
 			<div class="bord-external">
 				<p>外部客户量{{ externalData.totalNum }}，较昨日
-					<span class="font-red" v-if="externalData.lastRate.indexOf('-') >= 0">下降{{externalData.lastRate.split('-')[1]}}</span>
-					<span class="font-green" v-else-if="externalData.lastRate.indexOf('-') == -1">上升{{externalData.lastRate}}</span>
+					<span class="font-red" v-if="externalData.lastRate&&externalData.lastRate.indexOf('-') >= 0">下降{{externalData.lastRate.split('-')[1]}}</span>
+					<span class="font-green" v-else-if="externalData.lastRate&&externalData.lastRate.indexOf('-') == -1">上升{{externalData.lastRate}}</span>
 					<span v-else>持平</span>，
 				</p>
 				<p>较7日均值
-					<span class="font-red" v-if="externalData.sevenRate.indexOf('-') >= 0">下降{{externalData.sevenRate.split('-')[1]}}</span>
-					<span class="font-green" v-else-if="externalData.sevenRate.indexOf('-') == -1">上升{{externalData.sevenRate}}</span>
+					<span class="font-red" v-if="externalData.sevenRate&&externalData.sevenRate.indexOf('-') >= 0">下降{{externalData.sevenRate.split('-')[1]}}</span>
+					<span class="font-green" v-else-if="externalData.sevenRate&&externalData.sevenRate.indexOf('-') == -1">上升{{externalData.sevenRate}}</span>
 					<span v-else>持平</span>，
 				</p>
 				<p>较上月同期
-					<span class="font-red" v-if="externalData.lastMonthRate.indexOf('-') >= 0">下降{{externalData.lastMonthRate.split('-')[1]}}</span>
-					<span class="font-green" v-else-if="externalData.lastMonthRate.indexOf('-') == -1">上升{{externalData.lastMonthRate}}</span>
+					<span class="font-red" v-if="externalData.lastMonthRate&&externalData.lastMonthRate.indexOf('-') >= 0">下降{{externalData.lastMonthRate.split('-')[1]}}</span>
+					<span class="font-green" v-else-if="externalData.lastMonthRate&&externalData.lastMonthRate.indexOf('-') == -1">上升{{externalData.lastMonthRate}}</span>
 					<span v-else>持平</span>。
 				</p>
 			</div>
@@ -69,6 +69,7 @@
 			}
 		},
 		mounted() {
+			console.log('userData', this.userData)
 		},
 		methods:{
 		}
