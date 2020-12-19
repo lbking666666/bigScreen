@@ -138,6 +138,17 @@ const showArea = function() {
         })
     }
 }
+//客户新增量和客户总量查询接口
+const showExternal = function() {
+    return {
+        code: "200", //类型：String  必有字段  备注：状态码
+        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
+        data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
+            "totalExternal":"365247",                //类型：String  必有字段  备注：客户总量
+            "addExternal":"1254"                //类型：String  必有字段  备注：客户新增量
+        })
+    }
+}
 
 Mock.mock('/wep-oms/bigScreen/addAreaUser', 'get', addAreaUser);
 Mock.mock('/wep-oms/bigScreen/addAreaExternal', 'get', addAreaExternal);
@@ -147,3 +158,4 @@ Mock.mock('/wep-oms/bigScreen/trends', 'get', trends);
 Mock.mock('/wep-oms/bigScreen/areaExternal', 'get', areaExternal);
 Mock.mock('/wep-oms/bigScreen/showTask', 'get', showTask);
 Mock.mock('/wep-oms/bigScreen/showArea', 'get', showArea);
+Mock.mock('/wep-oms/bigScreen/showExternal', 'get', showExternal);

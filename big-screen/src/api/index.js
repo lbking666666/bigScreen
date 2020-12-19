@@ -45,3 +45,7 @@
      const url = '/wep-oms/bigScreen/showArea';
      return getApi(url, data)
  }
+ export function showExternal(data) {
+     const url = '/wep-oms/bigScreen/showExternal';
+     return getApi(url, data)
+ }
