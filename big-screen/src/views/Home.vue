@@ -162,7 +162,7 @@ export default {
             maxDataNum: 0, // 汇总图y轴最大值
             provinceName:'', // 选择的省份
             showWechatData: {}, // 互动数接口
-            mapData:[],//地图数据
+            mapData:{},//地图数据
         }
     },
     mounted() {
@@ -190,7 +190,7 @@ export default {
                 flag: this.flag1
             }
             addAreaUser(params).then(res => {
-                console.log(res)
+                //console.log(res)
                 if(res.code == 200){
                     this.insideList = res.data.list
                     this.insideXData =  this.insideList.map(data=>{
@@ -209,7 +209,7 @@ export default {
                 flag: this.flag2
             }
             addAreaExternal(params).then(res => {
-                console.log(res)
+                //console.log(res)
                 if(res.code == 200){
                     this.externalList = res.data.list
                     this.externalXData =  this.externalList.map(data=>{
@@ -239,7 +239,7 @@ export default {
                 areaCode: this.areaCode
             }
             showWechat(params).then(res => {
-                console.log(res)
+               // console.log(res)
                 if(res.code == 200){
                     this.showWechatData = res.data
                 }
@@ -265,7 +265,7 @@ export default {
                 flag: this.flag3
             }
             areaExternal(params).then(res => {
-                console.log(res)
+                //console.log(res)
                 if(res.code == 200){
                     if(res.data.list){
                         this.provinceTotalList = res.data.list
@@ -298,20 +298,63 @@ export default {
                 areaCode: this.areaCode
             }
             showArea(params).then(res => {
-                console.log(res)
+                 if(res.code == 200){
+                    let arr1 = [],arr2 =[],arr3=[],arr4=[]
+                    res.data.map(item=>{
+                        if(item.flag == -1){
+                           let obj = {
+                                name:item.areaName.replace('省',''),
+                                value:item.num,
+                                code:item.areaCode
+                            }
+                            arr1.push(obj) 
+
+                            let colors = {
+                                name: item.areaName.replace('省',''),
+                                itemStyle: {
+                                    areaColor: '#2569BB',
+                                    color:'#2569BB',
+                                    borderColor: '#2569BB',
+                                }
+                            }
+                            arr3.push(colors)
+                        }
+                        if(item.flag>=0){
+                            let obj = {
+                                name:item.areaName.replace('省',''),
+                                value:item.num,
+                                code:item.areaCode
+                            }
+                            arr2.push(obj) 
+                            let colors = {
+                                name: item.areaName.replace('省',''),
+                                itemStyle: {
+                                    areaColor: '#62A5E6',
+                                    color: '#62A5E6',
+                                    borderColor: "#62A5E6",
+                                }
+                            }
+                            arr4.push(colors)
+                        }
+                    })
+                    this.mapData = {
+                        used:arr2,
+                        unUsed:arr1,
+                        colors:arr4,
+                        unColors:arr3
+                    }
+                    console.log(this.mapData)
+                }
             })
         },
         showExternal() {
-            //全国区域查询接口
+            //客户新增量和客户总量查询接口
             let params = {
                 areaCode: this.areaCode
             }
             showExternal(params).then(res => {
-                console.log(res)
                 if(res.code == 200){
-                    let mapData = res.data
-                    this.mapData = mapData
-                    console.log(this.mapData)
+                   
                 }
             })
         },

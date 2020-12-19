@@ -32,7 +32,7 @@
 		methods:{
             transNumber(){
                 let nums = this.bordNumber.split('').reverse() // 获取之后反转顺序
-                console.log(nums)
+                //console.log(nums)
                 let allNum = nums.length
                 let newArray = []
                 for(let i=0; i<nums.length; i++){

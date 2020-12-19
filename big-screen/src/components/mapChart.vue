@@ -10,18 +10,20 @@ let chinaMap = require('./map/china.json')
 let map = null
 export default {
     name: "mapChart",
-    props:{
-        mapData:{
-            type:Array,
-            default:[]
+    props: {
+        mapData: {
+            type: Object,
+            default: () => ({})
         }
     },
     data() {
         return {
             back: false,
             isAll: true,
+            effArr: [],
+            unEffArr: [],
             //定义全国省份的数组
-           match:{
+            match: {
                 // 23个省
                 '台湾': [121.509062, 25.044332],
                 '河北': [114.502461, 38.045474],
@@ -32,7 +34,7 @@ export default {
                 '江苏': [118.767413, 32.041544],
                 '浙江': [120.153576, 30.287459],
                 '安徽': [117.283042, 31.86119],
-                '福建':[119.306239, 26.075302],
+                '福建': [119.306239, 26.075302],
                 '江西': [115.892151, 28.676493],
                 '山东': [117.000923, 36.675807],
                 '河南': [113.665412, 34.757975],
@@ -41,15 +43,15 @@ export default {
                 '广东': [113.280637, 23.125178],
                 '海南': [110.33119, 20.031971],
                 '四川': [104.065735, 30.659462],
-                '贵州':  [106.713478, 26.578343],
+                '贵州': [106.713478, 26.578343],
                 '云南': [102.712251, 25.040609],
-                '陕西':[108.948024, 34.263161],
-                '甘肃':  [103.823557, 36.058039],
+                '陕西': [108.948024, 34.263161],
+                '甘肃': [103.823557, 36.058039],
                 '青海': [101.778916, 36.623178],
                 // 5个自治区
                 '新疆': [87.617733, 43.792818],
-                '广西':  [108.320004, 22.82402],
-                '内蒙古':[111.670801, 40.818311],
+                '广西': [108.320004, 22.82402],
+                '内蒙': [111.670801, 40.818311],
                 '宁夏': [106.278179, 38.46637],
                 '西藏': [91.132212, 29.660361],
                 // 4个直辖市
@@ -108,14 +110,42 @@ export default {
         this.initMap('china');
         console.log(this.mapData)
     },
-    watch:{
-        'mapData':function(val){
-            console.log(val)
+    watch: {
+        'mapData': function(val,old) {
+            this.regionsArr = [...val.colors, ...val.unColors]
+            console.log(this.regionsArr)
+            val.used.map(item => {
+                if (this.match[item.name]) {
+                    let params = {
+                        name: item.name,
+                        value: this.match[item.name].concat(item.value)
+                    }
+                    this.effArr.push(params)
+                }
+
+            })
+            val.unUsed.map(item => {
+                if (this.match[item.name]) {
+                    let params = {
+                        name: item.name,
+                        value: this.match[item.name].concat(item.value)
+                    }
+                    this.unEffArr.push(params)
+                }
+            })
+            this.initMap('china');
+            console.log(this.unEffArr)
         }
     },
     methods: {
         initMap(name) { //初始化中国地图
             map = echarts.init(this.$refs.map)
+            if (name == 'china') {
+                this.back = false
+            } else {
+
+                this.back = true
+            }
             let option = {
                 tooltip: {
                     show: true,
@@ -127,8 +157,8 @@ export default {
                     borderWidth: 0,
                     trigger: 'item',
                     formatter: function(params) {
-                        
-                        if(params.seriesType == 'effectScatter'){
+
+                        if (params.seriesType == 'effectScatter' || params.seriesType == 'scatter') {
                             return
                         }
                         return (params.value ? params.value : 0) + '<br />' + params.name + '每天新增客户量'
@@ -141,6 +171,7 @@ export default {
                     textStyle: {
                         color: '#fff'
                     },
+                    data: ['已托管', '未托管'],
                     orient: 'vertical',
                 },
                 geo: {
@@ -150,11 +181,12 @@ export default {
                     //图形上的文本标签，可用于说明图形的一些数据信息
                     label: {
                         normal: {
-                            show: false,
+                            show: this.back?true:false,
                             fontSize: "10",
                             color: "#fff"
                         },
                         emphasis: {
+                            show: this.back?true:false,
                             color: "#fff"
                         }
                     },
@@ -170,317 +202,69 @@ export default {
                             areaColor: "#1ACFFF",
                         }
                     },
-                    regions: [{
-                        name: '河南',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '海南',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '湖北',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '广东',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '山东',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '青海',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '吉林',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '广西',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '上海',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '天津',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '内蒙古',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '辽宁',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '陕西',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '江西',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '贵州',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '宁夏',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '甘肃',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '云南',
-                        itemStyle: {
-                            areaColor: '#62A5E6',
-                            color: '#62A5E6',
-                            borderColor: "#62A5E6",
-                        }
-                    }, {
-                        name: '北京',
-                        itemStyle: {
-                            areaColor: '#488ED6',
-                            color: '#488ED6',
-                            borderColor: "#488ED6",
-                        }
-                    }, {
-                        name: '河北',
-                        itemStyle: {
-                            areaColor: '#488ED6',
-                            color: '#488ED6',
-                            borderColor: "#488ED6",
-                        }
-                    }, {
-                        name: '山西',
-                        itemStyle: {
-                            areaColor: '#488ED6',
-                            color: '#488ED6',
-                            borderColor: "#488ED6",
-                        }
-                    }, {
-                        name: '湖南',
-                        itemStyle: {
-                            areaColor: '#488ED6',
-                            color: '#488ED6',
-                            borderColor: "#488ED6",
-                        }
-                    }, {
-                        name: '浙江',
-                        itemStyle: {
-                            areaColor: '#488ED6',
-                            color: '#488ED6',
-                            borderColor: "#488ED6",
-                        }
-                    }, {
-                        name: '江苏',
-                        itemStyle: {
-                            areaColor: '#488ED6',
-                            color: '#488ED6',
-                            borderColor: "#488ED6",
-                        }
-                    }, {
-                        name: '黑龙江',
-                        itemStyle: {
-                            areaColor: '#2569BB',
-                            color: '#2569BB',
-                            borderColor: "#2569BB",
-                        }
-                    }, {
-                        name: '云南',
-                        itemStyle: {
-                            areaColor: '#2569BB',
-                            color: '#2569BB',
-                            borderColor: "#2569BB",
-                        }
-                    }, {
-                        name: '安徽',
-                        itemStyle: {
-                            areaColor: '#2569BB',
-                            color: '#2569BB',
-                            borderColor: "#2569BB",
-                        }
-                    }, {
-                        name: '福建',
-                        itemStyle: {
-                            areaColor: '#2569BB',
-                            color: '#2569BB',
-                            borderColor: "#2569BB",
-                        }
-                    }, {
-                        name: '四川',
-                        itemStyle: {
-                            areaColor: '#2569BB',
-                            color: '#2569BB',
-                            borderColor: "#2569BB",
-                        }
-                    }, {
-                        name: '新疆',
-                        itemStyle: {
-                            areaColor: '#2569BB',
-                            color: '#2569BB',
-                            borderColor: "#2569BB",
-                        }
-                    }, {
-                        name: '西藏',
-                        itemStyle: {
-                            areaColor: '#2569BB',
-                            color: '#2569BB',
-                            borderColor: "#2569BB",
-                        }
-                    }, {
-                        name: '重庆',
-                        itemStyle: {
-                            areaColor: '#2569BB',
-                            color: '#2569BB',
-                            borderColor: "#2569BB",
-                        }
-                    }, {
-                        name: '台湾',
-                        itemStyle: {
-                            areaColor: '#2569BB',
-                            color: '#2569BB',
-                            borderColor: "#2569BB",
-                        }
-                    }]
+                    regions: this.regionsArr
 
                 },
                 series: [{
-                        name: '已接入',
-                        type: "map",
-                        color: '#62A5E6',
-                        geoIndex: 0,
-                        data: [{
-                            name: "河南",
-                            value: 40000,
-                            code: '3401',
-                        }]
+                    name: '已托管',
+                    type: "map",
+                    color: '#62A5E6',
+                    geoIndex: 0,
+                    data: this.mapData.used
+                }, {
+                    name: '未托管',
+                    type: "map",
+                    color: '#2569BB',
+                    geoIndex: 0,
+                    data: this.mapData.unUsed
+                }, {
+                    name: 'tt',
+                    type: 'effectScatter',
+                    coordinateSystem: 'geo',
+                    symbolSize: 10,
+                    encode: {
+                        value: 2
                     },
-                    {
-                        name: '省份自建平台',
-                        type: "map",
-                        color: '#488ED6',
-                        geoIndex: 0,
-                        data: [{
-                            name: "北京",
-                            value: 20000,
-                            code: '3401',
-                        }]
-                    }, {
-                        name: '未接入',
-                        type: "map",
-                        color: '#2569BB',
-                        geoIndex: 0,
-                        data: [{
-                            name: "安徽",
-                            value: 10000,
-                            code: '3401',
-                        }]
-                    }, {
-                        name: 'tt',
-                        type: 'effectScatter',
-                        coordinateSystem: 'geo',
-                        symbolSize: 10,
-                        encode: {
-                            value: 2
-                        },
-                        showEffectOn: 'render',
-                        rippleEffect: {
-                            brushType: 'stroke'
-                        },
-                        hoverAnimation: true,
-                        label: {
-                            formatter: '{b}',
-                            position: 'right',
-                            show: true,
-                            color:'#fff',
-                            fontSize: "10",
-                        },
-                        itemStyle: {
-                            color: '#FFFF02',
-                            shadowBlur: 0,
-                        },
-                        zlevel: 1,
-                        data: [{
-                                name: "上海",
-                                value: this.match[`上海`].concat(400),
-                            },
-                            {
-                                name: "天津",
-                                value: this.match[`天津`].concat(400),
-                            }
-                        ]
-                    }
-                ]
+                    showEffectOn: 'render',
+                    rippleEffect: {
+                        brushType: 'stroke'
+                    },
+                    hoverAnimation: true,
+                    label: {
+                        formatter: '{b}',
+                        position: 'right',
+                        show: true,
+                        color: '#fff',
+                        fontSize: "10",
+                    },
+                    itemStyle: {
+                        color: '#FFFF02',
+                        shadowBlur: 0,
+                    },
+                    zlevel: 1,
+                    data: this.back?[]:this.effArr
+                },
+                {
+                    name: 'tt2',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    symbol: 'circle',
+                    label: {
+                        formatter: '{b}',
+                        position: 'right',
+                        show: true,
+                        color: '#fff',
+                        fontSize: "10",
+                    },
+                    symbolSize:0,
+                    itemStyle: {
+                      color: 'rgba(0,0,0,0)'
+                    },
+                    data: this.back?[]:this.unEffArr
+                }]
             };
-            console.log(this.match[`上海`])
             map.setOption(option, true);
-            if (name == 'china') {
-
-                this.back = false
-            } else {
-
-                this.back = true
-            }
+            
             window.addEventListener("resize", () => { map.resize(); });
             this.HandleClick()
         },
