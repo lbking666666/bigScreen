@@ -51,7 +51,7 @@ export default {
                 // 5个自治区
                 '新疆': [87.617733, 43.792818],
                 '广西': [108.320004, 22.82402],
-                '内蒙': [111.670801, 40.818311],
+                '内蒙古': [111.670801, 40.818311],
                 '宁夏': [106.278179, 38.46637],
                 '西藏': [91.132212, 29.660361],
                 // 4个直辖市
@@ -112,6 +112,7 @@ export default {
     },
     watch: {
         'mapData': function(val,old) {
+            console.log(val)
             this.regionsArr = [...val.colors, ...val.unColors]
             console.log(this.regionsArr)
             val.used.map(item => {

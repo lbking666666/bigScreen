@@ -23,8 +23,11 @@
                 numberStr: []
 			}
         },
-        update() {
-            this.transNumber()
+        watch: {
+            'bordNumber':function(){
+                this.transNumber()
+            }
+            
         },
 		mounted() {
             this.transNumber()

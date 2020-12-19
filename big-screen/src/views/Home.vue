@@ -166,7 +166,6 @@ export default {
             maxDataNum: 0, // 汇总图y轴最大值
             provinceName:'', // 选择的省份
             showWechatData: {}, // 互动数接口
-            mapData:[],//地图数据
             externalTotal: 0,//外部客户累积量
             externalAdd: 0,//外部客户新增量
             mapData:{},//地图数据
@@ -316,14 +315,15 @@ export default {
                     res.data.map(item=>{
                         if(item.flag == -1){
                            let obj = {
-                                name:item.areaName.replace('省',''),
+                                name:item.areaName.replace('省','').replace('特别行政区',''),
                                 value:item.num,
                                 code:item.areaCode
                             }
                             arr1.push(obj)
-
+                        }
+                        if(item.colors ==-1){
                             let colors = {
-                                name: item.areaName.replace('省',''),
+                                name: item.areaName.replace('省','').replace('特别行政区',''),
                                 itemStyle: {
                                     areaColor: '#2569BB',
                                     color:'#2569BB',
@@ -334,13 +334,16 @@ export default {
                         }
                         if(item.flag>=0){
                             let obj = {
-                                name:item.areaName.replace('省',''),
+                                name:item.areaName.replace('省','').replace('特别行政区',''),
                                 value:item.num,
                                 code:item.areaCode
                             }
                             arr2.push(obj)
+                        }
+
+                        if(item.colors ==1){
                             let colors = {
-                                name: item.areaName.replace('省',''),
+                                name: item.areaName.replace('省','').replace('特别行政区',''),
                                 itemStyle: {
                                     areaColor: '#62A5E6',
                                     color: '#62A5E6',
