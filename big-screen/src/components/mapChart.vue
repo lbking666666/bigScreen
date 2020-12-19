@@ -10,6 +10,12 @@ let chinaMap = require('./map/china.json')
 let map = null
 export default {
     name: "mapChart",
+    props:{
+        mapData:{
+            type:Array,
+            default:[]
+        }
+    },
     data() {
         return {
             back: false,
@@ -100,6 +106,12 @@ export default {
     mounted() {
         echarts.registerMap('china', chinaMap);
         this.initMap('china');
+        console.log(this.mapData)
+    },
+    watch:{
+        'mapData':function(val){
+            console.log(val)
+        }
     },
     methods: {
         initMap(name) { //初始化中国地图

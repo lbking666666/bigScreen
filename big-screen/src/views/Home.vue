@@ -58,7 +58,7 @@
                         <numberBord :title="'外部客户累积量'" :bordNumber="'12345'" />
                     </div>
                     
-                    <mapChart @reName="selectName"></mapChart>
+                    <mapChart @reName="selectName" :mapData="mapData"></mapChart>
                 </div>
 
                 <div class="bar-chart-home">
@@ -162,6 +162,7 @@ export default {
             maxDataNum: 0, // 汇总图y轴最大值
             provinceName:'', // 选择的省份
             showWechatData: {}, // 互动数接口
+            mapData:[],//地图数据
         }
     },
     mounted() {
@@ -223,7 +224,9 @@ export default {
             }
             areaExternalRank(params).then(res => {
                 // console.log('排行榜', res)
-                this.rankingList = res.data.list.slice(0, 5)
+                if(res.code == 200){
+                    this.rankingList = res.data.list.slice(0, 5)
+                }
             })
         },
         getShowWechat() {
@@ -245,7 +248,10 @@ export default {
             }
             trends(params).then(res => {
                 // console.log('趋势', res)
-                this.noticeBordData = res.data
+                if(res.code == 200){
+                   this.noticeBordData = res.data
+                }
+                
             })
         },
         getAreaExternal() {
@@ -258,13 +264,16 @@ export default {
                 console.log(res)
                 if(res.code == 200){
                     this.provinceTotalList = res.data.list
-                    this.barXData =  this.provinceTotalList.map(data=>{
+                    if(res.data.list){
+                        this.barXData =  this.provinceTotalList.map(data=>{
                         return data.areaName
                     })
                     this.barYData =  this.provinceTotalList.map(data=>{
                         return data.totalNum
                     })
                     this.maxDataNum = Math.max(...this.barYData)
+                    }
+                    
                 }
             })
         },
@@ -275,7 +284,9 @@ export default {
             }
             showTask(params).then(res => {
                 // console.log('维系任务', res.data)
-                this.maintenData = res.data
+                if(res.code == 200){
+                    this.maintenData = res.data
+                }
             })
         },
         getShowArea() {
@@ -284,7 +295,11 @@ export default {
                 areaCode: this.areaCode
             }
             showArea(params).then(res => {
-                console.log(res)
+                if(res.code == 200){
+                    let mapData = res.data
+                    this.mapData = mapData
+                    console.log(this.mapData)
+                }
             })
         },
         // 外部客户量选择筛选条件
