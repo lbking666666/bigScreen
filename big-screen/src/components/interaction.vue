@@ -22,7 +22,7 @@
                     平均回复时长
                 </div>
                 <div class="msg-res-count count">
-                    {{showWechatData.avgReplyTime||0}}分
+                    {{showWechatData.avgReplyTime||0}} <span>分</span>
                 </div>
             </div>
         </div>
@@ -118,6 +118,9 @@
                 }
                 .msg-res-count{
                     color: rgba(0, 223, 237, 1);
+                    span{
+                        font-size: 25px;
+                    }
                 }
             }
         }

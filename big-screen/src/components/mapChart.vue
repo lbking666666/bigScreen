@@ -186,7 +186,10 @@ export default {
                 geo: {
                     map: name,
                     roam: false,
-                    zoom: 1,
+                    zoom: name=='heilongjiang'?0.8:1,
+                    top: name=='heilongjiang'?'20%':'center',
+                    left: name=='heilongjiang'?'25%':'center',
+                    // layoutCenter: ['80%','80%'],
                     //图形上的文本标签，可用于说明图形的一些数据信息
                     label: {
                         normal: {
