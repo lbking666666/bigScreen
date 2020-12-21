@@ -22,7 +22,7 @@
                     平均回复时长
                 </div>
                 <div class="msg-res-count count">
-                    {{showWechatData.avgReplyTime||0}}s
+                    {{showWechatData.avgReplyTime||0}}分
                 </div>
             </div>
         </div>
@@ -144,8 +144,8 @@
                     filter: blur(0px);
                     border-radius: 50%;
                     .percent{
-                        margin-top: 16px;
-                        font-size: 53px;
+                        margin-top: 24px;
+                        font-size: 40px;
                         font-family: PingFangSC-Semibold, PingFang SC;
                         font-weight: 600;
                         color: #FFFFFF;
