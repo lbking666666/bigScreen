@@ -103,7 +103,7 @@
 	}
 	.province{
 		width: 62px;
-		text-align: right;
+		text-align: center;
 	}
 	.month-increase{
 		width: 140px;
