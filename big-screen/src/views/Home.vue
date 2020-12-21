@@ -186,7 +186,7 @@ export default {
         setInterval(()=>{
             this.showExternal() //客户新增量和客户总量查询接口
             this.getTrends() //发展趋势接口
-        },180000)
+        },5000)
         setInterval(()=>{
             this.getAreaUser() //全国新增内部员工量
             this.getAddAreaExternal() //全国新增外部客户量接口
