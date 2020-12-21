@@ -30,7 +30,7 @@
             <div class="ring-chart">
                 <canvas id="canvas" width="223" height="223"></canvas>
                 <div class="center-text">
-                    <div class="percent">{{showWechatData.replyPercentage||0}}<span>%</span></div>
+                    <div class="percent">{{showWechatData.replyPercentage?showWechatData.replyPercentage.toFixed(1):0}}<span>%</span></div>
                     <div class="text">聊天回复占比</div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                 .count{
                     height: 35px;
                     line-height: 35px;
-                    font-size: 32px;
+                    font-size: 20px;
                     font-family: PingFangSC-Regular, PingFang SC;
                     font-weight: 700;
                     color: #C7FCFC;
@@ -119,7 +119,7 @@
                 .msg-res-count{
                     color: rgba(0, 223, 237, 1);
                     span{
-                        font-size: 25px;
+                        font-size: 18px;
                     }
                 }
             }

@@ -186,7 +186,7 @@ export default {
                 geo: {
                     map: name,
                     roam: false,
-                    zoom: name=='heilongjiang'?0.8:1,
+                    zoom: (name=='china')?1.2:(name=='heilongjiang'?0.8:1),
                     top: name=='heilongjiang'?'20%':'center',
                     left: name=='heilongjiang'?'25%':'center',
                     // layoutCenter: ['80%','80%'],
