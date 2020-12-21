@@ -56,13 +56,18 @@
                     },
                     tooltip:{
                         show:true,
+                        // trigger: 'item',
+                        // position: 'top',
+                        // padding: [5, 15],
                         backgroundColor: 'rgba(0,0,0,0.4)',
+                        // backgroundColor:'rgba(77, 237, 242, 0.2)',
+                        // backgroundColor: this.color,
                         textStyle: {
                             color: '#fff',
-                            fontSize: 12,
+                            fontSize: 14,
+                            fontWeight: 600
                         },
                         borderWidth: 0,
-                        trigger: 'item',
                         formatter: function(params) {
                             let nums = (String(params.value).length>4)?(Number(params.value/10000).toFixed(1)+'W'):String(params.value)
 

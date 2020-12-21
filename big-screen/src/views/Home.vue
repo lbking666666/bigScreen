@@ -66,6 +66,14 @@
                 </div>
 
                 <div class="bar-chart-home">
+                    <div class="title">
+                        <div class="icons">
+                            <img src="../assets/img/quanguo.png" alt="">
+                        </div>
+                        <div class="title-text">
+                            全国各省外部客户数量
+                        </div>
+                    </div>
                     <div class="bar-chart-option">
                         <div class="options" :class="flag3==365?'opt-active':''" @click="selTotal(365)"><div>年</div></div>
                         <div class="options" :class="flag3==30?'opt-active':''" @click="selTotal(30)"><div>月</div></div>
@@ -542,10 +550,14 @@ export default {
                     width: 100%;
                     height: 320px;
                     position: relative;
+                    .title{
+                        position: absolute;
+                        top: -20px;
+                    }
                     .bar-chart-option{
                         position: absolute;
                         z-index: 99;
-                        top: 0;
+                        top: 25px;
                         right: 20px;
                         display: flex;
                         height: 20px;

@@ -34,86 +34,108 @@ export default {
     },
     methods: {
         drawChart() {
-            var MyCubeRect = echarts.graphic.extendShape({
-                shape: {
-                    x: 0,
-                    y: 0,
-                    width: 18, //柱宽
-                    zWidth: 11, //阴影折角宽
-                    zHeight: 11, //阴影折角高
-                },
-                buildPath: function(ctx, shape) {
-                    const api = shape.api;
-                    const xAxisPoint = api.coord([shape.xValue, 0]);
-                    const p0 = [shape.x, shape.y];
-                    const p1 = [shape.x - shape.width / 2, shape.y];
-                    const p4 = [shape.x + shape.width / 2, shape.y];
-                    const p2 = [xAxisPoint[0] - shape.width / 2, xAxisPoint[1]];
-                    const p3 = [xAxisPoint[0] + shape.width / 2, xAxisPoint[1]];
-                    ctx.moveTo(p0[0], p0[1]); //0
-                    ctx.lineTo(p1[0], p1[1]); //1
-                    ctx.lineTo(p2[0], p2[1]); //2
-                    ctx.lineTo(p3[0], p3[1]); //3
-                    ctx.lineTo(p4[0], p4[1]); //4
-                    ctx.lineTo(p0[0], p0[1]); //0
-                    ctx.closePath();
+            console.log('yData',this.yData.length,this.maxDataNum)
+            this.dataAxis = []
+            this.yData.map((d,i)=>{
+                if(i%2 ==0){
+                    this.dataAxis.push(0)
+                } else {
+                    this.dataAxis.push(this.maxDataNum)
                 }
-            });
-            var MyCubeShadow = echarts.graphic.extendShape({
-                shape: {
-                    x: 0,
-                    y: 0,
-                    width: 18,
-                    zWidth: 11,
-                    zHeight: 11,
-                },
-                buildPath: function(ctx, shape) {
-                    const api = shape.api;
-                    const xAxisPoint = api.coord([shape.xValue, 0]);
-                    // const p0 = [shape.x, shape.y];
-                    const p1 = [shape.x - shape.width / 2, shape.y];
-                    const p4 = [shape.x + shape.width / 2, shape.y];
-                    const p6 = [shape.x + shape.width / 2 + shape.zWidth, shape.y - shape.zHeight];
-                    const p7 = [shape.x - shape.width / 2 + shape.zWidth, shape.y - shape.zHeight];
-                    const p3 = [xAxisPoint[0] + shape.width / 2, xAxisPoint[1]];
-                    const p5 = [xAxisPoint[0] + shape.width / 2 + shape.zWidth, xAxisPoint[1] - shape.zHeight];
-                    ctx.moveTo(p4[0], p4[1]); //4
-                    ctx.lineTo(p3[0], p3[1]); //3
-                    ctx.lineTo(p5[0], p5[1]); //5
-                    ctx.lineTo(p6[0], p6[1]); //6
-                    ctx.lineTo(p4[0], p4[1]); //4
-                    ctx.moveTo(p4[0], p4[1]); //4
-                    ctx.lineTo(p6[0], p6[1]); //6
-                    ctx.lineTo(p7[0], p7[1]); //7
-                    ctx.lineTo(p1[0], p1[1]); //1
-                    ctx.lineTo(p4[0], p4[1]); //4
-                    ctx.closePath();
-                }
-            });
-            echarts.graphic.registerShape('MyCubeRect', MyCubeRect);
-            echarts.graphic.registerShape('MyCubeShadow', MyCubeShadow);
+            })
+            // var MyCubeRect = echarts.graphic.extendShape({
+            //     shape: {
+            //         x: 0,
+            //         y: 0,
+            //         width: 18, //柱宽
+            //         zWidth: 11, //阴影折角宽
+            //         zHeight: 11, //阴影折角高
+            //     },
+            //     buildPath: function(ctx, shape) {
+            //         const api = shape.api;
+            //         const xAxisPoint = api.coord([shape.xValue, 0]);
+            //         const p0 = [shape.x, shape.y];
+            //         const p1 = [shape.x - shape.width / 2, shape.y];
+            //         const p4 = [shape.x + shape.width / 2, shape.y];
+            //         const p2 = [xAxisPoint[0] - shape.width / 2, xAxisPoint[1]];
+            //         const p3 = [xAxisPoint[0] + shape.width / 2, xAxisPoint[1]];
+            //         ctx.moveTo(p0[0], p0[1]); //0
+            //         ctx.lineTo(p1[0], p1[1]); //1
+            //         ctx.lineTo(p2[0], p2[1]); //2
+            //         ctx.lineTo(p3[0], p3[1]); //3
+            //         ctx.lineTo(p4[0], p4[1]); //4
+            //         ctx.lineTo(p0[0], p0[1]); //0
+            //         ctx.closePath();
+            //     }
+            // });
+            // var MyCubeShadow = echarts.graphic.extendShape({
+            //     shape: {
+            //         x: 0,
+            //         y: 0,
+            //         width: 18,
+            //         zWidth: 11,
+            //         zHeight: 11,
+            //     },
+            //     buildPath: function(ctx, shape) {
+            //         const api = shape.api;
+            //         const xAxisPoint = api.coord([shape.xValue, 0]);
+            //         // const p0 = [shape.x, shape.y];
+            //         const p1 = [shape.x - shape.width / 2, shape.y];
+            //         const p4 = [shape.x + shape.width / 2, shape.y];
+            //         const p6 = [shape.x + shape.width / 2 + shape.zWidth, shape.y - shape.zHeight];
+            //         const p7 = [shape.x - shape.width / 2 + shape.zWidth, shape.y - shape.zHeight];
+            //         const p3 = [xAxisPoint[0] + shape.width / 2, xAxisPoint[1]];
+            //         const p5 = [xAxisPoint[0] + shape.width / 2 + shape.zWidth, xAxisPoint[1] - shape.zHeight];
+            //         ctx.moveTo(p4[0], p4[1]); //4
+            //         ctx.lineTo(p3[0], p3[1]); //3
+            //         ctx.lineTo(p5[0], p5[1]); //5
+            //         ctx.lineTo(p6[0], p6[1]); //6
+            //         ctx.lineTo(p4[0], p4[1]); //4
+            //         ctx.moveTo(p4[0], p4[1]); //4
+            //         ctx.lineTo(p6[0], p6[1]); //6
+            //         ctx.lineTo(p7[0], p7[1]); //7
+            //         ctx.lineTo(p1[0], p1[1]); //1
+            //         ctx.lineTo(p4[0], p4[1]); //4
+            //         ctx.closePath();
+            //     }
+            // });
+            // echarts.graphic.registerShape('MyCubeRect', MyCubeRect);
+            // echarts.graphic.registerShape('MyCubeShadow', MyCubeShadow);
             let chart = this.$refs.chart
             let myChart = echarts.init(chart)
             let options = {
                 tooltip: {
-                    trigger: 'item',
-                    position: 'top',
-                    padding: [5, 15],
-                    formatter(params) {
-                        if (params.seriesType == 'bar') {
-                            console.log(222,params)
-                            return 
-                        } 
-                        if(params.seriesType =='custom') {
-                            console.log(333,params)
-                             const currentData = params.data;
-                            let text = '';
-                            text = `<span style="color: #fff;font-size: 22px;font-weight: 600;">${String(currentData).length>4?(Number(currentData/10000).toFixed(1)+'W'):String(currentData)}</span>`
-                            return text;
-                        }
-
+                    trigger: 'axis',
+                    // position: 'top',
+                    // padding: [5, 15],
+                    // formatter(params) {
+                    //     // if (params.seriesType == 'bar') {
+                    //     //     console.log(222,params)
+                    //     //     return
+                    //     // }
+                    //     // if(params.seriesType =='custom') {
+                    //         const currentData = params.data;
+                    //         let text = '';
+                    //         text = `${String(currentData).length>4?(Number(currentData/10000).toFixed(1)+'W'):String(currentData)}`
+                    //         return text;
+                    //     // }
+                    //
+                    // },
+                    axisPointer: {
+                        type: "none"
                     },
-                    backgroundColor: 'rgba(77, 237, 242, 0.7)'
+                    formatter: function (params, ticket, callback) {
+                        let str = params[0].data>10000?(params[0].data/10000).toFixed(1)+'W':params[0].data+''
+                        return str;
+                    },
+                    borderColor:'rgba(50,50,50,0.7)',
+                    borderWidth: 0,
+                    backgroundColor: 'rgba(50,50,50,0.7)',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 14,
+                        fontWeight: 600
+                    },
                 },
                 grid: {
                     left: '3%',
@@ -138,7 +160,11 @@ export default {
                 }],
                 yAxis: [{
                     type: 'value',
-                    name: '数量:人',
+                    name: '单位:万',
+                    // nameLocation: "end",
+                    // nameTextStyle: {
+                    //     align: "left"
+                    // },
                     show: true,
                     axisLine: {
                         show: true,
@@ -155,69 +181,89 @@ export default {
                         }
                     },
                 }],
-                series: [{ // For shadow
+                series: [
+                    { // For shadow
                         type: 'bar',
                         itemStyle: {
-                            color: 'rgba(59, 157, 230, 0.1)'
+                            normal: {color: 'rgba(59, 157, 230, 0.1)'},
                         },
-                        barGap: '100%',
+                        barWidth:36,
+                        data: this.dataAxis,
                         tooltip:{
                             show:false
                         },
-                        barCategoryGap: '0%',
-                        data: [0, this.maxDataNum, 0, this.maxDataNum, 0, this.maxDataNum, 0, this.maxDataNum, 0, this.maxDataNum, 0, this.maxDataNum],
-                        animation: false
+                        animation: false,
+                        z:1
                     },
                     {
-                        type: 'custom',
-                        zlevel: 2,
-                        renderItem: function(params, api) {
-                            let location = api.coord([api.value(0), api.value(1)]);
-                            return {
-                                type: 'group',
-                                children: [{
-                                        type: 'MyCubeRect',
-                                        shape: {
-                                            api,
-                                            xValue: api.value(0),
-                                            yValue: api.value(1),
-                                            x: location[0],
-                                            y: location[1]
-                                        },
-                                        style: {
-                                            fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                                offset: 0,
-                                                color: '#75FFFB' //指0%处的颜色
-                                            }, {
-                                                offset: 1,
-                                                color: '#2151FF' //指100%处的颜色
-                                            }], false)
-                                        }
-                                    },
-                                    {
-                                        type: 'MyCubeShadow',
-                                        shape: {
-                                            api,
-                                            xValue: api.value(0),
-                                            yValue: api.value(1),
-                                            x: location[0],
-                                            y: location[1]
-                                        },
-                                        style: {
-                                            fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                                offset: 0,
-                                                color: '#75FFFB' //指0%处的颜色
-                                            }, {
-                                                offset: 1,
-                                                color: '#2151FF' //指100%处的颜色
-                                            }], false)
-                                        }
-                                    }
-                                ]
-                            };
+                        type: 'bar',
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#2FFFF9' //指0%处的颜色
+                            }, {
+                                offset: 1,
+                                color: '#1800FF' //指100%处的颜色
+                            }], false)
                         },
-                        data: this.yData
-                    }
+                        barGap:'-75%',
+                        barWidth: 18,
+                        tooltip:{
+                            show:true
+                        },
+                        data: this.yData,
+                        z:2
+                    },
+                    // {
+                    //     type: 'custom',
+                    //     zlevel: 2,
+                    //     renderItem: function(params, api) {
+                    //         let location = api.coord([api.value(0), api.value(1)]);
+                    //         return {
+                    //             type: 'group',
+                    //             children: [{
+                    //                     type: 'MyCubeRect',
+                    //                     shape: {
+                    //                         api,
+                    //                         xValue: api.value(0),
+                    //                         yValue: api.value(1),
+                    //                         x: location[0],
+                    //                         y: location[1]
+                    //                     },
+                    //                     style: {
+                    //                         fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    //                             offset: 0,
+                    //                             color: '#75FFFB' //指0%处的颜色
+                    //                         }, {
+                    //                             offset: 1,
+                    //                             color: '#2151FF' //指100%处的颜色
+                    //                         }], false)
+                    //                     }
+                    //                 },
+                    //                 {
+                    //                     type: 'MyCubeShadow',
+                    //                     shape: {
+                    //                         api,
+                    //                         xValue: api.value(0),
+                    //                         yValue: api.value(1),
+                    //                         x: location[0],
+                    //                         y: location[1]
+                    //                     },
+                    //                     style: {
+                    //                         fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    //                             offset: 0,
+                    //                             color: '#75FFFB' //指0%处的颜色
+                    //                         }, {
+                    //                             offset: 1,
+                    //                             color: '#2151FF' //指100%处的颜色
+                    //                         }], false)
+                    //                     }
+                    //                 }
+                    //             ]
+                    //         };
+                    //     },
+                    //     data: this.yData
+                    // }
                 ]
             };
             myChart.setOption(options)
