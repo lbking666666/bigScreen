@@ -14,7 +14,7 @@
 				<div class="province">{{item.areaName}}</div>
 				<div class="month-increase">{{item.monthExternalNum}}</div>
 				<div class="last-month-increase">{{item.lastMonthExternalNum}}</div>
-				<div class="growth-rate">{{item.rate}}</div>
+				<div class="growth-rate">{{item.rate}}%</div>
 			</div>
 		</div>
     </div>
