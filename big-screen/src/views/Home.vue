@@ -523,7 +523,7 @@ export default {
                 flex-direction: column;
                 background: url("../assets/img/img_bg.png") no-repeat center top;
                 background-size: 788px 788px;
-                padding-top: 21px;
+                padding-top: 10px;
                 .number-boxs{
                     display: flex;
                     justify-content: space-around;

@@ -1,6 +1,7 @@
 <template>
     <div class="map-chart">
-        <div ref="map" style="width:100%;height:100%" @click="reBack"></div>
+        <div class="map-shadow" v-show="silent"></div>
+        <div ref="map" style="width:100%;height:100%" v-on:click.stop.prevent="reBack"></div>
     </div>
 </template>
 <script>
@@ -15,19 +16,20 @@ export default {
             type: Object,
             default: () => ({})
         },
-        remap:{
-            type:Number,
-            default:0
+        remap: {
+            type: Number,
+            default: 0
         },
-        remap2:{
-            type:Number,
-            default:0
+        remap2: {
+            type: Number,
+            default: 0
         }
     },
     data() {
         return {
             back: false,
             isAll: true,
+            silent: false,
             effArr: [],
             unEffArr: [],
             //定义全国省份的数组
@@ -119,7 +121,7 @@ export default {
         console.log(this.mapData)
     },
     watch: {
-        'mapData': function(val,old) {
+        'mapData': function(val, old) {
             console.log(val)
             this.regionsArr = [...val.colors, ...val.unColors]
             console.log(this.regionsArr)
@@ -149,10 +151,10 @@ export default {
     methods: {
         initMap(name) { //初始化中国地图
             map = echarts.init(this.$refs.map)
+            this.silent = false
             if (name == 'china') {
                 this.back = false
             } else {
-
                 this.back = true
             }
             let option = {
@@ -161,7 +163,7 @@ export default {
                     backgroundColor: 'rgba(0,0,0,0.4)',
                     textStyle: {
                         color: '#fff',
-                        fontSize: 16,
+                        fontSize: 14,
                     },
                     borderWidth: 0,
                     trigger: 'item',
@@ -170,7 +172,7 @@ export default {
                         if (params.seriesType == 'effectScatter' || params.seriesType == 'scatter') {
                             return
                         }
-                        return (params.value ? params.value : 0) + '<br />' + params.name + '每天新增客户量'
+                        return params.name + '：' + (params.value ? params.value : 0)
                     }
                 },
                 legend: {
@@ -186,19 +188,19 @@ export default {
                 geo: {
                     map: name,
                     roam: false,
-                    zoom: (name=='china')?1.2:(name=='heilongjiang'?0.8:1),
-                    top: name=='heilongjiang'?'20%':'center',
-                    left: name=='heilongjiang'?'25%':'center',
+                    zoom: (name == 'china') ? 1.2 : (name == 'heilongjiang' ? 0.8 : 1),
+                    top: name == 'heilongjiang' ? '20%' : 'center',
+                    left: name == 'heilongjiang' ? '25%' : 'center',
                     // layoutCenter: ['80%','80%'],
                     //图形上的文本标签，可用于说明图形的一些数据信息
                     label: {
                         normal: {
-                            show: this.back?true:false,
+                            show: this.back ? true : false,
                             fontSize: "10",
                             color: "#fff"
                         },
                         emphasis: {
-                            show: this.back?true:false,
+                            show: this.back ? true : false,
                             color: "#fff"
                         }
                     },
@@ -209,74 +211,75 @@ export default {
                             borderColor: "#2569BB",
                             areaColor: "#2569BB",
                         },
-                        //emphasis 是图形在高亮状态下的样式，比如在鼠标悬浮或者图例联动高亮时。
                         emphasis: {
+                            color: '#1ACFFF',
                             areaColor: "#1ACFFF",
-                        }
+                        },
                     },
                     regions: this.regionsArr
 
                 },
                 series: [{
-                    name: '已托管',
-                    type: "map",
-                    color: '#62A5E6',
-                    geoIndex: 0,
-                    data: this.mapData.used
-                }, {
-                    name: '未托管',
-                    type: "map",
-                    color: '#2569BB',
-                    geoIndex: 0,
-                    data: this.mapData.unUsed
-                }, {
-                    name: 'tt',
-                    type: 'effectScatter',
-                    coordinateSystem: 'geo',
-                    symbolSize: 10,
-                    encode: {
-                        value: 2
+                        name: '已托管',
+                        type: "map",
+                        color: '#62A5E6',
+                        geoIndex: 0,
+                        data: this.mapData.used,
+                    }, {
+                        name: '未托管',
+                        type: "map",
+                        color: '#2569BB',
+                        geoIndex: 0,
+                        data: this.mapData.unUsed
+                    }, {
+                        name: 'tt',
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        symbolSize: 10,
+                        encode: {
+                            value: 2
+                        },
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke'
+                        },
+                        hoverAnimation: true,
+                        label: {
+                            formatter: '{b}',
+                            position: 'right',
+                            show: true,
+                            color: '#fff',
+                            fontSize: "10",
+                        },
+                        itemStyle: {
+                            color: '#FFFF02',
+                            shadowBlur: 0,
+                        },
+                        zlevel: 1,
+                        data: this.back ? [] : this.effArr
                     },
-                    showEffectOn: 'render',
-                    rippleEffect: {
-                        brushType: 'stroke'
-                    },
-                    hoverAnimation: true,
-                    label: {
-                        formatter: '{b}',
-                        position: 'right',
-                        show: true,
-                        color: '#fff',
-                        fontSize: "10",
-                    },
-                    itemStyle: {
-                        color: '#FFFF02',
-                        shadowBlur: 0,
-                    },
-                    zlevel: 1,
-                    data: this.back?[]:this.effArr
-                },
-                {
-                    name: 'tt2',
-                    type: 'scatter',
-                    coordinateSystem: 'geo',
-                    symbol: 'circle',
-                    label: {
-                        formatter: '{b}',
-                        position: 'right',
-                        show: true,
-                        color: '#fff',
-                        fontSize: "10",
-                    },
-                    symbolSize:0,
-                    itemStyle: {
-                      color: 'rgba(0,0,0,0)'
-                    },
-                    data: this.back?[]:this.unEffArr
-                }]
+                    {
+                        name: 'tt2',
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        symbol: 'circle',
+                        label: {
+                            formatter: '{b}',
+                            position: 'right',
+                            show: true,
+                            color: '#fff',
+                            fontSize: "10",
+                        },
+                        symbolSize: 0,
+                        itemStyle: {
+                            color: 'rgba(0,0,0,0)'
+                        },
+                        data: this.back ? [] : this.unEffArr
+                    }
+                ]
             };
             map.setOption(option, true);
-            
+
             window.addEventListener("resize", () => { map.resize(); });
             this.HandleClick()
         },
@@ -285,11 +288,11 @@ export default {
                 this.$emit('reName', '全国', '1')
                 this.initMap('china');
             }
-
         },
         HandleClick() {
             // 点击触发
             map.on("click", param => {
+                this.silent = true
                 let code = param.data ? param.data.code : 0
                 if (param.name in this.provinces) {
                     // 处理省模块
@@ -298,6 +301,7 @@ export default {
                         if (names == key) {
                             this.showProvince(this.provinces[key], key, code);
                             break;
+                        }else{
                         }
                     }
                 } else {}
@@ -319,10 +323,10 @@ export default {
             axios.get(`./map/province/${eName}.json`).then(res => {
                 echarts.registerMap(eName, res.data);
                 this.$emit('reName', param, code)
-                if(self.remap==1&&self.remap2==1){
+                if (self.remap == 1 && self.remap2 == 1) {
                     self.initMap(eName);
                 }
-                
+
             })
         }
     }
@@ -332,5 +336,16 @@ export default {
 .map-chart {
     height: 100%;
     width: 100%;
+    position: relative;
+}
+
+.map-shadow {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100
 }
 </style>
