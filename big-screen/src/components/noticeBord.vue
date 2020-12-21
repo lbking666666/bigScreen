@@ -91,7 +91,7 @@
 .notice-bord{
 	height: 100%;
 	width: 100%;
-	padding: 21px 0 0 31px;
+	padding: 21px 29px 0 31px;
 	line-height: 28px;
 	font-size: 19px;
 	text-align: left;
@@ -107,8 +107,12 @@
 	.font-red{
 		color: #ff3d60;
 	}
+	.bord-user{
+		padding-bottom: 28px;
+		border-bottom: 2px dashed rgba(98, 255, 254, .3);
+	}
 	.bord-external{
-		margin-top: 56px;
+		margin-top: 28px;
 	}
 }
 </style>
