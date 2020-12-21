@@ -96,6 +96,7 @@
             line-height: 58px;
             padding-left: 7px;
             text-shadow: 5px -4px #62ffff12;
+            font-weight: 600;
             .percent-sign{
                 font-size: 20.8px;
             }
