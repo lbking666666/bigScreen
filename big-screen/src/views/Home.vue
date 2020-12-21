@@ -207,7 +207,7 @@ export default {
             addAreaUser(params).then(res => {
                 //console.log(res)
                 if(res.code == 200){
-                    this.insideList = res.data.list.reverse()
+                    this.insideList = res.data.list
                     this.insideXData =  this.insideList.map(data=>{
                         return data.objDate
                     })
@@ -228,7 +228,7 @@ export default {
             addAreaExternal(params).then(res => {
                 //console.log(res)
                 if(res.code == 200){
-                    this.externalList = res.data.list.reverse()
+                    this.externalList = res.data.list
                     this.externalXData =  this.externalList.map(data=>{
                         return data.objDate
                     })
