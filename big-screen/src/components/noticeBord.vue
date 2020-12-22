@@ -3,38 +3,74 @@
 		<!-- title写在Home中 -->
 		<div class="bord-body">
 			<div class="bord-user">
-				<p>昨日新增：</p>
+				<p class="bold-text">昨日新增：</p>
 				<p>内部员工量{{ userData.addNum }}，较前日
-					<span class="font-red" v-if="userData.lastRate&&String(userData.lastRate).indexOf('-') >= 0">下降{{fixedNum(userData.lastRate)}}</span>
-					<span class="font-green" v-else-if="userData.lastRate&&String(userData.lastRate).indexOf('-') == -1">上升{{fixedNum(userData.lastRate)}}</span>
+					<span class="font-red" v-if="userData.lastRate&&String(userData.lastRate).indexOf('-') >= 0">
+						<img src="../assets/img/xiajiang.png" alt="">
+						{{fixedNum(userData.lastRate)}}
+					</span>
+					<span class="font-green" v-else-if="userData.lastRate&&String(userData.lastRate).indexOf('-') == -1">
+						<img src="../assets/img/shangsheng.png" alt="">
+						{{fixedNum(userData.lastRate)}}
+					</span>
 					<span v-else>持平</span>，
 				</p>
 				<p>较7日均值
-					<span class="font-red" v-if="userData.sevenRate&&String(userData.sevenRate).indexOf('-') >= 0">下降{{fixedNum(userData.sevenRate)}}</span>
-					<span class="font-green" v-else-if="userData.sevenRate&&String(userData.sevenRate).indexOf('-') == -1">上升{{fixedNum(userData.sevenRate)}}</span>
+					<span class="font-red" v-if="userData.sevenRate&&String(userData.sevenRate).indexOf('-') >= 0">
+						<img src="../assets/img/xiajiang.png" alt="">
+						{{fixedNum(userData.sevenRate)}}
+					</span>
+					<span class="font-green" v-else-if="userData.sevenRate&&String(userData.sevenRate).indexOf('-') == -1">
+						<img src="../assets/img/shangsheng.png" alt="">
+						{{fixedNum(userData.sevenRate)}}
+					</span>
 					<span v-else>持平</span>，
 				</p>
 				<p>较上月同期
-					<span class="font-red" v-if="userData.lastMonthRate&&String(userData.lastMonthRate).indexOf('-') >= 0">下降{{fixedNum(userData.lastMonthRate)}}</span>
-					<span class="font-green" v-else-if="userData.lastMonthRate&&String(userData.lastMonthRate).indexOf('-') == -1">上升{{fixedNum(userData.lastMonthRate)}}</span>
+					<span class="font-red" v-if="userData.lastMonthRate&&String(userData.lastMonthRate).indexOf('-') >= 0">
+						<img src="../assets/img/xiajiang.png" alt="">
+						{{fixedNum(userData.lastMonthRate)}}
+					</span>
+					<span class="font-green" v-else-if="userData.lastMonthRate&&String(userData.lastMonthRate).indexOf('-') == -1">
+						<img src="../assets/img/shangsheng.png" alt="">
+						{{fixedNum(userData.lastMonthRate)}}
+					</span>
 					<span v-else>持平</span>；
 				</p>
 			</div>
 
 			<div class="bord-external">
 				<p>外部客户量{{ externalData.addNum }}，较前日
-					<span class="font-red" v-if="externalData.lastRate&&String(externalData.lastRate).indexOf('-') >= 0">下降{{fixedNum(externalData.lastRate)}}</span>
-					<span class="font-green" v-else-if="externalData.lastRate&&String(externalData.lastRate).indexOf('-') == -1">上升{{fixedNum(externalData.lastRate)}}</span>
+					<span class="font-red" v-if="externalData.lastRate&&String(externalData.lastRate).indexOf('-') >= 0">
+						<img src="../assets/img/xiajiang.png" alt="">
+						{{fixedNum(externalData.lastRate)}}
+					</span>
+					<span class="font-green" v-else-if="externalData.lastRate&&String(externalData.lastRate).indexOf('-') == -1">
+						<img src="../assets/img/shangsheng.png" alt="">
+						{{fixedNum(externalData.lastRate)}}
+					</span>
 					<span v-else>持平</span>，
 				</p>
 				<p>较7日均值
-					<span class="font-red" v-if="externalData.sevenRate&&String(externalData.sevenRate).indexOf('-') >= 0">下降{{fixedNum(externalData.sevenRate)}}</span>
-					<span class="font-green" v-else-if="externalData.sevenRate&&String(externalData.sevenRate).indexOf('-') == -1">上升{{fixedNum(externalData.sevenRate)}}</span>
+					<span class="font-red" v-if="externalData.sevenRate&&String(externalData.sevenRate).indexOf('-') >= 0">
+						<img src="../assets/img/xiajiang.png" alt="">
+						{{fixedNum(externalData.sevenRate)}}
+					</span>
+					<span class="font-green" v-else-if="externalData.sevenRate&&String(externalData.sevenRate).indexOf('-') == -1">
+						<img src="../assets/img/shangsheng.png" alt="">
+						{{fixedNum(externalData.sevenRate)}}
+					</span>
 					<span v-else>持平</span>，
 				</p>
 				<p>较上月同期
-					<span class="font-red" v-if="externalData.lastMonthRate&&String(externalData.lastMonthRate).indexOf('-') >= 0">下降{{fixedNum(externalData.lastMonthRate)}}</span>
-					<span class="font-green" v-else-if="externalData.lastMonthRate&&String(externalData.lastMonthRate).indexOf('-') == -1">上升{{fixedNum(externalData.lastMonthRate)}}</span>
+					<span class="font-red" v-if="externalData.lastMonthRate&&String(externalData.lastMonthRate).indexOf('-') >= 0">
+						<img src="../assets/img/xiajiang.png" alt="">
+						{{fixedNum(externalData.lastMonthRate)}}
+					</span>
+					<span class="font-green" v-else-if="externalData.lastMonthRate&&String(externalData.lastMonthRate).indexOf('-') == -1">
+						<img src="../assets/img/shangsheng.png" alt="">
+						{{fixedNum(externalData.lastMonthRate)}}
+					</span>
 					<span v-else>持平</span>。
 				</p>
 			</div>
@@ -103,17 +139,30 @@
 		letter-spacing: 1px;
 	}
 	.font-green{
-		color: #75ef9e;
+		color: rgba(136, 215, 253, 1);
+		vertical-align: top;
 	}
 	.font-red{
-		color: #ff3d60;
+		color: rgba(106, 243, 152, 1);
+		vertical-align: top;
 	}
 	.bord-user{
 		padding-bottom: 28px;
 		border-bottom: 2px dashed rgba(98, 255, 254, .3);
+		font-size: 18px;
+		p{
+			font-weight: 400;
+		}
+		.bold-text{
+			font-weight: 600;
+		}
 	}
 	.bord-external{
 		margin-top: 28px;
+		font-size: 18px;
+		p{
+			font-weight: 400;
+		}
 	}
 }
 </style>

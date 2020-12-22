@@ -71,7 +71,7 @@
                             <img src="../assets/img/quanguo.png" alt="">
                         </div>
                         <div class="title-text">
-                            全国各省外部客户数量
+                            全国各省外部客户量
                         </div>
                     </div>
                     <div class="bar-chart-option">
