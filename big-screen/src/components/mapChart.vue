@@ -188,9 +188,9 @@ export default {
                 geo: {
                     map: name,
                     roam: false,
-                    zoom: (name == 'china') ? 1.2 : (name == 'heilongjiang' ? 0.8 : 1),
-                    top: name == 'heilongjiang' ? '20%' : 'center',
-                    left: name == 'heilongjiang' ? '25%' : 'center',
+                    zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang'||name =='gansu') ? 0.8 : 1),
+                    top: (name == 'heilongjiang'||name =='gansu')? '20%' : 'center',
+                    left: (name == 'heilongjiang'||name =='gansu') ? '25%' : 'center',
                     // layoutCenter: ['80%','80%'],
                     //图形上的文本标签，可用于说明图形的一些数据信息
                     label: {
