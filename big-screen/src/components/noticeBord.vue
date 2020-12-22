@@ -3,7 +3,8 @@
 		<!-- title写在Home中 -->
 		<div class="bord-body">
 			<div class="bord-user">
-				<p>今日新增内部员工量{{ userData.addNum }}，较昨日
+				<p>昨日新增：</p>
+				<p>内部员工量{{ userData.addNum }}，较前日
 					<span class="font-red" v-if="userData.lastRate&&String(userData.lastRate).indexOf('-') >= 0">下降{{fixedNum(userData.lastRate)}}</span>
 					<span class="font-green" v-else-if="userData.lastRate&&String(userData.lastRate).indexOf('-') == -1">上升{{fixedNum(userData.lastRate)}}</span>
 					<span v-else>持平</span>，
@@ -21,7 +22,7 @@
 			</div>
 
 			<div class="bord-external">
-				<p>外部客户量{{ externalData.addNum }}，较昨日
+				<p>外部客户量{{ externalData.addNum }}，较前日
 					<span class="font-red" v-if="externalData.lastRate&&String(externalData.lastRate).indexOf('-') >= 0">下降{{fixedNum(externalData.lastRate)}}</span>
 					<span class="font-green" v-else-if="externalData.lastRate&&String(externalData.lastRate).indexOf('-') == -1">上升{{fixedNum(externalData.lastRate)}}</span>
 					<span v-else>持平</span>，
