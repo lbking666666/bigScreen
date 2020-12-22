@@ -191,7 +191,7 @@ export default {
                 geo: {
                     map: name,
                     roam: false,
-                    zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang'||name =='gansu') ? 0.8 : 1),
+                    zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang'||name =='gansu'||name =='guangdong') ? 0.8 : 1),
                     top: (name == 'heilongjiang'||name =='gansu')? '20%' : 'center',
                     left: (name == 'heilongjiang'||name =='gansu') ? '25%' : 'center',
                     // layoutCenter: ['80%','80%'],
