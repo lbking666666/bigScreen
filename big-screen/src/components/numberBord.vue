@@ -20,12 +20,14 @@
         },
         data(){
 			return{
-                numberStr: []
+                numberStr: [],
+                timerA: null,
+                fetchNum: 0
 			}
         },
-        watch:{
-            'bordNumber':function(val){
-                this.transNumber()
+        watch: {
+            bordNumber(newVal, oldVal) {
+                this.setLoop(newVal, oldVal)
             }
         },
         mounted() {
@@ -46,6 +48,31 @@
                     newArray.push(newItem)
                 }
                 this.numberStr = newArray.reverse()
+            },
+            /**
+             * 设计两种动画方式
+             * 方式A：
+             * 每5s从接口重新获取一次新的数据
+             * 但是，考虑到，接口返回事件不会很及时
+             * 所以，动画方法设置为两段执行。
+             * 0s-1s：执行动画本体；
+             * 2s-5s：执行动画的停滞，也就是停止动画。
+             * 当5s结束时，理论上接口返回新的数据，就会重新开启这个loop过程；
+             * 即便接口无法及时返回数据，也只是loop中间的停滞时间增加，感知较小
+             * 
+             * @param {number} newVal 新的值
+             * @param {number} oldVal 旧的值
+             */
+            setLoop (newVal, oldVal) {
+                let diff = newVal - oldVal
+                let eachTime = 1000/diff
+                this.timerA = setInterval(() => {
+                    this.fetchNum += 1
+                    this.transNumber()
+                    if (this.fetchNum == newVal) {
+                        clearInterval(this.timerA)
+                    }
+                }, eachTime)
             }
 		}
     }
