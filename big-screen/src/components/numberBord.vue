@@ -31,6 +31,7 @@
             }
         },
         mounted() {
+            this.fetchNum = this.bordNumber
             this.transNumber()
 		},
         methods:{
