@@ -171,7 +171,7 @@ export default {
                             return
                         }
                         if(params.value || params.value ==0){
-                            return params.name+ '：' + (params.value ? params.value : 0)
+                            return params.name+ (params.value?'：':'') + (params.value ? params.value : '')
                         }else{
                            return params.name
                         }
