@@ -23,7 +23,7 @@
                             <img src="../assets/img/waibuzengliang.png" alt="">
                         </div>
                         <div class="title-text">
-                            {{provinceName||'全国'}}新增外部客户量
+                            {{provinceName||'全国'}}外部客户新增量
                         </div>
                         <div class="query-option">
                             <div class="options" :class="flag2==11?'opt-active':''" @click="selExternal(11)"><div>月</div></div>
@@ -40,7 +40,7 @@
                             <img src="../assets/img/neibuzengliang.png" alt="">
                         </div>
                         <div class="title-text">
-                            {{provinceName||'全国'}}新增内部员工量
+                            {{provinceName||'全国'}}内部员工新增量
                         </div>
                         <div class="query-option">
                             <div class="options" :class="flag1==11?'opt-active':''" @click="selInside(11)"><div>月</div></div>
@@ -103,7 +103,7 @@
                             <img src="../assets/img/hudong.png" alt="">
                         </div>
                         <div class="title-text">
-                            发展客户互动数
+                            客户互动分析
                         </div>
                     </div>
                     <!--组件引入-->
