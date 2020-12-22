@@ -27,7 +27,8 @@
 			return{
                 numberStr: [],
                 timer: null,
-                fetchNum: 0
+                fetchNum: 0,
+                restTime: 0
 			}
         },
         watch: {
@@ -39,13 +40,13 @@
                     this.fetchNum = newVal
                     this.transNumber(newVal)
                 } else {
+                    console.log('do loop')
                     this.setLoop(newVal, oldVal)
                 }
             }
         },
         mounted() {
             // 首屏加载时，不需要动画
-            // console.log('mounted')
             if (!this.setTime) this.transNumber(this.bordNumber)
 		},
         methods:{
@@ -70,6 +71,7 @@
              * 但是，考虑到，接口返回事件不会很及时
              * 所以，动画方法设置为两段执行。
              * 0s-1s：执行动画本体；
+             * 设置动画本体，为5-10个关键帧动画，不足5个差额的，递增几个数，就是几个关键帧
              * 2s-5s：执行clearInterval
              * 当5s结束时，理论上接口返回新的数据，就会重新开启这个loop过程；
              * 即便接口无法及时返回数据，也只是loop中间的停滞时间增加，感知较小
@@ -79,9 +81,26 @@
              */
             setLoop (newVal, oldVal) {
                 let diff = newVal - oldVal
-                let eachTime = Number((1000/diff).toFixed(4))
+                let eachTime = 0
+                let eachAdd = 0
+                let rest = 0
+                if (diff <= 10) {
+                    eachAdd = 1
+                    eachTime = 1000/diff
+                } else {
+                    eachAdd = parseInt(diff / 10) // 获取每次累加最大整数
+                    rest = diff % 10 // 获取最后一次所需额外增加的数字
+                    eachTime = 100
+                }
+                // console.log('eachTime', eachTime)
                 this.timer = setInterval(() => {
-                    this.fetchNum += 1
+                    this.restTime += 1
+                    if (this.restTime == 10) {
+                        this.fetchNum += (eachAdd + rest)
+                        this.restTime = 0
+                    } else {
+                        this.fetchNum += eachAdd
+                    }
                     this.transNumber(this.fetchNum)
                     if (this.fetchNum == newVal) {
                         // console.log('clean')
