@@ -77,7 +77,7 @@
                     <div class="bar-chart-option">
                         <div class="options" :class="flag3==365?'opt-active':''" @click="selTotal(365)"><div>年</div></div>
                         <div class="options" :class="flag3==30?'opt-active':''" @click="selTotal(30)"><div>月</div></div>
-                        <div class="options" :class="flag3==7?'opt-active':''" @click="selTotal(7)"><div>周</div></div>
+                        <div class="options" :class="flag3==7?'opt-active':''" @click="selTotal(7)"><div>日</div></div>
                     </div>
                     <barChart :xData="barXData" :yData="barYData" :maxDataNum="maxDataNum"></barChart>
                 </div>
