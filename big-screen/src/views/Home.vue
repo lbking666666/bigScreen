@@ -182,11 +182,11 @@ export default {
         }
     },
     mounted() {
-        //this.getData()
-        /*setInterval(()=>{
+        this.getData()
+        setInterval(()=>{
             this.showExternal() //客户新增量和客户总量查询接口
             this.getTrends() //发展趋势接口
-        },5000)*/
+        },5000)
         setInterval(()=>{
             this.getAreaUser() //全国新增内部员工量
             this.getAddAreaExternal() //全国新增外部客户量接口
@@ -373,7 +373,7 @@ export default {
                         colors:arr4,
                         unColors:arr3
                     }
-                    console.log(this.mapData)
+                    //console.log(this.mapData)
                 }
             })
         },
@@ -383,7 +383,7 @@ export default {
                 areaCode: 1
             }
             showExternal(params).then(res => {
-                console.log(res)
+                //console.log(res)
                 if(res.code == 200){
                     this.externalTotal =res.data.totalExternal
                     this.externalAdd = res.data.addExternal

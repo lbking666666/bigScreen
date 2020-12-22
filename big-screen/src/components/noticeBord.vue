@@ -76,7 +76,7 @@
 				num = num.toFixed(1)
 				if(num){
 					let str = (String(num).indexOf('-') >= 0)?String(num).split('-')[1]:num
-					console.log(str)
+					
 					let backStr =  str +'%'
 					
 					return backStr

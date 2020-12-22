@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         drawChart() {
-            console.log('yData',this.yData.length,this.maxDataNum)
+            //console.log('yData',this.yData.length,this.maxDataNum)
             this.dataAxis = []
             this.yData.map((d,i)=>{
                 if(i%2 ==0){

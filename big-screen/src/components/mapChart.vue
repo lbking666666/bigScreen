@@ -157,7 +157,7 @@ export default {
             }
             let option = {
                 tooltip: {
-                    show: this.back?false:true,
+                    show: true,
                     backgroundColor: 'rgba(0,0,0,0.4)',
                     textStyle: {
                         color: '#fff',
@@ -166,11 +166,16 @@ export default {
                     borderWidth: 0,
                     trigger: 'item',
                     formatter: function(params) {
-
+                        console.log(params)
                         if (params.seriesType == 'effectScatter' || params.seriesType == 'scatter') {
                             return
                         }
-                        return params.name + '：' + (params.value ? params.value : 0)
+                        if(params.value || params.value ==0){
+                            return params.name+ '：' + (params.value ? params.value : 0)
+                        }else{
+                           return params.name 
+                        }
+                         
                     }
                 },
                 legend: {
@@ -186,29 +191,25 @@ export default {
                 geo: {
                     map: name,
                     roam: false,
-                    zoom: (name == 'china') ? 1.2 : (name == 'heilongjiang'||'gansu' ? 0.8 : 1),
-                    top: name == 'heilongjiang' ? '20%' : 'center',
-                    left: name == 'heilongjiang' ? '25%' : 'center',
+                    zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang'||name =='gansu') ? 0.8 : 1),
+                    top: (name == 'heilongjiang'||name =='gansu')? '20%' : 'center',
+                    left: (name == 'heilongjiang'||name =='gansu') ? '25%' : 'center',
                     // layoutCenter: ['80%','80%'],
                     //图形上的文本标签，可用于说明图形的一些数据信息
                     label: {
                         normal: {
                             show: this.back ? true : false,
                             fontSize: "10",
-                            /*position: 'top',//
                             formatter:function(param){
-                                console.log(param.name)
-                                let name = String(param.name)
-                                var strs = name.split(''); //字符串数组
-                                let str = '';
-                                for(var i = 0, s; s = strs[i++];) { //遍历字符串数组
-                                    str += s;
-                                    if(!(i % 4)) str += '\n'; //按需要求余
+                                if(name == 'xinjiang'){
+                                    let str = String(param.name)
+                                    if(str.length>4){
+                                        return ''
+                                    }else{
+                                        return str
+                                    }
                                 }
-                                
-
-                                return str
-                            },*/
+                            },
                             color: "#fff"
                         },
                         emphasis: {
@@ -276,8 +277,15 @@ export default {
                         coordinateSystem: 'geo',
                         symbol: 'circle',
                         label: {
-                            formatter: '{b}',
-                            position: 'right',
+                            formatter:function(param){
+                                if(param.name == '香港'){
+                                    return '/\n' + ' '+param.name
+                                }else{
+                                    return param.name
+                                }
+                                
+                            } ,
+                            position: 'center',
                             show: true,
                             color: '#fff',
                             fontSize: "10",
@@ -304,6 +312,7 @@ export default {
         HandleClick() {
             // 点击触发
             map.on("click", param => {
+                console.log(param)
                 this.silent = true
                 let code = param.data ? param.data.code : 0
                 if (param.name in this.provinces) {
