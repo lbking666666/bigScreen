@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         drawChart() {
-            console.log('yData',this.yData.length,this.maxDataNum)
+            //console.log('yData',this.yData.length,this.maxDataNum)
             this.dataAxis = []
             this.yData.map((d,i)=>{
                 if(i%2 ==0){
@@ -145,6 +145,8 @@ export default {
                 },
                 xAxis: [{
                     type: 'category',
+                    name: '(人)',
+                    nameLocation: "start",
                     data: this.xData,
                     axisLine: {
                         lineStyle: {
@@ -160,12 +162,22 @@ export default {
                 }],
                 yAxis: [{
                     type: 'value',
-                    name: '单位:万',
-                    // nameLocation: "end",
+
                     // nameTextStyle: {
                     //     align: "left"
                     // },
                     show: true,
+                    // axisLabel:{
+                    //     formatter:function (value, index) {
+                    //         let str = ''
+                    //         if(value>10000){
+                    //             str = (value/10000).toFixed(1)
+                    //         } else {
+                    //             str = value
+                    //         }
+                    //         return str;
+                    //     }
+                    // },
                     axisLine: {
                         show: true,
                         lineStyle: {

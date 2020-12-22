@@ -122,9 +122,7 @@ export default {
     },
     watch: {
         'mapData': function(val, old) {
-            console.log(val)
             this.regionsArr = [...val.colors, ...val.unColors]
-            console.log(this.regionsArr)
             val.used.map(item => {
                 if (this.match[item.name]) {
                     let params = {
@@ -172,7 +170,12 @@ export default {
                         if (params.seriesType == 'effectScatter' || params.seriesType == 'scatter') {
                             return
                         }
-                        return params.name + '：' + (params.value ? params.value : 0)
+                        if(params.value || params.value ==0){
+                            return params.name+ '：' + (params.value ? params.value : 0)
+                        }else{
+                           return params.name
+                        }
+
                     }
                 },
                 legend: {
@@ -197,6 +200,16 @@ export default {
                         normal: {
                             show: this.back ? true : false,
                             fontSize: "10",
+                            formatter:function(param){
+                                if(name == 'xinjiang'){
+                                    let str = String(param.name)
+                                    if(str.length>4){
+                                        return ''
+                                    }else{
+                                        return str
+                                    }
+                                }
+                            },
                             color: "#fff"
                         },
                         emphasis: {
@@ -264,8 +277,15 @@ export default {
                         coordinateSystem: 'geo',
                         symbol: 'circle',
                         label: {
-                            formatter: '{b}',
-                            position: 'right',
+                            formatter:function(param){
+                                if(param.name == '香港'){
+                                    return '/\n' + ' '+param.name
+                                }else{
+                                    return param.name
+                                }
+
+                            } ,
+                            position: 'center',
                             show: true,
                             color: '#fff',
                             fontSize: "10",
@@ -292,15 +312,23 @@ export default {
         HandleClick() {
             // 点击触发
             map.on("click", param => {
+                // 判断点击省份是否是未托管
+                let hasAccess = this.mapData.unUsed.find((d)=>{
+                    return d.name == param.name
+                })
                 this.silent = true
                 let code = param.data ? param.data.code : 0
                 if (param.name in this.provinces) {
                     // 处理省模块
                     let names = param.name;
                     for (let key in this.provinces) {
-                        if (names == key) {
-                            this.showProvince(this.provinces[key], key, code);
-                            break;
+                        if (names == key ) {
+                            if(!hasAccess){
+                                this.showProvince(this.provinces[key], key, code);
+                                break;
+                            } else{
+                                this.initMap('china');
+                            }
                         }else{
                         }
                     }
@@ -318,8 +346,10 @@ export default {
             });
         },
         showProvince(eName, param, code) {
-            let self = this
+            // console.log('eName, param, code',eName, param, code)
+            // console.log('this.mapData.unUsed',this.mapData.unUsed)
 
+            let self = this
             axios.get(`./map/province/${eName}.json`).then(res => {
                 echarts.registerMap(eName, res.data);
                 this.$emit('reName', param, code)

@@ -54,18 +54,19 @@
         },
         mounted() {
             this.drawCanvas()
-            // console.log('this.showWechatData.replyPercentage', this.showWechatData.replyPercentage)
         },
         updated() {
             this.drawCanvas()
         },
         methods:{
             drawCanvas(){
+                console.log('this.showWechatData.replyPercentage', this.showWechatData.replyPercentage)
                 let ringDom = document.getElementById('canvas')
                 let width = ringDom.offsetWidth
                 let height = ringDom.offsetHeight
-                console.log(width,height)
+                //console.log(width,height)
                 let ctx = ringDom.getContext('2d')
+                ctx.clearRect(0,0,width,height);
                 ctx.beginPath();
                 ctx.lineWidth = this.ringWidth;
                 ctx.strokeStyle = 'rgba(42, 244, 255, 0.3)';
@@ -132,7 +133,6 @@
             .ring-chart{
                 width: 223px;
                 height: 223px;
-                border: 1px dashed #999;
                 margin-top: 14px;
                 background: url("../assets/img/circle.png") no-repeat;
                 background-size: 100% 100%;
