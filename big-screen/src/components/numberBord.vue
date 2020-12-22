@@ -36,7 +36,7 @@
 		},
         methods:{
             transNumber(){
-                let nums = String(this.bordNumber).split('').reverse() // 获取之后反转顺序
+                let nums = String(this.fetchNum).split('').reverse() // 获取之后反转顺序
                 let newArray = []
                 for(let i=0; i<nums.length; i++){
                     let newItem = {
