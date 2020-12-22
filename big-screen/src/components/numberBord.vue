@@ -41,7 +41,8 @@
                     this.transNumber(newVal)
                 } else {
                     // console.log('do loop')
-                    this.setLoop(newVal, oldVal)
+                    // this.setLoop(newVal, oldVal)
+                    this.transNumber(newVal)
                 }
             }
         },
