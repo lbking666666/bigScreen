@@ -15,26 +15,29 @@
 				type: String
             },
             bordNumber: {
-                type: Number
+                type: Number,
+                value: 0
+            },
+            setTime: {
+                type: Boolean,
+                value: false
             }
         },
         data(){
 			return{
                 numberStr: [],
-                timerA: null,
-                fetchNum: 0,
-                runTime: 0 // 计数器
+                timer: null,
+                fetchNum: 0
 			}
         },
         watch: {
             bordNumber(newVal, oldVal) {
-                if (this.runTime === 0) {
+                if (!this.setTime) {
                     // console.log('watch mounted')
                     // ajax反应太慢，mounted执行可能与watch同步 
                     // 所以，设置该状态为初始化
-                    this.fetchNum = this.bordNumber
-                    this.transNumber()
-                    clearInterval(this.timerA)
+                    this.fetchNum = newVal
+                    this.transNumber(newVal)
                 } else {
                     this.setLoop(newVal, oldVal)
                 }
@@ -42,13 +45,13 @@
         },
         mounted() {
             // 首屏加载时，不需要动画
-            this.fetchNum = this.bordNumber
-            this.transNumber()
+            // console.log('mounted')
+            if (!this.setTime) this.transNumber(this.bordNumber)
 		},
         methods:{
-            transNumber(){
-                this.runTime += 1 // 计数器自增
-                let nums = String(this.fetchNum).split('').reverse() // 获取之后反转顺序
+            transNumber( num ){
+                // console.log('transNumber work')
+                let nums = String(num).split('').reverse() // 获取之后反转顺序
                 let newArray = []
                 for(let i=0; i<nums.length; i++){
                     let newItem = {
@@ -63,13 +66,11 @@
                 this.numberStr = newArray.reverse()
             },
             /**
-             * 设计两种动画方式
-             * 方式A：
              * 每5s从接口重新获取一次新的数据
              * 但是，考虑到，接口返回事件不会很及时
              * 所以，动画方法设置为两段执行。
              * 0s-1s：执行动画本体；
-             * 2s-5s：执行动画的停滞，也就是停止动画。
+             * 2s-5s：执行clearInterval
              * 当5s结束时，理论上接口返回新的数据，就会重新开启这个loop过程；
              * 即便接口无法及时返回数据，也只是loop中间的停滞时间增加，感知较小
              * 
@@ -77,14 +78,14 @@
              * @param {number} oldVal 旧的值
              */
             setLoop (newVal, oldVal) {
-                console.log('loop')
                 let diff = newVal - oldVal
-                let eachTime = 1000/diff
-                this.timerA = setInterval(() => {
+                let eachTime = Number((1000/diff).toFixed(4))
+                this.timer = setInterval(() => {
                     this.fetchNum += 1
-                    this.transNumber()
+                    this.transNumber(this.fetchNum)
                     if (this.fetchNum == newVal) {
-                        clearInterval(this.timerA)
+                        // console.log('clean')
+                        clearInterval(this.timer)
                     }
                 }, eachTime)
             }

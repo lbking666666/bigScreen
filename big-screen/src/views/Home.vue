@@ -55,10 +55,10 @@
             <div class="center-box">
                 <div class="number-boxs">
                     <div class="number-bord-box">
-                        <numberBord :title="'外部客户累积量'" :bordNumber="externalTotal" />
+                        <numberBord :title="'外部客户累积量'" :bordNumber="externalTotal" :setTime="setTime" />
                     </div>
                     <div class="number-bord-box">
-                        <numberBord :title="'外部客户新增量'" :bordNumber="externalAdd" />
+                        <numberBord :title="'外部客户新增量'" :bordNumber="externalAdd" :setTime="setTime" />
                     </div>
                 </div>
                 <div class="map-chart-home">
@@ -179,11 +179,13 @@ export default {
             externalTotal: 0,//外部客户累积量
             externalAdd: 0,//外部客户新增量
             mapData:{},//地图数据
+            setTime: false
         }
     },
     mounted() {
         this.getData()
         setInterval(()=>{
+            this.setTime = true
             this.showExternal() //客户新增量和客户总量查询接口
             this.getTrends() //发展趋势接口
         },5000)
