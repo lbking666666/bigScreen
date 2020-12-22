@@ -122,9 +122,7 @@ export default {
     },
     watch: {
         'mapData': function(val, old) {
-            console.log(val)
             this.regionsArr = [...val.colors, ...val.unColors]
-            console.log(this.regionsArr)
             val.used.map(item => {
                 if (this.match[item.name]) {
                     let params = {
@@ -159,7 +157,7 @@ export default {
             }
             let option = {
                 tooltip: {
-                    show: true,
+                    show: this.back?false:true,
                     backgroundColor: 'rgba(0,0,0,0.4)',
                     textStyle: {
                         color: '#fff',
@@ -188,7 +186,7 @@ export default {
                 geo: {
                     map: name,
                     roam: false,
-                    zoom: (name == 'china') ? 1.2 : (name == 'heilongjiang' ? 0.8 : 1),
+                    zoom: (name == 'china') ? 1.2 : (name == 'heilongjiang'||'gansu' ? 0.8 : 1),
                     top: name == 'heilongjiang' ? '20%' : 'center',
                     left: name == 'heilongjiang' ? '25%' : 'center',
                     // layoutCenter: ['80%','80%'],
@@ -197,6 +195,20 @@ export default {
                         normal: {
                             show: this.back ? true : false,
                             fontSize: "10",
+                            /*position: 'top',//
+                            formatter:function(param){
+                                console.log(param.name)
+                                let name = String(param.name)
+                                var strs = name.split(''); //字符串数组
+                                let str = '';
+                                for(var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                                    str += s;
+                                    if(!(i % 4)) str += '\n'; //按需要求余
+                                }
+                                
+
+                                return str
+                            },*/
                             color: "#fff"
                         },
                         emphasis: {
