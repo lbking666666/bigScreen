@@ -40,7 +40,7 @@
                     this.fetchNum = newVal
                     this.transNumber(newVal)
                 } else {
-                    console.log('do loop')
+                    // console.log('do loop')
                     this.setLoop(newVal, oldVal)
                 }
             }
@@ -95,7 +95,7 @@
                 // console.log('eachTime', eachTime)
                 this.timer = setInterval(() => {
                     this.restTime += 1
-                    console.log(this.restTime)
+                    // console.log(this.restTime)
                     if (diff <= 10 && this.restTime == diff) {
                         this.fetchNum += eachAdd
                         this.restTime = 0
