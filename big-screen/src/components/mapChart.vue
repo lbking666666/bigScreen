@@ -122,9 +122,7 @@ export default {
     },
     watch: {
         'mapData': function(val, old) {
-            console.log(val)
             this.regionsArr = [...val.colors, ...val.unColors]
-            console.log(this.regionsArr)
             val.used.map(item => {
                 if (this.match[item.name]) {
                     let params = {
@@ -172,7 +170,12 @@ export default {
                         if (params.seriesType == 'effectScatter' || params.seriesType == 'scatter') {
                             return
                         }
-                        return params.name + '：' + (params.value ? params.value : 0)
+                        if(params.value || params.value ==0){
+                            return params.name+ '：' + (params.value ? params.value : 0)
+                        }else{
+                           return params.name
+                        }
+
                     }
                 },
                 legend: {
@@ -197,6 +200,16 @@ export default {
                         normal: {
                             show: this.back ? true : false,
                             fontSize: "10",
+                            formatter:function(param){
+                                if(name == 'xinjiang'){
+                                    let str = String(param.name)
+                                    if(str.length>4){
+                                        return ''
+                                    }else{
+                                        return str
+                                    }
+                                }
+                            },
                             color: "#fff"
                         },
                         emphasis: {
@@ -264,8 +277,15 @@ export default {
                         coordinateSystem: 'geo',
                         symbol: 'circle',
                         label: {
-                            formatter: '{b}',
-                            position: 'right',
+                            formatter:function(param){
+                                if(param.name == '香港'){
+                                    return '/\n' + ' '+param.name
+                                }else{
+                                    return param.name
+                                }
+
+                            } ,
+                            position: 'center',
                             show: true,
                             color: '#fff',
                             fontSize: "10",

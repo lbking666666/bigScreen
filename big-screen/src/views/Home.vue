@@ -373,7 +373,7 @@ export default {
                         colors:arr4,
                         unColors:arr3
                     }
-                    console.log(this.mapData)
+                    //console.log(this.mapData)
                 }
             })
         },
@@ -383,7 +383,7 @@ export default {
                 areaCode: 1
             }
             showExternal(params).then(res => {
-                console.log(res)
+                //console.log(res)
                 if(res.code == 200){
                     this.externalTotal =res.data.totalExternal
                     this.externalAdd = res.data.addExternal

@@ -64,7 +64,7 @@
                 let ringDom = document.getElementById('canvas')
                 let width = ringDom.offsetWidth
                 let height = ringDom.offsetHeight
-                console.log(width,height)
+                //console.log(width,height)
                 let ctx = ringDom.getContext('2d')
                 ctx.beginPath();
                 ctx.lineWidth = this.ringWidth;
