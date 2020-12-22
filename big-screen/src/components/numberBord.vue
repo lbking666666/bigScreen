@@ -22,20 +22,32 @@
 			return{
                 numberStr: [],
                 timerA: null,
-                fetchNum: 0
+                fetchNum: 0,
+                runTime: 0 // 计数器
 			}
         },
         watch: {
             bordNumber(newVal, oldVal) {
-                this.setLoop(newVal, oldVal)
+                if (this.runTime === 0) {
+                    // console.log('watch mounted')
+                    // ajax反应太慢，mounted执行可能与watch同步 
+                    // 所以，设置该状态为初始化
+                    this.fetchNum = this.bordNumber
+                    this.transNumber()
+                    clearInterval(this.timerA)
+                } else {
+                    this.setLoop(newVal, oldVal)
+                }
             }
         },
         mounted() {
+            // 首屏加载时，不需要动画
             this.fetchNum = this.bordNumber
             this.transNumber()
 		},
         methods:{
             transNumber(){
+                this.runTime += 1 // 计数器自增
                 let nums = String(this.fetchNum).split('').reverse() // 获取之后反转顺序
                 let newArray = []
                 for(let i=0; i<nums.length; i++){
@@ -65,6 +77,7 @@
              * @param {number} oldVal 旧的值
              */
             setLoop (newVal, oldVal) {
+                console.log('loop')
                 let diff = newVal - oldVal
                 let eachTime = 1000/diff
                 this.timerA = setInterval(() => {
