@@ -11,7 +11,7 @@
 		<div class="ranking-body">
 			<div class="rank-item" v-for="(item, index) in rankingList" :key="index">
 				<div class="order-number">{{String(index+1)}}</div>
-				<div class="province">{{item.areaName}}</div>
+				<div class="province">{{(item.areaName =='中国'?'总部':item.areaName)}}</div>
 				<div class="month-increase">{{item.monthExternalNum}}</div>
 				<div class="last-month-increase">{{item.lastMonthExternalNum}}</div>
 				<div class="growth-rate">{{item.rate.toFixed(0)}}%</div>
