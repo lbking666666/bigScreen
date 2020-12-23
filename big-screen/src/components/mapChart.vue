@@ -122,21 +122,25 @@ export default {
     },
     watch: {
         'mapData': function(val, old) {
-            this.regionsArr = [...val.colors, ...val.unColors]
-            val.used.map(item => {
+            console.log(val.unUsed)
+            console.log(val.used)
+            this.regionsArr = [...val.used, ...val.unUsed]
+            val.colors.map(item => {
                 if (this.match[item.name]) {
                     let params = {
                         name: item.name,
+                        code:item.code,
                         value: this.match[item.name].concat(item.value)
                     }
                     this.effArr.push(params)
                 }
 
             })
-            val.unUsed.map(item => {
+            val.unColors.map(item => {
                 if (this.match[item.name]) {
                     let params = {
                         name: item.name,
+                        code:item.code,
                         value: this.match[item.name].concat(item.value)
                     }
                     this.unEffArr.push(params)
@@ -170,8 +174,13 @@ export default {
                         if (params.seriesType == 'effectScatter' || params.seriesType == 'scatter') {
                             return
                         }
-                        if(params.value || params.value ==0){
-                            return params.name+ (params.value?'：':'') + (params.value ? params.value : '')
+                        if(params.value || params.value ==0 ){
+                            if(params.name=="新疆" || params.name=="西藏" || params.name=="云南" ){
+                                return params.name
+                            }else{
+                               return params.name+ (params.value?'：':'') + (params.value ? params.value : '') 
+                            }
+                            
                         }else{
                            return params.name
                         }
@@ -317,14 +326,21 @@ export default {
                     return d.name == param.name
                 })
                 this.silent = true
+
                 let code = param.data ? param.data.code : 0
+                console.log(param)
                 if (param.name in this.provinces) {
                     // 处理省模块
                     let names = param.name;
                     for (let key in this.provinces) {
                         if (names == key ) {
                             if(!hasAccess){
-                                this.showProvince(this.provinces[key], key, code);
+                                if(names=="新疆" || names=="西藏" || names=="云南"){
+                                    this.initMap('china');
+                                }else{
+                                    this.showProvince(this.provinces[key], key, code);
+                                }
+                                
                                 break;
                             } else{
                                 this.initMap('china');
