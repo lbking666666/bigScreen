@@ -488,7 +488,8 @@ export default {
         .container{
             display: flex;
             flex-direction: row;
-            padding: 0 30px;
+            justify-content: space-around;
+            margin: 0 auto;
             // 通用样式 高的div
             .common-style-high{
                 width: 500px;
@@ -505,7 +506,7 @@ export default {
                 background-size: 100% 100%;
             }
             .left-box{
-                margin-right: 17px;
+                /*margin-right: 17px;*/
                 .notice-wrap{
 
                 }
@@ -528,7 +529,7 @@ export default {
             }
             .center-box{
                 width: 860px;
-                margin-right: 19px;
+                /*margin-right: 19px;*/
                 display: flex;
                 flex-direction: column;
                 background: url("../assets/img/img_bg.png") no-repeat center top;
@@ -608,5 +609,4 @@ export default {
             }
         }
     }
-
 </style>
