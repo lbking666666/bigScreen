@@ -484,7 +484,7 @@ export default {
             display: flex;
             width: 100%;
             height: 89px;
-            background: url("../assets/img/biaoti .png") no-repeat;
+            background: url("../assets/img/biaoti.png") no-repeat;
             background-size: 100% 100%;
         }
         .container{
