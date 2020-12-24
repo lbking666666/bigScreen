@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div class="header">
-            <div class="time-box">12:20:56</div>
+            <!-- <div class="time-box">12:20:56</div> -->
         </div>
         <div class="container">
             <div class="left-box">
