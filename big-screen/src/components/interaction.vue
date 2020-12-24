@@ -73,7 +73,13 @@
                 ctx.arc(width/2, height/2, (width/2)-11*2, 0, Math.PI * 2);
                 ctx.stroke();
                 ctx.beginPath();
-                ctx.strokeStyle = 'rgba(42, 244, 255, 1)';
+                // let grd=ctx.createLinearGradient(0,0,0,0)
+                // grd.addColorStop(0,"yellow");
+                // grd.addColorStop(1,"red");
+                let grd=ctx.createLinearGradient(width/2,0,width/2,height);
+                grd.addColorStop("0","rgba(110, 239, 155, 1)");
+                grd.addColorStop(1,"rgba(64, 245, 248, 1)");
+                ctx.strokeStyle = grd;
                 ctx.arc(width/2, height/2, (width/2)-11*2, -0.25*2*Math.PI, (Math.PI * 2 * (Number(this.showWechatData.replyPercentage)/100))-0.25*2*Math.PI);
                 ctx.stroke();
             },
