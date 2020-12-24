@@ -93,12 +93,14 @@
     padding: 7px 16px 0 104px;
     &.bord-a{
         background: url("../assets/img/number-bg-b.png") no-repeat;
+        background-size: 100% 100%;
         width: 408px;
         height: 89px;
         margin-right: 9px;
     }
     &.bord-b{
         background: url("../assets/img/number-bg-a.png") no-repeat;
+        background-size: 100% 100%;
         width: 408px;
         height: 89px;
     }
