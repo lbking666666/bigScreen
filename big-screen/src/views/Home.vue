@@ -183,7 +183,8 @@ export default {
             externalAdd: 0,//外部客户新增量
             mapData:{},//地图数据
             setTime: false,
-            dateTimeStr: '2020.12.24 12:00:00'
+            nowTime: 0,
+            dateTimeStr: timestampConversion((new Date()).getTime()/1000)
         }
     },
     mounted() {
@@ -193,15 +194,28 @@ export default {
             this.setTime = true
             this.showExternal() //客户新增量和客户总量查询接口
             this.getTrends() //发展趋势接口
-            this.dateTimeStr = timestampConversion((new Date()).getTime()/1000)
+            this.nowTime = this.compareTime(1608822038028) // 此处为假数据
         },5000)
         setInterval(()=>{
             this.getAreaUser() //全国新增内部员工量
             this.getAddAreaExternal() //全国新增外部客户量接口
             this.getAreaExternal() //各省客户汇总数据接口
         },3600000)
+        setInterval(()=>{
+            this.nowTime += 1
+            this.dateTimeStr = timestampConversion(this.nowTime)
+        }, 1000)
     },
     methods: {
+        /**
+         * @param {Number} serveTime 服务器传过来的时间戳
+         * 当前判断条件：服务器和local时间，相差的绝对值超过 10s ，即以服务器的时间为基准重新计时
+         */
+        compareTime(serveTime) {
+            let returnTime = 0
+            Math.abs(serveTime - new Date().getTime()) > 1000*10 ? returnTime = serveTime : returnTime = new Date().getTime()
+            return returnTime/1000
+        },
         getData() {
             this.getAreaUser() //全国新增内部员工量
             this.getAddAreaExternal() //全国新增外部客户量接口
@@ -530,10 +544,6 @@ export default {
                 background-size: 100% 100%;
             }
             .left-box{
-                /*margin-right: 17px;*/
-                .notice-wrap{
-
-                }
                 .external{
                     margin-bottom: 20px;
                     display: flex;
@@ -626,9 +636,6 @@ export default {
                     .interaction-box{
                         flex: 1;
                     }
-                }
-                .task{
-
                 }
             }
         }
