@@ -1,10 +1,9 @@
 <template>
-    <div class="number-bord">
-        <div class="bord-title">{{title}}</div>
+    <div class="number-bord" :class="title == '外部客户累积量' ? 'bord-a' : 'bord-b'">
         <div class="number-box">
-            <div class="number-item" v-for="(item, index) in numberStr" :key="index" :class="item.comma ? 'comma' : ''">
-                <div class="scroll-out-box">
-                    <div class="scroll-box" :class="'number-'+item.numStr">
+            <div class="number-item" v-for="(item, index) in numberStr" :key="index">
+                <div class="scroll-out-box" v-if="item !== ','">
+                    <div class="scroll-box" :class="'number-'+item">
                         <div class="font">0</div>
                         <div class="font">1</div>
                         <div class="font">2</div>
@@ -18,9 +17,11 @@
                     </div>
                 </div>
 
-                <div class="number-comma">,</div>
+                <div class="comma" v-else>,</div>
             </div>
         </div>
+
+        <div class="bord-title">{{title}}</div>
     </div>
 </template>
 
@@ -51,14 +52,12 @@
         watch: {
             bordNumber(newVal, oldVal) {
                 if (!this.setTime) {
-                    // console.log('watch mounted')
                     // ajax反应太慢，mounted执行可能与watch同步 
                     // 所以，设置该状态为初始化
                     this.fetchNum = oldVal
                     this.transNumber(newVal)
                 } else {
                     // console.log('do loop')
-                    // this.setLoop(newVal, oldVal)
                     this.transNumber(newVal)
                 }
             }
@@ -73,14 +72,11 @@
                 let newArray = []
                 let oldArray = this.numberStr.reverse() // 用于逐字比较的字符串数组
                 for(let i=0; i<nums.length; i++){
-                    let newItem = {
-                        numStr: nums[i],
-                        comma: false
-                    }
-                    if(i%3 == 0 && i!= 0) {
-                        newItem.comma = true 
-                    }
+                    let newItem = nums[i]
                     newArray.push(newItem)
+                    if(i%3 == 2) {
+                        newArray.push(',')
+                    }
                 }
                 this.numberStr = newArray.reverse()
                 this.fetchNum = num // 完成动画后更新为newNum
@@ -90,95 +86,73 @@
 </script>
 
 <style lang="less" scoped>
-@fontH: 46px;
+@fontH: 41px;
 
 .number-bord{
     position: relative;
-    &::before{
-        content: '';
-        position: absolute;
-        bottom: 3px;
-        left: 3px;
-        width: 9px;
-        height: 9px;
-        background: url("../assets/img/conner-icon.png") no-repeat;
-        background-size: 100% 100%;
+    padding: 7px 16px 0 104px;
+    &.bord-a{
+        background: url("../assets/img/number-bg-b.png") no-repeat;
+        width: 408px;
+        height: 89px;
+        margin-right: 9px;
     }
-    &::after{
-        content: '';
-        position: absolute;
-        bottom: 3px;
-        right: 3px;
-        width: 9px;
-        height: 9px;
-        transform: rotateY(180deg);
-        background: url("../assets/img/conner-icon.png") no-repeat;
-        background-size: 100% 100%;
+    &.bord-b{
+        background: url("../assets/img/number-bg-a.png") no-repeat;
+        width: 408px;
+        height: 89px;
     }
     .bord-title{
-        font-size: 22px;
+        width: 288px;
+        height: 28px;
+        font-size: 20px;
         font-family: PingFangSC-Semibold, PingFang SC;
-        font-weight: 500;
-        color: #C7FCFC;
-        line-height: 30px;
-        text-align: left;
-        margin-bottom: 7px;
+        font-weight: 600;
+        color: #FFFFFF;
+        line-height: 28px;
+        text-shadow: 0px 1px 6px #40F5F8;
     }
-    .number-box{ 
-        box-shadow: 0px 0px 10px 0px rgba(1, 255, 255, 0.2);
-        border: 2px solid #5594C4;
-        padding: 3px 8px 9px 17px;
+    .number-box{
+        width: 288px;
         display: flex;
+        justify-content: center;
         box-sizing: border-box;
-        justify-content: flex-end;
+        height: @fontH;
+        line-height: @fontH;
+        font-size: 34px;
+        font-family: Helvetica-Bold, Helvetica;
+        font-weight: bold;
+        color: #88D7FD;
         .number-item{
             position: relative;
-            width: 30px;
-            height: 48px;
-            margin-left: 3px;
+            font-size: 34px;
+            font-family: Helvetica-Bold, Helvetica;
+            font-weight: bold;
+            color: #88D7FD;
+            line-height: 41px;
+            width: 20px;
             &:first-child{
                 margin-left: 0;
             }
-            &::before{
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 30px;
-                height: 48px;
-                background: linear-gradient(180deg, #337CFF 0%, rgba(0, 255, 255, 0.11) 43%, rgba(0, 255, 255, 0) 55%, #337CFF 100%);
-                opacity: 0.36;
-            }
-            &::after{
-                content: '';
-                position: absolute;
-                left: -4px;
-                top: 7px;
-                width: 29px;
-                height: 46px;
-                background: linear-gradient(180deg, #337CFF 0%, rgba(0, 255, 255, 0.11) 24%, rgba(0, 255, 255, 0) 72%, #337CFF 100%);
-            }
-            &.comma{
-                .number-comma{
-                    color: #C7FCFC;
-                    font-size: 21.6px;
-                    position: absolute;
-                    bottom: 0;
-                    right: 0;
-                }
+            .comma{
+                line-height: @fontH;
+                width: 100%;
+                height: @fontH;
+                text-align: center;
+                color: #88d7fd;
             }
             .scroll-out-box{
                 position: absolute;
-                left: -4px;
-                top: 7px;
-                line-height: 46px;
+                left: 0;
+                top: 0;
+                line-height: @fontH;
                 width: 100%;
-                height: 100%;
+                height: @fontH;
                 overflow: hidden;
                 .scroll-box{
                     position: absolute;
                     top: 0;
-                    width: 30px;
+                    width: 20px;
                     height: auto;
                     transition: top 1s;
                     &.number-0{
@@ -212,12 +186,10 @@
                         top: -@fontH * 9;
                     }
                     .font{
-                        line-height: 46px;
-                        width: 30px;
-                        height: 46px;
+                        line-height: @fontH;
+                        height: @fontH;
                         text-align: center;
-                        color: #ffffff;
-                        font-size: 30px;
+                        color: #88d7fd;
                     }
                 }
             }

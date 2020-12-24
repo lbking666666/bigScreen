@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div class="header">
-            <!-- <div class="time-box">12:20:56</div> -->
+            <div class="time-box">{{ dateTimeStr }}</div>
         </div>
         <div class="container">
             <div class="left-box">
@@ -182,7 +182,8 @@ export default {
             externalTotal: 0,//外部客户累积量
             externalAdd: 0,//外部客户新增量
             mapData:{},//地图数据
-            setTime: false
+            setTime: false,
+            dateTimeStr: '2020.12.24 12:00:00'
         }
     },
     mounted() {
@@ -191,6 +192,7 @@ export default {
             this.setTime = true
             this.showExternal() //客户新增量和客户总量查询接口
             this.getTrends() //发展趋势接口
+            this.dateTimeStr = date('Y-m-d H:i:s','1350052653')
         },5000)
         setInterval(()=>{
             this.getAreaUser() //全国新增内部员工量
@@ -491,15 +493,25 @@ export default {
             background: url("../assets/img/biaoti.png") no-repeat;
             background-size: 100% 100%;
             .time-box{
-                font-family: 'LEDFont';
-                color: #fff;
-                font-size: 24px;
+                position: absolute;
+                top: 33px;
+                right: 30px;
+                width: 250px;
+                height: 34px;
+                font-family: 'LedFont';
+                font-size: 28px;
+                color: #88d7fd;
+                letter-spacing: .93px;
+                text-align: left;
+                line-height: 34px;
+                width: 260px;
+                text-align: right;
             }
         }
         .container{
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
+            justify-content: center;
             margin: 0 auto;
             // 通用样式 高的div
             .common-style-high{
@@ -540,7 +552,6 @@ export default {
             }
             .center-box{
                 width: 860px;
-                /*margin-right: 19px;*/
                 display: flex;
                 flex-direction: column;
                 background: url("../assets/img/img_bg.png") no-repeat center top;
@@ -552,7 +563,8 @@ export default {
                     width: 100%;
                     height: 100px;
                     .number-bord-box{
-                        height: 62px;
+                        margin-top: 13px;
+                        height: 88px;
                     }
                 }
                 .map-chart-home{
