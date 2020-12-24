@@ -1,12 +1,12 @@
 module.exports = {
     "plugins": {
-        "postcss-import": {},
-        "postcss-url": {},
-        "postcss-aspect-ratio-mini": {},
+        // "postcss-import": {},
+        // "postcss-url": {},
+        // "postcss-aspect-ratio-mini": {},
         "postcss-write-svg": {
             utf8: false
         },
-        "postcss-cssnext": {},
+        // "postcss-cssnext": {},
         "postcss-px-to-viewport": {
             viewportWidth: 1920, //  视窗的宽度，对应的是我们设计稿的宽度，移动端一般是750，如果是pc端那就是类似1920这样的尺寸
             viewportHeight: 1080, // 视窗的高度，移动端一般指定1334，也可以不配置

@@ -480,7 +480,7 @@ export default {
         height: 100vh;
         overflow: hidden;
         background: #010B3D;
-        display: flex;
+        /*display: flex;*/
         flex-direction: column;
         .header{
             display: flex;

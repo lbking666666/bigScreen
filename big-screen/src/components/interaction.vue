@@ -44,7 +44,9 @@
         data(){
             return {
                 ringWidth: 15,
-                percent: 63
+                percent: 63,
+                width:0,
+                height:0,
             }
         },
         props:{
@@ -54,11 +56,21 @@
         },
         mounted() {
             this.$nextTick(()=>{
-               this.width = this.$refs.chart.offsetWidth
-               this.height = this.$refs.chart.offsetWidth
-               this.drawCanvas()
+                this.width = this.$refs.chart.offsetWidth
+                this.height = this.$refs.chart.offsetWidth
+                this.ringWidth = (this.width*15)/233
+                console.log('this.height',this.width, this.height,this.ringWidth)
+                this.drawCanvas()
             })
-            
+            window.addEventListener('resize',() => {
+                this.$nextTick(()=>{
+                    this.width = this.$refs.chart.offsetWidth
+                    this.height = this.$refs.chart.offsetWidth
+                    this.ringWidth = (this.width*15)/233
+                    console.log('this.height',this.width, this.height,this.ringWidth)
+                    this.drawCanvas()
+                })
+            })
         },
         updated() {
             this.drawCanvas()
