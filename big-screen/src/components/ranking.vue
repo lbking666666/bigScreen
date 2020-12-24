@@ -109,7 +109,6 @@
 					position: absolute;
 					top: 0;
 					left: 0;
-					background-color: #01FFFF;
 					width: 3px;
 					height: 34px;
 				}
@@ -118,18 +117,26 @@
 				&:before{
 					background: linear-gradient(90deg, rgba(255, 243, 60, 0.59) 0%, rgba(0, 184, 252, 0) 100%);
 				}
+				&:after{
+					background: rgba(255, 243, 60, 1);
+				}
 			}
 			&:nth-child(2){
 				&:before{
 					background: linear-gradient(90deg, rgba(102, 241, 154, 0.64) 0%, rgba(0, 184, 252, 0) 100%);
 				}
-			}
-			&:nth-child(3){
-				&:before{
-					background: linear-gradient(90deg, rgba(0, 252, 241, 0.5) 0%, rgba(0, 184, 252, 0) 100%);
+				&:after{
+					background: rgba(103, 241, 153, 1);
 				}
 			}
-
+			&:nth-child(3) {
+				&:before {
+					background: linear-gradient(90deg, rgba(0, 252, 241, 0.5) 0%, rgba(0, 184, 252, 0) 100%);
+				}
+				&:after {
+					background: rgba(1, 255, 255, 1);
+				}
+			}
 			.growth-rate{
 				color: #75EF9E;
 			}
