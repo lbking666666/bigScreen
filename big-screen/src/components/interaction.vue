@@ -6,7 +6,7 @@
                     发消息量
                 </div>
                 <div class="msg-count count">
-                    {{showWechatData.messageCnt||0}}
+                    {{formatterNumber(showWechatData.messageCnt)||0}}
                 </div>
             </div>
             <div class="box">
@@ -14,7 +14,7 @@
                     聊天总量
                 </div>
                 <div class="msg-total-count count">
-                    {{showWechatData.chatCnt||0}}
+                    {{formatterNumber(showWechatData.chatCnt)||0}}
                 </div>
             </div>
             <div class="box">
@@ -76,6 +76,30 @@
                 ctx.strokeStyle = 'rgba(42, 244, 255, 1)';
                 ctx.arc(width/2, height/2, (width/2)-11*2, -0.25*2*Math.PI, (Math.PI * 2 * (Number(this.showWechatData.replyPercentage)/100))-0.25*2*Math.PI);
                 ctx.stroke();
+            },
+            formatterNumber(number){
+                let num = (number || 0).toString(),
+                    result = '';
+                //判断是否带小数点
+                if (num.split('.')[1]) {
+                    let numInt = num.split('.')[0],
+                        numFlo = num.split('.')[1];
+                    result = formatter(numInt) + '.' + numFlo
+                } else {
+                    result = formatter(num);
+                }
+                return result;
+                function formatter(numInt) {
+                    let resultInt = '';
+                    while (numInt.length > 3) {
+                        resultInt = ',' + numInt.slice(-3) + resultInt;
+                        numInt = numInt.slice(0, numInt.length - 3);
+                    }
+                    if (numInt) {
+                        resultInt = numInt + resultInt;
+                    }
+                    return resultInt;
+                }
             }
         }
     }

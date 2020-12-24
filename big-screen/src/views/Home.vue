@@ -13,7 +13,8 @@
                         </div>
                     </div>
                     <div class="line-chart">
-                        <noticeBord :userData='noticeBordData.userData'
+                        <noticeBord :provinceName="provinceName"
+                                    :userData='noticeBordData.userData'
                                     :externalData='noticeBordData.externalData' />
                     </div>
                 </div>
@@ -276,7 +277,7 @@ export default {
         getTrends() {
             //发展趋势接口
             let params = {
-                areaCode: 1
+                areaCode: this.areaCode
             }
             trends(params).then(res => {
                 // console.log('趋势', res)
@@ -412,6 +413,7 @@ export default {
         selectName(name,code){
             this.provinceName = name
             this.areaCode = code
+            this.getTrends() // 告示板
             this.getAreaUser() //全国新增内部员工量
             this.getAddAreaExternal() //全国新增外部客户量接口
             this.getShowWechat() //发展客户互动数接口
