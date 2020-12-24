@@ -2,8 +2,8 @@
     <div class="number-bord">
         <div class="bord-title">{{title}}</div>
         <div class="number-box">
-            <div class="number-item" v-for="(item, index) in numberStr" :key="index">
-                <div class="scroll-out-box" :class="item.comma ? 'comma' : ''">
+            <div class="number-item" v-for="(item, index) in numberStr" :key="index" :class="item.comma ? 'comma' : ''">
+                <div class="scroll-out-box">
                     <div class="scroll-box" :class="'number-'+item.numStr">
                         <div class="font">0</div>
                         <div class="font">1</div>
@@ -17,6 +17,8 @@
                         <div class="font">9</div>
                     </div>
                 </div>
+
+                <div class="number-comma">,</div>
             </div>
         </div>
     </div>
@@ -156,6 +158,15 @@
                 height: 46px;
                 background: linear-gradient(180deg, #337CFF 0%, rgba(0, 255, 255, 0.11) 24%, rgba(0, 255, 255, 0) 72%, #337CFF 100%);
             }
+            &.comma{
+                .number-comma{
+                    color: #C7FCFC;
+                    font-size: 21.6px;
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                }
+            }
             .scroll-out-box{
                 position: absolute;
                 left: -4px;
@@ -164,16 +175,6 @@
                 width: 100%;
                 height: 100%;
                 overflow: hidden;
-                &.comma{
-                    &::after{
-                        content: ',';
-                        color: #C7FCFC;
-                        font-size: 21.6px;
-                        position: absolute;
-                        bottom: -2px;
-                        right: -4px;
-                    }
-                }
                 .scroll-box{
                     position: absolute;
                     top: 0;
