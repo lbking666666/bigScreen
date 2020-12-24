@@ -79,6 +79,17 @@
                     yAxis: {
                         type: 'value',
                         show:true,
+                        axisLabel:{
+                            formatter:function (value, index) {
+                                let str = ''
+                                if(value>10000){
+                                    str = (value/10000).toFixed(1) + 'w'
+                                } else {
+                                    str = value
+                                }
+                                return str;
+                            }
+                        },
                         axisLine:{
                             show:true,
                             lineStyle:{
@@ -129,6 +140,7 @@
                     }]
                 }
                 myChart.setOption(options)
+                window.addEventListener("resize", () => { myChart.resize(); });
             }
         }
     }

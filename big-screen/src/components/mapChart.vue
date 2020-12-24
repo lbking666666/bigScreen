@@ -170,7 +170,6 @@ export default {
                     borderWidth: 0,
                     trigger: 'item',
                     formatter: function(params) {
-
                         if (params.seriesType == 'effectScatter' || params.seriesType == 'scatter') {
                             return
                         }
@@ -210,6 +209,7 @@ export default {
                             show: this.back ? true : false,
                             fontSize: "10",
                             formatter:function(param){
+                                // 处理不显示地市
                                 if(name == 'xinjiang'){
                                     let str = String(param.name)
                                     if(str.length>4){

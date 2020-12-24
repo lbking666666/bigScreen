@@ -12,8 +12,8 @@
 			<div class="rank-item" v-for="(item, index) in rankingList" :key="index">
 				<div class="order-number">{{String(index+1)}}</div>
 				<div class="province">{{(item.areaName =='中国'?'总部':item.areaName)}}</div>
-				<div class="month-increase">{{item.monthExternalNum}}</div>
-				<div class="last-month-increase">{{item.lastMonthExternalNum}}</div>
+				<div class="month-increase">{{formatterNumber(item.monthExternalNum)}}</div>
+				<div class="last-month-increase">{{formatterNumber(item.lastMonthExternalNum)}}</div>
 				<div class="growth-rate">{{item.rate.toFixed(0)}}%</div>
 			</div>
 		</div>
@@ -36,6 +36,30 @@
 		mounted() {
 		},
 		methods:{
+			formatterNumber(number){
+				let num = (number || 0).toString(),
+						result = '';
+				//判断是否带小数点
+				if (num.split('.')[1]) {
+					let numInt = num.split('.')[0],
+							numFlo = num.split('.')[1];
+					result = formatter(numInt) + '.' + numFlo
+				} else {
+					result = formatter(num);
+				}
+				return result;
+				function formatter(numInt) {
+					let resultInt = '';
+					while (numInt.length > 3) {
+						resultInt = ',' + numInt.slice(-3) + resultInt;
+						numInt = numInt.slice(0, numInt.length - 3);
+					}
+					if (numInt) {
+						resultInt = numInt + resultInt;
+					}
+					return resultInt;
+				}
+			}
 		}
 	}
 </script>
@@ -78,7 +102,6 @@
 					height: 100%;
 					top: 0;
 					left: 0;
-					background: linear-gradient(90deg, rgba(0, 252, 241, 0.5) 0%, rgba(0, 184, 252, 0) 100%);
 					opacity: 0.4;
 				}
 				&:after{
@@ -89,6 +112,21 @@
 					background-color: #01FFFF;
 					width: 3px;
 					height: 34px;
+				}
+			}
+			&:nth-child(1){
+				&:before{
+					background: linear-gradient(90deg, rgba(255, 243, 60, 0.59) 0%, rgba(0, 184, 252, 0) 100%);
+				}
+			}
+			&:nth-child(2){
+				&:before{
+					background: linear-gradient(90deg, rgba(102, 241, 154, 0.64) 0%, rgba(0, 184, 252, 0) 100%);
+				}
+			}
+			&:nth-child(3){
+				&:before{
+					background: linear-gradient(90deg, rgba(0, 252, 241, 0.5) 0%, rgba(0, 184, 252, 0) 100%);
 				}
 			}
 
