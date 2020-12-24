@@ -1,6 +1,8 @@
 <template>
     <div class="home">
-        <div class="header"></div>
+        <div class="header">
+            <!-- <div class="time-box">12:20:56</div> -->
+        </div>
         <div class="container">
             <div class="left-box">
                 <div class="notice-wrap common-style-high">
@@ -488,6 +490,11 @@ export default {
             height: 89px;
             background: url("../assets/img/biaoti.png") no-repeat;
             background-size: 100% 100%;
+            .time-box{
+                font-family: 'LEDFont';
+                color: #fff;
+                font-size: 24px;
+            }
         }
         .container{
             display: flex;
