@@ -27,8 +27,8 @@
             </div>
         </div>
         <div class="right-wrap">
-            <div class="ring-chart">
-                <canvas id="canvas" width="223" height="223"></canvas>
+            <div class="ring-chart" ref="chart">
+                <canvas id="canvas" :width="width" :height="height"></canvas>
                 <div class="center-text">
                     <div class="percent">{{showWechatData.replyPercentage?showWechatData.replyPercentage.toFixed(1):0}}<span>%</span></div>
                     <div class="text">聊天回复占比</div>
@@ -53,7 +53,12 @@
             }
         },
         mounted() {
-            this.drawCanvas()
+            this.$nextTick(()=>{
+               this.width = this.$refs.chart.offsetWidth
+               this.height = this.$refs.chart.offsetWidth
+               this.drawCanvas()
+            })
+            
         },
         updated() {
             this.drawCanvas()

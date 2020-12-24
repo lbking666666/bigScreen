@@ -13,8 +13,7 @@
                         </div>
                     </div>
                     <div class="line-chart">
-                        <noticeBord :userData='noticeBordData.userData'
-                                    :externalData='noticeBordData.externalData' />
+                        <noticeBord :userData='noticeBordData.userData' :externalData='noticeBordData.externalData' />
                     </div>
                 </div>
                 <div class="external common-style">
@@ -26,8 +25,12 @@
                             {{provinceName||'全国'}}外部客户新增量
                         </div>
                         <div class="query-option">
-                            <div class="options" :class="flag2==11?'opt-active':''" @click="selExternal(11)"><div>月</div></div>
-                            <div class="options" :class="flag2==10?'opt-active':''" @click="selExternal(10)"><div>日</div></div>
+                            <div class="options" :class="flag2==11?'opt-active':''" @click="selExternal(11)">
+                                <div>月</div>
+                            </div>
+                            <div class="options" :class="flag2==10?'opt-active':''" @click="selExternal(10)">
+                                <div>日</div>
+                            </div>
                         </div>
                     </div>
                     <div class="line-chart">
@@ -43,8 +46,12 @@
                             {{provinceName||'全国'}}内部员工新增量
                         </div>
                         <div class="query-option">
-                            <div class="options" :class="flag1==11?'opt-active':''" @click="selInside(11)"><div>月</div></div>
-                            <div class="options" :class="flag1==10?'opt-active':''" @click="selInside(10)"><div>日</div></div>
+                            <div class="options" :class="flag1==11?'opt-active':''" @click="selInside(11)">
+                                <div>月</div>
+                            </div>
+                            <div class="options" :class="flag1==10?'opt-active':''" @click="selInside(10)">
+                                <div>日</div>
+                            </div>
                         </div>
                     </div>
                     <div class="line-chart">
@@ -64,7 +71,6 @@
                 <div class="map-chart-home">
                     <mapChart @reName="selectName" :remap="remap" :remap2="remap2" :mapData="mapData"></mapChart>
                 </div>
-
                 <div class="bar-chart-home">
                     <div class="title">
                         <div class="icons">
@@ -75,9 +81,15 @@
                         </div>
                     </div>
                     <div class="bar-chart-option">
-                        <div class="options" :class="flag3==365?'opt-active':''" @click="selTotal(365)"><div>年</div></div>
-                        <div class="options" :class="flag3==30?'opt-active':''" @click="selTotal(30)"><div>月</div></div>
-                        <div class="options" :class="flag3==7?'opt-active':''" @click="selTotal(7)"><div>日</div></div>
+                        <div class="options" :class="flag3==365?'opt-active':''" @click="selTotal(365)">
+                            <div>年</div>
+                        </div>
+                        <div class="options" :class="flag3==30?'opt-active':''" @click="selTotal(30)">
+                            <div>月</div>
+                        </div>
+                        <div class="options" :class="flag3==7?'opt-active':''" @click="selTotal(7)">
+                            <div>日</div>
+                        </div>
                     </div>
                     <barChart :xData="barXData" :yData="barYData" :maxDataNum="maxDataNum"></barChart>
                 </div>
@@ -160,8 +172,8 @@ export default {
             flag3: 30,
             areaCode: 1,
             noticeBordData: {},
-            remap:0,
-            remap2:0,
+            remap: 0,
+            remap2: 0,
             rankingList: [],
             maintenData: {},
             externalList: [], // 外部客户量数据
@@ -174,26 +186,26 @@ export default {
             barXData: [], // 各省数据汇总x轴数据
             barYData: [], // 各省数据汇总y轴数据
             maxDataNum: 0, // 汇总图y轴最大值
-            provinceName:'', // 选择的省份
+            provinceName: '', // 选择的省份
             showWechatData: {}, // 互动数接口
-            externalTotal: 0,//外部客户累积量
-            externalAdd: 0,//外部客户新增量
-            mapData:{},//地图数据
+            externalTotal: 0, //外部客户累积量
+            externalAdd: 0, //外部客户新增量
+            mapData: {}, //地图数据
             setTime: false
         }
     },
     mounted() {
         this.getData()
-        setInterval(()=>{
+        setInterval(() => {
             this.setTime = true
             this.showExternal() //客户新增量和客户总量查询接口
             this.getTrends() //发展趋势接口
-        },5000)
-        setInterval(()=>{
+        }, 5000)
+        setInterval(() => {
             this.getAreaUser() //全国新增内部员工量
             this.getAddAreaExternal() //全国新增外部客户量接口
             this.getAreaExternal() //各省客户汇总数据接口
-        },3600000)
+        }, 3600000)
     },
     methods: {
         getData() {
@@ -204,7 +216,7 @@ export default {
             this.getTrends() //发展趋势接口
             this.getAreaExternal() //各省客户汇总数据接口
             this.getShowTask() //维系任务统计接口
-            this.getShowArea()//全国区域查询接口
+            this.getShowArea() //全国区域查询接口
             this.showExternal() //客户新增量和客户总量查询接口
         },
         getAreaUser() {
@@ -216,13 +228,13 @@ export default {
             this.remap = 0
             addAreaUser(params).then(res => {
                 //console.log(res)
-                if(res.code == 200){
+                if (res.code == 200) {
                     this.insideList = res.data.list
-                    this.insideXData =  this.insideList.map(data=>{
+                    this.insideXData = this.insideList.map(data => {
                         return data.objDate
                     })
                     this.remap = 1
-                    this.insideYData =  this.insideList.map(data=>{
+                    this.insideYData = this.insideList.map(data => {
                         return data.addNum
                     })
                 }
@@ -237,13 +249,13 @@ export default {
             this.remap2 = 0
             addAreaExternal(params).then(res => {
                 //console.log(res)
-                if(res.code == 200){
+                if (res.code == 200) {
                     this.externalList = res.data.list
-                    this.externalXData =  this.externalList.map(data=>{
+                    this.externalXData = this.externalList.map(data => {
                         return data.objDate
                     })
                     this.remap2 = 1
-                    this.externalYData =  this.externalList.map(data=>{
+                    this.externalYData = this.externalList.map(data => {
                         return data.addNum
                     })
                 }
@@ -256,7 +268,7 @@ export default {
             }
             areaExternalRank(params).then(res => {
                 // console.log('排行榜', res)
-                if(res.code == 200){
+                if (res.code == 200) {
                     this.rankingList = res.data.list.slice(0, 5)
                 }
             })
@@ -267,8 +279,8 @@ export default {
                 areaCode: this.areaCode
             }
             showWechat(params).then(res => {
-               // console.log(res)
-                if(res.code == 200){
+                // console.log(res)
+                if (res.code == 200) {
                     this.showWechatData = res.data
                 }
             })
@@ -280,8 +292,8 @@ export default {
             }
             trends(params).then(res => {
                 // console.log('趋势', res)
-                if(res.code == 200){
-                   this.noticeBordData = res.data
+                if (res.code == 200) {
+                    this.noticeBordData = res.data
                 }
 
             })
@@ -294,13 +306,13 @@ export default {
             }
             areaExternal(params).then(res => {
                 //console.log(res)
-                if(res.code == 200){
-                    if(res.data.list){
+                if (res.code == 200) {
+                    if (res.data.list) {
                         this.provinceTotalList = res.data.list
-                        this.barXData =  this.provinceTotalList.map(data=>{
+                        this.barXData = this.provinceTotalList.map(data => {
                             return data.areaName
                         })
-                        this.barYData =  this.provinceTotalList.map(data=>{
+                        this.barYData = this.provinceTotalList.map(data => {
                             return data.addNum
                         })
                         this.maxDataNum = Math.max(...this.barYData)
@@ -315,7 +327,7 @@ export default {
             }
             showTask(params).then(res => {
                 // console.log('维系任务', res.data)
-                if(res.code == 200){
+                if (res.code == 200) {
                     this.maintenData = res.data
                 }
             })
@@ -326,34 +338,37 @@ export default {
                 areaCode: this.areaCode
             }
             showArea(params).then(res => {
-                 if(res.code == 200){
-                    let arr1 = [],arr2 =[],arr3=[],arr4=[]
-                    res.data.map(item=>{
-                        if(item.flag == -1){
-                           let obj = {
-                                name:item.areaName.replace('省','').replace('特别行政区',''),
-                                value:item.num,
-                                code:item.areaCode,
+                if (res.code == 200) {
+                    let arr1 = [],
+                        arr2 = [],
+                        arr3 = [],
+                        arr4 = []
+                    res.data.map(item => {
+                        if (item.flag == -1) {
+                            let obj = {
+                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                value: item.num,
+                                code: item.areaCode,
                                 itemStyle: {
                                     areaColor: '#2569BB',
-                                    color:'#2569BB',
+                                    color: '#2569BB',
                                     borderColor: '#2569BB',
                                 }
                             }
                             arr1.push(obj)
                         }
-                        if(item.colors ==-1){
+                        if (item.colors == -1) {
                             let colors = {
-                                name: item.areaName.replace('省','').replace('特别行政区',''),
-                                code:item.areaCode,
+                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                code: item.areaCode,
                             }
                             arr3.push(colors)
                         }
-                        if(item.flag>=0){
+                        if (item.flag >= 0) {
                             let obj = {
-                                name:item.areaName.replace('省','').replace('特别行政区',''),
-                                value:item.num,
-                                code:item.areaCode,
+                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                value: item.num,
+                                code: item.areaCode,
                                 itemStyle: {
                                     areaColor: '#62A5E6',
                                     color: '#62A5E6',
@@ -363,19 +378,19 @@ export default {
                             arr2.push(obj)
                         }
 
-                        if(item.colors ==1){
+                        if (item.colors == 1) {
                             let colors = {
-                                name: item.areaName.replace('省','').replace('特别行政区',''),
-                                code:item.areaCode,
+                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                code: item.areaCode,
                             }
                             arr4.push(colors)
                         }
                     })
                     this.mapData = {
-                        used:arr2,
-                        unUsed:arr1,
-                        colors:arr4,
-                        unColors:arr3
+                        used: arr2,
+                        unUsed: arr1,
+                        colors: arr4,
+                        unColors: arr3
                     }
                     //console.log(this.mapData)
                 }
@@ -388,28 +403,28 @@ export default {
             }
             showExternal(params).then(res => {
                 //console.log(res)
-                if(res.code == 200){
-                    this.externalTotal =res.data.totalExternal
+                if (res.code == 200) {
+                    this.externalTotal = res.data.totalExternal
                     this.externalAdd = res.data.addExternal
                 }
             })
         },
         // 外部客户量选择筛选条件
-        selExternal(sel){
+        selExternal(sel) {
             this.flag2 = sel
             this.getAddAreaExternal()
         },
         // 内部客户量选择筛选条件
-        selInside(sel){
+        selInside(sel) {
             this.flag1 = sel
             this.getAreaUser()
         },
         //
-        selTotal(sel){
+        selTotal(sel) {
             this.flag3 = sel
             this.getAreaExternal()
         },
-        selectName(name,code){
+        selectName(name, code) {
             this.provinceName = name
             this.areaCode = code
             this.getAreaUser() //全国新增内部员工量
@@ -422,193 +437,221 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-    /*功能title样式*/
-    .title{
+/*功能title样式*/
+.title {
+    width: 100%;
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 19px 0px 12px;
+
+    .icons {
+        width: 32px;
+        height: 32px;
+        margin-right: 3px;
+        margin-top: 3px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .title-text {
+        font-size: 22px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #ECFCFF;
+        text-shadow: 0px 2px 6px #4CB5FF;
+    }
+
+    .query-option {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+
+        .options {
+            width: 40px;
+            height: 19px;
+            line-height: 19px;
+            font-size: 14px;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: 500;
+            color: #308BFD;
+            border: 1px solid #308BFD;
+            transform: skew(-45deg);
+            margin-right: 5px;
+            cursor: pointer;
+
+            div {
+                transform: skewX(45deg);
+            }
+        }
+
+        .opt-active {
+            color: #FFFFFF;
+            background: linear-gradient(270deg, #7CF1E0 0%, #2C48A5 100%);
+        }
+    }
+}
+
+.home {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #010B3D;
+    flex-direction: column;
+
+    .header {
+        display: flex;
         width: 100%;
-        height: 44px;
+        height: 89px;
+        background: url("../assets/img/biaoti.png") no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .container {
         display: flex;
         flex-direction: row;
-        align-items: center;
-        padding: 12px 19px 0px 12px;
-        .icons{
-            width: 32px;
-            height: 32px;
-            margin-right: 3px;
-            margin-top: 3px;
-            img{
-                width: 100%;
-                height: 100%;
-            }
+        justify-content: space-around;
+        margin: 0 auto;
+
+        // 通用样式 高的div
+        .common-style-high {
+            width: 500px;
+            height: 328px;
+            background: url("../assets/img/dingbukuang.png") no-repeat;
+            background-size: 100% 100%;
+            margin-bottom: 24px;
         }
-        .title-text {
-            font-size: 22px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
-            color: #ECFCFF;
-            text-shadow: 0px 2px 6px #4CB5FF;
-        }
-        .query-option{
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-            .options{
-                width: 40px;
-                height: 19px;
-                line-height: 19px;
-                font-size: 14px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
-                color: #308BFD;
-                border: 1px solid #308BFD;
-                transform: skew(-45deg);
-                margin-right: 5px;
-                cursor: pointer;
-                div{
-                    transform: skewX(45deg);
-                }
-            }
-            .opt-active{
-                color: #FFFFFF;
-                background: linear-gradient(270deg, #7CF1E0 0%, #2C48A5 100%);
-            }
-        }
-    }
-    .home{
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-        background: #010B3D;
-        display: flex;
-        flex-direction: column;
-        .header{
-            display: flex;
-            width: 100%;
-            height: 89px;
-            background: url("../assets/img/biaoti.png") no-repeat;
+
+        // 通用样式 低的div
+        .common-style {
+            width: 500px;
+            height: 300px;
+            background: url("../assets/img/dingbukuang.png") no-repeat;
             background-size: 100% 100%;
         }
-        .container{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            margin: 0 auto;
-            // 通用样式 高的div
-            .common-style-high{
-                width: 500px;
-                height: 328px;
-                background: url("../assets/img/dingbukuang.png") no-repeat;
-                background-size: 100% 100%;
-                margin-bottom: 24px;
-            }
-            // 通用样式 低的div
-            .common-style{
-                width: 500px;
-                height: 300px;
-                background: url("../assets/img/dingbukuang.png") no-repeat;
-                background-size: 100% 100%;
-            }
-            .left-box{
-                /*margin-right: 17px;*/
-                .notice-wrap{
 
-                }
-                .external{
-                    margin-bottom: 20px;
-                    display: flex;
-                    flex-direction: column;
-                    .line-chart{
-                        width: 100%;
-                        height: 257px;
-                    }
-                }
-                .inside {
-                    .line-chart{
-                        width: 100%;
-                        height: 257px;
-                    }
-                }
+        .left-box {
 
-            }
-            .center-box{
-                width: 860px;
-                /*margin-right: 19px;*/
+            /*margin-right: 17px;*/
+            .notice-wrap {}
+
+            .external {
+                margin-bottom: 20px;
                 display: flex;
                 flex-direction: column;
-                background: url("../assets/img/img_bg.png") no-repeat center top;
-                background-size: 788px 788px;
-                padding-top: 10px;
-                .number-boxs{
-                    display: flex;
-                    justify-content: space-around;
+
+                .line-chart {
                     width: 100%;
-                    height: 100px;
-                    .number-bord-box{
-                        height: 62px;
-                    }
-                }
-                .map-chart-home{
-                    display: flex;
-                    flex: 1;
-                    flex-direction: column;
-                }
-                .bar-chart-home{
-                    width: 100%;
-                    height: 320px;
-                    position: relative;
-                    .title{
-                        position: absolute;
-                        top: -20px;
-                    }
-                    .bar-chart-option{
-                        position: absolute;
-                        z-index: 99;
-                        top: 25px;
-                        right: 20px;
-                        display: flex;
-                        height: 20px;
-                        .options{
-                            width: 40px;
-                            height: 19px;
-                            line-height: 19px;
-                            font-size: 14px;
-                            font-family: PingFangSC-Medium, PingFang SC;
-                            font-weight: 500;
-                            color: #308BFD;
-                            border: 1px solid #308BFD;
-                            transform: skew(-45deg);
-                            margin-right: 5px;
-                            cursor: pointer;
-                            div{
-                                transform: skewX(45deg);
-                            }
-                        }
-                        .opt-active{
-                            color: #FFFFFF;
-                            background: linear-gradient(270deg, #7CF1E0 0%, #2C48A5 100%);
-                        }
-                    }
+                    height: 257px;
                 }
             }
-            .right-box{
-                .rank{
-                    width: 500px;
-                    height: 330px;
-                    .ranking-box{
-                        height: 240px;
-                    }
-                }
-                .interaction{
-                    margin-bottom: 20px;
-                    display: flex;
-                    flex-direction: column;
-                    .interaction-box{
-                        flex: 1;
-                    }
-                }
-                .task{
 
+            .inside {
+                .line-chart {
+                    width: 100%;
+                    height: 257px;
+                }
+            }
+
+        }
+
+        .center-box {
+            width: 860px;
+            /*margin-right: 19px;*/
+            display: flex;
+            flex-direction: column;
+            background: url("../assets/img/img_bg.png") no-repeat center top;
+            background-size: 788px 788px;
+            padding-top: 10px;
+
+            .number-boxs {
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+                height: 100px;
+
+                .number-bord-box {
+                    height: 62px;
+                }
+            }
+
+            .map-chart-home {
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+            }
+
+            .bar-chart-home {
+                width: 100%;
+                height: 320px;
+                position: relative;
+
+                .title {
+                    position: absolute;
+                    top: -20px;
+                }
+
+                .bar-chart-option {
+                    position: absolute;
+                    z-index: 99;
+                    top: 25px;
+                    right: 20px;
+                    display: flex;
+                    height: 20px;
+
+                    .options {
+                        width: 40px;
+                        height: 19px;
+                        line-height: 19px;
+                        font-size: 14px;
+                        font-family: PingFangSC-Medium, PingFang SC;
+                        font-weight: 500;
+                        color: #308BFD;
+                        border: 1px solid #308BFD;
+                        transform: skew(-45deg);
+                        margin-right: 5px;
+                        cursor: pointer;
+
+                        div {
+                            transform: skewX(45deg);
+                        }
+                    }
+
+                    .opt-active {
+                        color: #FFFFFF;
+                        background: linear-gradient(270deg, #7CF1E0 0%, #2C48A5 100%);
+                    }
                 }
             }
         }
+
+        .right-box {
+            .rank {
+                width: 500px;
+                height: 330px;
+
+                .ranking-box {
+                    height: 240px;
+                }
+            }
+
+            .interaction {
+                margin-bottom: 20px;
+                display: flex;
+                flex-direction: column;
+
+                .interaction-box {
+                    flex: 1;
+                }
+            }
+
+            .task {}
+        }
     }
+}
 </style>
+
