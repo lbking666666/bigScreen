@@ -140,6 +140,7 @@
                     }]
                 }
                 myChart.setOption(options)
+                window.addEventListener("resize", () => { myChart.resize(); });
             }
         }
     }
