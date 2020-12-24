@@ -102,7 +102,6 @@
 					height: 100%;
 					top: 0;
 					left: 0;
-					background: linear-gradient(90deg, rgba(0, 252, 241, 0.5) 0%, rgba(0, 184, 252, 0) 100%);
 					opacity: 0.4;
 				}
 				&:after{
@@ -113,6 +112,21 @@
 					background-color: #01FFFF;
 					width: 3px;
 					height: 34px;
+				}
+			}
+			&:nth-child(1){
+				&:before{
+					background: linear-gradient(90deg, rgba(255, 243, 60, 0.59) 0%, rgba(0, 184, 252, 0) 100%);
+				}
+			}
+			&:nth-child(2){
+				&:before{
+					background: linear-gradient(90deg, rgba(102, 241, 154, 0.64) 0%, rgba(0, 184, 252, 0) 100%);
+				}
+			}
+			&:nth-child(3){
+				&:before{
+					background: linear-gradient(90deg, rgba(0, 252, 241, 0.5) 0%, rgba(0, 184, 252, 0) 100%);
 				}
 			}
 
