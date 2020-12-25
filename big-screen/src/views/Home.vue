@@ -495,10 +495,9 @@ export default {
         }
     }
     .home{
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-        background: #010B3D;
+
+        /*overflow: hidden;*/
+        /*background: #010B3D;*/
         /*display: flex;*/
         flex-direction: column;
         .header{

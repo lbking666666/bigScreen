@@ -1,16 +1,23 @@
 <template>
   <router-view/>
 </template>
+<script>
 
+</script>
 <style lang="less">
   body{
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    background: #010B3D;
   }
   div{
     box-sizing: border-box;
   }
 #app {
+  transform-origin: 0 0;
+  width: 1920px;
+  height: 1080px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

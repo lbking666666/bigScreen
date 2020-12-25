@@ -4,8 +4,47 @@
 		<div class="bord-body">
 			<div class="bord-user">
 				<p class="bold-text">
-					<span>{{provinceName||'全国'}}昨日新增：</span>
+					<span>{{provinceName||'全国'}}昨日：</span>
 				</p>
+				<p>外部客户量{{ externalData.addNum }}，较前日
+					<span class="font-red" v-if="externalData.lastRate&&String(externalData.lastRate).indexOf('-') >= 0">
+						<img src="../assets/img/xiajiang.png" alt="">
+						{{fixedNum(externalData.lastRate)}}
+					</span>
+					<span class="font-green" v-else-if="externalData.lastRate&&String(externalData.lastRate).indexOf('-') == -1">
+						<img src="../assets/img/shangsheng.png" alt="">
+						{{fixedNum(externalData.lastRate)}}
+					</span>
+					<span v-else>持平</span>，
+				</p>
+				<p>较7日均值
+					<span class="font-red" v-if="externalData.sevenRate&&String(externalData.sevenRate).indexOf('-') >= 0">
+						<img src="../assets/img/xiajiang.png" alt="">
+						{{fixedNum(externalData.sevenRate)}}
+					</span>
+					<span class="font-green" v-else-if="externalData.sevenRate&&String(externalData.sevenRate).indexOf('-') == -1">
+						<img src="../assets/img/shangsheng.png" alt="">
+						{{fixedNum(externalData.sevenRate)}}
+					</span>
+					<span v-else>持平</span>，
+				</p>
+				<p>较上月同期
+					<span class="font-red" v-if="externalData.lastMonthRate&&String(externalData.lastMonthRate).indexOf('-') >= 0">
+						<img src="../assets/img/xiajiang.png" alt="">
+						{{fixedNum(externalData.lastMonthRate)}}
+					</span>
+					<span class="font-green" v-else-if="externalData.lastMonthRate&&String(externalData.lastMonthRate).indexOf('-') == -1">
+						<img src="../assets/img/shangsheng.png" alt="">
+						{{fixedNum(externalData.lastMonthRate)}}
+					</span>
+					<span v-else>持平</span>。
+				</p>
+				<p>
+					外部客户累计量{{externalData.totalNum}}
+				</p>
+			</div>
+
+			<div class="bord-external">
 				<p>内部员工量{{ userData.addNum }}，较前日
 					<span class="font-red" v-if="userData.lastRate&&String(userData.lastRate).indexOf('-') >= 0">
 						<img src="../assets/img/xiajiang.png" alt="">
@@ -39,41 +78,8 @@
 					</span>
 					<span v-else>持平</span>；
 				</p>
-			</div>
-
-			<div class="bord-external">
-				<p>外部客户量{{ externalData.addNum }}，较前日
-					<span class="font-red" v-if="externalData.lastRate&&String(externalData.lastRate).indexOf('-') >= 0">
-						<img src="../assets/img/xiajiang.png" alt="">
-						{{fixedNum(externalData.lastRate)}}
-					</span>
-					<span class="font-green" v-else-if="externalData.lastRate&&String(externalData.lastRate).indexOf('-') == -1">
-						<img src="../assets/img/shangsheng.png" alt="">
-						{{fixedNum(externalData.lastRate)}}
-					</span>
-					<span v-else>持平</span>，
-				</p>
-				<p>较7日均值
-					<span class="font-red" v-if="externalData.sevenRate&&String(externalData.sevenRate).indexOf('-') >= 0">
-						<img src="../assets/img/xiajiang.png" alt="">
-						{{fixedNum(externalData.sevenRate)}}
-					</span>
-					<span class="font-green" v-else-if="externalData.sevenRate&&String(externalData.sevenRate).indexOf('-') == -1">
-						<img src="../assets/img/shangsheng.png" alt="">
-						{{fixedNum(externalData.sevenRate)}}
-					</span>
-					<span v-else>持平</span>，
-				</p>
-				<p>较上月同期
-					<span class="font-red" v-if="externalData.lastMonthRate&&String(externalData.lastMonthRate).indexOf('-') >= 0">
-						<img src="../assets/img/xiajiang.png" alt="">
-						{{fixedNum(externalData.lastMonthRate)}}
-					</span>
-					<span class="font-green" v-else-if="externalData.lastMonthRate&&String(externalData.lastMonthRate).indexOf('-') == -1">
-						<img src="../assets/img/shangsheng.png" alt="">
-						{{fixedNum(externalData.lastMonthRate)}}
-					</span>
-					<span v-else>持平</span>。
+				<p>
+					内部客户累计量{{userData.totalNum}}
 				</p>
 			</div>
 		</div>
@@ -134,7 +140,7 @@
 .notice-bord{
 	height: 100%;
 	width: 100%;
-	padding: 21px 29px 0 31px;
+	padding: 12px 29px 0 31px;
 	line-height: 28px;
 	font-size: 19px;
 	text-align: left;
@@ -153,7 +159,7 @@
 		vertical-align: top;
 	}
 	.bord-user{
-		padding-bottom: 28px;
+		padding-bottom: 5px;
 		border-bottom: 2px dashed rgba(98, 255, 254, .3);
 		font-size: 18px;
 		p{
@@ -173,7 +179,7 @@
 		}
 	}
 	.bord-external{
-		margin-top: 28px;
+		margin-top: 5px;
 		font-size: 18px;
 		p{
 			font-weight: 400;

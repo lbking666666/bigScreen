@@ -57,7 +57,7 @@
         mounted() {
             this.$nextTick(()=>{
                 this.width = this.$refs.chart.offsetWidth
-                this.height = this.$refs.chart.offsetWidth
+                this.height = this.$refs.chart.offsetHeight
                 this.ringWidth = (this.width*15)/233
                 console.log('this.height',this.width, this.height,this.ringWidth)
                 this.drawCanvas()
@@ -67,7 +67,7 @@
                     this.width = this.$refs.chart.offsetWidth
                     this.height = this.$refs.chart.offsetWidth
                     this.ringWidth = (this.width*15)/233
-                    console.log('this.height',this.width, this.height,this.ringWidth)
+                    // console.log('this.height',this.width, this.height,this.ringWidth)
                     this.drawCanvas()
                 })
             })
@@ -77,7 +77,7 @@
         },
         methods:{
             drawCanvas(){
-                console.log('this.showWechatData.replyPercentage', this.showWechatData.replyPercentage)
+                // console.log('this.showWechatData.replyPercentage', this.showWechatData.replyPercentage)
                 let ringDom = document.getElementById('canvas')
                 let width = ringDom.offsetWidth
                 let height = ringDom.offsetHeight

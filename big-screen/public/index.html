@@ -16,3 +16,19 @@
     <!-- built files will be auto injected -->
   </body>
 </html>
+<script>
+  let app = window.document.getElementById('app')
+  let height = window.innerHeight
+  let width = window.innerWidth
+  let cent = width/1920
+  let rateH = height/1080
+  app.style.transform = 'scale('+cent+', '+rateH+')';
+  window.addEventListener('resize',function () {
+    let app = window.document.getElementById('app')
+    let height = window.innerHeight
+    let width = window.innerWidth
+    let cent = width/1920
+    let rateH = height/1080
+    app.style.transform = 'scale('+cent+', '+rateH+')';
+  })
+</script>
