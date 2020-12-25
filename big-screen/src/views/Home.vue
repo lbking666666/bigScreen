@@ -86,20 +86,6 @@
                 </div>
             </div>
             <div class="right-box">
-                <div class="rank common-style-high">
-                    <div class="title">
-                        <div class="icons">
-                            <img src="../assets/img/quanguo.png" alt="">
-                        </div>
-                        <div class="title-text">
-                            全国涨幅省份排行榜
-                        </div>
-                    </div>
-                    <!--组件引入-->
-                    <div class="ranking-box">
-                        <ranking :rankingList='rankingList' />
-                    </div>
-                </div>
                 <div class="interaction common-style">
                     <div class="title">
                         <div class="icons">
@@ -126,6 +112,20 @@
                     <!--组件引入-->
                     <div class="mainten-box">
                         <mainten :maintenData="maintenData" />
+                    </div>
+                </div>
+                <div class="rank common-style-high">
+                    <div class="title">
+                        <div class="icons">
+                            <img src="../assets/img/quanguo.png" alt="">
+                        </div>
+                        <div class="title-text">
+                            全国涨幅省份排行榜
+                        </div>
+                    </div>
+                    <!--组件引入-->
+                    <div class="ranking-box">
+                        <ranking :rankingList='rankingList' />
                     </div>
                 </div>
             </div>
@@ -625,17 +625,21 @@ export default {
                 .rank{
                     width: 500px;
                     height: 330px;
+                    margin-bottom: 0px;
                     .ranking-box{
                         height: 240px;
                     }
                 }
                 .interaction{
-                    margin-bottom: 20px;
+                    margin-bottom: 24px;
                     display: flex;
                     flex-direction: column;
                     .interaction-box{
                         flex: 1;
                     }
+                }
+                .task{
+                    margin-bottom: 20px;
                 }
             }
         }
