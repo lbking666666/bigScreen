@@ -183,7 +183,7 @@ export default {
             externalAdd: 0,//外部客户新增量
             mapData:{},//地图数据
             setTime: false,
-            nowTime: 0,
+            nowTime: (new Date()).getTime()/1000,
             dateTimeStr: timestampConversion((new Date()).getTime()/1000)
         }
     },
@@ -194,7 +194,7 @@ export default {
             this.setTime = true
             this.showExternal() //客户新增量和客户总量查询接口
             this.getTrends() //发展趋势接口
-            this.nowTime = this.compareTime(1608822038028) // 此处为假数据
+            // this.nowTime = this.compareTime(1608822038028) // 此处为假数据
         },5000)
         setInterval(()=>{
             this.getAreaUser() //全国新增内部员工量
