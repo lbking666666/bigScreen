@@ -120,7 +120,7 @@
                             <img src="../assets/img/quanguo.png" alt="">
                         </div>
                         <div class="title-text">
-                            全国涨幅省份排行榜
+                            全国涨幅省分排行榜
                         </div>
                     </div>
                     <!--组件引入-->

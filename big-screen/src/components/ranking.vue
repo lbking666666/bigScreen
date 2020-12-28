@@ -3,7 +3,7 @@
 		<!-- title在Home中 -->
 		<div class="ranking-header">
 			<div class="order-number">序号</div>
-			<div class="province">省份</div>
+			<div class="province">省分</div>
 			<div class="month-increase">近30天客户涨量(人)</div>
 			<div class="last-month-increase">上30天客户涨量(人)</div>
 			<div class="growth-rate">增幅</div>
