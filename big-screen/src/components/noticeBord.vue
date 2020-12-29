@@ -27,8 +27,7 @@
 						{{fixedNum(externalData.sevenRate)}}
 					</span>
 					<span v-else>持平</span>，
-				</p>
-				<p>较上月同期
+					较上月同期
 					<span class="font-red" v-if="externalData.lastMonthRate&&String(externalData.lastMonthRate).indexOf('-') >= 0">
 						<img src="../assets/img/xiajiang.png" alt="">
 						{{fixedNum(externalData.lastMonthRate)}}
@@ -39,6 +38,8 @@
 					</span>
 					<span v-else>持平</span>。
 				</p>
+<!--				<p>-->
+<!--				</p>-->
 				<p>
 					外部客户累计量{{externalData.totalNum}}
 				</p>
@@ -66,8 +67,7 @@
 						{{fixedNum(userData.sevenRate)}}
 					</span>
 					<span v-else>持平</span>，
-				</p>
-				<p>较上月同期
+					较上月同期
 					<span class="font-red" v-if="userData.lastMonthRate&&String(userData.lastMonthRate).indexOf('-') >= 0">
 						<img src="../assets/img/xiajiang.png" alt="">
 						{{fixedNum(userData.lastMonthRate)}}
@@ -78,6 +78,8 @@
 					</span>
 					<span v-else>持平</span>；
 				</p>
+<!--				<p>-->
+<!--				</p>-->
 				<p>
 					内部客户累计量{{userData.totalNum}}
 				</p>
@@ -159,7 +161,7 @@
 		vertical-align: top;
 	}
 	.bord-user{
-		padding-bottom: 5px;
+		padding-bottom: 25px;
 		border-bottom: 2px dashed rgba(98, 255, 254, .3);
 		font-size: 18px;
 		p{
@@ -179,7 +181,7 @@
 		}
 	}
 	.bord-external{
-		margin-top: 5px;
+		margin-top: 25px;
 		font-size: 18px;
 		p{
 			font-weight: 400;

@@ -48,7 +48,9 @@
                             }
                         },
                         axisLabel:{
-                            rotate: 45
+                            rotate: 45,
+                            fontSize:10,
+                            interval:0
                         },
                         name: '(人)',
                         nameLocation: 'start',
@@ -116,12 +118,12 @@
                         type: 'line',
                         smooth: true,
                         symbol: 'circle',
-                        symbolSize: 8,
+                        symbolSize: 4,
                         itemStyle: {
                             normal: {
                                 color: this.color,
                                 borderColor: "#fff",
-                                borderWidth: 2,
+                                borderWidth: 1,
                                 borderType: 'solid'
                             }
                         },
