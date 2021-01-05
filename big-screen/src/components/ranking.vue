@@ -10,7 +10,8 @@
 		</div>
 		<div class="ranking-body">
 			<div class="rank-item" v-for="(item, index) in rankingList" :key="index">
-				<div class="order-number">{{String(index+1)}}</div>
+				<div class="order-number" v-if="index >= 3">{{String(index+1)}}</div>
+				<div class="order-number" v-else><i class="index-icon" :class="`icon-${index}`"></i></div>
 				<div class="province">{{(item.areaName =='中国'?'总部':item.areaName)}}</div>
 				<div class="month-increase">{{formatterNumber(item.monthExternalNum)}}</div>
 				<div class="last-month-increase">{{formatterNumber(item.lastMonthExternalNum)}}</div>
@@ -118,23 +119,23 @@
 					background: linear-gradient(90deg, rgba(255, 243, 60, 0.59) 0%, rgba(0, 184, 252, 0) 100%);
 				}
 				&:after{
-					background: rgba(255, 243, 60, 1);
+					background: #FFDA3C;
 				}
 			}
 			&:nth-child(2){
 				&:before{
-					background: linear-gradient(90deg, rgba(102, 241, 154, 0.64) 0%, rgba(0, 184, 252, 0) 100%);
+					background: linear-gradient(90deg, rgba(234, 236, 243, 0.5) 0%, rgba(0, 184, 252, 0) 100%);
 				}
 				&:after{
-					background: rgba(103, 241, 153, 1);
+					background: #EAECF3;
 				}
 			}
 			&:nth-child(3) {
 				&:before {
-					background: linear-gradient(90deg, rgba(0, 252, 241, 0.5) 0%, rgba(0, 184, 252, 0) 100%);
+					background: linear-gradient(90deg, rgba(215, 165, 56, 0.51) 0%, rgba(0, 184, 252, 0) 100%);
 				}
 				&:after {
-					background: rgba(1, 255, 255, 1);
+					background: #D7A538;
 				}
 			}
 			.growth-rate{
@@ -145,6 +146,24 @@
 	.order-number{
 		width: 40px;
 		text-align: center;
+		.index-icon{
+			display: inline-block;
+			width: 20px;
+			height: 15px;
+			vertical-align: text-top;
+			&.icon-0{
+				background: url('../assets/img/diyi.png') no-repeat;
+				background-size: contain;
+			}
+			&.icon-1{
+				background: url('../assets/img/dier.png') no-repeat;
+				background-size: contain;
+			}
+			&.icon-2{
+				background: url('../assets/img/disan.png') no-repeat;
+				background-size: contain;
+			}
+		}
 	}
 	.province{
 		width: 62px;
