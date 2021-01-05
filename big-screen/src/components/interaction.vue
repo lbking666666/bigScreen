@@ -59,8 +59,8 @@
                 this.width = this.$refs.chart.offsetWidth
                 this.height = this.$refs.chart.offsetHeight
                 this.ringWidth = (this.width*15)/233
-                console.log('this.height',this.width, this.height,this.ringWidth)
-                this.drawCanvas()
+                //console.log('this.height',this.width, this.height,this.ringWidth)
+                //this.drawCanvas()
             })
             window.addEventListener('resize',() => {
                 this.$nextTick(()=>{
@@ -93,6 +93,7 @@
                 // let grd=ctx.createLinearGradient(0,0,0,0)
                 // grd.addColorStop(0,"yellow");
                 // grd.addColorStop(1,"red");
+
                 let grd=ctx.createLinearGradient(width/2,0,width/2,height);
                 grd.addColorStop("0","rgba(110, 239, 155, 1)");
                 grd.addColorStop(1,"rgba(64, 245, 248, 1)");

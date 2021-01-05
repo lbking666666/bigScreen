@@ -2,7 +2,6 @@
 
 
  export function addAreaUser(data) {
-     console.log(data)
      const url = '/wep-oms/bigScreen/addAreaUser';
      return getApi(url, data)
  }
