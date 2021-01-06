@@ -198,6 +198,7 @@ export default {
     /*background: #010B3D;*/
     /*display: flex;*/
     flex-direction: column;
+    height:100%;
 
     .header {
         display: flex;
@@ -226,13 +227,13 @@ export default {
         flex-direction: row;
         justify-content: center;
         margin: 0 auto;
-        height: 100vh;
+        height: calc(100% - 100px);
 
         .left-box {
             width: 460px;
             display: flex;
             flex-direction: column;
-            border: 1px solid red;
+            justify-content: space-between;
         }
 
         .center-box {
@@ -243,7 +244,7 @@ export default {
             background: url("../assets/img/img_bg.png") no-repeat center top;
             background-size: 788px 788px;
             padding-top: 10px;
-            border: 1px solid red;
+            justify-content: space-between;
         }
 
         .right-box {
@@ -251,7 +252,7 @@ export default {
             width: 460px;
             display: flex;
             flex-direction: column;
-            border: 1px solid red;
+            justify-content: space-between;
         }
     }
 }
