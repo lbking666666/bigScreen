@@ -8,7 +8,7 @@
                         系统用户数
                     </div>
                     <div class="box-num">
-                        {{module1Data.userCount}}
+                        {{filterNumber(module1Data.userCount)}}
                     </div>
                 </div>
                 <div class="left-bottom">
@@ -16,7 +16,7 @@
                         营业员在线人数
                     </div>
                     <div class="box-num">
-                        {{module1Data.onlineCount}}
+                        {{filterNumber(module1Data.onlineCount)}}
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                         今日开户数
                     </div>
                     <div class="box-num">
-                        {{module1Data.todayCount}}
+                        {{filterNumber(module1Data.todayCount)}}
                     </div>
                 </div>
                 <div class="right-bottom">
@@ -60,6 +60,7 @@
 
 <script>
     import commonTitle from "./commonTitle";
+    import {formatterNumber} from "../utils/filterNum"
     export default {
 		name: "",
         components:{commonTitle},
@@ -75,8 +76,7 @@
 			}
 		},
 		mounted() {
-		    console.log('module1Data', this.module1Data)
-		},
+        },
 		methods:{
             fixedNum(num){
                 num = (Number(num)*100).toFixed(1)
@@ -85,7 +85,15 @@
                     let backStr =  str +'%'
                     return backStr
                 }
-
+            },
+            filterNumber(num){
+                if(String(num).length>8){
+                    let res = ''
+                    res = (num/100000000).toFixed(1)
+                    return res + '亿'
+                }else {
+                    return formatterNumber(num)
+                }
             }
 		}
 	}
