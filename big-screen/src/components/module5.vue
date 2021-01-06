@@ -1,6 +1,8 @@
 <template>
     <div class="bar-chart-box">
-		<div class="header-box"></div>
+		<div class="header-box">
+			<commonTitle :titleText="titleText"></commonTitle>
+		</div>
 		<div class="chart-out-box">
 			<div ref="chart" style="width:100%;height:100%"></div>
 		</div>
@@ -21,31 +23,38 @@
 		},
 		data(){
 			return{
-				dataAxis: [],
+				titleText: '全国31省用户量/arpu值',
+				dataAxis: [], // 
 				xData: [],
-				yData: [],
+				yDataA: [], // 柱状图 用户量
+				yDataB: [], // 柱状图 arpu值
 				maxDataNum: 0
 			}
 		},
 		mounted() {
 			console.log('create', this.module5Data)
+			this.transData(this.module5Data)
         	this.drawChart()
 		},
 		updated() {
 			console.log('update', this.module5Data)
+			this.transData(this.module5Data)
 			this.drawChart()
 		},
 		methods:{
-			drawChart() {
-				this.dataAxis = []
-				this.yData.map((d,i)=>{
-					if(i%2 ==0){
-						this.dataAxis.push(0)
-					} else {
-						this.dataAxis.push(this.maxDataNum)
-					}
+			transData(data) {
+				let vm = this
+				// 清空所有数据
+				vm.xData = []
+				vm.yDataA = []
+				vm.yDataB = []
+				data.forEach(el => {
+					vm.xData.push(el.areaName)
+					vm.yDataA.push(el.number)
+					vm.yDataB.push(el.arpu)
 				})
-				
+			},
+			drawChart() {
 				let chart = this.$refs.chart
 				let myChart = echarts.init(chart)
 				let options = {
@@ -67,6 +76,9 @@
 							fontWeight: 600
 						},
 					},
+					legend: {
+						data: ['用户量', 'arpu值']
+					},
 					grid: {
 						left: '3%',
 						right: '4%',
@@ -84,7 +96,6 @@
 							}
 						},
 						axisLabel: {
-							// rotate: 45
 							interval: 0,
 							formatter: (val) => {
 								let str = val.split('')
@@ -127,6 +138,7 @@
 					series: [
 						{
 							type: 'bar',
+							name: '用户量',
 							itemStyle: {
 								color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
 									offset: 0,
@@ -136,12 +148,31 @@
 									color: '#315DFF' //指100%处的颜色
 								}], false)
 							},
-							barGap:'-75%',
-							barWidth: 18,
+							// barGap:'-75%',
+							barWidth: 8,
 							tooltip:{
 								show:true
 							},
-							data: this.yData
+							data: this.yDataA
+						},
+						{
+							type: 'bar',
+							name: 'arpu值',
+							itemStyle: {
+								color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+									offset: 0,
+									color: '#7EEEE5' //指0%处的颜色
+								}, {
+									offset: 1,
+									color: '#67C2C2' //指100%处的颜色
+								}], false)
+							},
+							// barGap:'-75%',
+							barWidth: 8,
+							tooltip:{
+								show:true
+							},
+							data: this.yDataB
 						}
 					]
 				};
@@ -161,7 +192,9 @@
 	height: 288px;
 	box-sizing: border-box;
 	padding-top: 44px;
-	position: relative;
+	position: absolute;
+	top: 676px;
+	left: 0;
 	.header-box{
 		position: absolute;
 		top: 8px;

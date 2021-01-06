@@ -152,7 +152,7 @@ export default {
             width: 460px;
             display: flex;
             flex-direction: column;
-            border: 1px solid red;
+            // border: 1px solid red;
         }
 
         .center-box {
@@ -163,7 +163,8 @@ export default {
             background: url("../assets/img/img_bg.png") no-repeat center top;
             background-size: 788px 788px;
             padding-top: 10px;
-            border: 1px solid red;
+            position: relative;
+            // border: 1px solid red;
         }
 
         .right-box {
@@ -171,7 +172,7 @@ export default {
             width: 460px;
             display: flex;
             flex-direction: column;
-            border: 1px solid red;
+            // border: 1px solid red;
         }
     }
 }
