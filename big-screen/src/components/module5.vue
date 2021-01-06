@@ -14,25 +14,26 @@
     export default {
 		name: "barChart",
 		 props: {
-			xData: {
+			module5Data: {
 				type: Array,
 				default: []
-			},
-			yData: {
-				type: Array,
-				default: []
-			},
-			maxDataNum: {
-				type: Number,
-				default: 0
 			}
 		},
 		data(){
 			return{
-				dataAxis: []
+				dataAxis: [],
+				xData: [],
+				yData: [],
+				maxDataNum: 0
 			}
 		},
 		mounted() {
+			console.log('create', this.module5Data)
+        	this.drawChart()
+		},
+		updated() {
+			console.log('update', this.module5Data)
+			this.drawChart()
 		},
 		methods:{
 			drawChart() {
