@@ -218,6 +218,12 @@ export default {
                                     return str
                                 }
                             }
+                            if(name == 'chongqing'){
+                                console.log(param.name)
+                                if(param.name == '九龙坡' || param.name == '九龙坡区' ||param.name =="彭水苗族土家族自治县" || param.name=="沙坪坝区" ||param.name=="渝北区"||param.name=="大渡口区" || param.name=="江北区"|| param.name=="渝中区"){
+                                    return ''
+                                }
+                            }
                         },
                         color: "#fff"
                     },
