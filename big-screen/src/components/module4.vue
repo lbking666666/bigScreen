@@ -1,14 +1,16 @@
 <template>
     <div class="map-chart">
         <div class="map-shadow" v-show="silent"></div>
-        <div ref="map" style="width:100%;height:100%" v-on:click.stop.prevent="reBack"></div>
+        <div class="tip-show" v-show="tipShow">暂不支持下钻</div>
+        <div ref="map" id="map" style="width:100%;height:100%" v-on:click.stop.prevent="reBack"></div>
     </div>
 </template>
 <script>
 import * as echarts from "echarts";
 import axios from 'axios';
 let chinaMap = require('./map/china.json')
-let map = null
+let map = null,
+    time = null
 export default {
     name: "mapChart",
     props: {
@@ -30,6 +32,8 @@ export default {
             back: false,
             isAll: true,
             silent: false,
+            cityName: '',
+            tipShow: false,
             effArr: [],
             unEffArr: [],
             //定义全国省份的数组
@@ -126,29 +130,32 @@ export default {
                 if (this.match[item.name]) {
                     let params = {
                         name: item.name,
-                        code:item.code,
+                        code: item.code,
                         value: this.match[item.name].concat(item.value)
                     }
                     this.effArr.push(params)
                 }
-
             })
             val.unColors.map(item => {
                 if (this.match[item.name]) {
                     let params = {
                         name: item.name,
-                        code:item.code,
+                        code: item.code,
                         value: this.match[item.name].concat(item.value)
                     }
                     this.unEffArr.push(params)
                 }
             })
+            map.dispose();
             this.initMap('china');
         }
     },
     methods: {
         initMap(name) { //初始化中国地图
-            map = echarts.init(this.$refs.map)
+            map = echarts.getInstanceByDom(document.getElementById('map')); //有的话就获取已有echarts实例的DOM节点。
+            if (map == null) { // 如果不存在，就进行初始化。
+                map = echarts.init(document.getElementById('map'));
+            }
             this.silent = false
             if (name == 'china') {
                 this.back = false
@@ -169,17 +176,15 @@ export default {
                         if (params.seriesType == 'effectScatter' || params.seriesType == 'scatter') {
                             return
                         }
-                        if(params.value || params.value ==0 ){
-                            if(params.name=="新疆" || params.name=="西藏" || params.name=="云南" ){
+                        if (params.value || params.value == 0) {
+                            if (params.name == "新疆" || params.name == "西藏" || params.name == "云南") {
                                 return params.name
-                            }else{
-                               return params.name+ (params.value?'：':'') + (params.value ? params.value : '') 
+                            } else {
+                                return params.name + (params.value ? '：' : '') + (params.value ? params.value : '')
                             }
-                            
-                        }else{
-                           return params.name
+                        } else {
+                            return params.name
                         }
-
                     }
                 },
                 legend: {
@@ -195,53 +200,50 @@ export default {
                 geo: {
                     map: name,
                     roam: false,
-                    zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang'||name =='gansu'||name =='guangdong') ? 0.8 : 1),
-                    top: (name == 'heilongjiang'||name =='gansu')? '20%' : 'center',
-                    left: (name == 'heilongjiang'||name =='gansu') ? '25%' : 'center',
+                    zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang' || name == 'gansu' || name == 'guangdong') ? 0.8 : 1),
+                    top: (name == 'heilongjiang' || name == 'gansu') ? '20%' : 'center',
+                    left: (name == 'heilongjiang' || name == 'gansu') ? '25%' : 'center',
                     // layoutCenter: ['80%','80%'],
                     //图形上的文本标签，可用于说明图形的一些数据信息
                     label: {
-                        normal: {
-                            show: this.back ? true : false,
-                            fontSize: "10",
-                            formatter:function(param){
-                                // 处理不显示地市
-                                if(name == 'xinjiang'){
-                                    let str = String(param.name)
-                                    if(str.length>4){
-                                        return ''
-                                    }else{
-                                        return str
-                                    }
+                        show: this.back ? true : false,
+                        fontSize: "10",
+                        formatter: function(param) {
+                            // 处理不显示地市
+                            if (name == 'xinjiang') {
+                                let str = String(param.name)
+                                if (str.length > 4) {
+                                    return ''
+                                } else {
+                                    return str
                                 }
-                            },
+                            }
+                        },
+                        color: "#fff"
+                    },
+                    emphasis: {
+                        label: {
+                            show: this.back ? true : false,
                             color: "#fff"
                         },
-                        emphasis: {
-                            show: this.back ? true : false,
-                            color: "#fff"
+                        itemStyle: {
+                            color: '#1ACFFF',
+                            areaColor: "#1ACFFF",
                         }
                     },
                     //地图区域的多边形 图形样式，有 normal 和 emphasis 两个状态
                     itemStyle: {
-                        //normal 是图形在默认状态下的样式；
-                        normal: {
-                            borderColor: "#2569BB",
-                            areaColor: "#2569BB",
-                        },
-                        emphasis: {
-                            color: '#1ACFFF',
-                            areaColor: "#1ACFFF",
-                        },
+                        borderColor: "#2569BB",
+                        areaColor: "#2569BB",
                     },
                     regions: this.regionsArr
-
                 },
                 series: [{
                         name: '已托管',
                         type: "map",
                         color: '#62A5E6',
                         geoIndex: 0,
+                        roam: true,
                         data: this.mapData.used,
                     }, {
                         name: '未托管',
@@ -282,14 +284,13 @@ export default {
                         coordinateSystem: 'geo',
                         symbol: 'circle',
                         label: {
-                            formatter:function(param){
-                                if(param.name == '香港'){
-                                    return '/\n' + ' '+param.name
-                                }else{
+                            formatter: function(param) {
+                                if (param.name == '香港') {
+                                    return '/\n' + ' ' + param.name
+                                } else {
                                     return param.name
                                 }
-
-                            } ,
+                            },
                             position: 'center',
                             show: true,
                             color: '#fff',
@@ -304,56 +305,56 @@ export default {
                 ]
             };
             map.setOption(option, true);
-
             window.addEventListener("resize", () => { map.resize(); });
             this.HandleClick()
+            return
         },
         reBack() {
             if (this.back) {
                 this.$emit('reName', '全国', '1')
+                map.dispose();
                 this.initMap('china');
+            } else {
+                map.dispose();
+                this.initMap(this.cityName);
             }
         },
         HandleClick() {
             // 点击触发
             map.on("click", param => {
                 // 判断点击省份是否是未托管
-                let hasAccess = this.mapData.unUsed.find((d)=>{
+                let hasAccess = this.mapData.unUsed.find((d) => {
                     return d.name == param.name
                 })
                 this.silent = true
-
                 let code = param.data ? param.data.code : 0
                 if (param.name in this.provinces) {
                     // 处理省模块
                     let names = param.name;
                     for (let key in this.provinces) {
-                        if (names == key ) {
-                            if(!hasAccess){
-                                if(names=="新疆" || names=="西藏" || names=="云南"){
+                        if (names == key) {
+                            if (!hasAccess) {
+                                if (names == "新疆" || names == "西藏" || names == "云南") {
+                                    map.dispose();
                                     this.initMap('china');
-                                }else{
+                                } else {
                                     this.showProvince(this.provinces[key], key, code);
                                 }
-                                
-                                break;
-                            } else{
-                                this.initMap('china');
+                                continue;
                             }
-                        }else{
+                        } else {
+                            this.cityName = 'china'
                         }
                     }
-                } else {}
-                /*else if (param.name in cityMap) {
-                    // 处理市模块
-                    let names = param.name;
-                    for (let key in cityMap) {
-                        if (names == key) {
-                            showCitys(cityMap[key], key);
-                            break;
-                        }
+                } else {
+                    if (param) {
+                        this.tipShow = true
+                        setTimeout(() => {
+                            this.tipShow = false
+                        }, 2000)
+                        this.back = false
                     }
-                }*/
+                }
             });
         },
         showProvince(eName, param, code) {
@@ -361,10 +362,11 @@ export default {
             axios.get(`./map/province/${eName}.json`).then(res => {
                 echarts.registerMap(eName, res.data);
                 this.$emit('reName', param, code)
-                if (self.remap == 1 && self.remap2 == 1) {
-                    self.initMap(eName);
-                }
-
+                self.cityName = eName
+                //if (self.remap == 1 && self.remap2 == 1) {
+                map.dispose();
+                self.initMap(eName);
+                // }
             })
         }
     }
@@ -385,5 +387,17 @@ export default {
     top: 0;
     left: 0;
     z-index: 100
+}
+
+.tip-show {
+    position: absolute;
+    top: 50%;
+    z-index: 9;
+    left: 50%;
+    font-size: 0.8rem;
+    color: #fff;
+    padding: 0.2rem 0.3rem;
+    border-radius: 10%;
+    background: rgba(0, 0, 0, 0.4);
 }
 </style>
