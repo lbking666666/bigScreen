@@ -24,13 +24,6 @@
     .common-title{
         width: 100%;
         height: 36px;
-        font-size: 20px;
-        font-family: PingFangSC-Semibold, PingFang SC;
-        font-weight: 600;
-        color: #FFFFFF;
-        line-height: 36px;
-        letter-spacing: 1px;
-        text-shadow: 0px 2px 4px #0B63C9;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -47,6 +40,13 @@
         .text{
             min-width: 206px;
             max-width: 260px;
+            font-size: 20px;
+            font-family: PingFangSC-Semibold, PingFang SC;
+            font-weight: 600;
+            color: #FFFFFF;
+            line-height: 36px;
+            letter-spacing: 1px;
+            text-shadow: 0px 2px 4px #0B63C9;
         }
     }
 </style>

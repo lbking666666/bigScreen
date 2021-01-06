@@ -68,6 +68,7 @@ export default {
         getData() {
             this.getModule1Data()
             this.getModule5Data()
+            this.getModule7Data()
             this.getShowArea()
         },
         getModule1Data(){
@@ -154,6 +155,13 @@ export default {
                 this.module5Data.push(newObj)
             }
         },
+        getModule7Data(){
+            this.module7Data = {
+                fiveGCount: 12345, //类型：Number  必有字段  备注：5G
+                familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
+                crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
+            }
+        },
         selectName(name, code) {
             this.provinceName = name
             this.areaCode = code
@@ -233,7 +241,6 @@ export default {
             width: 460px;
             display: flex;
             flex-direction: column;
-            border: 1px solid red;
         }
 
         .center-box {
@@ -244,7 +251,6 @@ export default {
             background: url("../assets/img/img_bg.png") no-repeat center top;
             background-size: 788px 788px;
             padding-top: 10px;
-            border: 1px solid red;
         }
 
         .right-box {
@@ -252,7 +258,6 @@ export default {
             width: 460px;
             display: flex;
             flex-direction: column;
-            border: 1px solid red;
         }
     }
 }
