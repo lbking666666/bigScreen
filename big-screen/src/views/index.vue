@@ -5,18 +5,18 @@
         </div>
         <div class="container">
             <div class="left-box">
-                <module1></module1>
-                <module2></module2>
-                <module3></module3>
+                <module1 :module1Data="module1Data"></module1>
+                <module2 :module2Data="module2Data"></module2>
+                <module3 :module3Data="module3Data"></module3>
             </div>
             <div class="center-box">
-                <module4></module4>
-                <module5></module5>
+                <module4 :module4Data="module4Data"></module4>
+                <module5 :module5Data="module5Data"></module5>
             </div>
             <div class="right-box">
-                <module6></module6>
-                <module7></module7>
-                <module8></module8>
+                <module6 :module6Data="module6Data"></module6>
+                <module7 :module7Data="module7Data"></module7>
+                <module8 :module8Data="module8Data"></module8>
             </div>
         </div>
     </div>
@@ -45,7 +45,14 @@ export default {
     },
     data() {
         return {
-
+            module1Data:{},
+            module2Data:{},
+            module3Data:{},
+            module4Data:{},
+            module5Data:{},
+            module6Data:{},
+            module7Data:{},
+            module8Data:{}
         }
     },
     mounted() {
