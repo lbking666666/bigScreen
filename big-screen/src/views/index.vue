@@ -48,6 +48,7 @@ export default {
         return {
             remap: 0,
             remap2: 0,
+            mapData: {}, //地图数据
             module1Data: {},
             module2Data: {},
             module3Data: {},
@@ -68,6 +69,7 @@ export default {
             this.getModule1Data()
             this.getModule4Data()
             this.getModule5Data()
+            this.getModule7Data()
         },
         getModule1Data(){
             this.module1Data = {
@@ -151,6 +153,13 @@ export default {
                     areaCode: String(i)
                 }
                 this.module5Data.push(newObj)
+            }
+        },
+        getModule7Data(){
+            this.module7Data = {
+                fiveGCount: 12345, //类型：Number  必有字段  备注：5G
+                familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
+                crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
             }
         },
         selectName(name, code) {

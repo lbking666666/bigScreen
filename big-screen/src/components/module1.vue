@@ -65,7 +65,7 @@
         components:{commonTitle},
 		props: {
             module1Data:{
-                type: String,
+                type: Object,
                 default:{}
             }
 		},
