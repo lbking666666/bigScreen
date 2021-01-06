@@ -1,8 +1,7 @@
- import { getApi, postApi } from './config.js'
-
+import { getApi, postApi } from './config.js'
+import mock from './mock.js'
 
  export function addAreaUser(data) {
-     console.log(data)
      const url = '/wep-oms/bigScreen/addAreaUser';
      return getApi(url, data)
  }
