@@ -3,10 +3,10 @@
         <commonTitle :titleText="titleText"></commonTitle>
         <div class="line-chart">
             <div class="query-option">
-                <div class="options opt-active" :class="flag2==11?'opt-active':''" @click="selExternal(11)">
+                <div class="options" :class="flag==1?'opt-active':''" @click="selExternal(1)">
                     <div>营业厅</div>
                 </div>
-                <div class="options" :class="flag2==10?'opt-active':''" @click="selExternal(10)">
+                <div class="options" :class="flag==2?'opt-active':''" @click="selExternal(2)">
                     <div>外围</div>
                 </div>
             </div>
@@ -36,7 +36,8 @@ export default {
     },
     data() {
         return {
-            titleText: '1月订单量'
+            titleText: '1月订单量',
+            flag:1,
         }
     },
     mounted() {
@@ -148,6 +149,9 @@ export default {
             }
             myChart.setOption(options)
             window.addEventListener("resize", () => { myChart.resize(); });
+        },
+        selExternal(type){
+        	this.flag = type
         }
     }
 }
