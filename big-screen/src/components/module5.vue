@@ -220,9 +220,7 @@
 	height: 288px;
 	box-sizing: border-box;
 	padding-top: 44px;
-	position: absolute;
-	top: 676px;
-	left: 0;
+	position:relative;
 	background: url(../assets/yaxin/kuang_zhongjian.png) no-repeat;
 	background-size: contain;
 	.header-box{

@@ -9,7 +9,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: #010B3D;
+    background: #030A2E;
   }
   div{
     box-sizing: border-box;
