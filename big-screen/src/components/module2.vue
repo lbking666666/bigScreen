@@ -90,24 +90,72 @@
 		height: 10px;
 		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
+		position: relative;
+	}
+	.process:before{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -8px;
+		width: 5px;
+		height: 10px;
+		background: #FFB278;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
 	}
 	.process1{
 		width: 60%;
 		height: 10px;
 		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
+		position: relative;
+	}
+	.process1:before{
+		content: '';
+		width: 5px;
+		height: 10px;
+		background: #78A5FF;
+		position: absolute;
+		top: 0;
+		left: -8px;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
 	}
 	.process2{
 		width: 60%;
 		height: 10px;
 		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
+		position: relative;
+	}
+	.process2:before{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -8px;
+		width: 5px;
+		height: 10px;
+		background: #75F0C2;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
 	}
 	.process3{
 		width: 60%;
 		height: 10px;
 		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
+		position: relative;
+	}
+	.process3:before{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -8px;
+		width: 5px;
+		height: 10px;
+		background: #2CC9FF;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
 	}
 	.process div{
 		width: 60%;
