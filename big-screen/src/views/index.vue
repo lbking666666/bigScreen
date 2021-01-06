@@ -14,7 +14,7 @@
                 <module5 :module5Data="module5Data"></module5>
             </div>
             <div class="right-box">
-                <module6 :module6Data="module6Data"></module6>
+                <module6  :xData="module6Data.externalX" :yData="module6Data.externalY" :color="'#B085FF'"></module6>
                 <module7 :module7Data="module7Data"></module7>
                 <module8 :module8Data="module8Data"></module8>
             </div>
@@ -68,6 +68,7 @@ export default {
             this.getModule1Data()
             this.getModule4Data()
             this.getModule5Data()
+            this.getModule6Data()
         },
         getModule1Data(){
             this.module1Data = {
@@ -151,6 +152,13 @@ export default {
                     areaCode: String(i)
                 }
                 this.module5Data.push(newObj)
+            }
+        },
+        getModule6Data(){
+            let arr1 = [1,2,3,4,5],arr2=[100,30,40,50,80]
+            this.module6Data = {
+                externalX:arr1,
+                externalY:arr2
             }
         },
         selectName(name, code) {

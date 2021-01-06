@@ -41,6 +41,12 @@ export default {
                             fontWeight: 600
                         },
                 },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
                 color:['#248DEA','#22DEEE','#2DFF9E','#FEC14D','#F95537'],
                 series: [
                     {
