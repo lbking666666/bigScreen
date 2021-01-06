@@ -82,9 +82,9 @@ export default {
 <style lang="less" scoped>
 .rose-charts{
 	width:100%;
-	height:310px;
+	height:290px;
 	padding:8px;
-	background:url(../assets/yaxin/kuang_zuozhong.png) no-repeat;
+	background:url(../assets/yaxin/kuang_zuoxia.png) no-repeat;
 	background-size:100%;
 	.charts-wrapper{
 		width:100%;

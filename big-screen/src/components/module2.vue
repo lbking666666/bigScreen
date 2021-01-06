@@ -72,6 +72,7 @@
 	.module2{
 		width: 100%;
 		height: 323px;
+		padding:8px;
 		background: url("../assets/yaxin/kuang_zuozhong.png");
 	}
 	.container{
@@ -80,13 +81,14 @@
 		// float: left;
 		width: 100%;
 		height: 50px;
+		padding:0 20px;
 		font-size: 14px;
 		font-family: PingFangSC-Regular, PingFang SC;
 		font-weight: 400;
 		color: #FFFFFF;
 	}
 	.process{
-		width: 60%;
+		width: 50%;
 		height: 10px;
 		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
@@ -104,7 +106,7 @@
 		border-bottom-left-radius: 10px;
 	}
 	.process1{
-		width: 60%;
+		width: 50%;
 		height: 10px;
 		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
@@ -122,7 +124,7 @@
 		border-bottom-left-radius: 10px;
 	}
 	.process2{
-		width: 60%;
+		width: 50%;
 		height: 10px;
 		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
@@ -140,7 +142,7 @@
 		border-bottom-left-radius: 10px;
 	}
 	.process3{
-		width: 60%;
+		width: 50%;
 		height: 10px;
 		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
@@ -158,36 +160,37 @@
 		border-bottom-left-radius: 10px;
 	}
 	.process div{
-		width: 60%;
+		width: 50%;
 		height: 10px;
 		border-radius: 7px;
 		background: linear-gradient(270deg, #FF5353 0%, #FFB378 100%);
 	}
 	.process1 div{
-		width: 60%;
+		width: 50%;
 		height: 10px;
 		border-radius: 7px;
 		background: linear-gradient(270deg, #8153FF 0%, #78A5FF 100%);
 	}
 	.process2 div{
-		width: 60%;
+		width: 50%;
 		height: 10px;
 		border-radius: 7px;
 		background: linear-gradient(270deg, #49CCEF 0%, #75F0C2 100%);
 	}
 	.process3 div{
-		width: 60%;
+		width: 50%;
 		height: 10px;
 		border-radius: 7px;
 		background: linear-gradient(270deg, #376CDE 0%, #2CC9FF 100%);
 	}
 	.title{
-		width: 20%;
+		width: 77px;
 		display: flex;
+		margin-right:16px;
 		justify-content: flex-start;
 	}
 	.total{
-		width: 10%;
+		width: 101px;
 		// float: left;
 	}
 	.top-title-left{
@@ -199,7 +202,7 @@
 		line-height: 14px;
 		text-shadow: 0px 0px 4px rgba(136, 215, 253, 0.6);
 		float: left;
-		margin-left: 50px;
+		margin-left: 20px;
 	}
 	.top-title-right{
 		height: 14px;
@@ -210,7 +213,8 @@
 		line-height: 14px;
 		text-shadow: 0px 0px 4px rgba(136, 215, 253, 0.6);
 		float: right;
-		margin-right: 30px;
+		margin-right: 20px;
+		width:100px;
 	}
 	
 </style>
