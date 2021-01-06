@@ -5,18 +5,18 @@
         </div>
         <div class="container">
             <div class="left-box">
-                <module1></module1>
-                <module2></module2>
-                <module3></module3>
+                <module1 :module1Data="module1Data"></module1>
+                <module2 :module2Data="module2Data"></module2>
+                <module3 :module3Data="module3Data"></module3>
             </div>
             <div class="center-box">
-                <module4 @reName="selectName" :remap="remap" :remap2="remap2" :mapData="mapData"></module4>
-                <module5></module5>
+                <module4 @reName="selectName" :remap="remap" :remap2="remap2" :mapData="module4Data"></module4>
+                <module5 :module5Data="module5Data"></module5>
             </div>
             <div class="right-box">
-                <module6></module6>
-                <module7></module7>
-                <module8></module8>
+                <module6 :module6Data="module6Data"></module6>
+                <module7 :module7Data="module7Data"></module7>
+                <module8 :module8Data="module8Data"></module8>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@ import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
-import {  showArea } from '@/api/index.js';
+import { showArea } from '@/api/index.js';
 export default {
     name: 'Home',
     components: {
@@ -46,9 +46,17 @@ export default {
     },
     data() {
         return {
-            remap:0,
-            remap2:0,
-            mapData:{},//地图数据
+            remap: 0,
+            remap2: 0,
+            mapData: {}, //地图数据
+            module1Data: {},
+            module2Data: {},
+            module3Data: {},
+            module4Data: {},
+            module5Data: [],
+            module6Data: {},
+            module7Data: {},
+            module8Data: {}
         }
     },
     mounted() {
@@ -58,6 +66,7 @@ export default {
     methods: {
 
         getData() {
+            this.getModule5Data()
             this.getShowArea()
         },
         getShowArea() {
@@ -66,34 +75,37 @@ export default {
                 areaCode: this.areaCode
             }
             showArea(params).then(res => {
-                 if(res.code == 200){
-                    let arr1 = [],arr2 =[],arr3=[],arr4=[]
-                    res.data.map(item=>{
-                        if(item.flag == -1){
-                           let obj = {
-                                name:item.areaName.replace('省','').replace('特别行政区',''),
-                                value:item.num,
-                                code:item.areaCode,
+                if (res.code == 200) {
+                    let arr1 = [],
+                        arr2 = [],
+                        arr3 = [],
+                        arr4 = []
+                    res.data.map(item => {
+                        if (item.flag == -1) {
+                            let obj = {
+                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                value: item.num,
+                                code: item.areaCode,
                                 itemStyle: {
                                     areaColor: '#2569BB',
-                                    color:'#2569BB',
+                                    color: '#2569BB',
                                     borderColor: '#2569BB',
                                 }
                             }
                             arr1.push(obj)
                         }
-                        if(item.colors ==-1){
+                        if (item.colors == -1) {
                             let colors = {
-                                name: item.areaName.replace('省','').replace('特别行政区',''),
-                                code:item.areaCode,
+                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                code: item.areaCode,
                             }
                             arr3.push(colors)
                         }
-                        if(item.flag>=0){
+                        if (item.flag >= 0) {
                             let obj = {
-                                name:item.areaName.replace('省','').replace('特别行政区',''),
-                                value:item.num,
-                                code:item.areaCode,
+                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                value: item.num,
+                                code: item.areaCode,
                                 itemStyle: {
                                     areaColor: '#62A5E6',
                                     color: '#62A5E6',
@@ -103,24 +115,36 @@ export default {
                             arr2.push(obj)
                         }
 
-                        if(item.colors ==1){
+                        if (item.colors == 1) {
                             let colors = {
-                                name: item.areaName.replace('省','').replace('特别行政区',''),
-                                code:item.areaCode,
+                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                code: item.areaCode,
                             }
                             arr4.push(colors)
                         }
                     })
-                    this.mapData = {
-                        used:arr2,
-                        unUsed:arr1,
-                        colors:arr4,
-                        unColors:arr3
+                    this.module4Data = {
+                        used: arr2,
+                        unUsed: arr1,
+                        colors: arr4,
+                        unColors: arr3
                     }
                 }
             })
         },
-        selectName(name,code){
+        getModule5Data() {
+            this.module5Data = []
+            for (let i = 1; i <= 31; i++) {
+                let newObj = {
+                    number: 100 * i,
+                    arpu: 50 * i,
+                    areaName: '地区' + String(i),
+                    areaCode: String(i)
+                }
+                this.module5Data.push(newObj)
+            }
+        },
+        selectName(name, code) {
             this.provinceName = name
             this.areaCode = code
         }
@@ -169,8 +193,8 @@ export default {
     .header {
         display: flex;
         width: 100%;
-        height: 89px;
-        background: url("../assets/img/biaoti.png") no-repeat;
+        height: 86px;
+        background: url("../assets/yaxin/dingbubiaoti.png") no-repeat;
         background-size: 100% 100%;
 
         .time-box {
@@ -191,7 +215,7 @@ export default {
     .container {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: center;
         margin: 0 auto;
         height: 100vh;
 
@@ -203,7 +227,8 @@ export default {
         }
 
         .center-box {
-            width: 860px;
+            margin-left: 23px;
+            width: 894px;
             display: flex;
             flex-direction: column;
             background: url("../assets/img/img_bg.png") no-repeat center top;
@@ -213,6 +238,7 @@ export default {
         }
 
         .right-box {
+            margin-left: 23px;
             width: 460px;
             display: flex;
             flex-direction: column;

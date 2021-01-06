@@ -374,7 +374,7 @@ export default {
 </script>
 <style scoped>
 .map-chart {
-    height: 100%;
+    height: 631px;
     width: 100%;
     position: relative;
 }

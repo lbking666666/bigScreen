@@ -154,7 +154,12 @@ export default {
                         }
                     },
                     axisLabel: {
-                        rotate: 45
+                        // rotate: 45
+                        interval: 0,
+                        formatter: (val) => {
+                            let str = val.split('')
+                            return str.join('\n')
+                        }
                     },
                     axisTick: {
                         alignWithLabel: true
