@@ -10,7 +10,7 @@
                 <module3></module3>
             </div>
             <div class="center-box">
-                <module4></module4>
+                <module4 @reName="selectName" :remap="remap" :remap2="remap2" :mapData="mapData"></module4>
                 <module5></module5>
             </div>
             <div class="right-box">
@@ -31,6 +31,7 @@ import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
+import {  showArea } from '@/api/index.js';
 export default {
     name: 'Home',
     components: {
@@ -45,7 +46,9 @@ export default {
     },
     data() {
         return {
-
+            remap:0,
+            remap2:0,
+            mapData:{},//地图数据
         }
     },
     mounted() {
@@ -55,9 +58,72 @@ export default {
     methods: {
 
         getData() {
-
+            this.getShowArea()
         },
+        getShowArea() {
+            //全国区域查询接口
+            let params = {
+                areaCode: this.areaCode
+            }
+            showArea(params).then(res => {
+                 if(res.code == 200){
+                    let arr1 = [],arr2 =[],arr3=[],arr4=[]
+                    res.data.map(item=>{
+                        if(item.flag == -1){
+                           let obj = {
+                                name:item.areaName.replace('省','').replace('特别行政区',''),
+                                value:item.num,
+                                code:item.areaCode,
+                                itemStyle: {
+                                    areaColor: '#2569BB',
+                                    color:'#2569BB',
+                                    borderColor: '#2569BB',
+                                }
+                            }
+                            arr1.push(obj)
+                        }
+                        if(item.colors ==-1){
+                            let colors = {
+                                name: item.areaName.replace('省','').replace('特别行政区',''),
+                                code:item.areaCode,
+                            }
+                            arr3.push(colors)
+                        }
+                        if(item.flag>=0){
+                            let obj = {
+                                name:item.areaName.replace('省','').replace('特别行政区',''),
+                                value:item.num,
+                                code:item.areaCode,
+                                itemStyle: {
+                                    areaColor: '#62A5E6',
+                                    color: '#62A5E6',
+                                    borderColor: "#62A5E6",
+                                }
+                            }
+                            arr2.push(obj)
+                        }
 
+                        if(item.colors ==1){
+                            let colors = {
+                                name: item.areaName.replace('省','').replace('特别行政区',''),
+                                code:item.areaCode,
+                            }
+                            arr4.push(colors)
+                        }
+                    })
+                    this.mapData = {
+                        used:arr2,
+                        unUsed:arr1,
+                        colors:arr4,
+                        unColors:arr3
+                    }
+                }
+            })
+        },
+        selectName(name,code){
+            this.provinceName = name
+            this.areaCode = code
+        }
 
     }
 }
