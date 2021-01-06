@@ -91,35 +91,6 @@ export default {
         color: #ECFCFF;
         text-shadow: 0px 2px 6px #4CB5FF;
     }
-
-    .query-option {
-        flex: 1;
-        display: flex;
-        justify-content: flex-end;
-
-        .options {
-            width: 40px;
-            height: 19px;
-            line-height: 19px;
-            font-size: 14px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
-            color: #308BFD;
-            border: 1px solid #308BFD;
-            transform: skew(-45deg);
-            margin-right: 5px;
-            cursor: pointer;
-
-            div {
-                transform: skewX(45deg);
-            }
-        }
-
-        .opt-active {
-            color: #FFFFFF;
-            background: linear-gradient(270deg, #7CF1E0 0%, #2C48A5 100%);
-        }
-    }
 }
 
 .home {
@@ -148,53 +119,21 @@ export default {
             letter-spacing: .93px;
             text-align: left;
             line-height: 34px;
-            width: 260px;
-            text-align: right;
         }
     }
 
     .container {
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-around;
         margin: 0 auto;
-
-        // 通用样式 高的div
-        .common-style-high {
-            width: 500px;
-            height: 328px;
-            background: url("../assets/img/dingbukuang.png") no-repeat;
-            background-size: 100% 100%;
-            margin-bottom: 24px;
-        }
-
-        // 通用样式 低的div
-        .common-style {
-            width: 500px;
-            height: 300px;
-            background: url("../assets/img/dingbukuang.png") no-repeat;
-            background-size: 100% 100%;
-        }
+        height: 100vh;
 
         .left-box {
-            .external {
-                margin-bottom: 20px;
-                display: flex;
-                flex-direction: column;
-
-                .line-chart {
-                    width: 100%;
-                    height: 257px;
-                }
-            }
-
-            .inside {
-                .line-chart {
-                    width: 100%;
-                    height: 257px;
-                }
-            }
-
+            width: 460px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid red;
         }
 
         .center-box {
@@ -204,93 +143,14 @@ export default {
             background: url("../assets/img/img_bg.png") no-repeat center top;
             background-size: 788px 788px;
             padding-top: 10px;
-
-            .number-boxs {
-                display: flex;
-                justify-content: center;
-                width: 100%;
-                height: 100px;
-
-                .number-bord-box {
-                    margin-top: 13px;
-                    height: 88px;
-                }
-            }
-
-            .map-chart-home {
-                display: flex;
-                flex: 1;
-                flex-direction: column;
-            }
-
-            .bar-chart-home {
-                width: 100%;
-                height: 320px;
-                position: relative;
-
-                .title {
-                    position: absolute;
-                    top: -20px;
-                }
-
-                .bar-chart-option {
-                    position: absolute;
-                    z-index: 99;
-                    top: 25px;
-                    right: 20px;
-                    display: flex;
-                    height: 20px;
-
-                    .options {
-                        width: 40px;
-                        height: 19px;
-                        line-height: 19px;
-                        font-size: 14px;
-                        font-family: PingFangSC-Medium, PingFang SC;
-                        font-weight: 500;
-                        color: #308BFD;
-                        border: 1px solid #308BFD;
-                        transform: skew(-45deg);
-                        margin-right: 5px;
-                        cursor: pointer;
-
-                        div {
-                            transform: skewX(45deg);
-                        }
-                    }
-
-                    .opt-active {
-                        color: #FFFFFF;
-                        background: linear-gradient(270deg, #7CF1E0 0%, #2C48A5 100%);
-                    }
-                }
-            }
+            border: 1px solid red;
         }
 
         .right-box {
-            .rank {
-                width: 500px;
-                height: 330px;
-                margin-bottom: 0px;
-
-                .ranking-box {
-                    height: 240px;
-                }
-            }
-
-            .interaction {
-                margin-bottom: 24px;
-                display: flex;
-                flex-direction: column;
-
-                .interaction-box {
-                    flex: 1;
-                }
-            }
-
-            .task {
-                margin-bottom: 20px;
-            }
+            width: 460px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid red;
         }
     }
 }
