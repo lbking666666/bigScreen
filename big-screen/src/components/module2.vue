@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="module2">
 		<commonTitle :titleText="titleText"></commonTitle>
 		<div style="margin-top:30px;">
 			<span class="top-title-left">触点</span>
@@ -69,6 +69,11 @@
 </script>
 
 <style lang="less" scoped>
+	.module2{
+		width: 100%;
+		height: 323px;
+		background: url("../assets/yaxin/kuang_zuozhong.png");
+	}
 	.container{
 		display: flex;
 		justify-content: space-around;
@@ -83,26 +88,74 @@
 	.process{
 		width: 60%;
 		height: 10px;
-		background: #010D36;
+		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
+		position: relative;
+	}
+	.process:before{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -8px;
+		width: 5px;
+		height: 10px;
+		background: #FFB278;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
 	}
 	.process1{
 		width: 60%;
 		height: 10px;
-		background: #010D36;
+		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
+		position: relative;
+	}
+	.process1:before{
+		content: '';
+		width: 5px;
+		height: 10px;
+		background: #78A5FF;
+		position: absolute;
+		top: 0;
+		left: -8px;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
 	}
 	.process2{
 		width: 60%;
 		height: 10px;
-		background: #010D36;
+		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
+		position: relative;
+	}
+	.process2:before{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -8px;
+		width: 5px;
+		height: 10px;
+		background: #75F0C2;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
 	}
 	.process3{
 		width: 60%;
 		height: 10px;
-		background: #010D36;
+		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
+		position: relative;
+	}
+	.process3:before{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -8px;
+		width: 5px;
+		height: 10px;
+		background: #2CC9FF;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
 	}
 	.process div{
 		width: 60%;
