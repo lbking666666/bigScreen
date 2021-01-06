@@ -70,7 +70,6 @@ export default {
             this.getModule4Data()
             this.getModule5Data()
             this.getModule7Data()
-            this.getShowArea()
         },
         getModule1Data(){
             this.module1Data = {
