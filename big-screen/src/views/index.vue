@@ -144,7 +144,7 @@ export default {
     .container {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: center;
         margin: 0 auto;
         height: 100vh;
 
@@ -156,6 +156,7 @@ export default {
         }
 
         .center-box {
+            margin-left: 23px;
             width: 894px;
             display: flex;
             flex-direction: column;
@@ -166,6 +167,7 @@ export default {
         }
 
         .right-box {
+            margin-left: 23px;
             width: 460px;
             display: flex;
             flex-direction: column;
