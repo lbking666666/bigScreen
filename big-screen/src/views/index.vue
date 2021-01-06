@@ -31,6 +31,7 @@ import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
+import {} from '@/api/index.js';
 export default {
     name: 'Home',
     components: {
@@ -49,7 +50,7 @@ export default {
             module2Data:{},
             module3Data:{},
             module4Data:{},
-            module5Data:{},
+            module5Data:[],
             module6Data:{},
             module7Data:{},
             module8Data:{}
@@ -62,10 +63,21 @@ export default {
     methods: {
 
         getData() {
-
+            this.getModule5Data()
         },
 
-
+        getModule5Data () {
+            this.module5Data = []
+            for (let i=1; i<=31; i++) {
+                let newObj = {
+                    number: 100*i,
+                    arpu: 50*i,
+                    areaName: '地区'+String(i),
+                    areaCode: String(i)
+                }
+                this.module5Data.push(newObj)
+            }
+        }
     }
 }
 </script>
@@ -132,7 +144,7 @@ export default {
     .container {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: center;
         margin: 0 auto;
         height: 100vh;
 
@@ -144,7 +156,8 @@ export default {
         }
 
         .center-box {
-            width: 860px;
+            margin-left: 23px;
+            width: 894px;
             display: flex;
             flex-direction: column;
             background: url("../assets/img/img_bg.png") no-repeat center top;
@@ -154,6 +167,7 @@ export default {
         }
 
         .right-box {
+            margin-left: 23px;
             width: 460px;
             display: flex;
             flex-direction: column;
