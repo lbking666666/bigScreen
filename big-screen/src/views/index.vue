@@ -122,8 +122,8 @@ export default {
     .header {
         display: flex;
         width: 100%;
-        height: 89px;
-        background: url("../assets/img/biaoti.png") no-repeat;
+        height: 86px;
+        background: url("../assets/yaxin/dingbubiaoti.png") no-repeat;
         background-size: 100% 100%;
 
         .time-box {
