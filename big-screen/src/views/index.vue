@@ -73,7 +73,7 @@ export default {
         },
         getModule1Data(){
             this.module1Data = {
-                userCount: 12345, //类型：Number  必有字段  备注：系统用户数
+                userCount: 123456789, //类型：Number  必有字段  备注：系统用户数
                 onlineCount: 5423, //类型：Number  必有字段  备注：营业员在线人数
                 todayCount: 2345, //类型：Number  必有字段  备注：营业员在线人数
                 lastDayPercent: -0.62, //类型：Number  必有字段  备注：较前日 负数是下降，正数是新增
