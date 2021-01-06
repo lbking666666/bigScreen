@@ -259,6 +259,7 @@ export default {
             background-size: 788px 788px;
             padding-top: 10px;
             justify-content: space-between;
+            position: relative;
         }
 
         .right-box {
