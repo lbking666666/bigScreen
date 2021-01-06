@@ -14,7 +14,7 @@
                 <module5 :module5Data="module5Data"></module5>
             </div>
             <div class="right-box">
-                <module6 :module6Data="module6Data"></module6>
+                <module6  :xData="module6Data.externalX" :yData="module6Data.externalY" :color="'#B085FF'"></module6>
                 <module7 :module7Data="module7Data"></module7>
                 <module8 :module8Data="module8Data"></module8>
             </div>
@@ -48,7 +48,6 @@ export default {
         return {
             remap: 0,
             remap2: 0,
-            mapData: {}, //地图数据
             module1Data: {},
             module2Data: {},
             module3Data: {},
@@ -61,14 +60,14 @@ export default {
     },
     mounted() {
         this.getData()
-
     },
     methods: {
-
         getData() {
             this.getModule1Data()
+            this.getModule4Data()
             this.getModule5Data()
-            this.getShowArea()
+            this.getModule6Data()
+            this.getModule7Data()
         },
         getModule1Data(){
             this.module1Data = {
@@ -79,7 +78,7 @@ export default {
                 lastSevenPercent: 0.83 //类型：Number  必有字段  备注：较7日 负数是下降，正数是新增
             }
         },
-        getShowArea() {
+        getModule4Data() {
             //全国区域查询接口
             let params = {
                 areaCode: this.areaCode
@@ -154,6 +153,20 @@ export default {
                 this.module5Data.push(newObj)
             }
         },
+        getModule6Data(){
+            let arr1 = [1,2,3,4,5,6,7,8,9,10,11,12],arr2=[100,30,40,50,80,100,30,40,50,80,200,400]
+            this.module6Data = {
+                externalX:arr1,
+                externalY:arr2
+            }
+        },
+        getModule7Data(){
+            this.module7Data = {
+                fiveGCount: 12345, //类型：Number  必有字段  备注：5G
+                familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
+                crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
+            }
+        },
         selectName(name, code) {
             this.provinceName = name
             this.areaCode = code
@@ -199,6 +212,7 @@ export default {
     /*background: #010B3D;*/
     /*display: flex;*/
     flex-direction: column;
+    height:100%;
 
     .header {
         display: flex;
@@ -227,13 +241,13 @@ export default {
         flex-direction: row;
         justify-content: center;
         margin: 0 auto;
-        height: 100vh;
+        height: calc(100% - 100px);
 
         .left-box {
             width: 460px;
             display: flex;
             flex-direction: column;
-            // border: 1px solid red;
+            justify-content: space-between;
         }
 
         .center-box {
@@ -244,8 +258,8 @@ export default {
             background: url("../assets/img/img_bg.png") no-repeat center top;
             background-size: 788px 788px;
             padding-top: 10px;
+            justify-content: space-between;
             position: relative;
-            // border: 1px solid red;
         }
 
         .right-box {
@@ -253,7 +267,7 @@ export default {
             width: 460px;
             display: flex;
             flex-direction: column;
-            // border: 1px solid red;
+            justify-content: space-between;
         }
     }
 }

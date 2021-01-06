@@ -31,22 +31,22 @@
                 </div>
                 <div class="right-bottom">
                     <p>较前日
-                        <span class="font-red" v-if="module1Data.lastDayPercent>0">
+                        <span class="font-red" v-if="String(module1Data.lastDayPercent).indexOf('-') == -1">
                             <img src="../assets/yaxin/shangsheng.png" alt="">
                             {{fixedNum(module1Data.lastDayPercent)}}
                         </span>
-                        <span class="font-green" v-else-if="module1Data.lastDayPercent<0">
+                        <span class="font-green" v-else-if="String(module1Data.lastDayPercent).indexOf('-') >= 0">
                             <img src="../assets/yaxin/xiajiang.png" alt="">
                             {{fixedNum(module1Data.lastDayPercent)}}
                         </span>
                         <span v-else>持平</span>，
                     </p>
                     <p>较7日均值
-                        <span class="font-red" v-if="module1Data.lastSevenPercent>0">
+                        <span class="font-red" v-if="String(module1Data.lastSevenPercent).indexOf('-') == -1">
                             <img src="../assets/yaxin/shangsheng.png" alt="">
                             {{fixedNum(module1Data.lastSevenPercent)}}
                         </span>
-                        <span class="font-green" v-else-if="module1Data.lastSevenPercent<0">
+                        <span class="font-green" v-else-if="String(module1Data.lastSevenPercent).indexOf('-') >= 0">
                             <img src="../assets/yaxin/xiajiang.png" alt="">
                             {{fixedNum(module1Data.lastSevenPercent)}}
                         </span>
@@ -65,7 +65,7 @@
         components:{commonTitle},
 		props: {
             module1Data:{
-                type: String,
+                type: Object,
                 default:{}
             }
 		},
@@ -75,10 +75,11 @@
 			}
 		},
 		mounted() {
+		    console.log('module1Data', this.module1Data)
 		},
 		methods:{
             fixedNum(num){
-                num = num.toFixed(1)
+                num = (Number(num)*100).toFixed(1)
                 if(num){
                     let str = (String(num).indexOf('-') >= 0)?String(num).split('-')[1]:num
                     let backStr =  str +'%'
@@ -175,11 +176,16 @@
                         font-weight: 400;
                         color: #FFFFFF;
                         line-height: 38px;
+                        display: flex;
                         .font-red{
                             color: #FC5660;
+                            display: flex;
+                            align-items: center;
                         }
                         .font-green{
                             color: #63F595;
+                            display: flex;
+                            align-items: center;
                         }
                     }
                 }
