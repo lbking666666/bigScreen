@@ -8,7 +8,7 @@
                         系统用户数
                     </div>
                     <div class="box-num">
-                        4亿
+                        {{module1Data.userCount}}
                     </div>
                 </div>
                 <div class="left-bottom">
@@ -16,7 +16,7 @@
                         营业员在线人数
                     </div>
                     <div class="box-num">
-                        302,090
+                        {{module1Data.onlineCount}}
                     </div>
                 </div>
             </div>
@@ -26,31 +26,31 @@
                         今日开户数
                     </div>
                     <div class="box-num">
-                        1,790
+                        {{module1Data.todayCount}}
                     </div>
                 </div>
                 <div class="right-bottom">
                     <p>较前日
-                        <span class="font-red">
-                            <img src="../assets/img/xiajiang.png" alt="">
-                            60%
+                        <span class="font-red" v-if="module1Data.lastDayPercent>0">
+                            <img src="../assets/yaxin/shangsheng.png" alt="">
+                            {{fixedNum(module1Data.lastDayPercent)}}
                         </span>
-                        <span class="font-green">
-                            <img src="../assets/img/shangsheng.png" alt="">
-                            80%
+                        <span class="font-green" v-else-if="module1Data.lastDayPercent<0">
+                            <img src="../assets/yaxin/xiajiang.png" alt="">
+                            {{fixedNum(module1Data.lastDayPercent)}}
                         </span>
-                        <span>持平</span>，
+                        <span v-else>持平</span>，
                     </p>
                     <p>较7日均值
-                        <span class="font-red">
-                            <img src="../assets/img/xiajiang.png" alt="">
-                            60%
+                        <span class="font-red" v-if="module1Data.lastSevenPercent>0">
+                            <img src="../assets/yaxin/shangsheng.png" alt="">
+                            {{fixedNum(module1Data.lastSevenPercent)}}
                         </span>
-                        <span class="font-green">
-                            <img src="../assets/img/shangsheng.png" alt="">
-                            80%
+                        <span class="font-green" v-else-if="module1Data.lastSevenPercent<0">
+                            <img src="../assets/yaxin/xiajiang.png" alt="">
+                            {{fixedNum(module1Data.lastSevenPercent)}}
                         </span>
-                        <span>持平</span>
+                        <span v-else>持平</span>
                     </p>
                 </div>
             </div>
@@ -64,7 +64,10 @@
 		name: "",
         components:{commonTitle},
 		props: {
-			
+            module1Data:{
+                type: String,
+                default:{}
+            }
 		},
 		data(){
 			return{
@@ -74,7 +77,15 @@
 		mounted() {
 		},
 		methods:{
-			
+            fixedNum(num){
+                num = num.toFixed(1)
+                if(num){
+                    let str = (String(num).indexOf('-') >= 0)?String(num).split('-')[1]:num
+                    let backStr =  str +'%'
+                    return backStr
+                }
+
+            }
 		}
 	}
 </script>
@@ -137,6 +148,9 @@
                 width: 205px;
                 height: 246px;
                 background: url("../assets/yaxin/jinrikaihu.png");
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
                 .right-top{
                     width: 100%;
                     height: 116px;
@@ -153,12 +167,20 @@
                     justify-content: center;
                     align-items: center;
                     p{
+                        width: 161px;
+                        text-align: left;
                         margin: 0;
                         font-size: 18px;
                         font-family: PingFangSC-Regular, PingFang SC;
                         font-weight: 400;
                         color: #FFFFFF;
                         line-height: 38px;
+                        .font-red{
+                            color: #FC5660;
+                        }
+                        .font-green{
+                            color: #63F595;
+                        }
                     }
                 }
             }
