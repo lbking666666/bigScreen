@@ -60,10 +60,8 @@ export default {
     },
     mounted() {
         this.getData()
-
     },
     methods: {
-
         getData() {
             this.getModule1Data()
             this.getModule2Data()
@@ -74,7 +72,7 @@ export default {
         },
         getModule1Data(){
             this.module1Data = {
-                userCount: 12345, //类型：Number  必有字段  备注：系统用户数
+                userCount: 123456789, //类型：Number  必有字段  备注：系统用户数
                 onlineCount: 5423, //类型：Number  必有字段  备注：营业员在线人数
                 todayCount: 2345, //类型：Number  必有字段  备注：营业员在线人数
                 lastDayPercent: -0.62, //类型：Number  必有字段  备注：较前日 负数是下降，正数是新增
@@ -196,7 +194,7 @@ export default {
             }
         },
         getModule6Data(){
-            let arr1 = [1,2,3,4,5],arr2=[100,30,40,50,80]
+            let arr1 = [1,2,3,4,5,6,7,8,9,10,11,12],arr2=[100,30,40,50,80,100,30,40,50,80,200,400]
             this.module6Data = {
                 externalX:arr1,
                 externalY:arr2
@@ -301,6 +299,7 @@ export default {
             background-size: 788px 788px;
             padding-top: 10px;
             justify-content: space-between;
+            position: relative;
         }
 
         .right-box {

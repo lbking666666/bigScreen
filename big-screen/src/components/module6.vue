@@ -3,10 +3,10 @@
         <commonTitle :titleText="titleText"></commonTitle>
         <div class="line-chart">
             <div class="query-option">
-                <div class="options opt-active" :class="flag2==11?'opt-active':''" @click="selExternal(11)">
+                <div class="options" :class="flag==1?'opt-active':''" @click="selExternal(1)">
                     <div>营业厅</div>
                 </div>
-                <div class="options" :class="flag2==10?'opt-active':''" @click="selExternal(10)">
+                <div class="options" :class="flag==2?'opt-active':''" @click="selExternal(2)">
                     <div>外围</div>
                 </div>
             </div>
@@ -36,11 +36,12 @@ export default {
     },
     data() {
         return {
-            titleText: '1月订单量'
+            titleText: '1月订单量',
+            flag:1,
         }
     },
     mounted() {
-        this.drawChart()
+        //this.drawChart()
     },
     updated() {
         this.drawChart()
@@ -52,12 +53,18 @@ export default {
             let options = {
                 xAxis: {
                     type: 'category',
-                    boundaryGap: false,
                     axisLine: {
                         lineStyle: {
                             color: '#2EB2B3'
                         }
                     },
+                    boundaryGap: true,
+			        splitArea: {
+			            show: true,
+			            areaStyle:{
+			            	color:['rgba(250,250,250,0)','rgba(59, 157, 230, 0.16)']
+			            }
+			        },
                     axisLabel: {
                         rotate: 45,
                         fontSize: 10,
@@ -78,8 +85,8 @@ export default {
                     formatter: function(params) {
                         let nums = (String(params.value).length > 4) ? (Number(params.value / 10000).toFixed(1) + 'W') : String(params.value)
 
-                        console.log(nums)
-                        return nums
+                        
+                        return '2015年10月5日'+'<br>订单量 '+nums
                     }
 
                 },
@@ -142,6 +149,9 @@ export default {
             }
             myChart.setOption(options)
             window.addEventListener("resize", () => { myChart.resize(); });
+        },
+        selExternal(type){
+        	this.flag = type
         }
     }
 }

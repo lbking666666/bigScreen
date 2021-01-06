@@ -39,8 +39,9 @@
         }
         .text{
             min-width: 206px;
-            max-width: 260px;
+            max-width: 300px;
             font-size: 20px;
+            margin: 0 10px;
             font-family: PingFangSC-Semibold, PingFang SC;
             font-weight: 600;
             color: #FFFFFF;

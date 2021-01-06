@@ -6,7 +6,7 @@
 			<span class="top-title-right" >发展量</span>
 		</div>
 		<div v-for="(item, index) in module2Data">
-		<div class="container">   
+		<div class="container">
 			<div class="title">{{item.chudian}}</div>
 			<div class="processyuan" :style="item.xiaogada"></div>
 			<div class="process">
@@ -46,7 +46,7 @@
 		mounted() {
 		},
 		methods:{
-			
+
 		}
 	}
 </script>
@@ -122,5 +122,5 @@
 		// float: right;
 		margin-right: 10px;
 	}
-	
+
 </style>
