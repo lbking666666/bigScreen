@@ -125,17 +125,263 @@ const showTask = function() {
 //各省客户汇总数据接口
 const showArea = function() {
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
-            "list|20": [ //类型：Array  必有字段  备注：内部员工数组
-                { //类型：Object  必有字段  备注：无
-                    num: Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：新增内部员工数
-                    areaName: Mock.mock("@city"), //类型：String  必有字段  备注：区域名称
-                    areaCode: "3401" //类型：String  必有字段  备注：区域编码
+            "code": 200,
+            "data": [{
+                    "areaCode": "1",
+                    "areaName": "中国",
+                    "colors": "-1",
+                    "flag": "-1",
+                    "num": "1320"
+                },
+                {
+                    "areaCode": "110000",
+                    "areaName": "北京",
+                    "colors": "-1",
+                    "flag": "-1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "120000",
+                    "areaName": "天津",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "10"
+                },
+                {
+                    "areaCode": "130000",
+                    "areaName": "河北",
+                    "colors": "-1",
+                    "flag": "-1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "140000",
+                    "areaName": "山西",
+                    "colors": "-1",
+                    "flag": "-1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "150000",
+                    "areaName": "内蒙古",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "629"
+                },
+                {
+                    "areaCode": "210000",
+                    "areaName": "辽宁",
+                    "colors": "-1",
+                    "flag": "1",
+                    "num": "309"
+                },
+                {
+                    "areaCode": "220000",
+                    "areaName": "吉林",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "1547"
+                },
+                {
+                    "areaCode": "230000",
+                    "areaName": "黑龙江",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "310000",
+                    "areaName": "上海",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "162"
+                },
+                {
+                    "areaCode": "320000",
+                    "areaName": "江苏",
+                    "colors": "-1",
+                    "flag": "1",
+                    "num": "2184"
+                },
+                {
+                    "areaCode": "330000",
+                    "areaName": "浙江",
+                    "colors": "-1",
+                    "flag": "-1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "340000",
+                    "areaName": "安徽",
+                    "colors": "-1",
+                    "flag": "-1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "350000",
+                    "areaName": "福建",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "106"
+                },
+                {
+                    "areaCode": "360000",
+                    "areaName": "江西",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "158"
+                },
+                {
+                    "areaCode": "370000",
+                    "areaName": "山东",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "2602"
+                },
+                {
+                    "areaCode": "410000",
+                    "areaName": "河南",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "3049"
+                },
+                {
+                    "areaCode": "420000",
+                    "areaName": "湖北",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "125"
+                },
+                {
+                    "areaCode": "430000",
+                    "areaName": "湖南",
+                    "colors": "-1",
+                    "flag": "1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "440000",
+                    "areaName": "广东",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "327"
+                },
+                {
+                    "areaCode": "450000",
+                    "areaName": "广西",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "360"
+                },
+                {
+                    "areaCode": "460000",
+                    "areaName": "海南",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "102"
+                },
+                {
+                    "areaCode": "500000",
+                    "areaName": "重庆",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "41"
+                },
+                {
+                    "areaCode": "510000",
+                    "areaName": "四川",
+                    "colors": "-1",
+                    "flag": "-1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "520000",
+                    "areaName": "贵州",
+                    "colors": "-1",
+                    "flag": "1",
+                    "num": "719"
+                },
+                {
+                    "areaCode": "530000",
+                    "areaName": "云南",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "1298"
+                },
+                {
+                    "areaCode": "540000",
+                    "areaName": "西藏",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "610000",
+                    "areaName": "陕西",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "632"
+                },
+                {
+                    "areaCode": "620000",
+                    "areaName": "甘肃",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "630000",
+                    "areaName": "青海",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "640000",
+                    "areaName": "宁夏",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "650000",
+                    "areaName": "新疆",
+                    "colors": "1",
+                    "flag": "1",
+                    "num": "1300"
+                },
+                {
+                    "areaCode": "710000",
+                    "areaName": "台湾",
+                    "colors": "-1",
+                    "flag": "-1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "810000",
+                    "areaName": "香港",
+                    "colors": "-1",
+                    "flag": "-1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "820000",
+                    "areaName": "澳门",
+                    "colors": "-1",
+                    "flag": "-1",
+                    "num": "0"
+                },
+                {
+                    "areaCode": "990000",
+                    "areaName": "海外",
+                    "colors": "-1",
+                    "flag": "-1",
+                    "num": "0"
                 }
-            ]
-        })
+            ],
+            "errorStack": "",
+            "message": "操作成功"
+        
     }
 }
 //客户新增量和客户总量查询接口
@@ -144,8 +390,8 @@ const showExternal = function() {
         code: "200", //类型：String  必有字段  备注：状态码
         "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
         data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
-            "totalExternal":"365247",                //类型：String  必有字段  备注：客户总量
-            "addExternal":"1254"                //类型：String  必有字段  备注：客户新增量
+            "totalExternal": "365247", //类型：String  必有字段  备注：客户总量
+            "addExternal": "1254" //类型：String  必有字段  备注：客户新增量
         })
     }
 }

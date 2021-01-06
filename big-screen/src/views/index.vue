@@ -10,7 +10,7 @@
                 <module3 :module3Data="module3Data"></module3>
             </div>
             <div class="center-box">
-                <module4 :module4Data="module4Data"></module4>
+                <module4 @reName="selectName" :remap="remap" :remap2="remap2" :mapData="module4Data"></module4>
                 <module5 :module5Data="module5Data"></module5>
             </div>
             <div class="right-box">
@@ -31,7 +31,7 @@ import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
-import {} from '@/api/index.js';
+import { showArea } from '@/api/index.js';
 export default {
     name: 'Home',
     components: {
@@ -46,14 +46,17 @@ export default {
     },
     data() {
         return {
-            module1Data:{},
-            module2Data:{},
-            module3Data:{},
-            module4Data:{},
-            module5Data:[],
-            module6Data:{},
-            module7Data:{},
-            module8Data:{}
+            remap: 0,
+            remap2: 0,
+            mapData: {}, //地图数据
+            module1Data: {},
+            module2Data: {},
+            module3Data: {},
+            module4Data: {},
+            module5Data: [],
+            module6Data: {},
+            module7Data: {},
+            module8Data: {}
         }
     },
     mounted() {
@@ -63,21 +66,99 @@ export default {
     methods: {
 
         getData() {
+            this.getModule1Data()
             this.getModule5Data()
+            this.getShowArea()
         },
+        getModule1Data(){
+            this.module1Data = {
+                userCount: 12345, //类型：Number  必有字段  备注：系统用户数
+                onlineCount: 5423, //类型：Number  必有字段  备注：营业员在线人数
+                todayCount: 2345, //类型：Number  必有字段  备注：营业员在线人数
+                lastDayPercent: -0.62, //类型：Number  必有字段  备注：较前日 负数是下降，正数是新增
+                lastSevenPercent: 0.83 //类型：Number  必有字段  备注：较7日 负数是下降，正数是新增
+            }
+        },
+        getShowArea() {
+            //全国区域查询接口
+            let params = {
+                areaCode: this.areaCode
+            }
+            showArea(params).then(res => {
+                if (res.code == 200) {
+                    let arr1 = [],
+                        arr2 = [],
+                        arr3 = [],
+                        arr4 = []
+                    res.data.map(item => {
+                        if (item.flag == -1) {
+                            let obj = {
+                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                value: item.num,
+                                code: item.areaCode,
+                                itemStyle: {
+                                    areaColor: '#2569BB',
+                                    color: '#2569BB',
+                                    borderColor: '#2569BB',
+                                }
+                            }
+                            arr1.push(obj)
+                        }
+                        if (item.colors == -1) {
+                            let colors = {
+                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                code: item.areaCode,
+                            }
+                            arr3.push(colors)
+                        }
+                        if (item.flag >= 0) {
+                            let obj = {
+                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                value: item.num,
+                                code: item.areaCode,
+                                itemStyle: {
+                                    areaColor: '#62A5E6',
+                                    color: '#62A5E6',
+                                    borderColor: "#62A5E6",
+                                }
+                            }
+                            arr2.push(obj)
+                        }
 
-        getModule5Data () {
+                        if (item.colors == 1) {
+                            let colors = {
+                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                code: item.areaCode,
+                            }
+                            arr4.push(colors)
+                        }
+                    })
+                    this.module4Data = {
+                        used: arr2,
+                        unUsed: arr1,
+                        colors: arr4,
+                        unColors: arr3
+                    }
+                }
+            })
+        },
+        getModule5Data() {
             this.module5Data = []
-            for (let i=1; i<=31; i++) {
+            for (let i = 1; i <= 31; i++) {
                 let newObj = {
-                    number: 100*i,
-                    arpu: 50*i,
-                    areaName: '地区'+String(i),
+                    number: 100 * i,
+                    arpu: 50 * i,
+                    areaName: '地区' + String(i),
                     areaCode: String(i)
                 }
                 this.module5Data.push(newObj)
             }
+        },
+        selectName(name, code) {
+            this.provinceName = name
+            this.areaCode = code
         }
+
     }
 }
 </script>
