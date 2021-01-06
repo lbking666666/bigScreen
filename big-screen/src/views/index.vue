@@ -60,10 +60,8 @@ export default {
     },
     mounted() {
         this.getData()
-
     },
     methods: {
-
         getData() {
             this.getModule1Data()
             this.getModule4Data()
@@ -156,7 +154,7 @@ export default {
             }
         },
         getModule6Data(){
-            let arr1 = [1,2,3,4,5],arr2=[100,30,40,50,80]
+            let arr1 = [1,2,3,4,5,6,7,8,9,10,11,12],arr2=[100,30,40,50,80,100,30,40,50,80,200,400]
             this.module6Data = {
                 externalX:arr1,
                 externalY:arr2
@@ -261,6 +259,7 @@ export default {
             background-size: 788px 788px;
             padding-top: 10px;
             justify-content: space-between;
+            position: relative;
         }
 
         .right-box {
