@@ -1,9 +1,10 @@
 <template>
     <div class="bar-chart-box">
 		<div class="header-box">
-			<commonTitle :titleText="titleText"></commonTitle>
+			{{titleText}}
 		</div>
 		<div class="chart-out-box">
+			<div class="shadow"></div>
 			<div ref="chart" style="width:100%;height:100%"></div>
 		</div>
 		
@@ -15,7 +16,9 @@
 
     export default {
 		name: "barChart",
-		 props: {
+		components: {
+		},
+		props: {
 			module5Data: {
 				type: Array,
 				default: []
@@ -48,16 +51,31 @@
 				vm.xData = []
 				vm.yDataA = []
 				vm.yDataB = []
+				vm.xData.push('')
+				vm.yDataA.push(0)
+				vm.yDataB.push(0)
 				data.forEach(el => {
 					vm.xData.push(el.areaName)
 					vm.yDataA.push(el.number)
 					vm.yDataB.push(el.arpu)
 				})
+				vm.xData.push('')
+				vm.yDataA.push(0)
+				vm.yDataB.push(0)
 			},
 			drawChart() {
 				let chart = this.$refs.chart
 				let myChart = echarts.init(chart)
 				let options = {
+					title: {
+						text: '单位：万户',
+						top: '14px',
+						textStyle: {
+							color: '#A9F0FF',
+							fontWeight: 400,
+							fontSize: 12
+						}
+					},
 					tooltip: {
 						trigger: 'axis',
 						axisPointer: {
@@ -65,7 +83,11 @@
 						},
 						formatter: function (params, ticket, callback) {
 							let str = params[0].data>10000?(params[0].data/10000).toFixed(1)+'W':params[0].data+''
-							return str;
+							if(params[0].name === ''){
+								return ''
+							}else{
+								return str
+							}
 						},
 						borderColor:'rgba(50,50,50,0.7)',
 						borderWidth: 0,
@@ -77,12 +99,17 @@
 						},
 					},
 					legend: {
-						data: ['用户量', 'arpu值']
+						data: ['用户数', 'arpu值'],
+						right: '40px',
+						top: '13px',
+						textStyle: {
+							color: '#A9F0FF'
+						}
 					},
 					grid: {
-						left: '3%',
-						right: '4%',
-						bottom: '3%',
+						left: '34px',
+						right: '40px',
+						bottom: '6px',
 						containLabel: true
 					},
 					xAxis: [{
@@ -92,10 +119,12 @@
 						data: this.xData,
 						axisLine: {
 							lineStyle: {
-								color: '#2EB2B3'
+								color: '#01B4FF'
 							}
 						},
 						axisLabel: {
+							fontWeight: 'lighter',
+							fontSize: '12px',
 							interval: 0,
 							formatter: (val) => {
 								let str = val.split('')
@@ -103,8 +132,10 @@
 							}
 						},
 						axisTick: {
-							alignWithLabel: true
-						}
+							show: false
+						},
+						offset: 2,
+						boundaryGap: ['20%', '20%']
 					}],
 					yAxis: [{
 						type: 'value',
@@ -121,34 +152,30 @@
 							}
 						},
 						axisLine: {
-							show: true,
+							show: false,
 							lineStyle: {
-								color: '#2EB2B3'
+								color: '#01B4FF'
 							}
 						},
 						splitLine: {
-							show: true,
-							lineStyle: {
-								color: ['#2EB2B3'],
-								width: 1,
-								type: 'solid'
-							}
+							show: false
 						},
 					}],
 					series: [
 						{
 							type: 'bar',
-							name: '用户量',
+							name: '用户数',
 							itemStyle: {
 								color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-									offset: 0,
-									color: '#23BAFC' //指0%处的颜色
-								}, {
-									offset: 1,
-									color: '#315DFF' //指100%处的颜色
-								}], false)
+										offset: 0,
+										color: '#23BAFC' //指0%处的颜色
+									}, {
+										offset: 1,
+										color: '#315DFF' //指100%处的颜色
+									}], false),
+								barBorderRadius: [2, 2, 0, 0]
 							},
-							// barGap:'-75%',
+							barGap: 0,
 							barWidth: 8,
 							tooltip:{
 								show:true
@@ -160,14 +187,15 @@
 							name: 'arpu值',
 							itemStyle: {
 								color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-									offset: 0,
-									color: '#7EEEE5' //指0%处的颜色
-								}, {
-									offset: 1,
-									color: '#67C2C2' //指100%处的颜色
-								}], false)
+										offset: 0,
+										color: '#7EEEE5' //指0%处的颜色
+									}, {
+										offset: 1,
+										color: '#67C2C2' //指100%处的颜色
+									}], false),
+								barBorderRadius: [2, 2, 0, 0]
 							},
-							// barGap:'-75%',
+							barGap: 0,
 							barWidth: 8,
 							tooltip:{
 								show:true
@@ -195,14 +223,37 @@
 	position: absolute;
 	top: 676px;
 	left: 0;
+	background: url(../assets/yaxin/kuang_zhongjian.png) no-repeat;
+	background-size: contain;
 	.header-box{
 		position: absolute;
+		width: 100%;
+		text-align: center;
 		top: 8px;
 		left: 0;
+		line-height: 36px;
+		height: 36px;
+        font-size: 20px;
+        font-family: PingFangSC-Semibold, PingFang SC;
+        font-weight: 600;
+        color: #FFFFFF;
+        line-height: 36px;
+        letter-spacing: 1px;
+        text-shadow: 0px 2px 4px #0B63C9;
 	}
 	.chart-out-box{
 		width:100%;
 		height:100%;
+		position: relative;
+		.shadow{
+			position: absolute;
+			width: 782px;
+			height: 200px;
+			bottom: 0;
+			left: 72px;
+			background: rgba(98, 226, 255, 0.2);
+			opacity: 0.2;
+		}
 	}
 }
 </style>
