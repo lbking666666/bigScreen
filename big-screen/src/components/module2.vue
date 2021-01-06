@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="module2">
 		<commonTitle :titleText="titleText"></commonTitle>
 		<div style="margin-top:30px;">
 			<span class="top-title-left">触点</span>
@@ -69,6 +69,11 @@
 </script>
 
 <style lang="less" scoped>
+	.module2{
+		width: 100%;
+		height: 323px;
+		background: url("../assets/yaxin/kuang_zuozhong.png");
+	}
 	.container{
 		display: flex;
 		justify-content: space-around;
@@ -83,25 +88,25 @@
 	.process{
 		width: 60%;
 		height: 10px;
-		background: #010D36;
+		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
 	}
 	.process1{
 		width: 60%;
 		height: 10px;
-		background: #010D36;
+		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
 	}
 	.process2{
 		width: 60%;
 		height: 10px;
-		background: #010D36;
+		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
 	}
 	.process3{
 		width: 60%;
 		height: 10px;
-		background: #010D36;
+		background: rgba(136, 215, 253, 0.2);
 		border-radius: 7px;
 	}
 	.process div{
