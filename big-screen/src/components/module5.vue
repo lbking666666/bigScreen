@@ -1,7 +1,7 @@
 <template>
     <div class="bar-chart-box">
-		<div class=""></div>
-		<div>
+		<div class="header-box"></div>
+		<div class="chart-out-box">
 			<div ref="chart" style="width:100%;height:100%"></div>
 		</div>
 		
@@ -32,6 +32,15 @@
 	height: 288px;
 	box-sizing: border-box;
 	padding-top: 44px;
-
+	position: relative;
+	.header-box{
+		position: absolute;
+		top: 8px;
+		left: 0;
+	}
+	.chart-out-box{
+		width:100%;
+		height:100%;
+	}
 }
 </style>
