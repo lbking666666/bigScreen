@@ -67,6 +67,7 @@ export default {
 
         getData() {
             this.getModule1Data()
+            this.getModule4Data()
             this.getModule5Data()
             this.getModule7Data()
             this.getShowArea()
@@ -80,7 +81,7 @@ export default {
                 lastSevenPercent: 0.83 //类型：Number  必有字段  备注：较7日 负数是下降，正数是新增
             }
         },
-        getShowArea() {
+        getModule4Data() {
             //全国区域查询接口
             let params = {
                 areaCode: this.areaCode
@@ -207,6 +208,7 @@ export default {
     /*background: #010B3D;*/
     /*display: flex;*/
     flex-direction: column;
+    height:100%;
 
     .header {
         display: flex;
@@ -235,12 +237,13 @@ export default {
         flex-direction: row;
         justify-content: center;
         margin: 0 auto;
-        height: 100vh;
+        height: calc(100% - 100px);
 
         .left-box {
             width: 460px;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
         .center-box {
@@ -251,6 +254,7 @@ export default {
             background: url("../assets/img/img_bg.png") no-repeat center top;
             background-size: 788px 788px;
             padding-top: 10px;
+            justify-content: space-between;
         }
 
         .right-box {
@@ -258,6 +262,7 @@ export default {
             width: 460px;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
     }
 }
