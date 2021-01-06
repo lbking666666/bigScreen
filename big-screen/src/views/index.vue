@@ -48,7 +48,6 @@ export default {
         return {
             remap: 0,
             remap2: 0,
-            mapData: {}, //地图数据
             module1Data: {},
             module2Data: {},
             module3Data: {},
@@ -67,8 +66,8 @@ export default {
 
         getData() {
             this.getModule1Data()
+            this.getModule4Data()
             this.getModule5Data()
-            this.getShowArea()
         },
         getModule1Data(){
             this.module1Data = {
@@ -79,7 +78,7 @@ export default {
                 lastSevenPercent: 0.83 //类型：Number  必有字段  备注：较7日 负数是下降，正数是新增
             }
         },
-        getShowArea() {
+        getModule4Data() {
             //全国区域查询接口
             let params = {
                 areaCode: this.areaCode

@@ -1,19 +1,24 @@
 <template>
     <div class="rose-charts">
-        <div class="charts" style="width:100%;height:100%" id="chart"></div>
+    	<commonTitle :titleText="titleText"></commonTitle>
+    	<div class="charts-wrapper">
+	        <div class="charts" id="chart"></div>
+	    </div>
     </div>
 </template>
 <script>
 let chart = null
 import * as echarts from "echarts";
+import commonTitle from "./commonTitle";
 export default {
     name: "roseCharts",
     props: {
 
     },
+    components:{commonTitle},
     data() {
         return {
-
+        	titleText:'全国用户类型分布'
         }
     },
     mounted() {
@@ -72,9 +77,18 @@ export default {
 .rose-charts{
 	width:100%;
 	height:310px;
+	padding:8px;
+	background:url(../assets/yaxin/kuang_zuozhong.png) no-repeat;
+	background-size:100%;
+	.charts-wrapper{
+		width:100%;
+		height:calc(100% - 40px);
+		display:flex;
+		align-items: center;
+	}
 	.charts{
 		width:100%;
-		height:100%;
+		height:96%;
 	}
 }
 </style>
