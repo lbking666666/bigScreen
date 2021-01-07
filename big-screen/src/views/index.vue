@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div class="header">
-            <div class="time-box"></div>
+            <div class="time-box">{{ dateTimeStr }}</div>
         </div>
         <div class="container">
             <div class="left-box">
@@ -32,6 +32,8 @@ import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
 import { getModule1,  getModule4, getModule5, getModule6, getModule7, getModule8, getBigData } from '@/api/index.js';
+import { getModule1, getModule2, getModule3, getModule4, getModule5, getModule6, getModule7, getModule8 } from '@/api/index.js';
+import { timestampConversion } from '@/utils/unixToTime.js'
 export default {
     name: 'Home',
     components: {
@@ -54,11 +56,18 @@ export default {
             module5Data: [],
             module6Data: {},
             module7Data: {},
-            module8Data: {}
+            module8Data: {},
+            nowTime: (new Date()).getTime()/1000,
+            dateTimeStr: timestampConversion((new Date()).getTime()/1000)
         }
     },
     mounted() {
         this.getData()
+
+        setInterval(()=>{
+            this.nowTime += 1
+            this.dateTimeStr = timestampConversion(this.nowTime)
+        }, 1000)
     },
     methods: {
         getData() {
@@ -238,7 +247,8 @@ export default {
             }
             getModule7(params).then(res => {
                 if (res.code == 200) {
-                    this.module7Data = res.data
+                    this.module7Data = res.data[0].value
+                    console.log('7777', this.module7Data)
                 }
 
             })
@@ -248,7 +258,7 @@ export default {
                 province_code: this.province_code
             }
             getModule8(params).then(res => {
-                console.log(1111, res)
+                // console.log(1111,res)
                 if (res.code == 200) {
                     this.module8Data = res.data
                 }
