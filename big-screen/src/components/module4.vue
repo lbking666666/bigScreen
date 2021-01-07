@@ -115,11 +115,10 @@ export default {
         echarts.registerMap('china', chinaMap);
         this.initMap('china');
     },
-    watch: {
-        'mapData': function(val) {
-            map.dispose();
-            this.initMap('china');
-        }
+    updated() {
+        console.log(this.mapData)
+        //echarts.registerMap('china', chinaMap);
+        this.initMap('china');
     },
     methods: {
         initMap(name) { //初始化中国地图
@@ -144,11 +143,8 @@ export default {
                     borderWidth: 0,
                     trigger: 'item',
                     formatter: function(params) {
-                        if (params.seriesType == 'effectScatter' || params.seriesType == 'scatter') {
-                            return
-                        } else {
                             return params.name + '<br/>用户量:' + params.value + '<br/>今日开户数:' + params.data.user + '<br/>arup值:' + params.data.arpu
-                        }
+                        
                     }
                 },
                 visualMap: {

@@ -71,7 +71,6 @@ export default {
         getData() {
             this.getBigData();
             this.getModule1Data()
-            this.getModule4Data()
             this.getModule5Data()
             this.getModule6Data()
             this.getModule7Data()
@@ -83,6 +82,7 @@ export default {
             }
             getBigData(params).then(res => {
                 if (res.code == 200) {
+                    let data4 = []
                     res.data.map(item => {
                         if (item.name == '全国') {
                             let values = item.value
@@ -127,8 +127,19 @@ export default {
                                 { value: values.otheruser, name: '其它' }
                             ]
                             this.module3Data = data3
+                        }else{
+
+                            let values = item.value
+                            let params = {
+                                name:item.name,
+                                value:values.usercount,
+                                user:values.cbinnetday,
+                                arpu:values.arpu
+                            }
+                            data4.push(params)
                         }
                     })
+                    this.module4Data = data4;
                 }
             })
         },
@@ -141,18 +152,6 @@ export default {
                     this.module1Data = res.data
                 }
 
-            })
-        },
-        getModule4Data() {
-            //全国区域查询接口
-            let params = {
-                province_code: this.province_code
-            }
-            getModule4(params).then(res => {
-                console.log(res)
-                if (res.code == 200) {
-                    this.module4Data=res.data
-                }
             })
         },
         getModule5Data() {
