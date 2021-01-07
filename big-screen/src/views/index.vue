@@ -221,7 +221,7 @@ export default {
                 province_code: this.province_code
             }
             getModule8(params).then(res => {
-                console.log(1111,res)
+                // console.log(1111,res)
                 if (res.code == 200) {
                     this.module8Data = res.data
                 }

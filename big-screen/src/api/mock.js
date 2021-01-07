@@ -780,27 +780,59 @@ const module7Data = function() {
     }
 }
 const module8Data = function() {
-    let fakeArrayA = []
-    let fakeArrayB = []
-    for (let i = 1; i <= 10; i++) {
-        let newObj = {
-            name: '热销产品' + String(i),
-            number: String(i * 1000)
-        }
-        fakeArrayA.push(newObj)
-        let newObjB = {
-            name: '常用功能' + String(i),
-            number: String(i * 10000)
-        }
-        fakeArrayB.push(newObjB)
-    }
+    // let fakeArrayA = []
+    // let fakeArrayB = []
+    // for (let i = 1; i <= 10; i++) {
+    //     let newObj = {
+    //         name: '热销产品' + String(i),
+    //         number: String(i * 1000)
+    //     }
+    //     fakeArrayA.push(newObj)
+    //     let newObjB = {
+    //         name: '常用功能' + String(i),
+    //         number: String(i * 10000)
+    //     }
+    //     fakeArrayB.push(newObjB)
+    // }
     return {
         code: "200", //类型：String  必有字段  备注：状态码
         "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: {
-            hot: fakeArrayA,
-            normal: fakeArrayB
-        }
+        data: [ // 类型：Array  必有字段  备注：返回数据集合
+            {
+                'name': '产品名称',
+                'value':[
+                    {'ranking':1,'product_name':'腾讯大王卡', 'product_count':12333 } ,
+                    {'ranking':2,'product_name':'腾讯大王卡','product_count' : 12333 } ,
+                    {'ranking':3,'product_name':'腾讯大王卡','product_count' : 12333 } ,
+                    {'ranking':4,'product_name':'腾讯大王卡','product_count' : 12333 } ,
+                    {'ranking':5,'product_name':'腾讯大王卡','product_count' : 12333 } ,
+                    {'ranking':6,'product_name':'腾讯大王卡','product_count' : 12333 } ,
+                    {'ranking':7,'product_name':'腾讯大王卡','product_count' : 12333 } ,
+                    {'ranking':8,'product_name':'腾讯大王卡','product_count' : 12333 } ,
+                    {'ranking':9,'product_name':'腾讯大王卡','product_count' : 12333 } ,
+                    {'ranking':10,'product_name':'腾讯大王卡','product_count' : 12333 } ,
+                ]
+            },
+            {
+                'name': '常用功能',
+                'value': [
+                    {'ranking':1,'function_name':'移网变更','function_count' : 12333 } ,
+                    {'ranking':2,'function_name':'移网变更','function_count' : 12333 } ,
+                    {'ranking':3,'function_name':'移网变更','function_count' : 12333 } ,
+                    {'ranking':4,'function_name':'移网变更','function_count' : 12333 } ,
+                    {'ranking':5,'function_name':'移网变更','function_count' : 12333 } ,
+                    {'ranking':6,'function_name':'移网变更','function_count' : 12333 } ,
+                    {'ranking':7,'function_name':'移网变更','function_count' : 12333 } ,
+                    {'ranking':8,'function_name':'移网变更','function_count' : 12333 } ,
+                    {'ranking':9,'function_name':'移网变更','function_count' : 12333 } ,
+                    {'ranking':10,'function_name':'移网变更','function_count' : 12333 } ,
+                ]
+            }
+        ]
+        // {
+        //     hot: fakeArrayA,
+        //     normal: fakeArrayB
+        // }
     }
 }
 
