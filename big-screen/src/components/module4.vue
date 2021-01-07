@@ -160,7 +160,7 @@ export default {
                 legend: {
                     show: false,
                 },
-                geo:{
+                geo: {
                     map: name,
                     roam: false,
                     zlevel: 1,
@@ -170,39 +170,38 @@ export default {
                     // layoutCenter: ['80%','80%'],
                     //图形上的文本标签，可用于说明图形的一些数据信息
                     label: {
-                        normal: {
-                            show: this.back ? true : false,
-                            fontSize: "10",
-                            formatter: function(param) {
-                                // 处理不显示地市
-                                if (name == 'xinjiang') {
-                                    let str = String(param.name)
-                                    if (str.length > 4) {
-                                        return ''
-                                    } else {
-                                        return str
-                                    }
+                        show: this.back ? true : false,
+                        fontSize: "10",
+                        formatter: function(param) {
+                            // 处理不显示地市
+                            if (name == 'xinjiang') {
+                                let str = String(param.name)
+                                if (str.length > 4) {
+                                    return ''
+                                } else {
+                                    return str
                                 }
-                            },
-                            color: "#fff"
+                            }
                         },
-                        emphasis: {
-                            show: this.back ? true : false,
-                            color: "#fff"
-                        }
+                        color: "#fff"
+
                     },
                     //地图区域的多边形 图形样式，有 normal 和 emphasis 两个状态
                     itemStyle: {
-                        //normal 是图形在默认状态下的样式；
-                        normal: {
-                            borderColor: "#2569BB",
-                            areaColor: "#2569BB",
+                        borderColor: "#2569BB",
+                        areaColor: "#2569BB",
+
+                    },
+                    emphasis: {
+                        label: {
+                            show: this.back ? true : false,
+                            color: "#fff"
                         },
-                        emphasis: {
+                        itemStyle: {
                             color: '#1ACFFF',
                             areaColor: "#1ACFFF",
-                        },
-                    },
+                        }
+                    }
 
                 },
                 series: [{
