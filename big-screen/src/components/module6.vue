@@ -3,10 +3,10 @@
         <commonTitle :titleText="titleText"></commonTitle>
         <div class="line-chart">
             <div class="query-option">
-                <div class="options" :class="flag==1?'opt-active':''" @click="selExternal(1)">
+                <div class="options" :class="flag==0?'opt-active':''" @click="selExternal(0)">
                     <div>营业厅</div>
                 </div>
-                <div class="options" :class="flag==2?'opt-active':''" @click="selExternal(2)">
+                <div class="options" :class="flag==1?'opt-active':''" @click="selExternal(1)">
                     <div>外围</div>
                 </div>
             </div>
@@ -25,29 +25,42 @@ export default {
             type: String,
             default: '#fff',
         },
-        xData: {
+        module6Data: {
             type: Array,
             default: []
-        },
-        yData: {
-            type: Array,
-            default: []
-        },
+        }
     },
     data() {
         return {
             titleText: '1月订单量',
-            flag:1,
+            flag: 0,
+            xAxisData: [], // x轴坐标
+            seriesData: [] // 显示点数值
         }
     },
     mounted() {
-        //this.drawChart()
+        this.drawChart()
     },
     updated() {
         this.drawChart()
     },
     methods: {
+        dealData(arr) {
+            // 清空
+            this.xAxisData = []
+            this.seriesData = []
+            if (arr.length > 0) {
+                arr.forEach(ele => {
+                    this.xAxisData.push(ele.date)
+                    this.seriesData.push(ele.malltrade)
+                })
+            }
+            console.log(this.xAxisData, this.seriesData)
+        },
         drawChart() {
+            if (this.module6Data.length > 0) {
+                this.dealData(this.module6Data[this.flag].value)
+            }
             let chart = this.$refs.chart
             let myChart = echarts.init(chart)
             let options = {
@@ -70,7 +83,7 @@ export default {
                         fontSize: 10,
                         interval: 0
                     },
-                    data: this.xData
+                    data: this.xAxisData
                 },
                 tooltip: {
                     show: true,
@@ -129,7 +142,7 @@ export default {
                     containLabel: true
                 },
                 series: [{
-                    data: this.yData,
+                    data: this.seriesData,
                     type: 'line',
                     smooth: true,
                     symbol: 'circle',

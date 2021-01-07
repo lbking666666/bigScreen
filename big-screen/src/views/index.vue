@@ -14,7 +14,7 @@
                 <module5 :module5Data="module5Data"></module5>
             </div>
             <div class="right-box">
-                <module6 :xData="module6Data.externalX" :yData="module6Data.externalY" :color="'#B085FF'"></module6>
+                <module6 :module6Data="module6Data" :color="'#B085FF'"></module6>
                 <module7 :module7Data="module7Data"></module7>
                 <module8 :module8Data="module8Data"></module8>
             </div>
@@ -212,7 +212,6 @@ export default {
             getModule7(params).then(res => {
                 if (res.code == 200) {
                     this.module7Data = res.data[0].value
-                    console.log('7777', this.module7Data)
                 }
 
             })

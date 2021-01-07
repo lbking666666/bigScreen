@@ -751,16 +751,44 @@ const module5Data = function() {
     }
 }
 const module6Data = function() {
-    let arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-        arr2 = [100, 30, 40, 50, 80, 100, 30, 40, 50, 80, 200, 400]
+    // let arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    //     arr2 = [100, 30, 40, 50, 80, 100, 30, 40, 50, 80, 200, 400]
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: {
-            externalX: arr1,
-            externalY: arr2
-        }
+        "code":200, //类型：String  必有字段  备注：状态码
+        "message":"操作成功",//类型：String  必有字段  备注：返回文本信息
+        "data":[//类型：Array  必有字段  备注：返回数据集合
+            {
+                'name': '营业厅订单',
+                'value': [
+                    {'date':' 2020-01-01','malltrade':2421422},
+                    {'date':' 2020-01-02','malltrade':242122},
+                    {'date':' 2020-01-03','malltrade':2426622},
+                    {'date':' 2020-01-04','malltrade':241422},
+                    {'date':' 2020-01-05','malltrade':4421422},
+                    {'date':' 2020-01-06','malltrade':6421422},
+                ]
+            },
+            {
+                'name':'外围订单',
+                'value': [
+                    {'date':' 2020-01-01','malltrade':2422},
+                    {'date':' 2020-01-02','malltrade':2782},
+                    {'date':' 2020-01-03','malltrade': 6622},
+                    {'date':' 2020-01-04','malltrade': 422},
+                    {'date':' 2020-01-05','malltrade':4482},
+                    {'date':' 2020-01-06','malltrade':11422},
+                ]
+            },
+        ]
     }
+    // {
+    //     code: "200", //类型：String  必有字段  备注：状态码
+    //     "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
+    //     data: {
+    //         externalX: arr1,
+    //         externalY: arr2
+    //     }
+    // }
 }
 const module7Data = function() {
     return {
