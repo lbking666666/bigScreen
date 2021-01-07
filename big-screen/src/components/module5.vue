@@ -81,10 +81,12 @@
 						},
 						formatter: function (params, ticket, callback) {
 							let str = params[0].data>10000?(params[0].data/10000).toFixed(1)+'W':params[0].data+''
+							let city = params[0].axisValue
+							let returnStr = city + '\n' + str
 							if(params[0].name === ''){
 								return ''
 							}else{
-								return str
+								return returnStr
 							}
 						},
 						borderColor:'rgba(50,50,50,0.7)',
@@ -136,7 +138,7 @@
 							lineHeight: 15,
 							interval: 0,
 							formatter: (val) => {
-								let str = val.split('')
+								let str = val.slice(0, 4).split('')
 								return str.join('\n')
 							},
 							margin: 8
