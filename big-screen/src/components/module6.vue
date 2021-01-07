@@ -35,7 +35,8 @@ export default {
             titleText: '1月订单量',
             flag: 0,
             xAxisData: [], // x轴坐标
-            seriesData: [] // 显示点数值
+            seriesData: [], // 显示点数值
+            myChart: null
         }
     },
     mounted() {
@@ -58,11 +59,15 @@ export default {
         },
         drawChart() {
             let vm = this
+            // 添加销毁chart判断，避免重复绘制chart dom报错
+            if (vm.myChart) {
+                vm.myChart.dispose()
+            }
             if (this.module6Data.length > 0) {
                 this.dealData(this.module6Data[this.flag].value)
             }
             let chart = this.$refs.chart
-            let myChart = echarts.init(chart)
+            vm.myChart = echarts.init(chart)
             let options = {
                 xAxis: {
                     type: 'category',
@@ -162,8 +167,8 @@ export default {
                     },
                 }]
             }
-            myChart.setOption(options)
-            window.addEventListener("resize", () => { myChart.resize(); });
+            vm.myChart.setOption(options)
+            window.addEventListener("resize", () => { vm.myChart.resize(); });
         },
         selExternal(type){
         	this.flag = type
