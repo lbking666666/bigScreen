@@ -201,7 +201,25 @@ export default {
                     data: ['已托管', '未托管'],
                     orient: 'vertical',
                 },
-                geo: {
+                geo: [{
+                    map: name,
+                    roam: false,
+                     zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang'||name =='gansu'||name =='guangdong') ? 0.8 : 1),
+                    top: (name == 'heilongjiang'||name =='gansu')? '20%' : 'center',
+                    left: (name == 'heilongjiang'||name =='gansu') ? '25%' : 'center',
+                    itemStyle: {
+                        //normal 是图形在默认状态下的样式；
+                        normal: {
+                            borderColor: "#2569BB",
+                            borderWidth:0,
+                            areaColor: "#2569BB",
+                            shadowBlur:5,
+                            shadowColor:'#091476',
+                            shadowOffsetY:5,
+                            shadowOffsetX:-5,
+                        },
+                    },
+                },{
                     map: name,
                     roam: false,
                     zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang'||name =='gansu'||name =='guangdong') ? 0.8 : 1),
@@ -241,6 +259,7 @@ export default {
                         //normal 是图形在默认状态下的样式；
                         normal: {
                             borderColor: "#2569BB",
+                            borderWidth:0,
                             areaColor: "#2569BB",
                         },
                         emphasis: {
@@ -250,18 +269,20 @@ export default {
                     },
                     regions: this.regionsArr
 
-                },
+                }],
                 series: [{
                         name: '已托管',
                         type: "map",
                         color: '#62A5E6',
                         geoIndex: 0,
+                        zlevel:1,
                         data: this.mapData.used,
                     }, {
                         name: '未托管',
                         type: "map",
                         color: '#2569BB',
                         geoIndex: 0,
+                        zlevel:1,
                         data: this.mapData.unUsed
                     }, {
                         name: 'tt',
@@ -287,7 +308,7 @@ export default {
                             color: '#FFFF02',
                             shadowBlur: 0,
                         },
-                        zlevel: 1,
+                        zlevel: 2,
                         data: this.back ? [] : this.effArr
                     },
                     {
@@ -310,6 +331,7 @@ export default {
                             fontSize: "10",
                         },
                         symbolSize: 0,
+                        zlevel:2,
                         itemStyle: {
                             color: 'rgba(0,0,0,0)'
                         },

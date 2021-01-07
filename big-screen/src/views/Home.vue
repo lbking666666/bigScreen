@@ -357,7 +357,8 @@ export default {
                                 itemStyle: {
                                     areaColor: '#2569BB',
                                     color:'#2569BB',
-                                    borderColor: '#2569BB',
+                                    borderWidth:1,
+                                    borderColor: '#70ADE8',
                                 }
                             }
                             arr1.push(obj)
@@ -376,8 +377,9 @@ export default {
                                 code:item.areaCode,
                                 itemStyle: {
                                     areaColor: '#62A5E6',
+                                    borderWidth:1,
                                     color: '#62A5E6',
-                                    borderColor: "#62A5E6",
+                                    borderColor: "#70ADE8",
                                 }
                             }
                             arr2.push(obj)
