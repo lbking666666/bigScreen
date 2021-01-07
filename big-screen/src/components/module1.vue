@@ -8,7 +8,7 @@
                         系统用户数
                     </div>
                     <div class="box-num">
-                        {{filterNumber(module1Data.userCount)}}
+                        {{filterNumber(leftData.userCount)}}
                     </div>
                 </div>
                 <div class="left-bottom">
@@ -16,7 +16,7 @@
                         出账用户数
                     </div>
                     <div class="box-num">
-                        {{filterNumber(module1Data.onlineCount)}}
+                        {{filterNumber(leftData.onlineCount)}}
                     </div>
                 </div>
             </div>
@@ -65,6 +65,10 @@
 		name: "",
         components:{commonTitle},
 		props: {
+            leftData:{
+                type: Object,
+                default:{}
+            },
             module1Data:{
                 type: Object,
                 default:{}

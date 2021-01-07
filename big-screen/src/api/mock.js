@@ -411,7 +411,36 @@ Mock.mock('/wep-oms/bigScreen/showExternal', 'get', showExternal);
 
 
 //yaxin
+const bigData = function() {
+    return {
+        "code": 200, //类型：String  必有字段  备注：状态码
+        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
+        "data": [ //类型：Array  必有字段  备注：返回数据集合
+            {
+                "name": "全国", //名称
+                "value": {
+                    "usercount": 12345,
+                    "mobile": 12345,
+                    "broadband": 222,
+                    "iptv": 2123,
+                    "telephone": 2123,
+                    "otheruser": 2123,
+                    "billuser": 2123,
+                    "arpu": 2123,
+                    "cbinnetmonth": 2222,
+                    "cbinnetday": 2222,
+                    "cbfrontinnetmonth": 2222,
+                    "cbfrontinnetday": 2222,
+                    "woinnetmonth": 2222,
+                    "woinnetday": 2222,
+                    "otherinnetmonth": 2222,
+                    "otherinnetday": 2222,
+                }
+            }
 
+        ]
+    }
+}
 const module1Data = function() {
     return {
         "code": 200,
@@ -424,25 +453,7 @@ const module1Data = function() {
         }
     }
 }
-const module2Data = function() {
-    return {
-        "code": "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: [{
-            name: 'cB前台',
-            value: 11000,
-            per: 30,
-        }, {
-            name: '掌沃通',
-            value: 11000,
-            per: 30,
-        }, {
-            name: '其他',
-            value: 113300,
-            per: 50,
-        }]
-    }
-}
+
 const module3Data = function() {
     return {
         code: "200", //类型：String  必有字段  备注：状态码
@@ -461,255 +472,255 @@ const module4Data = function() {
         "code": 200,
         "data": [{
                 "areaCode": "1",
-                "areaName": "中国",
+                "name": "中国",
                 "colors": "-1",
                 "flag": "-1",
-                "num": "1320"
+                "value": "1320"
             },
             {
                 "areaCode": "110000",
-                "areaName": "北京",
+                "name": "北京",
                 "colors": "-1",
                 "flag": "-1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "120000",
-                "areaName": "天津",
+                "name": "天津",
                 "colors": "1",
                 "flag": "1",
-                "num": "10"
+                "value": "10"
             },
             {
                 "areaCode": "130000",
-                "areaName": "河北",
+                "name": "河北",
                 "colors": "-1",
                 "flag": "-1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "140000",
-                "areaName": "山西",
+                "name": "山西",
                 "colors": "-1",
                 "flag": "-1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "150000",
-                "areaName": "内蒙古",
+                "name": "内蒙古",
                 "colors": "1",
                 "flag": "1",
-                "num": "629"
+                "value": "629"
             },
             {
                 "areaCode": "210000",
-                "areaName": "辽宁",
+                "name": "辽宁",
                 "colors": "-1",
                 "flag": "1",
-                "num": "309"
+                "value": "309"
             },
             {
                 "areaCode": "220000",
-                "areaName": "吉林",
+                "name": "吉林",
                 "colors": "1",
                 "flag": "1",
-                "num": "1547"
+                "value": "1547"
             },
             {
                 "areaCode": "230000",
-                "areaName": "黑龙江",
+                "name": "黑龙江",
                 "colors": "1",
                 "flag": "1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "310000",
-                "areaName": "上海",
+                "name": "上海",
                 "colors": "1",
                 "flag": "1",
-                "num": "162"
+                "value": "162"
             },
             {
                 "areaCode": "320000",
-                "areaName": "江苏",
+                "name": "江苏",
                 "colors": "-1",
                 "flag": "1",
-                "num": "2184"
+                "value": "2184"
             },
             {
                 "areaCode": "330000",
-                "areaName": "浙江",
+                "name": "浙江",
                 "colors": "-1",
                 "flag": "-1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "340000",
-                "areaName": "安徽",
+                "name": "安徽",
                 "colors": "-1",
                 "flag": "-1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "350000",
-                "areaName": "福建",
+                "name": "福建",
                 "colors": "1",
                 "flag": "1",
-                "num": "106"
+                "value": "106"
             },
             {
                 "areaCode": "360000",
-                "areaName": "江西",
+                "name": "江西",
                 "colors": "1",
                 "flag": "1",
-                "num": "158"
+                "value": "158"
             },
             {
                 "areaCode": "370000",
-                "areaName": "山东",
+                "name": "山东",
                 "colors": "1",
                 "flag": "1",
-                "num": "2602"
+                "value": "2602"
             },
             {
                 "areaCode": "410000",
-                "areaName": "河南",
+                "name": "河南",
                 "colors": "1",
                 "flag": "1",
-                "num": "3049"
+                "value": "3049"
             },
             {
                 "areaCode": "420000",
-                "areaName": "湖北",
+                "name": "湖北",
                 "colors": "1",
                 "flag": "1",
-                "num": "125"
+                "value": "125"
             },
             {
                 "areaCode": "430000",
-                "areaName": "湖南",
+                "name": "湖南",
                 "colors": "-1",
                 "flag": "1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "440000",
-                "areaName": "广东",
+                "name": "广东",
                 "colors": "1",
                 "flag": "1",
-                "num": "327"
+                "value": "327"
             },
             {
                 "areaCode": "450000",
-                "areaName": "广西",
+                "name": "广西",
                 "colors": "1",
                 "flag": "1",
-                "num": "360"
+                "value": "360"
             },
             {
                 "areaCode": "460000",
-                "areaName": "海南",
+                "name": "海南",
                 "colors": "1",
                 "flag": "1",
-                "num": "102"
+                "value": "102"
             },
             {
                 "areaCode": "500000",
-                "areaName": "重庆",
+                "name": "重庆",
                 "colors": "1",
                 "flag": "1",
-                "num": "41"
+                "value": "41"
             },
             {
                 "areaCode": "510000",
-                "areaName": "四川",
+                "name": "四川",
                 "colors": "-1",
                 "flag": "-1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "520000",
-                "areaName": "贵州",
+                "name": "贵州",
                 "colors": "-1",
                 "flag": "1",
-                "num": "719"
+                "value": "719"
             },
             {
                 "areaCode": "530000",
-                "areaName": "云南",
+                "name": "云南",
                 "colors": "1",
                 "flag": "1",
-                "num": "1298"
+                "value": "1298"
             },
             {
                 "areaCode": "540000",
-                "areaName": "西藏",
+                "name": "西藏",
                 "colors": "1",
                 "flag": "1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "610000",
-                "areaName": "陕西",
+                "name": "陕西",
                 "colors": "1",
                 "flag": "1",
-                "num": "632"
+                "value": "632"
             },
             {
                 "areaCode": "620000",
-                "areaName": "甘肃",
+                "name": "甘肃",
                 "colors": "1",
                 "flag": "1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "630000",
-                "areaName": "青海",
+                "name": "青海",
                 "colors": "1",
                 "flag": "1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "640000",
-                "areaName": "宁夏",
+                "name": "宁夏",
                 "colors": "1",
                 "flag": "1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "650000",
-                "areaName": "新疆",
+                "name": "新疆",
                 "colors": "1",
                 "flag": "1",
-                "num": "1300"
+                "value": "1300"
             },
             {
                 "areaCode": "710000",
-                "areaName": "台湾",
+                "name": "台湾",
                 "colors": "-1",
                 "flag": "-1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "810000",
-                "areaName": "香港",
+                "name": "香港",
                 "colors": "-1",
                 "flag": "-1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "820000",
-                "areaName": "澳门",
+                "name": "澳门",
                 "colors": "-1",
                 "flag": "-1",
-                "num": "0"
+                "value": "0"
             },
             {
                 "areaCode": "990000",
-                "areaName": "海外",
+                "name": "海外",
                 "colors": "-1",
                 "flag": "-1",
-                "num": "0"
+                "value": "0"
             }
         ],
         "errorStack": "",
@@ -722,31 +733,31 @@ const module5Data = function() {
         "code": 200, //类型：String  必有字段  备注：状态码
         "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
         "data": [ //类型：Array  必有字段  备注：返回数据集合
-            {"name": "呼和浩特市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "包头市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "乌海市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "赤峰市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "通辽市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "鄂尔多斯市","value": {"user": 22123,"arpu": 2333 } },
-            {"name": "呼伦贝尔市","value": {"user": 223,"arpu": 2333 } },
-            {"name": "巴彦淖尔市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "呼和浩特市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "包头市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "呼和浩特市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "包头市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "乌海市","value": {"user": 323,"arpu": 133 } },
-            {"name": "赤峰市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "通辽市","value": {"user": 2223,"arpu": 633 } },
-            {"name": "鄂尔多斯市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "呼伦贝尔市","value": {"user": 70923,"arpu": 2333 } },
-            {"name": "巴彦淖尔市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "呼和浩特市","value": {"user": 8003,"arpu": 2333 } },
-            {"name": "包头市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "呼和浩特市","value": {"user": 12223,"arpu": 2333 } },
-            {"name": "包头市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "乌海市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "赤峰市","value": {"user": 2223,"arpu": 2333 } },
-            {"name": "克孜勒苏柯尔克孜","value": {"user": 122223,"arpu": 2333 } },
+            { "name": "呼和浩特市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "包头市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "乌海市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "赤峰市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "通辽市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "鄂尔多斯市", "value": { "user": 22123, "arpu": 2333 } },
+            { "name": "呼伦贝尔市", "value": { "user": 223, "arpu": 2333 } },
+            { "name": "巴彦淖尔市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "呼和浩特市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "包头市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "呼和浩特市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "包头市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "乌海市", "value": { "user": 323, "arpu": 133 } },
+            { "name": "赤峰市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "通辽市", "value": { "user": 2223, "arpu": 633 } },
+            { "name": "鄂尔多斯市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "呼伦贝尔市", "value": { "user": 70923, "arpu": 2333 } },
+            { "name": "巴彦淖尔市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "呼和浩特市", "value": { "user": 8003, "arpu": 2333 } },
+            { "name": "包头市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "呼和浩特市", "value": { "user": 12223, "arpu": 2333 } },
+            { "name": "包头市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "乌海市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "赤峰市", "value": { "user": 2223, "arpu": 2333 } },
+            { "name": "克孜勒苏柯尔克孜", "value": { "user": 122223, "arpu": 2333 } },
         ],
     }
 }
@@ -766,20 +777,18 @@ const module7Data = function() {
     return {
         "code": 200,
         "message": "操作成功",
-        "data": [
-            {
-                "name": "全国",
-                "value": {
-                    "order5g": "12345", //5G订购数
-                    "crossuser": "12345", //跨域用户数
-                    "crossmixmenu": "222", // 跨域融合套餐数
-                    "crossmixuser": "2123", // 跨域融合用户数
-                    "portability": "2123", // 携号转网
-                    "portability_in": "2123", // 携入数
-                    "portability_out": "2123" // 携出数
-                }
+        "data": [{
+            "name": "全国",
+            "value": {
+                "order5g": "12345", //5G订购数
+                "crossuser": "12345", //跨域用户数
+                "crossmixmenu": "222", // 跨域融合套餐数
+                "crossmixuser": "2123", // 跨域融合用户数
+                "portability": "2123", // 携号转网
+                "portability_in": "2123", // 携入数
+                "portability_out": "2123" // 携出数
             }
-        ]
+        }]
     }
 }
 const module8Data = function() {
@@ -803,32 +812,32 @@ const module8Data = function() {
         data: [ // 类型：Array  必有字段  备注：返回数据集合
             {
                 'name': '产品名称',
-                'value':[
-                    {'ranking':1,'product_name':'腾讯大王卡', 'product_count':12333 } ,
-                    {'ranking':2,'product_name':'腾讯大王卡','product_count' : 12333 } ,
-                    {'ranking':3,'product_name':'腾讯大王卡','product_count' : 12333 } ,
-                    {'ranking':4,'product_name':'腾讯大王卡','product_count' : 12333 } ,
-                    {'ranking':5,'product_name':'腾讯大王卡','product_count' : 12333 } ,
-                    {'ranking':6,'product_name':'腾讯大王卡','product_count' : 12333 } ,
-                    {'ranking':7,'product_name':'腾讯大王卡','product_count' : 12333 } ,
-                    {'ranking':8,'product_name':'腾讯大王卡','product_count' : 12333 } ,
-                    {'ranking':9,'product_name':'腾讯大王卡','product_count' : 12333 } ,
-                    {'ranking':10,'product_name':'腾讯大王卡','product_count' : 12333 } ,
+                'value': [
+                    { 'ranking': 1, 'product_name': '腾讯大王卡', 'product_count': 12333 },
+                    { 'ranking': 2, 'product_name': '腾讯大王卡', 'product_count': 12333 },
+                    { 'ranking': 3, 'product_name': '腾讯大王卡', 'product_count': 12333 },
+                    { 'ranking': 4, 'product_name': '腾讯大王卡', 'product_count': 12333 },
+                    { 'ranking': 5, 'product_name': '腾讯大王卡', 'product_count': 12333 },
+                    { 'ranking': 6, 'product_name': '腾讯大王卡', 'product_count': 12333 },
+                    { 'ranking': 7, 'product_name': '腾讯大王卡', 'product_count': 12333 },
+                    { 'ranking': 8, 'product_name': '腾讯大王卡', 'product_count': 12333 },
+                    { 'ranking': 9, 'product_name': '腾讯大王卡', 'product_count': 12333 },
+                    { 'ranking': 10, 'product_name': '腾讯大王卡', 'product_count': 12333 },
                 ]
             },
             {
                 'name': '常用功能',
                 'value': [
-                    {'ranking':1,'function_name':'移网变更','function_count' : 12333 } ,
-                    {'ranking':2,'function_name':'移网变更','function_count' : 12333 } ,
-                    {'ranking':3,'function_name':'移网变更','function_count' : 12333 } ,
-                    {'ranking':4,'function_name':'移网变更','function_count' : 12333 } ,
-                    {'ranking':5,'function_name':'移网变更','function_count' : 12333 } ,
-                    {'ranking':6,'function_name':'移网变更','function_count' : 12333 } ,
-                    {'ranking':7,'function_name':'移网变更','function_count' : 12333 } ,
-                    {'ranking':8,'function_name':'移网变更','function_count' : 12333 } ,
-                    {'ranking':9,'function_name':'移网变更','function_count' : 12333 } ,
-                    {'ranking':10,'function_name':'移网变更','function_count' : 12333 } ,
+                    { 'ranking': 1, 'function_name': '移网变更', 'function_count': 12333 },
+                    { 'ranking': 2, 'function_name': '移网变更', 'function_count': 12333 },
+                    { 'ranking': 3, 'function_name': '移网变更', 'function_count': 12333 },
+                    { 'ranking': 4, 'function_name': '移网变更', 'function_count': 12333 },
+                    { 'ranking': 5, 'function_name': '移网变更', 'function_count': 12333 },
+                    { 'ranking': 6, 'function_name': '移网变更', 'function_count': 12333 },
+                    { 'ranking': 7, 'function_name': '移网变更', 'function_count': 12333 },
+                    { 'ranking': 8, 'function_name': '移网变更', 'function_count': 12333 },
+                    { 'ranking': 9, 'function_name': '移网变更', 'function_count': 12333 },
+                    { 'ranking': 10, 'function_name': '移网变更', 'function_count': 12333 },
                 ]
             }
         ]
@@ -839,10 +848,10 @@ const module8Data = function() {
     }
 }
 
-Mock.mock('/queryOtherCountByProvince', 'get',bigData);
+Mock.mock('/queryOtherCountByProvince', 'get', bigData);
 Mock.mock('/api/getModule1', 'get', module1Data);
 Mock.mock('/api/getModule4', 'get', module4Data);
-Mock.mock('/api/getModule5', 'get', module5Data);
+Mock.mock('/queryUserCountByProvince', 'get', module5Data);
 Mock.mock('/api/getModule6', 'get', module6Data);
-Mock.mock('/api/getModule7', 'get', module7Data);
-Mock.mock('/api/getModule8', 'get', module8Data);
+Mock.mock('/queryMainCountByProvince', 'get', module7Data);
+Mock.mock('/queryTop10', 'get', module8Data);

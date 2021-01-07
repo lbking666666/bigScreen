@@ -5,12 +5,12 @@
         </div>
         <div class="container">
             <div class="left-box">
-                <module1 :module1Data="module1Data"></module1>
+                <module1 :leftData="leftData" :module1Data="module1Data"></module1>
                 <module2 :module2Data="module2Data"></module2>
                 <module3 :module3Data="module3Data"></module3>
             </div>
             <div class="center-box">
-                <module4 @reName="selectName" :remap="remap" :remap2="remap2" :mapData="module4Data"></module4>
+                <module4 @reName="selectName" :mapData="module4Data"></module4>
                 <module5 :module5Data="module5Data"></module5>
             </div>
             <div class="right-box">
@@ -32,7 +32,6 @@ import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
 import { getModule1,  getModule4, getModule5, getModule6, getModule7, getModule8, getBigData } from '@/api/index.js';
-import { getModule1, getModule2, getModule3, getModule4, getModule5, getModule6, getModule7, getModule8 } from '@/api/index.js';
 import { timestampConversion } from '@/utils/unixToTime.js'
 export default {
     name: 'Home',
@@ -52,7 +51,7 @@ export default {
             module1Data: {},
             module2Data: {},
             module3Data: [],
-            module4Data: {},
+            module4Data: [],
             module5Data: [],
             module6Data: {},
             module7Data: {},
@@ -63,7 +62,6 @@ export default {
     },
     mounted() {
         this.getData()
-
         setInterval(()=>{
             this.nowTime += 1
             this.dateTimeStr = timestampConversion(this.nowTime)
@@ -88,6 +86,11 @@ export default {
                     res.data.map(item => {
                         if (item.name == '全国') {
                             let values = item.value
+                            let data1 = {
+                                userCount:values.usercount,
+                                onlineCount:values.billuser
+                            }
+                            this.leftData = data1;
                             let data2 = {
                                 day: [{
                                     name: 'cB前台',
@@ -117,8 +120,6 @@ export default {
                                 }],
                             }
                             this.module2Data = data2
-                            console.log(data2)
-
                             let data3 = [{ value: values.mobile, name: '移网' },
                                 { value: values.broadband, name: '宽带' },
                                 { value: values.iptv, name: 'iptv' },
@@ -126,10 +127,8 @@ export default {
                                 { value: values.otheruser, name: '其它' }
                             ]
                             this.module3Data = data3
-
                         }
                     })
-
                 }
             })
         },
@@ -152,63 +151,7 @@ export default {
             getModule4(params).then(res => {
                 console.log(res)
                 if (res.code == 200) {
-                    let arr1 = [],
-                        arr2 = [],
-                        arr3 = [],
-                        arr4 = []
-                    res.data.map(item => {
-                        if (item.flag == -1) {
-                            let obj = {
-                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
-                                user: item.user,
-                                arpu: item.arpu,
-                                value: item.num,
-                                code: item.areaCode,
-                                itemStyle: {
-                                    areaColor: '#2569BB',
-                                    color: '#2569BB',
-                                    borderColor: '#2569BB',
-                                }
-                            }
-                            arr1.push(obj)
-                        }
-                        if (item.colors == -1) {
-                            let colors = {
-                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
-                                code: item.areaCode,
-                            }
-                            arr3.push(colors)
-                        }
-                        if (item.flag >= 0) {
-                            let obj = {
-                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
-                                value: item.num,
-                                user: item.user,
-                                arpu: item.arpu,
-                                code: item.areaCode,
-                                itemStyle: {
-                                    areaColor: '#62A5E6',
-                                    color: '#62A5E6',
-                                    borderColor: "#62A5E6",
-                                }
-                            }
-                            arr2.push(obj)
-                        }
-
-                        if (item.colors == 1) {
-                            let colors = {
-                                name: item.areaName.replace('省', '').replace('特别行政区', ''),
-                                code: item.areaCode,
-                            }
-                            arr4.push(colors)
-                        }
-                    })
-                    this.module4Data = {
-                        used: arr2,
-                        unUsed: arr1,
-                        colors: arr4,
-                        unColors: arr3
-                    }
+                    this.module4Data=res.data
                 }
             })
         },

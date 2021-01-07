@@ -116,7 +116,6 @@ export default {
 
 .total {
     width: 101px;
-    // float: left;
 }
 
 .top-title-left {

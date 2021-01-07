@@ -15,17 +15,9 @@ export default {
     name: "mapChart",
     props: {
         mapData: {
-            type: Object,
-            default: () => ({})
+            type: Array,
+            default: () => ([])
         },
-        remap: {
-            type: Number,
-            default: 0
-        },
-        remap2: {
-            type: Number,
-            default: 0
-        }
     },
     data() {
         return {
@@ -124,28 +116,7 @@ export default {
         this.initMap('china');
     },
     watch: {
-        'mapData': function(val, old) {
-            this.regionsArr = [...val.used, ...val.unUsed]
-            val.colors.map(item => {
-                if (this.match[item.name]) {
-                    let params = {
-                        name: item.name,
-                        code: item.code,
-                        value: this.match[item.name].concat(item.value)
-                    }
-                    this.effArr.push(params)
-                }
-            })
-            val.unColors.map(item => {
-                if (this.match[item.name]) {
-                    let params = {
-                        name: item.name,
-                        code: item.code,
-                        value: this.match[item.name].concat(item.value)
-                    }
-                    this.unEffArr.push(params)
-                }
-            })
+        'mapData': function(val) {
             map.dispose();
             this.initMap('china');
         }
@@ -173,32 +144,33 @@ export default {
                     borderWidth: 0,
                     trigger: 'item',
                     formatter: function(params) {
-                        console.log(params)
                         if (params.seriesType == 'effectScatter' || params.seriesType == 'scatter') {
                             return
                         } else {
-                            return params.name +'<br/>用户量:'+ params.value + '<br/>今日开户数:'+params.data.user + '<br/>arup值:'+ params.data.arpu
+                            return params.name + '<br/>用户量:' + params.value + '<br/>今日开户数:' + params.data.user + '<br/>arup值:' + params.data.arpu
                         }
                     }
                 },
-                legend: {
-                    show: true,
-                    left: 10,
-                    bottom: 10,
-                    textStyle: {
-                        color: '#fff'
-                    },
-                    data: ['已托管', '未托管'],
-                    orient: 'vertical',
+                visualMap: {
+                    min: 0,
+                    text: ['High', 'Low'],
+                    realtime: false,
+                    calculable: true,
+                    inRange: {
+                        color: ['#2569BB', '#62A5E6']
+                    }
                 },
-                geo: {
-                    map: name,
+                legend: {
+                    show: false,
+                },
+                series: [{
+                    name: name,
+                    type: "map",
+                    mapType: name,
                     roam: false,
                     zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang' || name == 'gansu' || name == 'guangdong') ? 0.8 : 1),
                     top: (name == 'heilongjiang' || name == 'gansu') ? '20%' : 'center',
                     left: (name == 'heilongjiang' || name == 'gansu') ? '25%' : 'center',
-                    // layoutCenter: ['80%','80%'],
-                    //图形上的文本标签，可用于说明图形的一些数据信息
                     label: {
                         show: this.back ? true : false,
                         fontSize: "10",
@@ -212,9 +184,8 @@ export default {
                                     return str
                                 }
                             }
-                            if(name == 'chongqing'){
-                                console.log(param.name)
-                                if(param.name == '九龙坡' || param.name == '九龙坡区' ||param.name =="彭水苗族土家族自治县" || param.name=="沙坪坝区" ||param.name=="渝北区"||param.name=="大渡口区" || param.name=="江北区"|| param.name=="渝中区"){
+                            if (name == 'chongqing') {
+                                if (param.name == '九龙坡' || param.name == '九龙坡区' || param.name == "彭水苗族土家族自治县" || param.name == "沙坪坝区" || param.name == "渝北区" || param.name == "大渡口区" || param.name == "江北区" || param.name == "渝中区") {
                                     return ''
                                 }
                             }
@@ -236,73 +207,8 @@ export default {
                         borderColor: "#2569BB",
                         areaColor: "#2569BB",
                     },
-                    regions: this.regionsArr
-                },
-                series: [{
-                        name: '已托管',
-                        type: "map",
-                        color: '#62A5E6',
-                        geoIndex: 0,
-                        roam: true,
-                        data: this.mapData.used,
-                    }, {
-                        name: '未托管',
-                        type: "map",
-                        color: '#2569BB',
-                        geoIndex: 0,
-                        data: this.mapData.unUsed
-                    }, {
-                        name: 'tt',
-                        type: 'effectScatter',
-                        coordinateSystem: 'geo',
-                        symbolSize: 10,
-                        encode: {
-                            value: 2
-                        },
-                        showEffectOn: 'render',
-                        rippleEffect: {
-                            brushType: 'stroke'
-                        },
-                        hoverAnimation: true,
-                        label: {
-                            formatter: '{b}',
-                            position: 'right',
-                            show: true,
-                            color: '#fff',
-                            fontSize: "10",
-                        },
-                        itemStyle: {
-                            color: '#FFFF02',
-                            shadowBlur: 0,
-                        },
-                        zlevel: 1,
-                        data: this.back ? [] : this.effArr
-                    },
-                    {
-                        name: 'tt2',
-                        type: 'scatter',
-                        coordinateSystem: 'geo',
-                        symbol: 'circle',
-                        label: {
-                            formatter: function(param) {
-                                if (param.name == '香港') {
-                                    return '/\n' + ' ' + param.name
-                                } else {
-                                    return param.name
-                                }
-                            },
-                            position: 'center',
-                            show: true,
-                            color: '#fff',
-                            fontSize: "10",
-                        },
-                        symbolSize: 0,
-                        itemStyle: {
-                            color: 'rgba(0,0,0,0)'
-                        },
-                        data: this.back ? [] : this.unEffArr
-                    }
-                ]
+                    data: this.mapData,
+                }]
             };
             map.setOption(option, true);
             window.addEventListener("resize", () => { map.resize(); });
@@ -323,9 +229,6 @@ export default {
             // 点击触发
             map.on("click", param => {
                 // 判断点击省份是否是未托管
-                let hasAccess = this.mapData.unUsed.find((d) => {
-                    return d.name == param.name
-                })
                 this.silent = true
                 let code = param.data ? param.data.code : 0
                 if (param.name in this.provinces) {
@@ -333,15 +236,9 @@ export default {
                     let names = param.name;
                     for (let key in this.provinces) {
                         if (names == key) {
-                            if (!hasAccess) {
-                                if (names == "新疆" || names == "西藏" || names == "云南") {
-                                    map.dispose();
-                                    this.initMap('china');
-                                } else {
-                                    this.showProvince(this.provinces[key], key, code);
-                                }
-                                continue;
-                            }
+                            this.showProvince(this.provinces[key], key, code);
+                            continue;
+
                         } else {
                             this.cityName = 'china'
                         }

@@ -58,20 +58,12 @@ export function getModule1(data) {
     const url = '/api/getModule1';
     return getApi(url, data)
 }
-export function getModule2(data) {
-    const url = '/api/getModule2';
-    return getApi(url, data)
-}
-export function getModule3(data) {
-    const url = '/api/getModule3';
-    return getApi(url, data)
-}
 export function getModule4(data) {
     const url = '/api/getModule4';
     return getApi(url, data)
 }
 export function getModule5(data) {
-    const url = '/api/getModule5';
+    const url = '/queryUserCountByProvince';
     return getApi(url, data)
 }
 export function getModule6(data) {
@@ -79,10 +71,10 @@ export function getModule6(data) {
     return getApi(url, data)
 }
 export function getModule7(data) {
-    const url = '/api/getModule7';
+    const url = '/queryMainCountByProvince';
     return getApi(url, data)
 }
 export function getModule8(data) {
-    const url = '/api/getModule8';
+    const url = '/queryTop10';
     return getApi(url, data)
 }
