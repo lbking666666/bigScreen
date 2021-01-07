@@ -173,17 +173,11 @@ export default {
                     borderWidth: 0,
                     trigger: 'item',
                     formatter: function(params) {
+                        console.log(params)
                         if (params.seriesType == 'effectScatter' || params.seriesType == 'scatter') {
                             return
-                        }
-                        if (params.value || params.value == 0) {
-                            if (params.name == "新疆" || params.name == "西藏" || params.name == "云南") {
-                                return params.name
-                            } else {
-                                return params.name + (params.value ? '：' : '') + (params.value ? params.value : '')
-                            }
                         } else {
-                            return params.name
+                            return params.name +'<br/>用户量:'+ params.value + '<br/>今日开户数:'+params.data.user + '<br/>arup值:'+ params.data.arpu
                         }
                     }
                 },

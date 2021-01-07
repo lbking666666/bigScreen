@@ -3,15 +3,15 @@ const Mock = require('mockjs');
 //全国新增内部员工量
 const addAreaUser = function() {
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
-            "list|20": [ //类型：Array  必有字段  备注：内部员工数组
-                { //类型：Object  必有字段  备注：无
-                    addNum: Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：新增内部员工数
-                    objDate: Mock.mock("@date('MM/dd')"), //类型：String  必有字段  备注：业务日期
-                    areaName: Mock.mock("@city"), //类型：String  必有字段  备注：区域名称
-                    areaCode: "3401" //类型：String  必有字段  备注：区域编码
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
+        data: Mock.mock({ //类型:Object  必有字段  备注:返回数据对象
+            "list|20": [ //类型:Array  必有字段  备注:内部员工数组
+                { //类型:Object  必有字段  备注:无
+                    addNum: Mock.mock('@integer(1, 20)'), //类型:String  必有字段  备注:新增内部员工数
+                    objDate: Mock.mock("@date('MM/dd')"), //类型:String  必有字段  备注:业务日期
+                    areaName: Mock.mock("@city"), //类型:String  必有字段  备注:区域名称
+                    areaCode: "3401" //类型:String  必有字段  备注:区域编码
                 }
             ]
         })
@@ -21,15 +21,15 @@ const addAreaUser = function() {
 //全国新增外部客户量接口
 const addAreaExternal = function() {
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
-            "list|20": [ //类型：Array  必有字段  备注：内部员工数组
-                { //类型：Object  必有字段  备注：无
-                    addNum: Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：新增内部员工数
-                    objDate: Mock.mock("@date('MM/dd')"), //类型：String  必有字段  备注：业务日期
-                    areaName: Mock.mock("@city"), //类型：String  必有字段  备注：区域名称
-                    areaCode: "3401" //类型：String  必有字段  备注：区域编码
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
+        data: Mock.mock({ //类型:Object  必有字段  备注:返回数据对象
+            "list|20": [ //类型:Array  必有字段  备注:内部员工数组
+                { //类型:Object  必有字段  备注:无
+                    addNum: Mock.mock('@integer(1, 20)'), //类型:String  必有字段  备注:新增内部员工数
+                    objDate: Mock.mock("@date('MM/dd')"), //类型:String  必有字段  备注:业务日期
+                    areaName: Mock.mock("@city"), //类型:String  必有字段  备注:区域名称
+                    areaCode: "3401" //类型:String  必有字段  备注:区域编码
                 }
             ]
         })
@@ -39,17 +39,17 @@ const addAreaExternal = function() {
 //全国涨幅省份排行榜接口
 const areaExternalRank = function() {
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
-            "list|20": [ //类型：Array  必有字段  备注：内部员工数组
-                { //类型：Object  必有字段  备注：无
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
+        data: Mock.mock({ //类型:Object  必有字段  备注:返回数据对象
+            "list|20": [ //类型:Array  必有字段  备注:内部员工数组
+                { //类型:Object  必有字段  备注:无
 
-                    "num": Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：序号
-                    "areaName": Mock.mock("@city"), //类型：String  必有字段  备注：区域名称
-                    "monthExternalNum": Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：近30天客户量
-                    "lastMonthExternalNum": Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：上30天客户量
-                    "rate": Mock.mock('@integer(1, 20)') + '%' //类型：String  必有字段  备注：增幅
+                    "num": Mock.mock('@integer(1, 20)'), //类型:String  必有字段  备注:序号
+                    "areaName": Mock.mock("@city"), //类型:String  必有字段  备注:区域名称
+                    "monthExternalNum": Mock.mock('@integer(1, 20)'), //类型:String  必有字段  备注:近30天客户量
+                    "lastMonthExternalNum": Mock.mock('@integer(1, 20)'), //类型:String  必有字段  备注:上30天客户量
+                    "rate": Mock.mock('@integer(1, 20)') + '%' //类型:String  必有字段  备注:增幅
                 }
             ]
         })
@@ -58,39 +58,39 @@ const areaExternalRank = function() {
 //发展客户互动数接口
 const showWechat = function() {
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
-            "chatCnt": Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：聊天总数
-            "messageCnt": Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：发消息数
-            "avgReplyTime": Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：回复时长
-            "replyPercentage": Mock.mock('@integer(1, 20)') //类型：String  必有字段  备注：回复占比
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
+        data: Mock.mock({ //类型:Object  必有字段  备注:返回数据对象
+            "chatCnt": Mock.mock('@integer(1, 20)'), //类型:String  必有字段  备注:聊天总数
+            "messageCnt": Mock.mock('@integer(1, 20)'), //类型:String  必有字段  备注:发消息数
+            "avgReplyTime": Mock.mock('@integer(1, 20)'), //类型:String  必有字段  备注:回复时长
+            "replyPercentage": Mock.mock('@integer(1, 20)') //类型:String  必有字段  备注:回复占比
         })
     }
 }
 //发展趋势接口
 const trends = function() {
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: { //类型：Object  必有字段  备注：返回数据对象
-            "userData": { //类型：Object  必有字段  备注：用户数据对象
-                "areaName": "安徽", //类型：String  必有字段  备注：区域名称
-                "objDate": "2020-12-01", //类型：String  必有字段  备注：业务日期
-                "addNum": "100", //类型：String  必有字段  备注：用户新增数
-                "totalNum": "30000", //类型：String  必有字段  备注：用户汇总数
-                "lastRate": "34%", //类型：String  必有字段  备注：上日涨幅
-                "sevenRate": "-12%", //类型：String  必有字段  备注：7日均值涨幅
-                "lastMonthRate": "21%" //类型：String  必有字段  备注：上月涨幅
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
+        data: { //类型:Object  必有字段  备注:返回数据对象
+            "userData": { //类型:Object  必有字段  备注:用户数据对象
+                "areaName": "安徽", //类型:String  必有字段  备注:区域名称
+                "objDate": "2020-12-01", //类型:String  必有字段  备注:业务日期
+                "addNum": "100", //类型:String  必有字段  备注:用户新增数
+                "totalNum": "30000", //类型:String  必有字段  备注:用户汇总数
+                "lastRate": "34%", //类型:String  必有字段  备注:上日涨幅
+                "sevenRate": "-12%", //类型:String  必有字段  备注:7日均值涨幅
+                "lastMonthRate": "21%" //类型:String  必有字段  备注:上月涨幅
             },
-            "externalData": { //类型：Object  必有字段  备注：客户数据对象
-                "areaName": "安徽", //类型：String  必有字段  备注：区域名称
-                "objDate": "2020-12-01", //类型：String  必有字段  备注：业务日期
-                "addNum": "100", //类型：String  必有字段  备注：客户新增数
-                "totalNum": "30000", //类型：String  必有字段  备注：客户汇总数
-                "lastRate": "34%", //类型：String  必有字段  备注：上日涨幅
-                "sevenRate": "-12%", //类型：String  必有字段  备注：7日均值涨幅
-                "lastMonthRate": "21%" //类型：String  必有字段  备注：上月涨幅
+            "externalData": { //类型:Object  必有字段  备注:客户数据对象
+                "areaName": "安徽", //类型:String  必有字段  备注:区域名称
+                "objDate": "2020-12-01", //类型:String  必有字段  备注:业务日期
+                "addNum": "100", //类型:String  必有字段  备注:客户新增数
+                "totalNum": "30000", //类型:String  必有字段  备注:客户汇总数
+                "lastRate": "34%", //类型:String  必有字段  备注:上日涨幅
+                "sevenRate": "-12%", //类型:String  必有字段  备注:7日均值涨幅
+                "lastMonthRate": "21%" //类型:String  必有字段  备注:上月涨幅
             }
         }
     }
@@ -98,14 +98,14 @@ const trends = function() {
 //各省客户汇总数据接口
 const areaExternal = function() {
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
-            "list|20": [ //类型：Array  必有字段  备注：内部员工数组
-                { //类型：Object  必有字段  备注：无
-                    totalNum: Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：新增内部员工数
-                    areaName: Mock.mock("@city"), //类型：String  必有字段  备注：区域名称
-                    areaCode: "3401" //类型：String  必有字段  备注：区域编码
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
+        data: Mock.mock({ //类型:Object  必有字段  备注:返回数据对象
+            "list|20": [ //类型:Array  必有字段  备注:内部员工数组
+                { //类型:Object  必有字段  备注:无
+                    totalNum: Mock.mock('@integer(1, 20)'), //类型:String  必有字段  备注:新增内部员工数
+                    areaName: Mock.mock("@city"), //类型:String  必有字段  备注:区域名称
+                    areaCode: "3401" //类型:String  必有字段  备注:区域编码
                 }
             ]
         })
@@ -114,11 +114,11 @@ const areaExternal = function() {
 //维系任务统计接口
 const showTask = function() {
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: { //类型：Object  必有字段  备注：返回数据
-            "taskNum": "2658", //类型：String  必有字段  备注：任务下发量
-            "taskRate": "85.6%" //类型：String  必有字段  备注：维系任务完成占比
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
+        data: { //类型:Object  必有字段  备注:返回数据
+            "taskNum": "2658", //类型:String  必有字段  备注:任务下发量
+            "taskRate": "85.6%" //类型:String  必有字段  备注:维系任务完成占比
         }
     }
 }
@@ -387,11 +387,11 @@ const showArea = function() {
 //客户新增量和客户总量查询接口
 const showExternal = function() {
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
-            "totalExternal": "365247", //类型：String  必有字段  备注：客户总量
-            "addExternal": "1254" //类型：String  必有字段  备注：客户新增量
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
+        data: Mock.mock({ //类型:Object  必有字段  备注:返回数据对象
+            "totalExternal": "365247", //类型:String  必有字段  备注:客户总量
+            "addExternal": "1254" //类型:String  必有字段  备注:客户新增量
         })
     }
 }
@@ -424,37 +424,35 @@ const module1Data = function() {
         }
     }
 }
-const module2Data = function() {
+const bigData = function() {
     return {
-        "code": "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
+        "code": "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
         data: [{
-            name: 'cB前台',
-            value: 11000,
-            per: 30,
-        }, {
-            name: '掌沃通',
-            value: 11000,
-            per: 30,
-        }, {
-            name: '其他',
-            value: 113300,
-            per: 50,
+            "name": "全国", //名称
+            "value": {
+                "usercount": 12345,
+                "mobile": 12345,
+                "broadband": 222,
+                "iptv": 2123,
+                "telephone": 2123,
+                "otheruser": 2123,
+                "billuser": 2123,
+                "arpu": 2123,
+                "cbinnetmonth": 2222,
+                "cbinnetday": 2222,
+                "cbfrontinnetmonth": 2222,
+                "cbfrontinnetday": 2222,
+                "woinnetmonth": 2222,
+                "woinnetday": 2222,
+                "otherinnetmonth": 2222,
+                "otherinnetday": 2222,
+            }
         }]
     }
 }
-const module3Data = function() {
-    return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: [{ value: 10, name: '移网' },
-            { value: 5, name: '宽带' },
-            { value: 20, name: 'iptv' },
-            { value: 15, name: '固话' },
-            { value: 25, name: '其它' },
-        ]
-    }
-}
+
+
 //各省客户汇总数据接口
 const module4Data = function() {
     return {
@@ -464,6 +462,8 @@ const module4Data = function() {
                 "areaName": "中国",
                 "colors": "-1",
                 "flag": "-1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "1320"
             },
             {
@@ -471,6 +471,8 @@ const module4Data = function() {
                 "areaName": "北京",
                 "colors": "-1",
                 "flag": "-1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -478,6 +480,8 @@ const module4Data = function() {
                 "areaName": "天津",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "10"
             },
             {
@@ -485,6 +489,8 @@ const module4Data = function() {
                 "areaName": "河北",
                 "colors": "-1",
                 "flag": "-1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -492,6 +498,8 @@ const module4Data = function() {
                 "areaName": "山西",
                 "colors": "-1",
                 "flag": "-1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -499,6 +507,8 @@ const module4Data = function() {
                 "areaName": "内蒙古",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "629"
             },
             {
@@ -506,6 +516,8 @@ const module4Data = function() {
                 "areaName": "辽宁",
                 "colors": "-1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "309"
             },
             {
@@ -513,6 +525,8 @@ const module4Data = function() {
                 "areaName": "吉林",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "1547"
             },
             {
@@ -520,6 +534,8 @@ const module4Data = function() {
                 "areaName": "黑龙江",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -527,6 +543,8 @@ const module4Data = function() {
                 "areaName": "上海",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "162"
             },
             {
@@ -534,6 +552,8 @@ const module4Data = function() {
                 "areaName": "江苏",
                 "colors": "-1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "2184"
             },
             {
@@ -541,6 +561,8 @@ const module4Data = function() {
                 "areaName": "浙江",
                 "colors": "-1",
                 "flag": "-1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -548,6 +570,8 @@ const module4Data = function() {
                 "areaName": "安徽",
                 "colors": "-1",
                 "flag": "-1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -555,6 +579,8 @@ const module4Data = function() {
                 "areaName": "福建",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "106"
             },
             {
@@ -562,6 +588,8 @@ const module4Data = function() {
                 "areaName": "江西",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "158"
             },
             {
@@ -569,6 +597,8 @@ const module4Data = function() {
                 "areaName": "山东",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "2602"
             },
             {
@@ -576,6 +606,8 @@ const module4Data = function() {
                 "areaName": "河南",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "3049"
             },
             {
@@ -583,6 +615,8 @@ const module4Data = function() {
                 "areaName": "湖北",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "125"
             },
             {
@@ -590,6 +624,8 @@ const module4Data = function() {
                 "areaName": "湖南",
                 "colors": "-1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -597,6 +633,8 @@ const module4Data = function() {
                 "areaName": "广东",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "327"
             },
             {
@@ -604,6 +642,8 @@ const module4Data = function() {
                 "areaName": "广西",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "360"
             },
             {
@@ -611,6 +651,8 @@ const module4Data = function() {
                 "areaName": "海南",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "102"
             },
             {
@@ -618,6 +660,8 @@ const module4Data = function() {
                 "areaName": "重庆",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "41"
             },
             {
@@ -625,6 +669,8 @@ const module4Data = function() {
                 "areaName": "四川",
                 "colors": "-1",
                 "flag": "-1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -632,6 +678,8 @@ const module4Data = function() {
                 "areaName": "贵州",
                 "colors": "-1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "719"
             },
             {
@@ -639,6 +687,8 @@ const module4Data = function() {
                 "areaName": "云南",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "1298"
             },
             {
@@ -646,6 +696,8 @@ const module4Data = function() {
                 "areaName": "西藏",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -653,6 +705,8 @@ const module4Data = function() {
                 "areaName": "陕西",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "632"
             },
             {
@@ -660,6 +714,8 @@ const module4Data = function() {
                 "areaName": "甘肃",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -667,6 +723,8 @@ const module4Data = function() {
                 "areaName": "青海",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -674,6 +732,8 @@ const module4Data = function() {
                 "areaName": "宁夏",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -681,6 +741,8 @@ const module4Data = function() {
                 "areaName": "新疆",
                 "colors": "1",
                 "flag": "1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "1300"
             },
             {
@@ -688,6 +750,8 @@ const module4Data = function() {
                 "areaName": "台湾",
                 "colors": "-1",
                 "flag": "-1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -695,6 +759,8 @@ const module4Data = function() {
                 "areaName": "香港",
                 "colors": "-1",
                 "flag": "-1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -702,6 +768,8 @@ const module4Data = function() {
                 "areaName": "澳门",
                 "colors": "-1",
                 "flag": "-1",
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             },
             {
@@ -709,6 +777,9 @@ const module4Data = function() {
                 "areaName": "海外",
                 "colors": "-1",
                 "flag": "-1",
+                "arpu": 1000,
+                "arpu": 1000,
+                "user": 100,
                 "num": "0"
             }
         ],
@@ -719,9 +790,9 @@ const module4Data = function() {
 }
 const module5Data = function() {
     return {
-        "code": 200, //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        "data": [ //类型：Array  必有字段  备注：返回数据集合
+        "code": 200, //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
+        "data": [ //类型:Array  必有字段  备注:返回数据集合
             { "name": "呼和浩特市", "value": { "user": 2223, "arpu": 2333 } },
             { "name": "包头市", "value": { "user": 2223, "arpu": 2333 } },
             { "name": "乌海市", "value": { "user": 2223, "arpu": 2333 } },
@@ -738,8 +809,8 @@ const module6Data = function() {
     let arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         arr2 = [100, 30, 40, 50, 80, 100, 30, 40, 50, 80, 200, 400]
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
         data: {
             externalX: arr1,
             externalY: arr2
@@ -750,12 +821,12 @@ const module7Data = function() {
     let arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         arr2 = [100, 30, 40, 50, 80, 100, 30, 40, 50, 80, 200, 400]
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
         data: {
-            fiveGCount: 12345, //类型：Number  必有字段  备注：5G
-            familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
-            crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
+            fiveGCount: 12345, //类型:Number  必有字段  备注:5G
+            familyCount: 12345, //类型:Number  必有字段  备注:智慧家庭
+            crossDomainCount: 12345, //类型:Number  必有字段  备注:跨域
         }
     }
 }
@@ -775,8 +846,8 @@ const module8Data = function() {
         fakeArrayB.push(newObjB)
     }
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
         data: {
             hot: fakeArrayA,
             normal: fakeArrayB
@@ -784,9 +855,8 @@ const module8Data = function() {
     }
 }
 
+Mock.mock('/queryOtherCountByProvince', 'get',bigData);
 Mock.mock('/api/getModule1', 'get', module1Data);
-Mock.mock('/api/getModule2', 'get', module2Data);
-Mock.mock('/api/getModule3', 'get', module3Data);
 Mock.mock('/api/getModule4', 'get', module4Data);
 Mock.mock('/api/getModule5', 'get', module5Data);
 Mock.mock('/api/getModule6', 'get', module6Data);
