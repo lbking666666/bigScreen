@@ -39,7 +39,6 @@
         	this.drawChart()
 		},
 		updated() {
-			console.log('update', this.module5Data)
 			this.transData(this.module5Data)
 			this.drawChart()
 		},
