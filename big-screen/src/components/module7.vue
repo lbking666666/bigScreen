@@ -7,13 +7,21 @@
                 <div class="box-title">5g订购数</div>
                 <div class="box-count">{{module7Data.fiveGCount}}</div>
             </div>
-            <div class="box">
+            <div class="box pointer">
                 <div class="box-title">跨域用户数</div>
                 <div class="box-count">{{module7Data.familyCount}}</div>
+                <div class="pointer-view">
+                    <p>跨域融合套餐数：{{module7Data.taocanNum}}</p>
+                    <p>跨域融合用户数：{{module7Data.rongheNum}}</p>
+                </div>
             </div>
-            <div class="box">
+            <div class="box pointer">
                 <div class="box-title">携号转网</div>
                 <div class="box-count">{{module7Data.crossDomainCount}}</div>
+                <div class="pointer-view">
+                    <p>携入数：{{module7Data.xieruNum}}</p>
+                    <p>携出数：{{module7Data.xiechuNum}}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -38,6 +46,12 @@
             }
 		},
 		mounted() {
+            console.log(this.module7Data)
+            /**
+             * 5G 不动 fiveGCount
+             * 跨域用户数：familyCount = taocanNum + rongheNum
+             * 携号转网：crossDomainCount = xieruNum + xiechuNum
+             */
 		},
 		methods:{
 			
@@ -77,6 +91,25 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                &.pointer{
+                    cursor: pointer;
+                    position: relative;
+                    .pointer-view{
+                        position: absolute;
+                        bottom: 100%;
+                        padding: 8px 10px;
+                        background: rgba(0, 0, 0, 0.5);
+                        border-radius: 4px;
+                        color: #fff;
+                        font-size: 13px;
+                        display: none;
+                    }
+                    &:hover{
+                        .pointer-view{
+                            display: block;
+                        }
+                    }
+                }
                 .box-title{
                     font-size: 14px;
                     font-family: PingFangSC-Regular, PingFang SC;

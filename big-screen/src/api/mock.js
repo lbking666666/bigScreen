@@ -771,7 +771,11 @@ const module7Data = function() {
         data: {
             fiveGCount: 12345, //类型：Number  必有字段  备注：5G
             familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
+            taocanNum: 12000, // 类型：Number  必有字段  备注：跨域融合套餐数
+            rongheNum: 345, // 类型：Number  必有字段  备注：跨域融合用户数
             crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
+            xieruNum: 10000, // 类型：Number  必有字段  备注：携入数
+            xiechuNum: 2345, // 类型：Number  必有字段  备注：携出数
         }
     }
 }
