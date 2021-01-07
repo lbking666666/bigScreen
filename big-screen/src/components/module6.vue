@@ -155,12 +155,10 @@ export default {
                     symbol: 'circle',
                     symbolSize: 8,
                     itemStyle: {
-                        normal: {
-                            color: this.color,
-                            borderColor: "#fff",
-                            borderWidth: 1,
-                            borderType: 'solid'
-                        }
+                        color: this.color,
+                        borderColor: "#fff",
+                        borderWidth: 1,
+                        borderType: 'solid'
                     },
                     lineStyle: {
                         color: this.color
