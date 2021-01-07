@@ -125,6 +125,7 @@
 						axisLabel: {
 							fontWeight: 'lighter',
 							fontSize: '12px',
+							lineHeight: 15,
 							interval: 0,
 							formatter: (val) => {
 								let str = val.split('')
@@ -152,7 +153,6 @@
 							}
 						},
 						axisLine: {
-							show: false,
 							lineStyle: {
 								color: '#01B4FF'
 							}
