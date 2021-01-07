@@ -184,7 +184,7 @@
 										offset: 1,
 										color: '#315DFF' //指100%处的颜色
 									}], false),
-								barBorderRadius: [2, 2, 0, 0]
+								borderRadius: [2, 2, 0, 0]
 							},
 							barGap: 0,
 							barWidth: 8,
@@ -204,7 +204,7 @@
 										offset: 1,
 										color: '#67C2C2' //指100%处的颜色
 									}], false),
-								barBorderRadius: [2, 2, 0, 0]
+								borderRadius: [2, 2, 0, 0]
 							},
 							barGap: 0,
 							barWidth: 8,

@@ -55,7 +55,8 @@ export default {
             module5Data: [],
             module6Data: [],
             module7Data: {},
-            module8Data: {},
+            module8Data: [],
+            leftData: {},
             nowTime: (new Date()).getTime()/1000,
             dateTimeStr: timestampConversion((new Date()).getTime()/1000)
         }
@@ -199,7 +200,6 @@ export default {
                 province_code: this.province_code
             }
             getModule8(params).then(res => {
-                // console.log(1111,res)
                 if (res.code == 200) {
                     this.module8Data = res.data
                 }
