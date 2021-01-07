@@ -44,17 +44,12 @@
 			return{
 				titleText: '1月热销产品/常用功能TOP10',
 				tabIndex: 0, // 0: 热销产品； 1: 常用功能；
-				activeList: [],
-				// listNames: ['hot', 'normal']
+				activeList: []
 			}
 		},
 		mounted() {
-			// console.log(this.module8Data)
-			// let listName = this.listNames[this.tabIndex]
-			this.activeList = this.module8Data.length > 0 ? this.module8Data[this.tabIndex].value : []
 		},
 		updated() {
-			// let listName = this.listNames[this.tabIndex]
 			this.activeList = this.module8Data.length > 0 ? this.module8Data[this.tabIndex].value : []
 		},
 		methods:{
