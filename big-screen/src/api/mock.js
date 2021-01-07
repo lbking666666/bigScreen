@@ -877,7 +877,217 @@ const bigData = function() {
                     "otherinnetmonth": 2222,
                     "otherinnetday": 2222,
                 }
-            }
+            },
+            {
+                "name": "重庆", //名称
+                "value": {
+                    "usercount": Mock.mock('@integer(1000, 20000)'),
+                    "mobile": 12345,
+                    "broadband": 222,
+                    "iptv": 2123,
+                    "telephone": 2123,
+                    "otheruser": 2123,
+                    "billuser": 2123,
+                    "arpu": 2123,
+                    "cbinnetmonth": 2222,
+                    "cbinnetday": 2222,
+                    "cbfrontinnetmonth": 2222,
+                    "cbfrontinnetday": 2222,
+                    "woinnetmonth": 2222,
+                    "woinnetday": 2222,
+                    "otherinnetmonth": 2222,
+                    "otherinnetday": 2222,
+                }
+            },
+            {
+                "name": "陕西", //名称
+                "value": {
+                    "usercount": Mock.mock('@integer(1000, 20000)'),
+                    "mobile": 12345,
+                    "broadband": 222,
+                    "iptv": 2123,
+                    "telephone": 2123,
+                    "otheruser": 2123,
+                    "billuser": 2123,
+                    "arpu": 2123,
+                    "cbinnetmonth": 2222,
+                    "cbinnetday": 2222,
+                    "cbfrontinnetmonth": 2222,
+                    "cbfrontinnetday": 2222,
+                    "woinnetmonth": 2222,
+                    "woinnetday": 2222,
+                    "otherinnetmonth": 2222,
+                    "otherinnetday": 2222,
+                }
+            },
+            {
+                "name": "贵州", //名称
+                "value": {
+                    "usercount": Mock.mock('@integer(1000, 20000)'),
+                    "mobile": 12345,
+                    "broadband": 222,
+                    "iptv": 2123,
+                    "telephone": 2123,
+                    "otheruser": 2123,
+                    "billuser": 2123,
+                    "arpu": 2123,
+                    "cbinnetmonth": 2222,
+                    "cbinnetday": 2222,
+                    "cbfrontinnetmonth": 2222,
+                    "cbfrontinnetday": 2222,
+                    "woinnetmonth": 2222,
+                    "woinnetday": 2222,
+                    "otherinnetmonth": 2222,
+                    "otherinnetday": 2222,
+                }
+            },
+            {
+                "name": "云南", //名称
+                "value": {
+                    "usercount": Mock.mock('@integer(1000, 20000)'),
+                    "mobile": 12345,
+                    "broadband": 222,
+                    "iptv": 2123,
+                    "telephone": 2123,
+                    "otheruser": 2123,
+                    "billuser": 2123,
+                    "arpu": 2123,
+                    "cbinnetmonth": 2222,
+                    "cbinnetday": 2222,
+                    "cbfrontinnetmonth": 2222,
+                    "cbfrontinnetday": 2222,
+                    "woinnetmonth": 2222,
+                    "woinnetday": 2222,
+                    "otherinnetmonth": 2222,
+                    "otherinnetday": 2222,
+                }
+            },
+            {
+                "name": "甘肃", //名称
+                "value": {
+                    "usercount": Mock.mock('@integer(1000, 20000)'),
+                    "mobile": 12345,
+                    "broadband": 222,
+                    "iptv": 2123,
+                    "telephone": 2123,
+                    "otheruser": 2123,
+                    "billuser": 2123,
+                    "arpu": 2123,
+                    "cbinnetmonth": 2222,
+                    "cbinnetday": 2222,
+                    "cbfrontinnetmonth": 2222,
+                    "cbfrontinnetday": 2222,
+                    "woinnetmonth": 2222,
+                    "woinnetday": 2222,
+                    "otherinnetmonth": 2222,
+                    "otherinnetday": 2222,
+                }
+            },
+            {
+                "name": "宁夏", //名称
+                "value": {
+                    "usercount": Mock.mock('@integer(1000, 20000)'),
+                    "mobile": 12345,
+                    "broadband": 222,
+                    "iptv": 2123,
+                    "telephone": 2123,
+                    "otheruser": 2123,
+                    "billuser": 2123,
+                    "arpu": 2123,
+                    "cbinnetmonth": 2222,
+                    "cbinnetday": 2222,
+                    "cbfrontinnetmonth": 2222,
+                    "cbfrontinnetday": 2222,
+                    "woinnetmonth": 2222,
+                    "woinnetday": 2222,
+                    "otherinnetmonth": 2222,
+                    "otherinnetday": 2222,
+                }
+            },
+            {
+                "name": "新疆", //名称
+                "value": {
+                    "usercount": Mock.mock('@integer(1000, 20000)'),
+                    "mobile": 12345,
+                    "broadband": 222,
+                    "iptv": 2123,
+                    "telephone": 2123,
+                    "otheruser": 2123,
+                    "billuser": 2123,
+                    "arpu": 2123,
+                    "cbinnetmonth": 2222,
+                    "cbinnetday": 2222,
+                    "cbfrontinnetmonth": 2222,
+                    "cbfrontinnetday": 2222,
+                    "woinnetmonth": 2222,
+                    "woinnetday": 2222,
+                    "otherinnetmonth": 2222,
+                    "otherinnetday": 2222,
+                }
+            },
+            {
+                "name": "吉林", //名称
+                "value": {
+                    "usercount": Mock.mock('@integer(1000, 20000)'),
+                    "mobile": 12345,
+                    "broadband": 222,
+                    "iptv": 2123,
+                    "telephone": 2123,
+                    "otheruser": 2123,
+                    "billuser": 2123,
+                    "arpu": 2123,
+                    "cbinnetmonth": 2222,
+                    "cbinnetday": 2222,
+                    "cbfrontinnetmonth": 2222,
+                    "cbfrontinnetday": 2222,
+                    "woinnetmonth": 2222,
+                    "woinnetday": 2222,
+                    "otherinnetmonth": 2222,
+                    "otherinnetday": 2222,
+                }
+            },
+            {
+                "name": "辽宁", //名称
+                "value": {
+                    "usercount": Mock.mock('@integer(1000, 20000)'),
+                    "mobile": 12345,
+                    "broadband": 222,
+                    "iptv": 2123,
+                    "telephone": 2123,
+                    "otheruser": 2123,
+                    "billuser": 2123,
+                    "arpu": 2123,
+                    "cbinnetmonth": 2222,
+                    "cbinnetday": 2222,
+                    "cbfrontinnetmonth": 2222,
+                    "cbfrontinnetday": 2222,
+                    "woinnetmonth": 2222,
+                    "woinnetday": 2222,
+                    "otherinnetmonth": 2222,
+                    "otherinnetday": 2222,
+                }
+            },
+            {
+                "name": "黑龙江", //名称
+                "value": {
+                    "usercount": Mock.mock('@integer(1000, 20000)'),
+                    "mobile": 12345,
+                    "broadband": 222,
+                    "iptv": 2123,
+                    "telephone": 2123,
+                    "otheruser": 2123,
+                    "billuser": 2123,
+                    "arpu": 2123,
+                    "cbinnetmonth": 2222,
+                    "cbinnetday": 2222,
+                    "cbfrontinnetmonth": 2222,
+                    "cbfrontinnetday": 2222,
+                    "woinnetmonth": 2222,
+                    "woinnetday": 2222,
+                    "otherinnetmonth": 2222,
+                    "otherinnetday": 2222,
+                }
+            },
 
         ]
     }
@@ -907,268 +1117,7 @@ const module3Data = function() {
         ]
     }
 }
-//各省客户汇总数据接口
-const module4Data = function() {
-    return {
-        "code": 200,
-        "data": [{
-                "areaCode": "1",
-                "name": "中国",
-                "colors": "-1",
-                "flag": "-1",
-                "value": "1320"
-            },
-            {
-                "areaCode": "110000",
-                "name": "北京",
-                "colors": "-1",
-                "flag": "-1",
-                "value": "0"
-            },
-            {
-                "areaCode": "120000",
-                "name": "天津",
-                "colors": "1",
-                "flag": "1",
-                "value": "10"
-            },
-            {
-                "areaCode": "130000",
-                "name": "河北",
-                "colors": "-1",
-                "flag": "-1",
-                "value": "0"
-            },
-            {
-                "areaCode": "140000",
-                "name": "山西",
-                "colors": "-1",
-                "flag": "-1",
-                "value": "0"
-            },
-            {
-                "areaCode": "150000",
-                "name": "内蒙古",
-                "colors": "1",
-                "flag": "1",
-                "value": "629"
-            },
-            {
-                "areaCode": "210000",
-                "name": "辽宁",
-                "colors": "-1",
-                "flag": "1",
-                "value": "309"
-            },
-            {
-                "areaCode": "220000",
-                "name": "吉林",
-                "colors": "1",
-                "flag": "1",
-                "value": "1547"
-            },
-            {
-                "areaCode": "230000",
-                "name": "黑龙江",
-                "colors": "1",
-                "flag": "1",
-                "value": "0"
-            },
-            {
-                "areaCode": "310000",
-                "name": "上海",
-                "colors": "1",
-                "flag": "1",
-                "value": "162"
-            },
-            {
-                "areaCode": "320000",
-                "name": "江苏",
-                "colors": "-1",
-                "flag": "1",
-                "value": "2184"
-            },
-            {
-                "areaCode": "330000",
-                "name": "浙江",
-                "colors": "-1",
-                "flag": "-1",
-                "value": "0"
-            },
-            {
-                "areaCode": "340000",
-                "name": "安徽",
-                "colors": "-1",
-                "flag": "-1",
-                "value": "0"
-            },
-            {
-                "areaCode": "350000",
-                "name": "福建",
-                "colors": "1",
-                "flag": "1",
-                "value": "106"
-            },
-            {
-                "areaCode": "360000",
-                "name": "江西",
-                "colors": "1",
-                "flag": "1",
-                "value": "158"
-            },
-            {
-                "areaCode": "370000",
-                "name": "山东",
-                "colors": "1",
-                "flag": "1",
-                "value": "2602"
-            },
-            {
-                "areaCode": "410000",
-                "name": "河南",
-                "colors": "1",
-                "flag": "1",
-                "value": "3049"
-            },
-            {
-                "areaCode": "420000",
-                "name": "湖北",
-                "colors": "1",
-                "flag": "1",
-                "value": "125"
-            },
-            {
-                "areaCode": "430000",
-                "name": "湖南",
-                "colors": "-1",
-                "flag": "1",
-                "value": "0"
-            },
-            {
-                "areaCode": "440000",
-                "name": "广东",
-                "colors": "1",
-                "flag": "1",
-                "value": "327"
-            },
-            {
-                "areaCode": "450000",
-                "name": "广西",
-                "colors": "1",
-                "flag": "1",
-                "value": "360"
-            },
-            {
-                "areaCode": "460000",
-                "name": "海南",
-                "colors": "1",
-                "flag": "1",
-                "value": "102"
-            },
-            {
-                "areaCode": "500000",
-                "name": "重庆",
-                "colors": "1",
-                "flag": "1",
-                "value": "41"
-            },
-            {
-                "areaCode": "510000",
-                "name": "四川",
-                "colors": "-1",
-                "flag": "-1",
-                "value": "0"
-            },
-            {
-                "areaCode": "520000",
-                "name": "贵州",
-                "colors": "-1",
-                "flag": "1",
-                "value": "719"
-            },
-            {
-                "areaCode": "530000",
-                "name": "云南",
-                "colors": "1",
-                "flag": "1",
-                "value": "1298"
-            },
-            {
-                "areaCode": "540000",
-                "name": "西藏",
-                "colors": "1",
-                "flag": "1",
-                "value": "0"
-            },
-            {
-                "areaCode": "610000",
-                "name": "陕西",
-                "colors": "1",
-                "flag": "1",
-                "value": "632"
-            },
-            {
-                "areaCode": "620000",
-                "name": "甘肃",
-                "colors": "1",
-                "flag": "1",
-                "value": "0"
-            },
-            {
-                "areaCode": "630000",
-                "name": "青海",
-                "colors": "1",
-                "flag": "1",
-                "value": "0"
-            },
-            {
-                "areaCode": "640000",
-                "name": "宁夏",
-                "colors": "1",
-                "flag": "1",
-                "value": "0"
-            },
-            {
-                "areaCode": "650000",
-                "name": "新疆",
-                "colors": "1",
-                "flag": "1",
-                "value": "1300"
-            },
-            {
-                "areaCode": "710000",
-                "name": "台湾",
-                "colors": "-1",
-                "flag": "-1",
-                "value": "0"
-            },
-            {
-                "areaCode": "810000",
-                "name": "香港",
-                "colors": "-1",
-                "flag": "-1",
-                "value": "0"
-            },
-            {
-                "areaCode": "820000",
-                "name": "澳门",
-                "colors": "-1",
-                "flag": "-1",
-                "value": "0"
-            },
-            {
-                "areaCode": "990000",
-                "name": "海外",
-                "colors": "-1",
-                "flag": "-1",
-                "value": "0"
-            }
-        ],
-        "errorStack": "",
-        "message": "操作成功"
 
-    }
-}
 const module5Data = function() {
     return {
         "code": 200, //类型：String  必有字段  备注：状态码
@@ -1206,29 +1155,29 @@ const module6Data = function() {
     // let arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     //     arr2 = [100, 30, 40, 50, 80, 100, 30, 40, 50, 80, 200, 400]
     return {
-        "code":200, //类型：String  必有字段  备注：状态码
-        "message":"操作成功",//类型：String  必有字段  备注：返回文本信息
-        "data":[//类型：Array  必有字段  备注：返回数据集合
+        "code": 200, //类型：String  必有字段  备注：状态码
+        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
+        "data": [ //类型：Array  必有字段  备注：返回数据集合
             {
                 'name': '营业厅订单',
                 'value': [
-                    {'date':' 2020-01-01','malltrade':2421422},
-                    {'date':' 2020-01-02','malltrade':242122},
-                    {'date':' 2020-01-03','malltrade':2426622},
-                    {'date':' 2020-01-04','malltrade':241422},
-                    {'date':' 2020-01-05','malltrade':4421422},
-                    {'date':' 2020-01-06','malltrade':6421422},
+                    { 'date': ' 2020-01-01', 'malltrade': 2421422 },
+                    { 'date': ' 2020-01-02', 'malltrade': 242122 },
+                    { 'date': ' 2020-01-03', 'malltrade': 2426622 },
+                    { 'date': ' 2020-01-04', 'malltrade': 241422 },
+                    { 'date': ' 2020-01-05', 'malltrade': 4421422 },
+                    { 'date': ' 2020-01-06', 'malltrade': 6421422 },
                 ]
             },
             {
-                'name':'外围订单',
+                'name': '外围订单',
                 'value': [
-                    {'date':' 2020-01-07','malltrade':2422},
-                    {'date':' 2020-01-08','malltrade':2782},
-                    {'date':' 2020-01-09','malltrade': 6622},
-                    {'date':' 2020-01-10','malltrade': 422},
-                    {'date':' 2020-01-11','malltrade':4482},
-                    {'date':' 2020-01-12','malltrade':11422},
+                    { 'date': ' 2020-01-07', 'malltrade': 2422 },
+                    { 'date': ' 2020-01-08', 'malltrade': 2782 },
+                    { 'date': ' 2020-01-09', 'malltrade': 6622 },
+                    { 'date': ' 2020-01-10', 'malltrade': 422 },
+                    { 'date': ' 2020-01-11', 'malltrade': 4482 },
+                    { 'date': ' 2020-01-12', 'malltrade': 11422 },
                 ]
             },
         ]
@@ -1319,7 +1268,6 @@ const module8Data = function() {
 
 Mock.mock('/queryOtherCountByProvince', 'get', bigData);
 Mock.mock('/api/getModule1', 'get', module1Data);
-Mock.mock('/api/getModule4', 'get', module4Data);
 Mock.mock('/queryUserCountByProvince', 'get', module5Data);
 Mock.mock('/api/getModule6', 'get', module6Data);
 Mock.mock('/queryMainCountByProvince', 'get', module7Data);

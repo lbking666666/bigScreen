@@ -116,7 +116,6 @@ export default {
         this.initMap('china');
     },
     updated() {
-        console.log(this.mapData)
         //echarts.registerMap('china', chinaMap);
         this.initMap('china');
     },
@@ -143,12 +142,14 @@ export default {
                     borderWidth: 0,
                     trigger: 'item',
                     formatter: function(params) {
-                            return params.name + '<br/>用户量:' + params.value + '<br/>今日开户数:' + params.data.user + '<br/>arup值:' + params.data.arpu
-                        
+                        return params.name + '<br/>用户量:' + params.value + '<br/>今日开户数:' + params.data.user + '<br/>arup值:' + params.data.arpu
+
                     }
                 },
                 visualMap: {
-                    min: 0,
+                    max: 20000,
+                    min: 1000,
+                    show: false,
                     text: ['High', 'Low'],
                     realtime: false,
                     calculable: true,
@@ -159,50 +160,79 @@ export default {
                 legend: {
                     show: false,
                 },
-                series: [{
-                    name: name,
-                    type: "map",
-                    mapType: name,
+                geo: [{
+                    map: name,
                     roam: false,
+                    zlevel: 1,
                     zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang' || name == 'gansu' || name == 'guangdong') ? 0.8 : 1),
                     top: (name == 'heilongjiang' || name == 'gansu') ? '20%' : 'center',
                     left: (name == 'heilongjiang' || name == 'gansu') ? '25%' : 'center',
-                    label: {
-                        show: this.back ? true : false,
-                        fontSize: "10",
-                        formatter: function(param) {
-                            // 处理不显示地市
-                            if (name == 'xinjiang') {
-                                let str = String(param.name)
-                                if (str.length > 4) {
-                                    return ''
-                                } else {
-                                    return str
-                                }
-                            }
-                            if (name == 'chongqing') {
-                                if (param.name == '九龙坡' || param.name == '九龙坡区' || param.name == "彭水苗族土家族自治县" || param.name == "沙坪坝区" || param.name == "渝北区" || param.name == "大渡口区" || param.name == "江北区" || param.name == "渝中区") {
-                                    return ''
-                                }
-                            }
+                    itemStyle: {
+                        //normal 是图形在默认状态下的样式；
+                        normal: {
+                            borderColor: "#2569BB",
+                            areaColor: "#2569BB",
                         },
-                        color: "#fff"
-                    },
-                    emphasis: {
-                        label: {
-                            show: this.back ? true : false,
-                            color: "#fff"
-                        },
-                        itemStyle: {
+                        emphasis: {
                             color: '#1ACFFF',
                             areaColor: "#1ACFFF",
+                        },
+                    },
+                },{
+                    map: name,
+                    roam: false,
+                    zlevel: 1,
+                    zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang' || name == 'gansu' || name == 'guangdong') ? 0.8 : 1),
+                    top: (name == 'heilongjiang' || name == 'gansu') ? '20%' : 'center',
+                    left: (name == 'heilongjiang' || name == 'gansu') ? '25%' : 'center',
+                    // layoutCenter: ['80%','80%'],
+                    //图形上的文本标签，可用于说明图形的一些数据信息
+                    label: {
+                        normal: {
+                            show: this.back ? true : false,
+                            fontSize: "10",
+                            formatter: function(param) {
+                                // 处理不显示地市
+                                if (name == 'xinjiang') {
+                                    let str = String(param.name)
+                                    if (str.length > 4) {
+                                        return ''
+                                    } else {
+                                        return str
+                                    }
+                                }
+                            },
+                            color: "#fff"
+                        },
+                        emphasis: {
+                            show: this.back ? true : false,
+                            color: "#fff"
                         }
                     },
                     //地图区域的多边形 图形样式，有 normal 和 emphasis 两个状态
                     itemStyle: {
-                        borderColor: "#2569BB",
-                        areaColor: "#2569BB",
+                        //normal 是图形在默认状态下的样式；
+                        normal: {
+                            borderColor: "#2569BB",
+                            areaColor: "#2569BB",
+                        },
+                        emphasis: {
+                            color: '#1ACFFF',
+                            areaColor: "#1ACFFF",
+                        },
                     },
+
+                }],
+                series: [{
+                     name: name,
+                    type: "map",
+                    geoIndex: 0,
+                    data: [],
+                },{
+                    name: name,
+                    type: "map",
+                    zlevel: 1,
+                    geoIndex: 0,
                     data: this.mapData,
                 }]
             };
