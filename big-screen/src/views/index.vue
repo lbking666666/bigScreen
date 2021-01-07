@@ -31,7 +31,7 @@ import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
-import { showArea } from '@/api/index.js';
+import { getModule1,getModule2,getModule3,getModule4,getModule5,getModule6,getModule7,getModule8 } from '@/api/index.js';
 export default {
     name: 'Home',
     components: {
@@ -64,26 +64,38 @@ export default {
     methods: {
         getData() {
             this.getModule1Data()
+            this.getModule2Data()
+            this.getModule3Data()
             this.getModule4Data()
             this.getModule5Data()
             this.getModule6Data()
             this.getModule7Data()
+            this.getModule8Data()
         },
         getModule1Data(){
-            this.module1Data = {
-                userCount: 123456789, //类型：Number  必有字段  备注：系统用户数
-                onlineCount: 5423, //类型：Number  必有字段  备注：营业员在线人数
-                todayCount: 2345, //类型：Number  必有字段  备注：营业员在线人数
-                lastDayPercent: -0.62, //类型：Number  必有字段  备注：较前日 负数是下降，正数是新增
-                lastSevenPercent: 0.83 //类型：Number  必有字段  备注：较7日 负数是下降，正数是新增
+            let params= {
+                areaCode:this.areaCode
             }
+            getModule1(params).then(res=>{
+                console.log(res)
+                if(res.code==200){
+                     this.module1Data = res.data
+                }
+               
+            })
+        },
+        getModule2Data(){
+
+        },
+        getModule3Data(){
+
         },
         getModule4Data() {
             //全国区域查询接口
             let params = {
                 areaCode: this.areaCode
             }
-            showArea(params).then(res => {
+            getModule4(params).then(res => {
                 if (res.code == 200) {
                     let arr1 = [],
                         arr2 = [],
@@ -166,6 +178,9 @@ export default {
                 familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
                 crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
             }
+        },
+        getModule8Data(){
+            
         },
         selectName(name, code) {
             this.provinceName = name
