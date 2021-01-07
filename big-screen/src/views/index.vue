@@ -69,6 +69,7 @@ export default {
             this.getModule5Data()
             this.getModule6Data()
             this.getModule7Data()
+            this.getModule8Data()
         },
         getModule1Data(){
             this.module1Data = {
@@ -205,6 +206,26 @@ export default {
                 fiveGCount: 12345, //类型：Number  必有字段  备注：5G
                 familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
                 crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
+            }
+        },
+        getModule8Data(){
+            let fakeArrayA = []
+            let fakeArrayB = []
+            for (let i=1; i <= 10; i++) {
+                let newObj = {
+                    name: '热销产品' + String(i),
+                    number: String(i*1000)
+                }
+                fakeArrayA.push(newObj)
+                let newObjB = {
+                    name: '常用功能' + String(i),
+                    number: String(i*10000)
+                }
+                fakeArrayB.push(newObjB)
+            }
+            this.module8Data = {
+                hot: fakeArrayA,
+                normal: fakeArrayB
             }
         },
         selectName(name, code) {
