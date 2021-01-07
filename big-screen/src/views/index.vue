@@ -31,6 +31,7 @@ import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
+import { getModule1,  getModule4, getModule5, getModule6, getModule7, getModule8, getBigData } from '@/api/index.js';
 import { getModule1, getModule2, getModule3, getModule4, getModule5, getModule6, getModule7, getModule8 } from '@/api/index.js';
 import { timestampConversion } from '@/utils/unixToTime.js'
 export default {
@@ -70,14 +71,67 @@ export default {
     },
     methods: {
         getData() {
+            this.getBigData();
             this.getModule1Data()
-            this.getModule2Data()
-            this.getModule3Data()
             this.getModule4Data()
             this.getModule5Data()
             this.getModule6Data()
             this.getModule7Data()
             this.getModule8Data()
+        },
+        getBigData() {
+            let params = {
+                province_code: this.province_code
+            }
+            getBigData(params).then(res => {
+                if (res.code == 200) {
+                    res.data.map(item => {
+                        if (item.name == '全国') {
+                            let values = item.value
+                            let data2 = {
+                                day: [{
+                                    name: 'cB前台',
+                                    value: values.cbfrontinnetday,
+                                    per: 80,
+                                }, {
+                                    name: '掌沃通',
+                                    value: values.woinnetday,
+                                    per: 20,
+                                }, {
+                                    name: '其他',
+                                    value: values.otherinnetday,
+                                    per: 30,
+                                }],
+                                month: [{
+                                    name: 'cB前台',
+                                    value: values.cbfrontinnetmonth,
+                                    per: 90,
+                                }, {
+                                    name: '掌沃通',
+                                    value: values.woinnetmonth,
+                                    per: 30,
+                                }, {
+                                    name: '其他',
+                                    value: values.otherinnetmonth,
+                                    per: 26,
+                                }],
+                            }
+                            this.module2Data = data2
+                            console.log(data2)
+
+                            let data3 = [{ value: values.mobile, name: '移网' },
+                                { value: values.broadband, name: '宽带' },
+                                { value: values.iptv, name: 'iptv' },
+                                { value: values.telephone, name: '固话' },
+                                { value: values.otheruser, name: '其它' }
+                            ]
+                            this.module3Data = data3
+
+                        }
+                    })
+
+                }
+            })
         },
         getModule1Data() {
             let params = {
@@ -90,35 +144,13 @@ export default {
 
             })
         },
-        getModule2Data() {
-            let params = {
-                province_code: this.province_code
-            }
-            getModule2(params).then(res => {
-                if (res.code == 200) {
-                    this.module2Data = res.data
-                }
-
-            })
-        },
-        getModule3Data() {
-            let params = {
-                province_code: this.province_code
-            }
-            getModule3(params).then(res => {
-                console.log(res)
-                if (res.code == 200) {
-                    this.module3Data = res.data
-                }
-
-            })
-        },
         getModule4Data() {
             //全国区域查询接口
             let params = {
                 province_code: this.province_code
             }
             getModule4(params).then(res => {
+                console.log(res)
                 if (res.code == 200) {
                     let arr1 = [],
                         arr2 = [],
@@ -128,6 +160,8 @@ export default {
                         if (item.flag == -1) {
                             let obj = {
                                 name: item.areaName.replace('省', '').replace('特别行政区', ''),
+                                user: item.user,
+                                arpu: item.arpu,
                                 value: item.num,
                                 code: item.areaCode,
                                 itemStyle: {
@@ -149,6 +183,8 @@ export default {
                             let obj = {
                                 name: item.areaName.replace('省', '').replace('特别行政区', ''),
                                 value: item.num,
+                                user: item.user,
+                                arpu: item.arpu,
                                 code: item.areaCode,
                                 itemStyle: {
                                     areaColor: '#62A5E6',
@@ -183,10 +219,10 @@ export default {
             getModule5(params).then(res => {
                 if (res.code == 200) {
                     this.module5Data = []
-                    res.data.map(item=>{
+                    res.data.map(item => {
                         let obj = {
-                            areaName:item.name,
-                             number: item.value.user,
+                            areaName: item.name,
+                            number: item.value.user,
                             arpu: item.value.arpu
                         }
                         this.module5Data.push(obj)

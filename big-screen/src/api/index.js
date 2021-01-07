@@ -50,6 +50,10 @@ export function showExternal(data) {
 }
 
 //yaxin
+export function getBigData(data) {
+    const url = '/queryOtherCountByProvince';
+    return getApi(url, data)
+}
 export function getModule1(data) {
     const url = '/api/getModule1';
     return getApi(url, data)

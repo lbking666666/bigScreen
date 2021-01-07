@@ -3,15 +3,15 @@ const Mock = require('mockjs');
 //全国新增内部员工量
 const addAreaUser = function() {
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
-            "list|20": [ //类型：Array  必有字段  备注：内部员工数组
-                { //类型：Object  必有字段  备注：无
-                    addNum: Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：新增内部员工数
-                    objDate: Mock.mock("@date('MM/dd')"), //类型：String  必有字段  备注：业务日期
-                    areaName: Mock.mock("@city"), //类型：String  必有字段  备注：区域名称
-                    areaCode: "3401" //类型：String  必有字段  备注：区域编码
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
+        data: Mock.mock({ //类型:Object  必有字段  备注:返回数据对象
+            "list|20": [ //类型:Array  必有字段  备注:内部员工数组
+                { //类型:Object  必有字段  备注:无
+                    addNum: Mock.mock('@integer(1, 20)'), //类型:String  必有字段  备注:新增内部员工数
+                    objDate: Mock.mock("@date('MM/dd')"), //类型:String  必有字段  备注:业务日期
+                    areaName: Mock.mock("@city"), //类型:String  必有字段  备注:区域名称
+                    areaCode: "3401" //类型:String  必有字段  备注:区域编码
                 }
             ]
         })
@@ -21,15 +21,15 @@ const addAreaUser = function() {
 //全国新增外部客户量接口
 const addAreaExternal = function() {
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
-            "list|20": [ //类型：Array  必有字段  备注：内部员工数组
-                { //类型：Object  必有字段  备注：无
-                    addNum: Mock.mock('@integer(1, 20)'), //类型：String  必有字段  备注：新增内部员工数
-                    objDate: Mock.mock("@date('MM/dd')"), //类型：String  必有字段  备注：业务日期
-                    areaName: Mock.mock("@city"), //类型：String  必有字段  备注：区域名称
-                    areaCode: "3401" //类型：String  必有字段  备注：区域编码
+        code: "200", //类型:String  必有字段  备注:状态码
+        "message": "操作成功", //类型:String  必有字段  备注:返回文本信息
+        data: Mock.mock({ //类型:Object  必有字段  备注:返回数据对象
+            "list|20": [ //类型:Array  必有字段  备注:内部员工数组
+                { //类型:Object  必有字段  备注:无
+                    addNum: Mock.mock('@integer(1, 20)'), //类型:String  必有字段  备注:新增内部员工数
+                    objDate: Mock.mock("@date('MM/dd')"), //类型:String  必有字段  备注:业务日期
+                    areaName: Mock.mock("@city"), //类型:String  必有字段  备注:区域名称
+                    areaCode: "3401" //类型:String  必有字段  备注:区域编码
                 }
             ]
         })
@@ -809,19 +809,6 @@ const module7Data = function() {
             }
         ]
     }
-    // {
-    //     code: "200", //类型：String  必有字段  备注：状态码
-    //     "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-    //     data: {
-    //         fiveGCount: 12345, //类型：Number  必有字段  备注：5G
-    //         familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
-    //         taocanNum: 12000, // 类型：Number  必有字段  备注：跨域融合套餐数
-    //         rongheNum: 345, // 类型：Number  必有字段  备注：跨域融合用户数
-    //         crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
-    //         xieruNum: 10000, // 类型：Number  必有字段  备注：携入数
-    //         xiechuNum: 2345, // 类型：Number  必有字段  备注：携出数
-    //     }
-    // }
 }
 const module8Data = function() {
     // let fakeArrayA = []
@@ -880,9 +867,8 @@ const module8Data = function() {
     }
 }
 
+Mock.mock('/queryOtherCountByProvince', 'get',bigData);
 Mock.mock('/api/getModule1', 'get', module1Data);
-Mock.mock('/api/getModule2', 'get', module2Data);
-Mock.mock('/api/getModule3', 'get', module3Data);
 Mock.mock('/api/getModule4', 'get', module4Data);
 Mock.mock('/api/getModule5', 'get', module5Data);
 Mock.mock('/api/getModule6', 'get', module6Data);

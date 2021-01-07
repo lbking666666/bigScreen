@@ -2,10 +2,10 @@
     <div class="module2">
         <commonTitle :titleText="titleText"></commonTitle>
         <div class="query-option">
-            <div class="options" :class="flag==1?'opt-active':''" @click="selExternal(1)">
+            <div class="options" :class="flag=='day'?'opt-active':''" @click="selExternal('day')">
                 <div>日</div>
             </div>
-            <div class="options" :class="flag==2?'opt-active':''" @click="selExternal(2)">
+            <div class="options" :class="flag=='month'?'opt-active':''" @click="selExternal('month')">
                 <div>月</div>
             </div>
         </div>
@@ -14,7 +14,7 @@
             <span class="top-title-right">发展量</span>
         </div>
         <div style="margin-top: 80px;" v-if="showData">
-            <div class="container" v-for="(item,index) in module2Data">
+            <div class="container" v-for="(item,index) in listData">
                 <div class="title">{{item.name}}</div>
                 <div class="process">
                 	<div class="process-dot" :style="'background:'+bc[index]"></div>
@@ -32,14 +32,15 @@ export default {
     components: { commonTitle },
     props: {
         module2Data: {
-            type: Array,
-            default: []
+            type: Object,
+            default: ()=>({})
         }
     },
     data() {
         return {
             showData:false,
-            flag:1,
+            listData:[],
+            flag:'day',
             bg:['linear-gradient(270deg, #FF5353 0%, #FFB378 100%)','linear-gradient(270deg, #8153FF 0%, #78A5FF 100%)','linear-gradient(270deg, #49CCEF 0%, #75F0C2 100%)','linear-gradient(270deg, #376CDE 0%, #2CC9FF 100%)'],  
             bc:['#FFB278','#78A5FF','#75F0C2','#2CC9FF'], 
             titleText: '各触点发展用户分布'
@@ -47,16 +48,15 @@ export default {
     },
     watch:{
     	'module2Data':function(val){
-    		if(val.length>0){
-    			this.showData =true
-    		}
-
+			this.showData =true
+            this.listData = val[this.flag]
     	}
     },
     mounted() {},
     methods: {
     	selExternal(type){
         	this.flag = type
+            this.listData = this.module2Data[this.flag]
         }
     }
 }
