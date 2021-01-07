@@ -4,15 +4,15 @@
         <div class="unit">单位：笔</div>
         <div class="container">
             <div class="box">
-                <div class="box-title">5G</div>
+                <div class="box-title">5g订购数</div>
                 <div class="box-count">{{module7Data.fiveGCount}}</div>
             </div>
             <div class="box">
-                <div class="box-title">智慧家庭</div>
+                <div class="box-title">跨域用户数</div>
                 <div class="box-count">{{module7Data.familyCount}}</div>
             </div>
             <div class="box">
-                <div class="box-title">跨域</div>
+                <div class="box-title">携号转网</div>
                 <div class="box-count">{{module7Data.crossDomainCount}}</div>
             </div>
         </div>

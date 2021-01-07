@@ -14,7 +14,7 @@
                 <module5 :module5Data="module5Data"></module5>
             </div>
             <div class="right-box">
-                <module6  :xData="module6Data.externalX" :yData="module6Data.externalY" :color="'#B085FF'"></module6>
+                <module6 :xData="module6Data.externalX" :yData="module6Data.externalY" :color="'#B085FF'"></module6>
                 <module7 :module7Data="module7Data"></module7>
                 <module8 :module8Data="module8Data"></module8>
             </div>
@@ -31,7 +31,7 @@ import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
-import { showArea } from '@/api/index.js';
+import { getModule1, getModule2, getModule3, getModule4, getModule5, getModule6, getModule7, getModule8 } from '@/api/index.js';
 export default {
     name: 'Home',
     components: {
@@ -50,7 +50,7 @@ export default {
             remap2: 0,
             module1Data: {},
             module2Data: {},
-            module3Data: {},
+            module3Data: [],
             module4Data: {},
             module5Data: [],
             module6Data: {},
@@ -65,66 +65,53 @@ export default {
         getData() {
             this.getModule1Data()
             this.getModule2Data()
+            this.getModule3Data()
             this.getModule4Data()
             this.getModule5Data()
             this.getModule6Data()
             this.getModule7Data()
             this.getModule8Data()
         },
-        getModule1Data(){
-            this.module1Data = {
-                userCount: 123456789, //类型：Number  必有字段  备注：系统用户数
-                onlineCount: 5423, //类型：Number  必有字段  备注：营业员在线人数
-                todayCount: 2345, //类型：Number  必有字段  备注：营业员在线人数
-                lastDayPercent: -0.62, //类型：Number  必有字段  备注：较前日 负数是下降，正数是新增
-                lastSevenPercent: 0.83 //类型：Number  必有字段  备注：较7日 负数是下降，正数是新增
+        getModule1Data() {
+            let params = {
+                areaCode: this.areaCode
             }
-        },
-        getModule2Data(){
-             this.module2Data = {
-                userCount: 12345, //类型：Number  必有字段  备注：系统用户数
-                onlineCount: 5423, //类型：Number  必有字段  备注：营业员在线人数
-                todayCount: 2345, //类型：Number  必有字段  备注：营业员在线人数
-                lastDayPercent: -0.62, //类型：Number  必有字段  备注：较前日 负数是下降，正数是新增
-                lastSevenPercent: 0.83 //类型：Number  必有字段  备注：较7日 负数是下降，正数是新增
-            }
-            this.module2Data = [
-                {
-                    chudian:'cb前台',
-                    percent: 90,
-                    count: 100098,
-                    color:'background: linear-gradient(270deg, #FF5353 0%, #FFB378 100%);',
-                    xiaogada:'background: #FFB278;'
-                },
-                {
-                    chudian:'大流量APP',
-                    percent: 70,
-                    count: 1230,
-                    color: "background: linear-gradient(270deg, #8153FF 0%, #78A5FF 100%);",
-                    xiaogada:'background: #78A5FF;'
-                },
-                {
-                    chudian:'掌沃通',
-                    percent: 60,
-                    count: 1230,
-                    color: "background: linear-gradient(270deg, #49CCEF 0%, #75F0C2 100%);",
-                    xiaogada:'background: #75F0C2;'
-                },
-                {
-                    chudian:'其他',
-                    percent: 50,
-                    count: 1230,
-                    color: "background: linear-gradient(270deg, #376CDE 0%, #2CC9FF 100%);",
-                    xiaogada:'background: #2CC9FF;'
+            getModule1(params).then(res => {
+                if (res.code == 200) {
+                    this.module1Data = res.data
                 }
-            ]
+
+            })
+        },
+        getModule2Data() {
+            let params = {
+                areaCode: this.areaCode
+            }
+            getModule2(params).then(res => {
+                if (res.code == 200) {
+                    this.module2Data = res.data
+                }
+
+            })
+        },
+        getModule3Data() {
+            let params = {
+                areaCode: this.areaCode
+            }
+            getModule3(params).then(res => {
+                console.log(res)
+                if (res.code == 200) {
+                    this.module3Data = res.data
+                }
+
+            })
         },
         getModule4Data() {
             //全国区域查询接口
             let params = {
                 areaCode: this.areaCode
             }
-            showArea(params).then(res => {
+            getModule4(params).then(res => {
                 if (res.code == 200) {
                     let arr1 = [],
                         arr2 = [],
@@ -183,50 +170,49 @@ export default {
             })
         },
         getModule5Data() {
-            this.module5Data = []
-            for (let i = 1; i <= 31; i++) {
-                let newObj = {
-                    number: 100 * i,
-                    arpu: 50 * i,
-                    areaName: '地区' + String(i),
-                    areaCode: String(i)
+            let params = {
+                areaCode: this.areaCode
+            }
+            getModule5(params).then(res => {
+                if (res.code == 200) {
+                    this.module5Data = res.data
                 }
-                this.module5Data.push(newObj)
-            }
+
+            })
         },
-        getModule6Data(){
-            let arr1 = [1,2,3,4,5,6,7,8,9,10,11,12],arr2=[100,30,40,50,80,100,30,40,50,80,200,400]
-            this.module6Data = {
-                externalX:arr1,
-                externalY:arr2
+        getModule6Data() {
+            let params = {
+                areaCode: this.areaCode
             }
-        },
-        getModule7Data(){
-            this.module7Data = {
-                fiveGCount: 12345, //类型：Number  必有字段  备注：5G
-                familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
-                crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
-            }
-        },
-        getModule8Data(){
-            let fakeArrayA = []
-            let fakeArrayB = []
-            for (let i=1; i <= 10; i++) {
-                let newObj = {
-                    name: '热销产品' + String(i),
-                    number: String(i*1000)
+            getModule6(params).then(res => {
+                if (res.code == 200) {
+                    this.module6Data = res.data
                 }
-                fakeArrayA.push(newObj)
-                let newObjB = {
-                    name: '常用功能' + String(i),
-                    number: String(i*10000)
+
+            })
+        },
+        getModule7Data() {
+            let params = {
+                areaCode: this.areaCode
+            }
+            getModule7(params).then(res => {
+                if (res.code == 200) {
+                    this.module7Data = res.data
                 }
-                fakeArrayB.push(newObjB)
+
+            })
+        },
+        getModule8Data() {
+            let params = {
+                areaCode: this.areaCode
             }
-            this.module8Data = {
-                hot: fakeArrayA,
-                normal: fakeArrayB
-            }
+            getModule8(params).then(res => {
+                console.log(1111,res)
+                if (res.code == 200) {
+                    this.module8Data = res.data
+                }
+
+            })
         },
         selectName(name, code) {
             this.provinceName = name
@@ -273,7 +259,7 @@ export default {
     /*background: #010B3D;*/
     /*display: flex;*/
     flex-direction: column;
-    height:100%;
+    height: 100%;
 
     .header {
         display: flex;

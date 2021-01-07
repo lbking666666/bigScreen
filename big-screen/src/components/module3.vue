@@ -13,7 +13,10 @@ import commonTitle from "./commonTitle";
 export default {
     name: "roseCharts",
     props: {
-
+        module3Data:{
+            type:Array,
+            default:[]
+        }
     },
     components:{commonTitle},
     data() {
@@ -23,6 +26,9 @@ export default {
     },
     mounted() {
     	this.initChart()
+    },
+    updated() {
+        this.initChart()
     },
     methods: {
         initChart() {
@@ -61,13 +67,7 @@ export default {
                         	 borderWidth:0,
                         	 color:'#fff',
                         },
-                        data: [
-                            { value: 10, name: 'rose1' },
-                            { value: 5, name: 'rose2' },
-                            { value: 15, name: 'rose3' },
-                            { value: 25, name: 'rose4' },
-                            { value: 20, name: 'rose5' },
-                        ]
+                        data:this.module3Data
                     }
                 ]
             };
