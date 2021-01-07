@@ -46,8 +46,7 @@ export default {
     },
     data() {
         return {
-            remap: 0,
-            remap2: 0,
+            //province_code:'00',
             module1Data: {},
             module2Data: {},
             module3Data: [],
@@ -74,7 +73,7 @@ export default {
         },
         getModule1Data() {
             let params = {
-                areaCode: this.areaCode
+                province_code: this.province_code
             }
             getModule1(params).then(res => {
                 if (res.code == 200) {
@@ -85,7 +84,7 @@ export default {
         },
         getModule2Data() {
             let params = {
-                areaCode: this.areaCode
+                province_code: this.province_code
             }
             getModule2(params).then(res => {
                 if (res.code == 200) {
@@ -96,7 +95,7 @@ export default {
         },
         getModule3Data() {
             let params = {
-                areaCode: this.areaCode
+                province_code: this.province_code
             }
             getModule3(params).then(res => {
                 console.log(res)
@@ -109,7 +108,7 @@ export default {
         getModule4Data() {
             //全国区域查询接口
             let params = {
-                areaCode: this.areaCode
+                province_code: this.province_code
             }
             getModule4(params).then(res => {
                 if (res.code == 200) {
@@ -171,18 +170,25 @@ export default {
         },
         getModule5Data() {
             let params = {
-                areaCode: this.areaCode
+                province_code: this.province_code
             }
             getModule5(params).then(res => {
                 if (res.code == 200) {
-                    this.module5Data = res.data
+                    this.module5Data = []
+                    res.data.map(item=>{
+                        let obj = {
+                            areaName:item.name,
+                             number: item.value.user,
+                            arpu: item.value.arpu
+                        }
+                        this.module5Data.push(obj)
+                    })
                 }
-
             })
         },
         getModule6Data() {
             let params = {
-                areaCode: this.areaCode
+                province_code: this.province_code
             }
             getModule6(params).then(res => {
                 if (res.code == 200) {
@@ -193,7 +199,7 @@ export default {
         },
         getModule7Data() {
             let params = {
-                areaCode: this.areaCode
+                province_code: this.province_code
             }
             getModule7(params).then(res => {
                 if (res.code == 200) {
@@ -204,7 +210,7 @@ export default {
         },
         getModule8Data() {
             let params = {
-                areaCode: this.areaCode
+                province_code: this.province_code
             }
             getModule8(params).then(res => {
                 console.log(1111,res)
@@ -216,7 +222,7 @@ export default {
         },
         selectName(name, code) {
             this.provinceName = name
-            this.areaCode = code
+            this.province_code = code
         }
 
     }

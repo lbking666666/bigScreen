@@ -718,20 +718,20 @@ const module4Data = function() {
     }
 }
 const module5Data = function() {
-    let list = []
-    for (let i = 1; i <= 31; i++) {
-        let newObj = {
-            number: 100 * i,
-            arpu: 50 * i,
-            areaName: '地区' + String(i),
-            areaCode: String(i)
-        }
-        list.push(newObj)
-    }
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
+        "code": 200, //类型：String  必有字段  备注：状态码
         "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: list
+        "data": [ //类型：Array  必有字段  备注：返回数据集合
+            {"name": "呼和浩特市","value": {"user": 2223,"arpu": 2333 } },
+            {"name": "包头市","value": {"user": 2223,"arpu": 2333 } },
+            {"name": "乌海市","value": {"user": 2223,"arpu": 2333 } },
+            {"name": "赤峰市","value": {"user": 2223,"arpu": 2333 } },
+            {"name": "通辽市","value": {"user": 2223,"arpu": 2333 } },
+            {"name": "鄂尔多斯市","value": {"user": 2223,"arpu": 2333 } },
+            {"name": "呼伦贝尔市","value": {"user": 2223,"arpu": 2333 } },
+            {"name": "巴彦淖尔市","value": {"user": 2223,"arpu": 2333 } },
+            {"name": "乌兰察布市","value": {"user": 2223,"arpu": 2333 } },
+        ],
     }
 }
 const module6Data = function() {

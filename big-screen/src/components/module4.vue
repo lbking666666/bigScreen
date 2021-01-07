@@ -369,10 +369,8 @@ export default {
                 echarts.registerMap(eName, res.data);
                 this.$emit('reName', param, code)
                 self.cityName = eName
-                //if (self.remap == 1 && self.remap2 == 1) {
                 map.dispose();
                 self.initMap(eName);
-                // }
             })
         }
     }
