@@ -54,7 +54,7 @@ export default {
             module3Data: [],
             module4Data: {},
             module5Data: [],
-            module6Data: {},
+            module6Data: [],
             module7Data: {},
             module8Data: {},
             nowTime: (new Date()).getTime()/1000,
