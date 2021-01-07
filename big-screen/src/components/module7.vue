@@ -5,22 +5,22 @@
         <div class="container">
             <div class="box">
                 <div class="box-title">5g订购数</div>
-                <div class="box-count">{{module7Data.fiveGCount}}</div>
+                <div class="box-count">{{module7Data.order5g}}</div>
             </div>
             <div class="box pointer">
                 <div class="box-title">跨域用户数</div>
-                <div class="box-count">{{module7Data.familyCount}}</div>
+                <div class="box-count">{{module7Data.crossuser}}</div>
                 <div class="pointer-view">
-                    <p>跨域融合套餐数：{{module7Data.taocanNum}}</p>
-                    <p>跨域融合用户数：{{module7Data.rongheNum}}</p>
+                    <p>跨域融合套餐数：{{module7Data.crossmixmenu}}</p>
+                    <p>跨域融合用户数：{{module7Data.crossmixuser}}</p>
                 </div>
             </div>
             <div class="box pointer">
                 <div class="box-title">携号转网</div>
-                <div class="box-count">{{module7Data.crossDomainCount}}</div>
+                <div class="box-count">{{module7Data.portability}}</div>
                 <div class="pointer-view">
-                    <p>携入数：{{module7Data.xieruNum}}</p>
-                    <p>携出数：{{module7Data.xiechuNum}}</p>
+                    <p>携入数：{{module7Data.portability_in}}</p>
+                    <p>携出数：{{module7Data.portability_out}}</p>
                 </div>
             </div>
         </div>
@@ -46,12 +46,6 @@
             }
 		},
 		mounted() {
-            console.log(this.module7Data)
-            /**
-             * 5G 不动 fiveGCount
-             * 跨域用户数：familyCount = taocanNum + rongheNum
-             * 携号转网：crossDomainCount = xieruNum + xiechuNum
-             */
 		},
 		methods:{
 			

@@ -763,21 +763,37 @@ const module6Data = function() {
     }
 }
 const module7Data = function() {
-    let arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-        arr2 = [100, 30, 40, 50, 80, 100, 30, 40, 50, 80, 200, 400]
     return {
-        code: "200", //类型：String  必有字段  备注：状态码
-        "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: {
-            fiveGCount: 12345, //类型：Number  必有字段  备注：5G
-            familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
-            taocanNum: 12000, // 类型：Number  必有字段  备注：跨域融合套餐数
-            rongheNum: 345, // 类型：Number  必有字段  备注：跨域融合用户数
-            crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
-            xieruNum: 10000, // 类型：Number  必有字段  备注：携入数
-            xiechuNum: 2345, // 类型：Number  必有字段  备注：携出数
-        }
+        "code": 200,
+        "message": "操作成功",
+        "data": [
+            {
+                "name": "全国",
+                "value": {
+                    "order5g": "12345", //5G订购数
+                    "crossuser": "12345", //跨域用户数
+                    "crossmixmenu": "222", // 跨域融合套餐数
+                    "crossmixuser": "2123", // 跨域融合用户数
+                    "portability": "2123", // 携号转网
+                    "portability_in": "2123", // 携入数
+                    "portability_out": "2123" // 携出数
+                }
+            }
+        ]
     }
+    // {
+    //     code: "200", //类型：String  必有字段  备注：状态码
+    //     "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
+    //     data: {
+    //         fiveGCount: 12345, //类型：Number  必有字段  备注：5G
+    //         familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
+    //         taocanNum: 12000, // 类型：Number  必有字段  备注：跨域融合套餐数
+    //         rongheNum: 345, // 类型：Number  必有字段  备注：跨域融合用户数
+    //         crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
+    //         xieruNum: 10000, // 类型：Number  必有字段  备注：携入数
+    //         xiechuNum: 2345, // 类型：Number  必有字段  备注：携出数
+    //     }
+    // }
 }
 const module8Data = function() {
     // let fakeArrayA = []

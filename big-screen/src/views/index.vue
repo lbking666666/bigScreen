@@ -211,7 +211,8 @@ export default {
             }
             getModule7(params).then(res => {
                 if (res.code == 200) {
-                    this.module7Data = res.data
+                    this.module7Data = res.data[0].value
+                    console.log('7777', this.module7Data)
                 }
 
             })
