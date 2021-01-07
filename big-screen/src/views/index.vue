@@ -64,6 +64,7 @@ export default {
     methods: {
         getData() {
             this.getModule1Data()
+            this.getModule2Data()
             this.getModule4Data()
             this.getModule5Data()
             this.getModule6Data()
@@ -78,6 +79,45 @@ export default {
                 lastDayPercent: -0.62, //类型：Number  必有字段  备注：较前日 负数是下降，正数是新增
                 lastSevenPercent: 0.83 //类型：Number  必有字段  备注：较7日 负数是下降，正数是新增
             }
+        },
+        getModule2Data(){
+             this.module2Data = {
+                userCount: 12345, //类型：Number  必有字段  备注：系统用户数
+                onlineCount: 5423, //类型：Number  必有字段  备注：营业员在线人数
+                todayCount: 2345, //类型：Number  必有字段  备注：营业员在线人数
+                lastDayPercent: -0.62, //类型：Number  必有字段  备注：较前日 负数是下降，正数是新增
+                lastSevenPercent: 0.83 //类型：Number  必有字段  备注：较7日 负数是下降，正数是新增
+            }
+            this.module2Data = [
+                {
+                    chudian:'cb前台',
+                    percent: 90,
+                    count: 100098,
+                    color:'background: linear-gradient(270deg, #FF5353 0%, #FFB378 100%);',
+                    xiaogada:'background: #FFB278;'
+                },
+                {
+                    chudian:'大流量APP',
+                    percent: 70,
+                    count: 1230,
+                    color: "background: linear-gradient(270deg, #8153FF 0%, #78A5FF 100%);",
+                    xiaogada:'background: #78A5FF;'
+                },
+                {
+                    chudian:'掌沃通',
+                    percent: 60,
+                    count: 1230,
+                    color: "background: linear-gradient(270deg, #49CCEF 0%, #75F0C2 100%);",
+                    xiaogada:'background: #75F0C2;'
+                },
+                {
+                    chudian:'其他',
+                    percent: 50,
+                    count: 1230,
+                    color: "background: linear-gradient(270deg, #376CDE 0%, #2CC9FF 100%);",
+                    xiaogada:'background: #2CC9FF;'
+                }
+            ]
         },
         getModule4Data() {
             //全国区域查询接口
