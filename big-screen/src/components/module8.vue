@@ -69,7 +69,7 @@
 	box-sizing: border-box;
 	width: 460px;
 	height: 500px;
-	background: url(../assets/yaxin/kuang_zuozhong.png) no-repeat;
+	background: url(../assets/yaxin/rank-bg.png) no-repeat;
 	background-size: 100% 100%;
 	padding-top: 86px;
 	position: relative;
@@ -95,7 +95,7 @@
 			font-size: 14px;
 			font-family: PingFangSC-Semibold, PingFang SC;
 			font-weight: 600;
-			color: #C7FCFC;
+			color: #88D7FD;
 			text-align: center;
 			cursor: pointer;
 			&:first-child{
@@ -118,6 +118,7 @@
 			}
 			&.active{
 				box-shadow: 0 0 11px 8px rgba(66, 157, 249, 0.5) inset;
+				color: #C7FCFC;
 			}
 		}
 	}

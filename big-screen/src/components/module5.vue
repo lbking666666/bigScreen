@@ -103,7 +103,9 @@
 						top: '13px',
 						textStyle: {
 							color: '#A9F0FF'
-						}
+						},
+						itemWidth: 10,
+						itemHeight: 7
 					},
 					grid: {
 						left: '34px',
@@ -117,20 +119,30 @@
 						nameLocation: "start",
 						data: this.xData,
 						axisLine: {
+							// show: false,
 							lineStyle: {
-								color: '#01B4FF'
-							}
+								color: '#091f40',
+								width: 0.5,
+								type: 'solid',
+								shadowColor: 'rgba(42, 244, 255, 0.5)',
+								shadowBlur: 0.5,
+								shadowOffsetY: 4
+							},
+							onZero: false,
 						},
 						axisLabel: {
 							fontWeight: 'lighter',
 							fontSize: '12px',
+							color: '#01B4FF',
+							lineHeight: 15,
 							interval: 0,
 							formatter: (val) => {
 								let str = val.split('')
 								return str.join('\n')
-							}
+							},
+							margin: 8
 						},
-						axisTick: {
+						axisTick: { // 刻度
 							show: false
 						},
 						offset: 2,
@@ -151,7 +163,6 @@
 							}
 						},
 						axisLine: {
-							show: false,
 							lineStyle: {
 								color: '#01B4FF'
 							}
