@@ -782,12 +782,12 @@ const module6Data = function() {
             {
                 'name':'外围订单',
                 'value': [
-                    {'date':' 2020-01-01','malltrade':2422},
-                    {'date':' 2020-01-02','malltrade':2782},
-                    {'date':' 2020-01-03','malltrade': 6622},
-                    {'date':' 2020-01-04','malltrade': 422},
-                    {'date':' 2020-01-05','malltrade':4482},
-                    {'date':' 2020-01-06','malltrade':11422},
+                    {'date':' 2020-01-07','malltrade':2422},
+                    {'date':' 2020-01-08','malltrade':2782},
+                    {'date':' 2020-01-09','malltrade': 6622},
+                    {'date':' 2020-01-10','malltrade': 422},
+                    {'date':' 2020-01-11','malltrade':4482},
+                    {'date':' 2020-01-12','malltrade':11422},
                 ]
             },
         ]
