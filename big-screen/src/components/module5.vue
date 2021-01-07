@@ -35,7 +35,6 @@
 			}
 		},
 		mounted() {
-			console.log('create', this.module5Data)
 			this.transData(this.module5Data)
         	this.drawChart()
 		},

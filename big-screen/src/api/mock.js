@@ -415,12 +415,12 @@ Mock.mock('/wep-oms/bigScreen/showExternal', 'get', showExternal);
 const module1Data = function() {
     return {
         "code": 200,
-        "data": { 
-            "userCount": 4.1, 
+        "data": {
+            "userCount": 410000000,
             "onlineCount": 1900,
-            "todayCount": 302900, 
-            "lastDayPercent": -68, 
-            "lastSevenPercent": 50 
+            "todayCount": 302900,
+            "lastDayPercent": -0.68,
+            "lastSevenPercent": 0.5
         }
     }
 }
@@ -428,27 +428,30 @@ const module2Data = function() {
     return {
         "code": "200", //类型：String  必有字段  备注：状态码
         "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: Mock.mock({ //类型：Object  必有字段  备注：返回数据对象
-            health: 30,
-            health1: 50,
-            health2: 60,
-            health3: 100,
-            num: 11000,
-            num1: 11000,
-            num2: 11000,
-            num3: 113300,
-        })
+        data: [{
+            name: 'cB前台',
+            value: 11000,
+            per: 30,
+        }, {
+            name: '掌沃通',
+            value: 11000,
+            per: 30,
+        }, {
+            name: '其他',
+            value: 113300,
+            per: 50,
+        }]
     }
 }
 const module3Data = function() {
     return {
         code: "200", //类型：String  必有字段  备注：状态码
         "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
-        data: [{ value: 10, name: 'rose1' },
-            { value: 5, name: 'rose2' },
-            { value: 15, name: 'rose3' },
-            { value: 25, name: 'rose4' },
-            { value: 20, name: 'rose5' },
+        data: [{ value: 10, name: '移网' },
+            { value: 5, name: '宽带' },
+            { value: 20, name: 'iptv' },
+            { value: 15, name: '固话' },
+            { value: 25, name: '其它' },
         ]
     }
 }
@@ -732,37 +735,51 @@ const module5Data = function() {
     }
 }
 const module6Data = function() {
-    let arr1 = [1,2,3,4,5,6,7,8,9,10,11,12],arr2=[100,30,40,50,80,100,30,40,50,80,200,400]
+    let arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        arr2 = [100, 30, 40, 50, 80, 100, 30, 40, 50, 80, 200, 400]
     return {
         code: "200", //类型：String  必有字段  备注：状态码
         "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
         data: {
-            externalX:arr1,
-            externalY:arr2
+            externalX: arr1,
+            externalY: arr2
         }
     }
 }
 const module7Data = function() {
-    let arr1 = [1,2,3,4,5,6,7,8,9,10,11,12],arr2=[100,30,40,50,80,100,30,40,50,80,200,400]
+    let arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        arr2 = [100, 30, 40, 50, 80, 100, 30, 40, 50, 80, 200, 400]
     return {
         code: "200", //类型：String  必有字段  备注：状态码
         "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
         data: {
             fiveGCount: 12345, //类型：Number  必有字段  备注：5G
-                familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
-                crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
+            familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
+            crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
         }
     }
 }
 const module8Data = function() {
-    let arr1 = [1,2,3,4,5,6,7,8,9,10,11,12],arr2=[100,30,40,50,80,100,30,40,50,80,200,400]
+    let fakeArrayA = []
+    let fakeArrayB = []
+    for (let i = 1; i <= 10; i++) {
+        let newObj = {
+            name: '热销产品' + String(i),
+            number: String(i * 1000)
+        }
+        fakeArrayA.push(newObj)
+        let newObjB = {
+            name: '常用功能' + String(i),
+            number: String(i * 10000)
+        }
+        fakeArrayB.push(newObjB)
+    }
     return {
         code: "200", //类型：String  必有字段  备注：状态码
         "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
         data: {
-            fiveGCount: 12345, //类型：Number  必有字段  备注：5G
-                familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
-                crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
+            hot: fakeArrayA,
+            normal: fakeArrayB
         }
     }
 }

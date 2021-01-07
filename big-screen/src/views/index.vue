@@ -14,7 +14,7 @@
                 <module5 :module5Data="module5Data"></module5>
             </div>
             <div class="right-box">
-                <module6  :xData="module6Data.externalX" :yData="module6Data.externalY" :color="'#B085FF'"></module6>
+                <module6 :xData="module6Data.externalX" :yData="module6Data.externalY" :color="'#B085FF'"></module6>
                 <module7 :module7Data="module7Data"></module7>
                 <module8 :module8Data="module8Data"></module8>
             </div>
@@ -31,7 +31,7 @@ import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
-import { getModule1,getModule2,getModule3,getModule4,getModule5,getModule6,getModule7,getModule8 } from '@/api/index.js';
+import { getModule1, getModule2, getModule3, getModule4, getModule5, getModule6, getModule7, getModule8 } from '@/api/index.js';
 export default {
     name: 'Home',
     components: {
@@ -50,7 +50,7 @@ export default {
             remap2: 0,
             module1Data: {},
             module2Data: {},
-            module3Data: {},
+            module3Data: [],
             module4Data: {},
             module5Data: [],
             module6Data: {},
@@ -72,23 +72,39 @@ export default {
             this.getModule7Data()
             this.getModule8Data()
         },
-        getModule1Data(){
-            let params= {
-                areaCode:this.areaCode
+        getModule1Data() {
+            let params = {
+                areaCode: this.areaCode
             }
-            getModule1(params).then(res=>{
-                console.log(res)
-                if(res.code==200){
-                     this.module1Data = res.data
+            getModule1(params).then(res => {
+                if (res.code == 200) {
+                    this.module1Data = res.data
                 }
-               
+
             })
         },
-        getModule2Data(){
+        getModule2Data() {
+            let params = {
+                areaCode: this.areaCode
+            }
+            getModule2(params).then(res => {
+                if (res.code == 200) {
+                    this.module2Data = res.data
+                }
 
+            })
         },
-        getModule3Data(){
+        getModule3Data() {
+            let params = {
+                areaCode: this.areaCode
+            }
+            getModule3(params).then(res => {
+                console.log(res)
+                if (res.code == 200) {
+                    this.module3Data = res.data
+                }
 
+            })
         },
         getModule4Data() {
             //全国区域查询接口
@@ -154,33 +170,49 @@ export default {
             })
         },
         getModule5Data() {
-            this.module5Data = []
-            for (let i = 1; i <= 31; i++) {
-                let newObj = {
-                    number: 100 * i,
-                    arpu: 50 * i,
-                    areaName: '地区' + String(i),
-                    areaCode: String(i)
+            let params = {
+                areaCode: this.areaCode
+            }
+            getModule5(params).then(res => {
+                if (res.code == 200) {
+                    this.module5Data = res.data
                 }
-                this.module5Data.push(newObj)
-            }
+
+            })
         },
-        getModule6Data(){
-            let arr1 = [1,2,3,4,5,6,7,8,9,10,11,12],arr2=[100,30,40,50,80,100,30,40,50,80,200,400]
-            this.module6Data = {
-                externalX:arr1,
-                externalY:arr2
+        getModule6Data() {
+            let params = {
+                areaCode: this.areaCode
             }
+            getModule6(params).then(res => {
+                if (res.code == 200) {
+                    this.module6Data = res.data
+                }
+
+            })
         },
-        getModule7Data(){
-            this.module7Data = {
-                fiveGCount: 12345, //类型：Number  必有字段  备注：5G
-                familyCount: 12345, //类型：Number  必有字段  备注：智慧家庭
-                crossDomainCount: 12345, //类型：Number  必有字段  备注：跨域
+        getModule7Data() {
+            let params = {
+                areaCode: this.areaCode
             }
+            getModule7(params).then(res => {
+                if (res.code == 200) {
+                    this.module7Data = res.data
+                }
+
+            })
         },
-        getModule8Data(){
-            
+        getModule8Data() {
+            let params = {
+                areaCode: this.areaCode
+            }
+            getModule8(params).then(res => {
+                console.log(1111,res)
+                if (res.code == 200) {
+                    this.module8Data = res.data
+                }
+
+            })
         },
         selectName(name, code) {
             this.provinceName = name
@@ -227,7 +259,7 @@ export default {
     /*background: #010B3D;*/
     /*display: flex;*/
     flex-direction: column;
-    height:100%;
+    height: 100%;
 
     .header {
         display: flex;

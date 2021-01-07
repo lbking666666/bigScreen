@@ -13,7 +13,7 @@
                 </div>
                 <div class="left-bottom">
                     <div class="box-title">
-                        营业员在线人数
+                        出账用户数
                     </div>
                     <div class="box-num">
                         {{filterNumber(module1Data.onlineCount)}}
@@ -84,6 +84,8 @@
                     let str = (String(num).indexOf('-') >= 0)?String(num).split('-')[1]:num
                     let backStr =  str +'%'
                     return backStr
+                }else{
+                    return
                 }
             },
             filterNumber(num){
