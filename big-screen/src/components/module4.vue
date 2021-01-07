@@ -160,25 +160,7 @@ export default {
                 legend: {
                     show: false,
                 },
-                geo: [{
-                    map: name,
-                    roam: false,
-                    zlevel: 1,
-                    zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang' || name == 'gansu' || name == 'guangdong') ? 0.8 : 1),
-                    top: (name == 'heilongjiang' || name == 'gansu') ? '20%' : 'center',
-                    left: (name == 'heilongjiang' || name == 'gansu') ? '25%' : 'center',
-                    itemStyle: {
-                        //normal 是图形在默认状态下的样式；
-                        normal: {
-                            borderColor: "#2569BB",
-                            areaColor: "#2569BB",
-                        },
-                        emphasis: {
-                            color: '#1ACFFF',
-                            areaColor: "#1ACFFF",
-                        },
-                    },
-                },{
+                geo:{
                     map: name,
                     roam: false,
                     zlevel: 1,
@@ -222,13 +204,8 @@ export default {
                         },
                     },
 
-                }],
+                },
                 series: [{
-                     name: name,
-                    type: "map",
-                    geoIndex: 0,
-                    data: [],
-                },{
                     name: name,
                     type: "map",
                     zlevel: 1,
