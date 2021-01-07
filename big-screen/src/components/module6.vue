@@ -55,9 +55,9 @@ export default {
                     this.seriesData.push(ele.malltrade)
                 })
             }
-            console.log(this.xAxisData, this.seriesData)
         },
         drawChart() {
+            let vm = this
             if (this.module6Data.length > 0) {
                 this.dealData(this.module6Data[this.flag].value)
             }
@@ -96,10 +96,11 @@ export default {
 
                     borderWidth: 0,
                     formatter: function(params) {
+                        let dateStr = vm.module6Data[vm.flag].value[params.dataIndex].date
                         let nums = (String(params.value).length > 4) ? (Number(params.value / 10000).toFixed(1) + 'W') : String(params.value)
 
                         
-                        return '订单量: '+nums
+                        return dateStr + '<br>' +'订单量: '+nums
                     }
 
                 },
