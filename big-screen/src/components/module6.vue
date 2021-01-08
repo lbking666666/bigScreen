@@ -60,9 +60,9 @@ export default {
         drawChart() {
             let vm = this
             // 添加销毁chart判断，避免重复绘制chart dom报错
-            if (vm.myChart) {
+           /* if (vm.myChart) {
                 vm.myChart.dispose()
-            }
+            }*/
             if (this.module6Data.length > 0) {
                 this.dealData(this.module6Data[this.flag].value)
             }
@@ -77,12 +77,12 @@ export default {
                         }
                     },
                     boundaryGap: true,
-			        splitArea: {
-			            show: true,
-			            areaStyle:{
-			            	color:['rgba(250,250,250,0)','rgba(59, 157, 230, 0.16)']
-			            }
-			        },
+                    splitArea: {
+                        show: true,
+                        areaStyle: {
+                            color: ['rgba(250,250,250,0)', 'rgba(59, 157, 230, 0.16)']
+                        }
+                    },
                     axisLabel: {
                         rotate: 45,
                         fontSize: 10,
@@ -104,8 +104,8 @@ export default {
                         let dateStr = vm.module6Data[vm.flag].value[params.dataIndex].date
                         let nums = (String(params.value).length > 4) ? (Number(params.value / 10000).toFixed(1) + 'W') : String(params.value)
 
-                        
-                        return dateStr + '<br>' +'订单量: '+nums
+
+                        return dateStr + '<br>' + '订单量: ' + nums
                     }
 
                 },
@@ -168,8 +168,8 @@ export default {
             vm.myChart.setOption(options)
             window.addEventListener("resize", () => { vm.myChart.resize(); });
         },
-        selExternal(type){
-        	this.flag = type
+        selExternal(type) {
+            this.flag = type
         }
     }
 }
@@ -193,13 +193,14 @@ export default {
     right: 4%;
     top: 2%;
     flex: 1;
-    z-index:9;
+    z-index: 9;
     display: flex;
     justify-content: flex-end;
+
     .options {
         height: 19px;
         line-height: 19px;
-        padding:0 8px;
+        padding: 0 8px;
         font-size: 14px;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;

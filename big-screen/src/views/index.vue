@@ -140,7 +140,6 @@ export default {
                             data4.push(params)
                         }
                     })
-                    console.log(data4)
                     this.module4Data = data4;
                 }
             })
