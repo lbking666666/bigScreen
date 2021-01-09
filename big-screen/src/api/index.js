@@ -51,7 +51,7 @@ export function showExternal(data) {
 
 //yaxin
 export function getBigData(data) {
-    const url = '/queryOtherCountByProvince';
+    const url = '/ITTest/queryOtherCountByProvince';
     return getApi(url, data)
 }
 export function getModule1(data) {
@@ -63,23 +63,23 @@ export function getModule4(data) {
     return getApi(url, data)
 }
 export function getModule5(data) {
-    const url = '/queryUserCountByProvince';
+    const url = '/ITTest/queryUserCountByProvince';
     return getApi(url, data)
 }
 export function getModule6(data) {
-    const url = '/api/getModule6';
+    const url = '/ITTest/queryCBSSTradeCount';
     return getApi(url, data)
 }
 export function getModule7(data) {
-    const url = '/queryMainCountByProvince';
+    const url = '/ITTest/queryCBSSMainCount';
     return getApi(url, data)
 }
 export function getModule8(data) {
-    const url = '/queryTop10';
+    const url = '/ITTest/queryTop10';
     return getApi(url, data)
 }
 
 export function geAllData(data){
-    const url = 'https://tianyan.tg.unicom.local/cloudwise/business?roleName';
+    const url = '/cloudwise/business?roleName';
     return getApi(url, data)
 }

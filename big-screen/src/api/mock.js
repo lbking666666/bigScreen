@@ -1298,9 +1298,9 @@ const module8Data = function() {
     }
 }
 
-Mock.mock('/queryOtherCountByProvince', 'get', bigData);
-Mock.mock('/api/getModule1', 'get', module1Data);
-Mock.mock('/queryUserCountByProvince', 'get', module5Data);
-Mock.mock('/api/getModule6', 'get', module6Data);
-Mock.mock('/queryMainCountByProvince', 'get', module7Data);
-Mock.mock('/queryTop10', 'get', module8Data);
+Mock.mock(RegExp('/ITTest/queryOtherCountByProvince' + ".*"), 'get', bigData);
+Mock.mock(RegExp('/api/getModule1' + ".*"), 'get', module1Data);
+Mock.mock(RegExp('/ITTest/queryUserCountByProvince' + ".*"), 'get', module5Data);
+Mock.mock(RegExp('/ITTest/queryCBSSTradeCount' + ".*"), 'get', module6Data);
+Mock.mock(RegExp('/ITTest/queryCBSSMainCount' + ".*"), 'get', module7Data);
+Mock.mock(RegExp('/ITTest/queryTop10' + ".*"), 'get', module8Data);

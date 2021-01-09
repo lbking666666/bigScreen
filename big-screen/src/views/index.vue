@@ -23,6 +23,7 @@
 </template>
 <script>
 // @ is an alias to /src
+let now = new Date()
 import module1 from '@/components/module1.vue';
 import module2 from '@/components/module2.vue';
 import module3 from '@/components/module3.vue';
@@ -47,7 +48,7 @@ export default {
     },
     data() {
         return {
-            //province_code:'00',
+            provinceCode:'00',
             module1Data: {},
             module2Data: {},
             module3Data: [],
@@ -79,12 +80,47 @@ export default {
         },
         getBigData() {
             let params = {
-                province_code: this.province_code
+                provinceCode: this.provinceCode
             }
             getBigData(params).then(res => {
                 if (res.code == 200) {
                     geAllData({}).then(res=>{
-                        console.log(res)
+                        let list = res.data.twoIandTkjData.minute
+                        let cbTotal = 0
+                        for(let i in list){
+                            let arr = list[i].series['总开户量']
+                            let len = arr.length
+                            let num = arr[arr.length-1]
+                            cbTotal += Number(num)
+                        }
+                        let list2 = res.data.BusinessAcceptanceData.month
+                        let yesdayTotal = 0;
+                        let sendayTotal = 0;
+                        let dayNum = 0;
+                        for(let i in list2){
+                            let arr = list2[i].series['总开户量']
+                            let len = arr.length
+                            let num = arr[arr.length-1]
+                            yesdayTotal += Number(num)
+                            let newArr = []
+                            if(len >7){
+                                newArr = arr.slice(len-8,len-1)
+                                dayNum = 7
+                            }else{
+                                newArr = arr
+                                dayNum = len-1
+                            }
+                            newArr.forEach((i)=>{
+                                sendayTotal += Number(i)
+                            })
+                        }
+                        let sevenNum =Number(sendayTotal/dayNum).toFixed(0)
+                        let data = {
+                            todayCount : cbTotal,
+                            lastDayPercent: (cbTotal-yesdayTotal)/yesdayTotal,
+                            lastSevenPercent:(cbTotal-sevenNum)/sevenNum
+                        }
+                        this.module1Data = data
                     })
                     let data4 = []
                     res.data.map(item => {
@@ -132,25 +168,27 @@ export default {
                             ]
                             this.module3Data = data3
                         }else{
-
                             let values = item.value
                             let params = {
                                 name:item.name,
                                 value:values.usercount,
                                 user:values.cbinnetday,
                                 arpu:values.arpu,
-                                code:values.province_code
+                                code:values.provinceCode
                             }
                             data4.push(params)
                         }
                     })
-                    this.module4Data = data4;
+                    if(this.provinceCode == '00'){
+                        this.module4Data = data4;
+                    }
+                    
                 }
             })
         },
         getModule1Data() {
             let params = {
-                province_code: this.province_code
+                provinceCode: this.provinceCode
             }
             getModule1(params).then(res => {
                 if (res.code == 200) {
@@ -160,7 +198,7 @@ export default {
         },
         getModule5Data() {
             let params = {
-                province_code: this.province_code
+                provinceCode: this.provinceCode
             }
             getModule5(params).then(res => {
                 if (res.code == 200) {
@@ -178,7 +216,8 @@ export default {
         },
         getModule6Data() {
             let params = {
-                province_code: this.province_code
+                provinceCode: this.provinceCode,
+                month:now.getMonth() +1
             }
             getModule6(params).then(res => {
                 if (res.code == 200) {
@@ -196,7 +235,7 @@ export default {
         },
         getModule7Data() {
             let params = {
-                province_code: this.province_code
+                provinceCode: this.provinceCode
             }
             getModule7(params).then(res => {
                 if (res.code == 200) {
@@ -206,7 +245,7 @@ export default {
         },
         getModule8Data() {
             let params = {
-                province_code: this.province_code
+                provinceCode: this.provinceCode
             }
             getModule8(params).then(res => {
                /* //过滤数据
@@ -226,7 +265,7 @@ export default {
             })
         },
         selectName( code) {
-            this.province_code = code
+            this.provinceCode = code
             this.getData()
         }
 

@@ -223,11 +223,14 @@ export default {
         reBack() {
             if (this.back) {
                 this.$emit('reName', '00')
+                this.cityName = ''
                 map.dispose();
                 this.initMap('china');
             } else {
-                map.dispose();
-                this.initMap(this.cityName);
+               if(this.cityName != ''){
+                    map.dispose();
+                    this.initMap(this.cityName);
+                }
             }
         },
         HandleClick() {
@@ -243,7 +246,6 @@ export default {
                         if (names == key) {
                             this.showProvince(this.provinces[key], key, code);
                             continue;
-
                         } else {
                             this.cityName = 'china'
                         }
