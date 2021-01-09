@@ -147,8 +147,6 @@ export default {
                         } else {
                             return params.name
                         }
-
-
                     }
                 },
                 visualMap: {
