@@ -1,9 +1,10 @@
 <template>
     <div class="bar-chart">
-        <div ref="chart" style="width:100%;height:100%"></div>
+        <div ref="chart" id="chart" style="width:100%;height:100%"></div>
     </div>
 </template>
 <script>
+let myChart = null
 import * as echarts from 'echarts'
 export default {
     name: "barChart",
@@ -30,6 +31,7 @@ export default {
         this.drawChart()
     },
     updated() {
+        myChart.dispose();
         this.drawChart()
     },
     methods: {
@@ -43,84 +45,13 @@ export default {
                     this.dataAxis.push(this.maxDataNum)
                 }
             })
-            // var MyCubeRect = echarts.graphic.extendShape({
-            //     shape: {
-            //         x: 0,
-            //         y: 0,
-            //         width: 18, //柱宽
-            //         zWidth: 11, //阴影折角宽
-            //         zHeight: 11, //阴影折角高
-            //     },
-            //     buildPath: function(ctx, shape) {
-            //         const api = shape.api;
-            //         const xAxisPoint = api.coord([shape.xValue, 0]);
-            //         const p0 = [shape.x, shape.y];
-            //         const p1 = [shape.x - shape.width / 2, shape.y];
-            //         const p4 = [shape.x + shape.width / 2, shape.y];
-            //         const p2 = [xAxisPoint[0] - shape.width / 2, xAxisPoint[1]];
-            //         const p3 = [xAxisPoint[0] + shape.width / 2, xAxisPoint[1]];
-            //         ctx.moveTo(p0[0], p0[1]); //0
-            //         ctx.lineTo(p1[0], p1[1]); //1
-            //         ctx.lineTo(p2[0], p2[1]); //2
-            //         ctx.lineTo(p3[0], p3[1]); //3
-            //         ctx.lineTo(p4[0], p4[1]); //4
-            //         ctx.lineTo(p0[0], p0[1]); //0
-            //         ctx.closePath();
-            //     }
-            // });
-            // var MyCubeShadow = echarts.graphic.extendShape({
-            //     shape: {
-            //         x: 0,
-            //         y: 0,
-            //         width: 18,
-            //         zWidth: 11,
-            //         zHeight: 11,
-            //     },
-            //     buildPath: function(ctx, shape) {
-            //         const api = shape.api;
-            //         const xAxisPoint = api.coord([shape.xValue, 0]);
-            //         // const p0 = [shape.x, shape.y];
-            //         const p1 = [shape.x - shape.width / 2, shape.y];
-            //         const p4 = [shape.x + shape.width / 2, shape.y];
-            //         const p6 = [shape.x + shape.width / 2 + shape.zWidth, shape.y - shape.zHeight];
-            //         const p7 = [shape.x - shape.width / 2 + shape.zWidth, shape.y - shape.zHeight];
-            //         const p3 = [xAxisPoint[0] + shape.width / 2, xAxisPoint[1]];
-            //         const p5 = [xAxisPoint[0] + shape.width / 2 + shape.zWidth, xAxisPoint[1] - shape.zHeight];
-            //         ctx.moveTo(p4[0], p4[1]); //4
-            //         ctx.lineTo(p3[0], p3[1]); //3
-            //         ctx.lineTo(p5[0], p5[1]); //5
-            //         ctx.lineTo(p6[0], p6[1]); //6
-            //         ctx.lineTo(p4[0], p4[1]); //4
-            //         ctx.moveTo(p4[0], p4[1]); //4
-            //         ctx.lineTo(p6[0], p6[1]); //6
-            //         ctx.lineTo(p7[0], p7[1]); //7
-            //         ctx.lineTo(p1[0], p1[1]); //1
-            //         ctx.lineTo(p4[0], p4[1]); //4
-            //         ctx.closePath();
-            //     }
-            // });
-            // echarts.graphic.registerShape('MyCubeRect', MyCubeRect);
-            // echarts.graphic.registerShape('MyCubeShadow', MyCubeShadow);
-            let chart = this.$refs.chart
-            let myChart = echarts.init(chart)
+            myChart = echarts.getInstanceByDom(document.getElementById('chart')); //有的话就获取已有echarts实例的DOM节点。
+                 if (myChart == null) { // 如果不存在，就进行初始化。
+                     myChart = echarts.init(document.getElementById('chart'));
+                 }
             let options = {
                 tooltip: {
                     trigger: 'axis',
-                    // position: 'top',
-                    // padding: [5, 15],
-                    // formatter(params) {
-                    //     // if (params.seriesType == 'bar') {
-                    //     //     console.log(222,params)
-                    //     //     return
-                    //     // }
-                    //     // if(params.seriesType =='custom') {
-                    //         const currentData = params.data;
-                    //         let text = '';
-                    //         text = `${String(currentData).length>4?(Number(currentData/10000).toFixed(1)+'W'):String(currentData)}`
-                    //         return text;
-                    //     // }
-                    //
-                    // },
                     axisPointer: {
                         type: "none"
                     },

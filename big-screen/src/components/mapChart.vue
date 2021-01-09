@@ -1,14 +1,15 @@
 <template>
     <div class="map-chart">
         <div class="map-shadow" v-show="silent"></div>
-        <div ref="map" style="width:100%;height:100%" v-on:click.stop.prevent="reBack"></div>
+        <div class="tip-show" v-show="tipShow">暂不支持下钻</div>
+        <div ref="map" id="map" style="width:100%;height:100%" v-on:click.stop.prevent="reBack"></div>
     </div>
 </template>
 <script>
 import * as echarts from "echarts";
 import axios from 'axios';
 let chinaMap = require('./map/china.json')
-let map = null
+let map = null,time = null
 export default {
     name: "mapChart",
     props: {
@@ -30,6 +31,8 @@ export default {
             back: false,
             isAll: true,
             silent: false,
+            cityName:'',
+            tipShow:false,
             effArr: [],
             unEffArr: [],
             //定义全国省份的数组
@@ -118,12 +121,9 @@ export default {
     mounted() {
         echarts.registerMap('china', chinaMap);
         this.initMap('china');
-        console.log(this.mapData)
     },
     watch: {
         'mapData': function(val, old) {
-            console.log(val.unUsed)
-            console.log(val.used)
             this.regionsArr = [...val.used, ...val.unUsed]
             val.colors.map(item => {
                 if (this.match[item.name]) {
@@ -146,13 +146,18 @@ export default {
                     this.unEffArr.push(params)
                 }
             })
+
+                 map.dispose();
             this.initMap('china');
-            console.log(this.unEffArr)
         }
     },
     methods: {
         initMap(name) { //初始化中国地图
-            map = echarts.init(this.$refs.map)
+            map = echarts.getInstanceByDom(document.getElementById('map')); //有的话就获取已有echarts实例的DOM节点。
+             if (map == null) { // 如果不存在，就进行初始化。
+                 map = echarts.init(document.getElementById('map'));
+             }
+            
             this.silent = false
             if (name == 'china') {
                 this.back = false
@@ -196,7 +201,25 @@ export default {
                     data: ['已托管', '未托管'],
                     orient: 'vertical',
                 },
-                geo: {
+                geo: [{
+                    map: name,
+                    roam: false,
+                     zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang'||name =='gansu'||name =='guangdong') ? 0.8 : 1),
+                    top: (name == 'heilongjiang'||name =='gansu')? '20%' : 'center',
+                    left: (name == 'heilongjiang'||name =='gansu') ? '25%' : 'center',
+                    itemStyle: {
+                        //normal 是图形在默认状态下的样式；
+                        normal: {
+                            borderColor: "#2569BB",
+                            borderWidth:0,
+                            areaColor: "#2569BB",
+                            shadowBlur:5,
+                            shadowColor:'#091476',
+                            shadowOffsetY:5,
+                            shadowOffsetX:-5,
+                        },
+                    },
+                },{
                     map: name,
                     roam: false,
                     zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang'||name =='gansu'||name =='guangdong') ? 0.8 : 1),
@@ -218,6 +241,11 @@ export default {
                                         return str
                                     }
                                 }
+                                if(name == 'chongqing'){
+                                    if(param.name == '九龙坡' || param.name == '九龙坡区' ||param.name =="彭水苗族土家族自治县" || param.name=="沙坪坝区" ||param.name=="渝北区"||param.name=="大渡口区" || param.name=="江北区"|| param.name=="渝中区"){
+                                        return ''
+                                    }
+                                }
                             },
                             color: "#fff"
                         },
@@ -231,6 +259,7 @@ export default {
                         //normal 是图形在默认状态下的样式；
                         normal: {
                             borderColor: "#2569BB",
+                            borderWidth:0,
                             areaColor: "#2569BB",
                         },
                         emphasis: {
@@ -240,18 +269,20 @@ export default {
                     },
                     regions: this.regionsArr
 
-                },
+                }],
                 series: [{
                         name: '已托管',
                         type: "map",
                         color: '#62A5E6',
                         geoIndex: 0,
+                        zlevel:1,
                         data: this.mapData.used,
                     }, {
                         name: '未托管',
                         type: "map",
                         color: '#2569BB',
                         geoIndex: 0,
+                        zlevel:1,
                         data: this.mapData.unUsed
                     }, {
                         name: 'tt',
@@ -277,7 +308,7 @@ export default {
                             color: '#FFFF02',
                             shadowBlur: 0,
                         },
-                        zlevel: 1,
+                        zlevel: 2,
                         data: this.back ? [] : this.effArr
                     },
                     {
@@ -300,6 +331,7 @@ export default {
                             fontSize: "10",
                         },
                         symbolSize: 0,
+                        zlevel:2,
                         itemStyle: {
                             color: 'rgba(0,0,0,0)'
                         },
@@ -311,11 +343,16 @@ export default {
 
             window.addEventListener("resize", () => { map.resize(); });
             this.HandleClick()
+            return 
         },
         reBack() {
             if (this.back) {
                 this.$emit('reName', '全国', '1')
+                map.dispose();
                 this.initMap('china');
+            }else{
+                 map.dispose();
+                this.initMap(this.cityName);
             }
         },
         HandleClick() {
@@ -326,9 +363,7 @@ export default {
                     return d.name == param.name
                 })
                 this.silent = true
-
                 let code = param.data ? param.data.code : 0
-                console.log(param)
                 if (param.name in this.provinces) {
                     // 处理省模块
                     let names = param.name;
@@ -336,19 +371,30 @@ export default {
                         if (names == key ) {
                             if(!hasAccess){
                                 if(names=="新疆" || names=="西藏" || names=="云南"){
+                                    map.dispose();
                                     this.initMap('china');
                                 }else{
                                     this.showProvince(this.provinces[key], key, code);
                                 }
-                                
-                                break;
+                               continue;
                             } else{
-                                this.initMap('china');
+                                break;
                             }
+                                
                         }else{
+                            this.cityName = 'china'
                         }
                     }
-                } else {}
+                } else {
+                    if(param){
+                        this.tipShow = true
+                        setTimeout(()=>{
+                            this.tipShow = false
+                        },2000)
+                        this.back = false
+                    }
+                    
+                }
                 /*else if (param.name in cityMap) {
                     // 处理市模块
                     let names = param.name;
@@ -369,7 +415,9 @@ export default {
             axios.get(`./map/province/${eName}.json`).then(res => {
                 echarts.registerMap(eName, res.data);
                 this.$emit('reName', param, code)
+                self.cityName = eName
                 if (self.remap == 1 && self.remap2 == 1) {
+                    map.dispose();
                     self.initMap(eName);
                 }
 
@@ -393,5 +441,16 @@ export default {
     top: 0;
     left: 0;
     z-index: 100
+}
+.tip-show{
+    position: absolute;
+    top:50%;
+    z-index: 9;
+    left:50%;
+    font-size:0.8rem;
+    color:#fff;
+    padding:0.2rem 0.3rem;
+    border-radius: 10%;
+    background:rgba(0,0,0,0.4);
 }
 </style>
