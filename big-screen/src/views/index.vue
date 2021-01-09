@@ -31,7 +31,7 @@ import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
-import { getModule1,  getModule4, getModule5, getModule6, getModule7, getModule8, getBigData } from '@/api/index.js';
+import { geAllData,getModule1,  getModule4, getModule5, getModule6, getModule7, getModule8, getBigData } from '@/api/index.js';
 import { timestampConversion } from '@/utils/unixToTime.js'
 export default {
     name: 'Home',
@@ -83,6 +83,9 @@ export default {
             }
             getBigData(params).then(res => {
                 if (res.code == 200) {
+                    geAllData({}).then(res=>{
+                        console.log(res)
+                    })
                     let data4 = []
                     res.data.map(item => {
                         if (item.name == '全国') {
@@ -135,7 +138,8 @@ export default {
                                 name:item.name,
                                 value:values.usercount,
                                 user:values.cbinnetday,
-                                arpu:values.arpu
+                                arpu:values.arpu,
+                                code:values.province_code
                             }
                             data4.push(params)
                         }
@@ -152,7 +156,6 @@ export default {
                 if (res.code == 200) {
                     this.module1Data = res.data
                 }
-
             })
         },
         getModule5Data() {
@@ -165,7 +168,7 @@ export default {
                     res.data.map(item => {
                         let obj = {
                             areaName: item.name,
-                            number: item.value.user,
+                            number: item.value.usercount,
                             arpu: item.value.arpu
                         }
                         this.module5Data.push(obj)
@@ -179,9 +182,16 @@ export default {
             }
             getModule6(params).then(res => {
                 if (res.code == 200) {
+                    //过滤数据
+                   /* let list = [],arr =['营业厅订单','外围订单']
+                    res.data.forEach(item=>{
+                        if(arr.indexOf(item.name)!=-1){
+                            list.push(item)
+                        }
+                    })
+                    this.module6Data = list*/
                     this.module6Data = res.data
                 }
-
             })
         },
         getModule7Data() {
@@ -192,7 +202,6 @@ export default {
                 if (res.code == 200) {
                     this.module7Data = res.data[0].value
                 }
-
             })
         },
         getModule8Data() {
@@ -200,15 +209,25 @@ export default {
                 province_code: this.province_code
             }
             getModule8(params).then(res => {
+               /* //过滤数据
+                let list = [],arr = ['产品名称','常用功能']
+                if (res.code == 200) {
+                    res.data.forEach(item=>{
+                        if(arr.indexOf(item.name) != -1){
+                            list.push(item)
+                        }
+                    })
+                    this.module8Data = list
+                }*/
                 if (res.code == 200) {
                     this.module8Data = res.data
                 }
 
             })
         },
-        selectName(name, code) {
-            this.provinceName = name
+        selectName( code) {
             this.province_code = code
+            this.getData()
         }
 
     }

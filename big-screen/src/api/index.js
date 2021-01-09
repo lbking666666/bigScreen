@@ -78,3 +78,8 @@ export function getModule8(data) {
     const url = '/queryTop10';
     return getApi(url, data)
 }
+
+export function geAllData(data){
+    const url = 'https://tianyan.tg.unicom.local/cloudwise/business?roleName';
+    return getApi(url, data)
+}
