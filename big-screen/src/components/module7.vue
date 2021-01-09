@@ -19,8 +19,8 @@
                 <div class="box-title">携号转网</div>
                 <div class="box-count">{{module7Data.portability}}</div>
                 <div class="pointer-view">
-                    <p>携入数：{{module7Data.portability_in}}</p>
-                    <p>携出数：{{module7Data.portability_out}}</p>
+                    <p>携入数：{{module7Data.portabilityIn}}</p>
+                    <p>携出数：{{module7Data.portabilityOut}}</p>
                 </div>
             </div>
         </div>

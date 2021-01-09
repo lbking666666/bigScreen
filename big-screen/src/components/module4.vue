@@ -142,7 +142,12 @@ export default {
                     borderWidth: 0,
                     trigger: 'item',
                     formatter: function(params) {
-                        return params.name + '<br/>用户量:' + params.value + '<br/>今日开户数:' + params.data.user + '<br/>arup值:' + params.data.arpu
+                        if (params.value) {
+                            return params.name + '<br/>用户量:' + params.value + '<br/>今日开户数:' + params.data.user + '<br/>arup值:' + params.data.arpu
+                        } else {
+                            return params.name
+                        }
+
 
                     }
                 },
@@ -219,7 +224,7 @@ export default {
         },
         reBack() {
             if (this.back) {
-                this.$emit('reName', '全国', '1')
+                this.$emit('reName', '00')
                 map.dispose();
                 this.initMap('china');
             } else {
