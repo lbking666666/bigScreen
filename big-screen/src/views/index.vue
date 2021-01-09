@@ -72,7 +72,6 @@ export default {
     methods: {
         getData() {
             this.getBigData();
-            this.getModule1Data()
             this.getModule5Data()
             this.getModule6Data()
             this.getModule7Data()
@@ -183,16 +182,6 @@ export default {
                         this.module4Data = data4;
                     }
                     
-                }
-            })
-        },
-        getModule1Data() {
-            let params = {
-                provinceCode: this.provinceCode
-            }
-            getModule1(params).then(res => {
-                if (res.code == 200) {
-                    this.module1Data = res.data
                 }
             })
         },

@@ -1124,18 +1124,7 @@ const bigData = function() {
         ]
     }
 }
-const module1Data = function() {
-    return {
-        "code": 200,
-        "data": {
-            "userCount": 410000000,
-            "onlineCount": 1900,
-            "todayCount": 302900,
-            "lastDayPercent": -0.68,
-            "lastSevenPercent": 0.5
-        }
-    }
-}
+
 
 const module3Data = function() {
     return {
@@ -1299,7 +1288,6 @@ const module8Data = function() {
 }
 
 Mock.mock(RegExp('/ITTest/queryOtherCountByProvince' + ".*"), 'get', bigData);
-Mock.mock(RegExp('/api/getModule1' + ".*"), 'get', module1Data);
 Mock.mock(RegExp('/ITTest/queryUserCountByProvince' + ".*"), 'get', module5Data);
 Mock.mock(RegExp('/ITTest/queryCBSSTradeCount' + ".*"), 'get', module6Data);
 Mock.mock(RegExp('/ITTest/queryCBSSMainCount' + ".*"), 'get', module7Data);

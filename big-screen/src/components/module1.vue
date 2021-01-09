@@ -57,153 +57,167 @@
         </div>
     </div>
 </template>
-
 <script>
-    import commonTitle from "./commonTitle";
-    import {formatterNumber} from "../utils/filterNum"
-    export default {
-		name: "",
-        components:{commonTitle},
-		props: {
-            leftData:{
-                type: Object,
-                default:{}
-            },
-            module1Data:{
-                type: Object,
-                default:{}
-            }
-		},
-		data(){
-			return{
-                titleText:'告示板'
-			}
-		},
-		mounted() {
+import commonTitle from "./commonTitle";
+import { formatterNumber } from "../utils/filterNum"
+export default {
+    name: "",
+    components: { commonTitle },
+    props: {
+        leftData: {
+            type: Object,
+            default: {}
         },
-		methods:{
-            fixedNum(num){
-                num = (Number(num)*100).toFixed(1)
-                if(num){
-                    let str = (String(num).indexOf('-') >= 0)?String(num).split('-')[1]:num
-                    let backStr =  str +'%'
-                    return backStr
-                }else{
-                    return
-                }
-            },
-            filterNumber(num){
-                if(String(num).length>8){
+        module1Data: {
+            type: Object,
+            default: {}
+        }
+    },
+    data() {
+        return {
+            titleText: '告示板'
+        }
+    },
+    mounted() {},
+    methods: {
+        fixedNum(num) {
+            if (num) {
+                num = (Number(num) * 100).toFixed(1)
+                let str = (String(num).indexOf('-') >= 0) ? String(num).split('-')[1] : num
+                let backStr = str + '%'
+                return backStr
+            } else {
+                return 0
+            }
+        },
+        filterNumber(num) {
+            if (num) {
+                if (String(num).length > 8) {
                     let res = ''
-                    res = (num/100000000).toFixed(1)
+                    res = (num / 100000000).toFixed(1)
                     return res + '亿'
-                }else {
+                } else {
                     return formatterNumber(num)
                 }
+            } else {
+                return 0
             }
-		}
-	}
+
+        }
+    }
+}
 </script>
-
 <style lang="less" scoped>
-    .module1{
-        width: 100%;
-        height: 323px;
-        background: url("../assets/yaxin/kuang_zuoshang.png");
-        display: flex;
-        flex-direction: column;
-        .container{
-            display: flex;
-            flex: 1;
-            justify-content: space-around;
-            align-items: center;
-            .box-title{
-                font-size: 14px;
-                font-family: PingFangSC-Regular, PingFang SC;
-                font-weight: 400;
-                color: #88D7FD;
-                line-height: 24px;
-                text-shadow: 0px 0px 4px rgba(1, 138, 255, 0.6);
-                margin-bottom: 5px;
-            }
-            .box-num{
-                font-size: 32px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
-                color: #C7FCFC;
-                line-height: 26px;
-            }
-            .left{
-                width: 205px;
-                height: 246px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                .left-top{
-                    width: 100%;
-                    height: 116px;
-                    background: url("../assets/yaxin/xitongyonghu.png");
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                }
-                .left-bottom{
-                    width: 100%;
-                    height: 116px;
-                    background: url("../assets/yaxin/xitongyonghu.png");
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                }
+.module1 {
+    width: 100%;
+    height: 323px;
+    background: url("../assets/yaxin/kuang_zuoshang.png");
+    display: flex;
+    flex-direction: column;
 
-            }
-            .right{
-                width: 205px;
-                height: 246px;
-                background: url("../assets/yaxin/jinrikaihu.png");
+    .container {
+        display: flex;
+        flex: 1;
+        justify-content: space-around;
+        align-items: center;
+
+        .box-title {
+            font-size: 14px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #88D7FD;
+            line-height: 24px;
+            text-shadow: 0px 0px 4px rgba(1, 138, 255, 0.6);
+            margin-bottom: 5px;
+        }
+
+        .box-num {
+            font-size: 32px;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: 500;
+            color: #C7FCFC;
+            line-height: 26px;
+        }
+
+        .left {
+            width: 205px;
+            height: 246px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .left-top {
+                width: 100%;
+                height: 116px;
+                background: url("../assets/yaxin/xitongyonghu.png");
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
-                .right-top{
-                    width: 100%;
-                    height: 116px;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .left-bottom {
+                width: 100%;
+                height: 116px;
+                background: url("../assets/yaxin/xitongyonghu.png");
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+        }
+
+        .right {
+            width: 205px;
+            height: 246px;
+            background: url("../assets/yaxin/jinrikaihu.png");
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .right-top {
+                width: 100%;
+                height: 116px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .right-bottom {
+                width: 100%;
+                height: 116px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                p {
+                    width: 161px;
+                    text-align: left;
+                    margin: 0;
+                    font-size: 18px;
+                    font-family: PingFangSC-Regular, PingFang SC;
+                    font-weight: 400;
+                    color: #FFFFFF;
+                    line-height: 38px;
                     display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                }
-                .right-bottom{
-                    width: 100%;
-                    height: 116px;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    p{
-                        width: 161px;
-                        text-align: left;
-                        margin: 0;
-                        font-size: 18px;
-                        font-family: PingFangSC-Regular, PingFang SC;
-                        font-weight: 400;
-                        color: #FFFFFF;
-                        line-height: 38px;
+
+                    .font-red {
+                        color: #FC5660;
                         display: flex;
-                        .font-red{
-                            color: #FC5660;
-                            display: flex;
-                            align-items: center;
-                        }
-                        .font-green{
-                            color: #63F595;
-                            display: flex;
-                            align-items: center;
-                        }
+                        align-items: center;
+                    }
+
+                    .font-green {
+                        color: #63F595;
+                        display: flex;
+                        align-items: center;
                     }
                 }
             }
         }
     }
+}
 </style>

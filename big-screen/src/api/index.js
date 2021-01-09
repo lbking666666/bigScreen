@@ -54,10 +54,6 @@ export function getBigData(data) {
     const url = '/ITTest/queryOtherCountByProvince';
     return getApi(url, data)
 }
-export function getModule1(data) {
-    const url = '/api/getModule1';
-    return getApi(url, data)
-}
 export function getModule4(data) {
     const url = '/api/getModule4';
     return getApi(url, data)
