@@ -38,8 +38,6 @@
 					</span>
 					<span v-else>持平</span>。
 				</p>
-<!--				<p>-->
-<!--				</p>-->
 				<p>
 					外部客户累计量{{externalData.totalNum}}
 				</p>
@@ -78,10 +76,8 @@
 					</span>
 					<span v-else>持平</span>；
 				</p>
-<!--				<p>-->
-<!--				</p>-->
 				<p>
-					内部客户累计量{{userData.totalNum}}
+					内部员工累计量{{userData.totalNum}}
 				</p>
 			</div>
 		</div>

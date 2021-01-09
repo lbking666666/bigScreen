@@ -147,7 +147,7 @@ export default {
                 }
             })
 
-                 map.dispose();
+            map.dispose();
             this.initMap('china');
         }
     },
@@ -340,7 +340,6 @@ export default {
                 ]
             };
             map.setOption(option, true);
-
             window.addEventListener("resize", () => { map.resize(); });
             this.HandleClick()
             return 
@@ -348,11 +347,15 @@ export default {
         reBack() {
             if (this.back) {
                 this.$emit('reName', '全国', '1')
+                this.cityName = ''
                 map.dispose();
                 this.initMap('china');
             }else{
-                 map.dispose();
-                this.initMap(this.cityName);
+                if(this.cityName != ''){
+                    map.dispose();
+                    this.initMap(this.cityName);
+                }
+                
             }
         },
         HandleClick() {
