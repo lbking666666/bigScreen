@@ -97,8 +97,8 @@ export default {
                     sort.sort(function (a, b) {
                       return a-b;
                     });
-                    this.min = sort[0]
-                    this.max = sort[30]
+                    this.min = Number(sort[0])
+                    this.max = Number(sort[30])
                     this.mapData = list
                 }
             })
