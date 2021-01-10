@@ -69,34 +69,39 @@
 						text: '单位：万户',
 						top: '14px',
 						textStyle: {
-							color: '#A9F0FF',
+						color: '#A9F0FF',
 							fontWeight: 400,
 							fontSize: 12
 						}
 					},
 					tooltip: {
-						trigger: 'axis',
+						trigger: 'axis', 
 						axisPointer: {
-							type: "none"
-						},
-						formatter: function (params, ticket, callback) {
-							let str = params[0].data>10000?(params[0].data/10000).toFixed(1)+'W':params[0].data+''
-							let city = params[0].axisValue
-							let returnStr = city + '\n' + str
-							if(params[0].name === ''){
-								return ''
-							}else{
-								return returnStr
-							}
+				            type: 'cross',
+				            crossStyle: {
+				                color: '#999'
+				            }
+				        },
+				        axisPointer: {
+				            type: 'cross',
+				            crossStyle: {
+				                color: '#999'
+				            }
+				        },
+				        formatter(params){
+				        	console.log(params)
+				        	return params[0].name + '<br>'+ params[0].seriesName +'：'+params[0].value+'户 <br>' +params[1].seriesName +'：'+params[1].value+'元'
+
+				        },
+						textStyle: {
+							color: '#fff',
+							fontSize: 14,
+							align:'left',
+							fontWeight: 600
 						},
 						borderColor:'rgba(50,50,50,0.7)',
 						borderWidth: 0,
 						backgroundColor: 'rgba(50,50,50,0.7)',
-						textStyle: {
-							color: '#fff',
-							fontSize: 14,
-							fontWeight: 600
-						},
 					},
 					legend: {
 						data: ['用户数', 'arpu值'],
@@ -171,6 +176,28 @@
 						splitLine: {
 							show: false
 						},
+					},{
+						type: 'value',
+						show: true,
+						axisLabel:{
+							formatter:function (value, index) {
+								let str = ''
+								if(value>10000){
+									str = (value/10000).toFixed(0) 
+								} else {
+									str = value
+								}
+								return str;
+							}
+						},
+						axisLine: {
+							lineStyle: {
+								color: '#01B4FF'
+							}
+						},
+						splitLine: {
+							show: false
+						},
 					}],
 					series: [
 						{
@@ -195,6 +222,7 @@
 						},
 						{
 							type: 'bar',
+							yAxisIndex: 1,
 							name: 'arpu值',
 							itemStyle: {
 								color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{

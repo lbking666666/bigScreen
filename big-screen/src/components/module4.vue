@@ -151,7 +151,7 @@ export default {
                     trigger: 'item',
                     formatter: function(params) {
                         if (params.value) {
-                            return params.name + '<br/>用户量:' + params.value + '<br/>今日开户数:' + params.data.user + '<br/>arup值:' + params.data.arpu
+                            return params.name + '<br/>用户量:' + params.value+ '<br/>今日出账数：' + params.data.billuser + '<br/>今日开户数:' + params.data.user + '<br/>arup值:' + params.data.arpu
                         } else {
                             return params.name
                         }

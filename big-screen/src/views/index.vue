@@ -86,6 +86,7 @@ export default {
                                 name: item.name,
                                 value: values.usercount,
                                 user: values.cbinnetday,
+                                billuser:values.billuser,
                                 arpu: values.arpu,
                                 code: values.province_code
                             }
@@ -122,14 +123,15 @@ export default {
                         if (list && list2) {
                             let cbTotal = 0 //今日总量
                             let yesdayTotal = 0; //昨日总量
+                            let oldYesdayTotal  = 0;
                             let sendayTotal = 0; //七日总量
                             let dayNum = 0; //七日天数七日平均数
                             for (let i in list) { //循环计算出今日总量
                                 if(this.provinceName.indexOf(i)!=-1 ){
                                     let arr = list[i].series['总开户量']
                                     let len = arr.length
-                                    let num = arr[arr.length - 1]
-                                    cbTotal += Number(num)
+                                    let num = arr[len - 1]
+                                    cbTotal = Number(num)
                                 }
                                 
                             }
@@ -138,15 +140,16 @@ export default {
                                 if(this.provinceName.indexOf(i) !=-1){
                                     let arr = list2[i].series['总开户量']
                                     let len = arr.length
-                                    let num = arr[arr.length - 1]
-                                    yesdayTotal += Number(num)
+                                    let num = arr[len - 1]
+                                    yesdayTotal = Number(num)
+                                    oldYesdayTotal = Number(arr[len-2])
                                     let newArr = []
-                                    if (len > 7) {
-                                        newArr = arr.slice(len - 8, len - 1)
+                                    if (len > 9) {
+                                        newArr = arr.slice(len - 9, len - 2)
                                         dayNum = 7
                                     } else {
                                         newArr = arr
-                                        dayNum = len - 1
+                                        dayNum = len - 2
                                     }
                                     newArr.forEach((i) => {
                                         sendayTotal += Number(i)
@@ -159,8 +162,8 @@ export default {
                             //组装数据
                             let data = {
                                 todayCount: cbTotal,
-                                lastDayPercent: (cbTotal - yesdayTotal) / yesdayTotal,
-                                lastSevenPercent: (cbTotal - sevenNum) / sevenNum
+                                lastDayPercent: (yesdayTotal - oldYesdayTotal) / oldYesdayTotal,
+                                lastSevenPercent: (yesdayTotal - sevenNum) / sevenNum
                             }
                             this.module1Data = data
                         }
@@ -235,10 +238,11 @@ export default {
                         res.data.map(item => {
                             if(item.name !='全国总量'){
                                  let arr = item.value.split(',')
+                                console.log(Number(arr[1].split('=')[1].replace('}',"")))
                                     let obj = {
                                         areaName: item.name,
                                         number: Number(arr[0].split('=')[1]),
-                                        arpu: Number(arr[1].split('=')[1])
+                                        arpu: Number(arr[1].split('=')[1].replace('}',""))
                                     }
                                    list.push(obj)
                             }
