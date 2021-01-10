@@ -181,7 +181,7 @@ export default {
                     // layoutCenter: ['80%','80%'],
                     //图形上的文本标签，可用于说明图形的一些数据信息
                     label: {
-                        show: this.back ? true : false,
+                        show: true,
                         fontSize: "10",
                         formatter: function(param) {
                             // 处理不显示地市
@@ -205,7 +205,7 @@ export default {
                     },
                     emphasis: {
                         label: {
-                            show: this.back ? true : false,
+                            show:true,
                             color: "#fff"
                         },
                         itemStyle: {
