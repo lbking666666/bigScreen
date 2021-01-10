@@ -97,6 +97,7 @@ export default {
                 },
                 tooltip: {
                     show: true,
+                    trigger: 'item', 
                     backgroundColor: 'rgba(0,0,0,0.4)',
                     textStyle: {
                         color: '#fff',
@@ -108,7 +109,6 @@ export default {
                     formatter: function(params) {
                         let dateStr = vm.module6Data[vm.flag].value[params.dataIndex].date
                         let nums = (String(params.value).length > 4) ? (Number(params.value / 10000).toFixed(1) + 'W') : String(params.value)
-
 
                         return dateStr + '<br>' + '订单量: ' + nums
                     }

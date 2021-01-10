@@ -11,16 +11,16 @@
                 <div class="box-title">跨域用户数</div>
                 <div class="box-count">{{module7Data.crossuser}}</div>
                 <div class="pointer-view">
-                    <p>跨域融合套餐数：{{module7Data.crossmixmenu}}</p>
-                    <p>跨域融合用户数：{{module7Data.crossmixuser}}</p>
+                    <p>套餐数：{{module7Data.crossmixmenu}}</p>
+                    <p>用户数：{{module7Data.crossmixuser}}</p>
                 </div>
             </div>
             <div class="box pointer">
                 <div class="box-title">携号转网</div>
                 <div class="box-count">{{module7Data.portability}}</div>
                 <div class="pointer-view">
-                    <p>携入数：{{module7Data.portabilityIn}}</p>
-                    <p>携出数：{{module7Data.portabilityOut}}</p>
+                    <p>携入数：{{module7Data.portability_in}}</p>
+                    <p>携出数：{{module7Data.portability_out}}</p>
                 </div>
             </div>
         </div>
@@ -90,13 +90,17 @@
                     position: relative;
                     .pointer-view{
                         position: absolute;
-                        bottom: 100%;
-                        padding: 8px 10px;
-                        background: rgba(0, 0, 0, 0.5);
+                        bottom: 40%;
+                        width:auto;
+                        padding: 8px 12px;
+                        background: rgba(0, 0, 0, 0.8);
                         border-radius: 4px;
                         color: #fff;
                         font-size: 13px;
                         display: none;
+                        p{
+                            margin:4px 0;
+                        }
                     }
                     &:hover{
                         .pointer-view{

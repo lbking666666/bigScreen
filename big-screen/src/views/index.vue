@@ -238,7 +238,6 @@ export default {
                         res.data.map(item => {
                             if(item.name !='全国总量'){
                                  let arr = item.value.split(',')
-                                console.log(Number(arr[1].split('=')[1].replace('}',"")))
                                     let obj = {
                                         areaName: item.name,
                                         number: Number(arr[0].split('=')[1]),
