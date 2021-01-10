@@ -1249,7 +1249,7 @@ const module8Data = function() {
         code: "200", //类型：String  必有字段  备注：状态码
         "message": "操作成功", //类型：String  必有字段  备注：返回文本信息
         data: [ // 类型：Array  必有字段  备注：返回数据集合
-            {
+            /*{
                 'name': '产品名称',
                 'value': [
                     { 'ranking': 1, 'product_name': '腾讯大王卡', 'product_count': 12333 },
@@ -1278,7 +1278,7 @@ const module8Data = function() {
                     { 'ranking': 9, 'function_name': '移网变更', 'function_count': 12333 },
                     { 'ranking': 10, 'function_name': '移网变更', 'function_count': 12333 },
                 ]
-            }
+            }*/
         ]
         // {
         //     hot: fakeArrayA,

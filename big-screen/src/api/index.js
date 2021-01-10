@@ -1,5 +1,4 @@
 import { getApi, postApi } from './config.js'
-import mock from './mock.js'
 
 export function addAreaUser(data) {
     const url = '/wep-oms/bigScreen/addAreaUser';
@@ -50,12 +49,12 @@ export function showExternal(data) {
 }
 
 //yaxin
-export function getBigData(data) {
-    const url = '/ITTest/queryOtherCountByProvince';
+export function getMapData(data){
+    const url = '/ITTest/queryOtherCountAll';
     return getApi(url, data)
 }
-export function getModule4(data) {
-    const url = '/api/getModule4';
+export function getBigData(data) {
+    const url = '/ITTest/queryOtherCountByProvince';
     return getApi(url, data)
 }
 export function getModule5(data) {
@@ -71,11 +70,12 @@ export function getModule7(data) {
     return getApi(url, data)
 }
 export function getModule8(data) {
-    const url = '/ITTest/queryTop10';
+    const url = '/ITTest/queryTop10ByProvince';
     return getApi(url, data)
 }
 
 export function geAllData(data){
-    const url = '/cloudwise/business?roleName';
+    const url = '/ITTest/queryTodayInnet';
     return getApi(url, data)
 }
+

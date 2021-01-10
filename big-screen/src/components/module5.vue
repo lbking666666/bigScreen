@@ -156,7 +156,7 @@
 							formatter:function (value, index) {
 								let str = ''
 								if(value>10000){
-									str = (value/10000).toFixed(1) + 'w'
+									str = (value/10000).toFixed(0) 
 								} else {
 									str = value
 								}

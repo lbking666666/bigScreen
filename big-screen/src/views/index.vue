@@ -10,7 +10,7 @@
                 <module3 :module3Data="module3Data"></module3>
             </div>
             <div class="center-box">
-                <module4 @reName="selectName" :mapData="module4Data"></module4>
+                <module4 @reName="selectName" :mapData="mapData" :min="min" :max="max"></module4>
                 <module5 :module5Data="module5Data"></module5>
             </div>
             <div class="right-box">
@@ -22,7 +22,7 @@
     </div>
 </template>
 <script>
-// @ is an alias to /src
+
 let now = new Date()
 import module1 from '@/components/module1.vue';
 import module2 from '@/components/module2.vue';
@@ -32,7 +32,7 @@ import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
-import { geAllData,getModule1,  getModule4, getModule5, getModule6, getModule7, getModule8, getBigData } from '@/api/index.js';
+import { geAllData, getMapData, getModule5, getModule6, getModule7, getModule8, getBigData } from '@/api/index.js';
 import { timestampConversion } from '@/utils/unixToTime.js'
 export default {
     name: 'Home',
@@ -48,28 +48,60 @@ export default {
     },
     data() {
         return {
-            provinceCode:'00',
+            provinceCode: '00',
             module1Data: {},
             module2Data: {},
             module3Data: [],
-            module4Data: [],
             module5Data: [],
             module6Data: [],
             module7Data: {},
             module8Data: [],
+            mapData: [],
+            min:0,
+            max:100,
+            provinceName:'全国',
             leftData: {},
-            nowTime: (new Date()).getTime()/1000,
-            dateTimeStr: timestampConversion((new Date()).getTime()/1000)
+            nowTime: (new Date()).getTime() / 1000,
+            dateTimeStr: timestampConversion((new Date()).getTime() / 1000)
         }
     },
     mounted() {
         this.getData()
-        setInterval(()=>{
+        this.getMapData()
+        setInterval(() => {
             this.nowTime += 1
             this.dateTimeStr = timestampConversion(this.nowTime)
         }, 1000)
     },
     methods: {
+        getMapData() {
+            getMapData().then(res => {
+                if (res.code == 200) {
+                    let list = []
+                    let sort = []
+                    res.data.forEach(item => {
+                        if (item.name !== '全国总量') {
+                            let values = item.value
+                            let params = {
+                                name: item.name,
+                                value: values.usercount,
+                                user: values.cbinnetday,
+                                arpu: values.arpu,
+                                code: values.province_code
+                            }
+                            list.push(params)
+                            sort.push(values.usercount)
+                        }
+                    })
+                    sort.sort(function (a, b) {
+                      return a-b;
+                    });
+                    this.min = sort[0]
+                    this.max = sort[30]
+                    this.mapData = list
+                }
+            })
+        },
         getData() {
             this.getBigData();
             this.getModule5Data()
@@ -83,105 +115,111 @@ export default {
             }
             getBigData(params).then(res => {
                 if (res.code == 200) {
-                    geAllData({}).then(res=>{
+                    //请求接口获取今日开户量比较数据
+                    geAllData({provinceCode: this.provinceCode}).then(res => {
                         let list = res.data.twoIandTkjData.minute
-                        let cbTotal = 0
-                        for(let i in list){
-                            let arr = list[i].series['总开户量']
-                            let len = arr.length
-                            let num = arr[arr.length-1]
-                            cbTotal += Number(num)
-                        }
                         let list2 = res.data.BusinessAcceptanceData.month
-                        let yesdayTotal = 0;
-                        let sendayTotal = 0;
-                        let dayNum = 0;
-                        for(let i in list2){
-                            let arr = list2[i].series['总开户量']
-                            let len = arr.length
-                            let num = arr[arr.length-1]
-                            yesdayTotal += Number(num)
-                            let newArr = []
-                            if(len >7){
-                                newArr = arr.slice(len-8,len-1)
-                                dayNum = 7
-                            }else{
-                                newArr = arr
-                                dayNum = len-1
+                        if (list && list2) {
+                            let cbTotal = 0 //今日总量
+                            let yesdayTotal = 0; //昨日总量
+                            let sendayTotal = 0; //七日总量
+                            let dayNum = 0; //七日天数七日平均数
+                            for (let i in list) { //循环计算出今日总量
+                                if(this.provinceName.indexOf(i)!=-1 ){
+                                    let arr = list[i].series['总开户量']
+                                    let len = arr.length
+                                    let num = arr[arr.length - 1]
+                                    cbTotal += Number(num)
+                                }
+                                
                             }
-                            newArr.forEach((i)=>{
-                                sendayTotal += Number(i)
-                            })
+
+                            for (let i in list2) { //循环计算出七日总量及七日具体天数
+                                if(this.provinceName.indexOf(i) !=-1){
+                                    let arr = list2[i].series['总开户量']
+                                    let len = arr.length
+                                    let num = arr[arr.length - 1]
+                                    yesdayTotal += Number(num)
+                                    let newArr = []
+                                    if (len > 7) {
+                                        newArr = arr.slice(len - 8, len - 1)
+                                        dayNum = 7
+                                    } else {
+                                        newArr = arr
+                                        dayNum = len - 1
+                                    }
+                                    newArr.forEach((i) => {
+                                        sendayTotal += Number(i)
+                                    })
+                                }
+                                
+                            }
+
+                            let sevenNum = Number(sendayTotal / dayNum).toFixed(0) //
+                            //组装数据
+                            let data = {
+                                todayCount: cbTotal,
+                                lastDayPercent: (cbTotal - yesdayTotal) / yesdayTotal,
+                                lastSevenPercent: (cbTotal - sevenNum) / sevenNum
+                            }
+                            this.module1Data = data
                         }
-                        let sevenNum =Number(sendayTotal/dayNum).toFixed(0)
-                        let data = {
-                            todayCount : cbTotal,
-                            lastDayPercent: (cbTotal-yesdayTotal)/yesdayTotal,
-                            lastSevenPercent:(cbTotal-sevenNum)/sevenNum
-                        }
-                        this.module1Data = data
+
                     })
-                    let data4 = []
+                    //循环数据拼接module1、2、3、4数据
                     res.data.map(item => {
-                        if (item.name == '全国') {
+                        if (item.name.indexOf(this.provinceName)  != 1) {
                             let values = item.value
-                            let data1 = {
-                                userCount:values.usercount,
-                                onlineCount:values.billuser
+                            if (values) { //判断数据是否返回
+                                //module1左侧数据
+                                let data1 = {
+                                    userCount: values.usercount,
+                                    onlineCount: values.billuser
+                                }
+                                this.leftData = data1;
+                                //module2数据
+                                let data2 = {
+                                    day: [{
+                                        name: 'cB前台',
+                                        value: values.cbfrontinnetday,
+                                        per: 80,
+                                    }, {
+                                        name: '掌沃通',
+                                        value: values.woinnetday,
+                                        per: 20,
+                                    }, {
+                                        name: '其他',
+                                        value: values.otherinnetday,
+                                        per: 30,
+                                    }],
+                                    month: [{
+                                        name: 'cB前台',
+                                        value: values.cbfrontinnetmonth,
+                                        per: 90,
+                                    }, {
+                                        name: '掌沃通',
+                                        value: values.woinnetmonth,
+                                        per: 30,
+                                    }, {
+                                        name: '其他',
+                                        value: values.otherinnetmonth,
+                                        per: 26,
+                                    }],
+                                }
+                                this.module2Data = data2
+                                //module3数据
+                                let data3 = [{ value: values.mobile, name: '移网' },
+                                    { value: values.broadband, name: '宽带' },
+                                    { value: values.iptv, name: 'iptv' },
+                                    { value: values.telephone, name: '固话' },
+                                    { value: values.otheruser, name: '其它' }
+                                ]
+                                this.module3Data = data3
                             }
-                            this.leftData = data1;
-                            let data2 = {
-                                day: [{
-                                    name: 'cB前台',
-                                    value: values.cbfrontinnetday,
-                                    per: 80,
-                                }, {
-                                    name: '掌沃通',
-                                    value: values.woinnetday,
-                                    per: 20,
-                                }, {
-                                    name: '其他',
-                                    value: values.otherinnetday,
-                                    per: 30,
-                                }],
-                                month: [{
-                                    name: 'cB前台',
-                                    value: values.cbfrontinnetmonth,
-                                    per: 90,
-                                }, {
-                                    name: '掌沃通',
-                                    value: values.woinnetmonth,
-                                    per: 30,
-                                }, {
-                                    name: '其他',
-                                    value: values.otherinnetmonth,
-                                    per: 26,
-                                }],
-                            }
-                            this.module2Data = data2
-                            let data3 = [{ value: values.mobile, name: '移网' },
-                                { value: values.broadband, name: '宽带' },
-                                { value: values.iptv, name: 'iptv' },
-                                { value: values.telephone, name: '固话' },
-                                { value: values.otheruser, name: '其它' }
-                            ]
-                            this.module3Data = data3
-                        }else{
-                            let values = item.value
-                            let params = {
-                                name:item.name,
-                                value:values.usercount,
-                                user:values.cbinnetday,
-                                arpu:values.arpu,
-                                code:values.provinceCode
-                            }
-                            data4.push(params)
+
                         }
                     })
-                    if(this.provinceCode == '00'){
-                        this.module4Data = data4;
-                    }
-                    
+
                 }
             })
         },
@@ -192,33 +230,45 @@ export default {
             getModule5(params).then(res => {
                 if (res.code == 200) {
                     this.module5Data = []
-                    res.data.map(item => {
-                        let obj = {
-                            areaName: item.name,
-                            number: item.value.usercount,
-                            arpu: item.value.arpu
-                        }
-                        this.module5Data.push(obj)
-                    })
+                    if (res.data.length > 0) { //判断是否返回数据且不为空
+                        let list = []
+                        res.data.map(item => {
+                            if(item.name !='全国总量'){
+                                 let arr = item.value.split(',')
+                                    let obj = {
+                                        areaName: item.name,
+                                        number: Number(arr[0].split('=')[1]),
+                                        arpu: Number(arr[1].split('=')[1])
+                                    }
+                                   list.push(obj)
+                            }
+                           
+                        })
+                         this.module5Data = list
+                    }
+
                 }
             })
         },
         getModule6Data() {
             let params = {
                 provinceCode: this.provinceCode,
-                month:now.getMonth() +1
+                month: now.getMonth() + 1
             }
             getModule6(params).then(res => {
                 if (res.code == 200) {
                     //过滤数据
-                   /* let list = [],arr =['营业厅订单','外围订单']
-                    res.data.forEach(item=>{
-                        if(arr.indexOf(item.name)!=-1){
-                            list.push(item)
-                        }
-                    })
-                    this.module6Data = list*/
-                    this.module6Data = res.data
+                    /* let list = [],arr =['营业厅订单','外围订单']
+                     res.data.forEach(item=>{
+                         if(arr.indexOf(item.name)!=-1){
+                             list.push(item)
+                         }
+                     })
+                     this.module6Data = list*/
+                    if (res.data.length > 0) {
+                        this.module6Data = res.data
+                    }
+
                 }
             })
         },
@@ -228,7 +278,9 @@ export default {
             }
             getModule7(params).then(res => {
                 if (res.code == 200) {
-                    this.module7Data = res.data[0].value
+                    if (res.data[0]) {
+                        this.module7Data = res.data[0].value
+                    }
                 }
             })
         },
@@ -237,24 +289,27 @@ export default {
                 provinceCode: this.provinceCode
             }
             getModule8(params).then(res => {
-               /* //过滤数据
-                let list = [],arr = ['产品名称','常用功能']
+                /* //过滤数据
+                 let list = [],arr = ['产品名称','常用功能']
+                 if (res.code == 200) {
+                     res.data.forEach(item=>{
+                         if(arr.indexOf(item.name) != -1){
+                             list.push(item)
+                         }
+                     })
+                     this.module8Data = list
+                 }*/
                 if (res.code == 200) {
-                    res.data.forEach(item=>{
-                        if(arr.indexOf(item.name) != -1){
-                            list.push(item)
-                        }
-                    })
-                    this.module8Data = list
-                }*/
-                if (res.code == 200) {
-                    this.module8Data = res.data
-                }
+                    if (res.data.length > 0) {
+                        this.module8Data = res.data
+                    }
 
+                }
             })
         },
-        selectName( code) {
+        selectName(name,code) {
             this.provinceCode = code
+            this.provinceName = name
             this.getData()
         }
 

@@ -2,12 +2,12 @@ module.exports = {
     publicPath:'./',
     devServer: {
         proxy: {
-           '/cloudwise': {
+            '/ITTest': {
                 //target: 'http://10.124.193.151:8082',
-                target: 'https://tianyan.tg.unicom.local',
+                target: 'http://10.161.12.1:8070',
                 changeOrigin: true,
                 ws: false,
-                pathRewrite: { '^/cloudwise': '/cloudwise' }
+                pathRewrite: { '^/ITTest': '/ITTest' }
             },
         }
     }

@@ -53,7 +53,12 @@ export default {
             if (arr.length > 0) {
                 arr.forEach(ele => {
                     this.xAxisData.push(Number(ele.date.split('-')[2]))
-                    this.seriesData.push(ele.malltrade)
+                    if(this.flag==1){
+                        this.seriesData.push(ele.outertrade)
+                    }else{
+                        this.seriesData.push(ele.malltrade)
+                    }
+                    
                 })
             }
         },

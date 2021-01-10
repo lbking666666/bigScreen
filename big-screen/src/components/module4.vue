@@ -18,6 +18,14 @@ export default {
             type: Array,
             default: () => ([])
         },
+        min: {
+            type: Number,
+            default: 0
+        },
+        max: {
+            type: Number,
+            default: 100
+        },
     },
     data() {
         return {
@@ -150,8 +158,8 @@ export default {
                     }
                 },
                 visualMap: {
-                    max: 20000,
-                    min: 1000,
+                    max: this.max,
+                    min:this.min,
                     show: false,
                     text: ['High', 'Low'],
                     realtime: false,
@@ -222,7 +230,7 @@ export default {
         },
         reBack() {
             if (this.back) {
-                this.$emit('reName', '00')
+                this.$emit('reName', '全国','00')
                 this.cityName = ''
                 map.dispose();
                 this.initMap('china');
@@ -265,7 +273,7 @@ export default {
             let self = this
             axios.get(`./map/province/${eName}.json`).then(res => {
                 echarts.registerMap(eName, res.data);
-                this.$emit('reName', param, code)
+                this.$emit('reName',param, code)
                 self.cityName = eName
                 map.dispose();
                 self.initMap(eName);
