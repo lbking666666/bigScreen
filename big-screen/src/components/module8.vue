@@ -20,7 +20,7 @@
 					<div class="index" v-else><i class="index-icon" :class="`icon-${index}`"></i></div>
 
 					<div class="name">{{tabIndex == 0 ? item.product_name : item.function_name}}</div>
-					<div class="order-num">{{tabIndex == 0 ? item.product_count : item.function_count}}</div>
+					<div class="order-num">{{tabIndex == 0 ? formatterNumber(item.product_count) : formatterNumber(item.function_count)}}</div>
 				</div>
 			</div>
 		</div>
@@ -29,6 +29,7 @@
 
 <script>
 	import CommonTitle from './commonTitle'
+	import {formatterNumber} from '@/utils/filterNum'
     export default {
 		name: "",
 		components: {
@@ -55,6 +56,9 @@
 		methods:{
 			tabChange (tab) {
 				this.tabIndex = tab
+			},
+			formatterNumber (val) {
+				return formatterNumber(val)
 			}
 		}
 	}
@@ -250,7 +254,7 @@
 		.order-num{
 			width: 133px;
 			text-align: center;
-			padding-right: 57px;
+			// padding-right: 57px;
 			font-size: 14px;
 			font-family: PingFangSC-Medium, PingFang SC;
 			font-weight: 500;

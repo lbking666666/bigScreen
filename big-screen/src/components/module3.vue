@@ -10,6 +10,7 @@
 let chart = null
 import * as echarts from "echarts";
 import commonTitle from "./commonTitle";
+import {formatterNumber} from '@/utils/filterNum'
 export default {
     name: "roseCharts",
     props: {
@@ -39,13 +40,15 @@ export default {
             let option = {
                 tooltip: {
                     trigger: 'item',
-                    formatter: ' {c} 户',
-                     backgroundColor: 'rgba(0,0,0,0.6)',
-                        textStyle: {
-                            color: '#fff',
-                            fontSize: 14,
-                            fontWeight: 600
-                        },
+                    formatter: (val)=> {
+                        return formatterNumber(val.value) + '户'
+                    },
+                    backgroundColor: 'rgba(0,0,0,0.6)',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 14,
+                        fontWeight: 600
+                    },
                 },
                 grid: {
                     left: '3%',
@@ -63,11 +66,14 @@ export default {
                         roseType: 'area',
                         label:{
                         	fontSize:15,
-                        	 shadowColor:'transparent',
-                        	 borderWidth:0,
-                        	 color:'#fff',
+                            shadowColor:'transparent',
+                            borderWidth:0,
+                            color:'#fff',
+                            formatter: (val)=> {
+                                return `${val.name} ${val.percent.toFixed(1)}%`
+                            }
                         },
-                        data:this.module3Data
+                        data: this.module3Data
                     }
                 ]
             };

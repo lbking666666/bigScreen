@@ -81,7 +81,7 @@ export default {
                             color: '#2EB2B3'
                         }
                     },
-                    boundaryGap: true,
+                    boundaryGap: false,
                     splitArea: {
                         show: true,
                         areaStyle: {
@@ -89,7 +89,7 @@ export default {
                         }
                     },
                     axisLabel: {
-                        rotate: 45,
+                        rotate: 0,
                         fontSize: 10,
                         interval: 0
                     },
@@ -117,18 +117,21 @@ export default {
                 yAxis: {
                     type: 'value',
                     show: true,
-                    name: '单位：万',
+                    name: '单位：千万',
                     nameLocation: 'end',
                     axisLabel: {
                         formatter: function(value, index) {
-                            // let str = ''
-                            // if (value > 10000) {
+                            let str = ''
+                            // if (value > 10000 && value < 10000000) {
                             //     str = (value / 10000).toFixed(1) + 'w'
+                            // } else if (value >= 10000000) {
+                            //     str = (value / 10000000).toFixed(1) + 'kw'
                             // } else {
                             //     str = value
                             // }
-                            // return str;
-                            return value
+                            str = (value / 10000000).toFixed(1)
+                            return str;
+                            // return value
                         }
                     },
                     axisLine: {

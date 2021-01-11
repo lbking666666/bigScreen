@@ -181,35 +181,53 @@ export default {
                                 }
                                 this.leftData = data1;
                                 //module2数据
-                                let data2 = {
-                                    day: [{
+                                let allDayD = Number(values.cbfrontinnetday) + Number(values.woinnetday) + Number(values.otherinnetday)
+                                let allMonD = Number(values.cbfrontinnetmonth) + Number(values.woinnetmonth) + Number(values.otherinnetmonth)
+
+                                let data2Day = [
+                                    {
                                         name: 'cB前台',
                                         value: values.cbfrontinnetday,
-                                        per: 80,
+                                        per: (100*values.cbfrontinnetday/allDayD).toFixed(1),
                                     }, {
                                         name: '掌沃通',
                                         value: values.woinnetday,
-                                        per: 20,
+                                        per: (100*values.woinnetday/allDayD).toFixed(1),
                                     }, {
                                         name: '其他',
                                         value: values.otherinnetday,
-                                        per: 30,
-                                    }],
-                                    month: [{
+                                        per: (100*values.otherinnetday/allDayD).toFixed(1),
+                                    }
+                                ]
+
+                                let data2Month = [
+                                    {
                                         name: 'cB前台',
                                         value: values.cbfrontinnetmonth,
-                                        per: 90,
+                                        per: (100*values.cbfrontinnetmonth/allMonD).toFixed(1),
                                     }, {
                                         name: '掌沃通',
                                         value: values.woinnetmonth,
-                                        per: 30,
+                                        per: (100*values.woinnetmonth/allMonD).toFixed(1),
                                     }, {
                                         name: '其他',
                                         value: values.otherinnetmonth,
-                                        per: 26,
-                                    }],
+                                        per: (100*values.otherinnetmonth/allMonD).toFixed(1),
+                                    }
+                                ]
+
+                                data2Day.sort(function(a,b){
+                                    return b.value - a.value
+                                })
+                                data2Month.sort(function(a,b){
+                                    return b.value - a.value
+                                })
+
+                                this.module2Data = {
+                                    day: data2Day,
+                                    month: data2Month
                                 }
-                                this.module2Data = data2
+
                                 //module3数据
                                 let data3 = [{ value: values.mobile, name: '移网' },
                                     { value: values.broadband, name: '宽带' },
@@ -369,13 +387,12 @@ export default {
             position: absolute;
             top: 33px;
             right: 30px;
-            width: 250px;
             height: 34px;
             font-family: 'LedFont';
             font-size: 28px;
             color: #88d7fd;
             letter-spacing: .93px;
-            text-align: left;
+            text-align: right;
             line-height: 34px;
         }
     }

@@ -14,7 +14,7 @@
             <span class="top-title-right">发展量</span>
         </div>
         <div style="margin-top: 80px;" v-if="showData">
-            <div class="container" v-for="(item,index) in listData">
+            <div class="container" v-for="(item,index) in listData" :key="index">
                 <div class="title">{{item.name}}</div>
                 <div class="process">
                 	<div class="process-dot" :style="'background:'+bc[index]"></div>

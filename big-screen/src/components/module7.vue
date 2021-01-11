@@ -4,23 +4,23 @@
         <div class="unit">单位：笔</div>
         <div class="container">
             <div class="box">
-                <div class="box-title">5g订购数</div>
-                <div class="box-count">{{module7Data.order5g}}</div>
+                <div class="box-title">5G订购数</div>
+                <div class="box-count" :class="resizeFontSize(module7Data.order5g)">{{formatterNumber(module7Data.order5g)}}</div>
             </div>
             <div class="box pointer">
                 <div class="box-title">跨域用户数</div>
-                <div class="box-count">{{module7Data.crossuser}}</div>
+                <div class="box-count" :class="resizeFontSize(module7Data.crossuser)">{{formatterNumber(module7Data.crossuser)}}</div>
                 <div class="pointer-view">
-                    <p>套餐数：{{module7Data.crossmixmenu}}</p>
-                    <p>用户数：{{module7Data.crossmixuser}}</p>
+                    <p>套餐数：{{formatterNumber(module7Data.crossmixmenu)}}</p>
+                    <p>用户数：{{formatterNumber(module7Data.crossmixuser)}}</p>
                 </div>
             </div>
             <div class="box pointer">
                 <div class="box-title">携号转网</div>
-                <div class="box-count">{{module7Data.portability}}</div>
+                <div class="box-count" :class="resizeFontSize(module7Data.portability)">{{formatterNumber(module7Data.portability)}}</div>
                 <div class="pointer-view">
-                    <p>携入数：{{module7Data.portability_in}}</p>
-                    <p>携出数：{{module7Data.portability_out}}</p>
+                    <p>携入数：{{formatterNumber(module7Data.portability_in)}}</p>
+                    <p>携出数：{{formatterNumber(module7Data.portability_out)}}</p>
                 </div>
             </div>
         </div>
@@ -29,6 +29,7 @@
 
 <script>
     import commonTitle from "./commonTitle";
+    import {formatterNumber} from '@/utils/filterNum'
 
     export default {
 		name: "",
@@ -48,12 +49,40 @@
 		mounted() {
 		},
 		methods:{
-			
+			formatterNumber(val){
+                return formatterNumber(val)
+            },
+            resizeFontSize(num){
+                let numStr = String(num)
+                let returnClass = ''
+                if (numStr.length <= 6) {
+                    returnClass = 'font-size-32'
+                } else if (numStr.length == 7) {
+                    returnClass = 'font-size-28'
+                } else if (numStr.length == 8) {
+                    returnClass = 'font-size-25'
+                } else if (numStr.length == 9) {
+                    returnClass = 'font-size-23'
+                }
+                return returnClass
+            }
 		}
 	}
 </script>
 
 <style lang="less" scoped>
+    .font-size-23{
+        font-size: 23px !important;
+    }
+    .font-size-25{
+        font-size: 25px !important;
+    }
+    .font-size-28{
+        font-size: 28px !important;
+    }
+    .font-size-32{
+        font-size: 32px !important;
+    }
     .module7{
         width: 100%;
         height: 170px;

@@ -8,6 +8,7 @@
 <script>
 import * as echarts from "echarts";
 import axios from 'axios';
+import {formatterNumber} from '@/utils/filterNum'
 let chinaMap = require('./map/china.json')
 let map = null,
     time = null
@@ -151,21 +152,36 @@ export default {
                     trigger: 'item',
                     formatter: function(params) {
                         if (params.value) {
-                            return params.name + '<br/>用户量:' + params.value+ '<br/>今日出账数：' + params.data.billuser + '<br/>今日开户数:' + params.data.user + '<br/>arup值:' + params.data.arpu
+                            return params.name + '<br/>用户量:' + formatterNumber(params.value)
+                                    + '<br/>今日出账数：' + formatterNumber(params.data.billuser)
+                                    + '<br/>今日开户数:' + formatterNumber(params.data.user)
+                                    + '<br/>arup值:' + formatterNumber(params.data.arpu)
                         } else {
                             return params.name
                         }
                     }
                 },
                 visualMap: {
-                    max: this.max,
-                    min:this.min,
-                    show: false,
-                    text: ['High', 'Low'],
+                    type: 'piecewise',
+                    splitNumber: 5,
+                    pieces: [
+                        {gt: 50000000, label: '>=5000W'},
+                        {gt: 40000000, lte: 50000000, label: '4000W-5000W'},
+                        {gt: 20000000, lte: 40000000, label: '2000W-4000W'},
+                        {gt: 10000000, lte: 20000000, label: '1000W-2000W'},
+                        {lte: 10000000, label: '0-999W'}
+                    ],
+                    show: true,
+                    textStyle: {
+                        color: "#ffffff"
+                    },
+                    formatter: (val)=> {
+                        return formatterNumber(val)
+                    },
                     realtime: false,
                     calculable: true,
                     inRange: {
-                        color: ['#2569BB', '#62A5E6']
+                        color: ['#62A5E6', '#2569BB']
                     }
                 },
                 legend: {
