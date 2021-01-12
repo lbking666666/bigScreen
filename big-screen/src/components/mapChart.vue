@@ -204,6 +204,8 @@ export default {
                 geo: [{
                     map: name,
                     roam: false,
+                    zlevel:1,
+                    index:0,
                      zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang'||name =='gansu'||name =='guangdong') ? 0.8 : 1),
                     top: (name == 'heilongjiang'||name =='gansu')? '20%' : 'center',
                     left: (name == 'heilongjiang'||name =='gansu') ? '25%' : 'center',
@@ -221,7 +223,9 @@ export default {
                     },
                 },{
                     map: name,
-                    roam: false,
+                    roam: true,
+                    index:1,
+                    zlevel:2,
                     zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang'||name =='gansu'||name =='guangdong') ? 0.8 : 1),
                     top: (name == 'heilongjiang'||name =='gansu')? '20%' : 'center',
                     left: (name == 'heilongjiang'||name =='gansu') ? '25%' : 'center',
@@ -274,14 +278,14 @@ export default {
                         name: '已托管',
                         type: "map",
                         color: '#62A5E6',
-                        geoIndex: 0,
+                        geoIndex: 1,
                         zlevel:1,
                         data: this.mapData.used,
                     }, {
                         name: '未托管',
                         type: "map",
                         color: '#2569BB',
-                        geoIndex: 0,
+                        geoIndex: 1,
                         zlevel:1,
                         data: this.mapData.unUsed
                     }, {
