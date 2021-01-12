@@ -68,17 +68,18 @@
 		},
         methods:{
             transNumber( num ){
-                let nums = String(num).split('').reverse() // 获取之后反转顺序
-                let newArray = []
                 let oldArray = this.numberStr.reverse() // 用于逐字比较的字符串数组
-                for(let i=0; i<nums.length; i++){
-                    let newItem = nums[i]
-                    newArray.push(newItem)
-                    if(i%3 == 2) {
-                        newArray.push(',')
-                    }
+
+                let numInt = String(num)
+                let resultInt = ''
+                while (numInt.length > 3) {
+                    resultInt = ',' + numInt.slice(-3) + resultInt
+                    numInt = numInt.slice(0, numInt.length - 3)
                 }
-                this.numberStr = newArray.reverse()
+                if (numInt) {
+                    resultInt = numInt + resultInt;
+                }
+                this.numberStr = resultInt.split('')
                 this.fetchNum = num // 完成动画后更新为newNum
             }
 		}
