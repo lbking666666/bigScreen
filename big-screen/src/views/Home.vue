@@ -86,20 +86,6 @@
                 </div>
             </div>
             <div class="right-box">
-                <div class="rank common-style-high">
-                    <div class="title">
-                        <div class="icons">
-                            <img src="../assets/img/quanguo.png" alt="">
-                        </div>
-                        <div class="title-text">
-                            全国涨幅省分排行榜
-                        </div>
-                    </div>
-                    <!--组件引入-->
-                    <div class="ranking-box">
-                        <ranking :rankingList='rankingList' />
-                    </div>
-                </div>
                 <div class="interaction common-style">
                     <div class="title">
                         <div class="icons">
@@ -129,6 +115,20 @@
                     </div>
                 </div>
                 
+                <div class="rank common-style-high">
+                    <div class="title">
+                        <div class="icons">
+                            <img src="../assets/img/quanguo.png" alt="">
+                        </div>
+                        <div class="title-text">
+                            全国涨幅省分排行榜
+                        </div>
+                    </div>
+                    <!--组件引入-->
+                    <div class="ranking-box">
+                        <ranking :rankingList='rankingList' />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
