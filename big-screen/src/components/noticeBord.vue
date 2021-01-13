@@ -39,7 +39,7 @@
 					<span v-else>持平</span>。
 				</p>
 				<p>
-					外部客户累计量{{externalData.totalNum}}
+					外部客户累积量{{externalData.totalNum}}
 				</p>
 			</div>
 
@@ -77,7 +77,7 @@
 					<span v-else>持平</span>；
 				</p>
 				<p>
-					内部员工累计量{{userData.totalNum}}
+					内部员工累积量{{userData.totalNum}}
 				</p>
 			</div>
 		</div>
@@ -157,7 +157,7 @@
 		vertical-align: top;
 	}
 	.bord-user{
-		padding-bottom: 25px;
+		padding-bottom: 14px;
 		border-bottom: 2px dashed rgba(98, 255, 254, .3);
 		font-size: 18px;
 		p{
@@ -177,7 +177,7 @@
 		}
 	}
 	.bord-external{
-		margin-top: 25px;
+		margin-top: 14px;
 		font-size: 18px;
 		p{
 			font-weight: 400;

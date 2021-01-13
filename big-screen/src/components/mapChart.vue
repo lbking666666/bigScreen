@@ -199,7 +199,7 @@ export default {
                     textStyle: {
                         color: '#fff'
                     },
-                    data: ['已托管', '未托管'],
+                    data: ['已推广', '未推广'],
                     orient: 'vertical',
                 },
                 geo: [{
@@ -276,14 +276,14 @@ export default {
 
                 }],
                 series: [{
-                        name: '已托管',
+                        name: '已推广',
                         type: "map",
                         color: '#62A5E6',
                         geoIndex: 1,
                         zlevel: 1,
                         data: this.mapData.used,
                     }, {
-                        name: '未托管',
+                        name: '未推广',
                         type: "map",
                         color: '#2569BB',
                         geoIndex: 1,

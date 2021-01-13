@@ -5,21 +5,6 @@
         </div>
         <div class="container">
             <div class="left-box">
-                <div class="notice-wrap common-style-high">
-                    <div class="title">
-                        <div class="icons">
-                            <img src="../assets/img/gaoshiban.png" alt="">
-                        </div>
-                        <div class="title-text">
-                            告示板
-                        </div>
-                    </div>
-                    <div class="line-chart">
-                        <noticeBord :provinceName="provinceName"
-                                    :userData='noticeBordData.userData'
-                                    :externalData='noticeBordData.externalData' />
-                    </div>
-                </div>
                 <div class="external common-style">
                     <div class="title">
                         <div class="icons">
@@ -37,21 +22,34 @@
                         <lineChart :xData="externalXData" :yData="externalYData" :color="'rgba(110, 239, 155, 1)'"></lineChart>
                     </div>
                 </div>
-                <div class="inside common-style">
+
+                <div class="interaction common-style">
                     <div class="title">
                         <div class="icons">
-                            <img src="../assets/img/neibuzengliang.png" alt="">
+                            <img src="../assets/img/hudong.png" alt="">
                         </div>
                         <div class="title-text">
-                            {{provinceName||'全国'}}内部员工新增量
-                        </div>
-                        <div class="query-option">
-                            <div class="options" :class="flag1==11?'opt-active':''" @click="selInside(11)"><div>月</div></div>
-                            <div class="options" :class="flag1==10?'opt-active':''" @click="selInside(10)"><div>日</div></div>
+                            客户互动分析
                         </div>
                     </div>
-                    <div class="line-chart">
-                        <lineChart :xData="insideXData" :yData="insideYData" :color="'rgba(91, 167, 255, 1)'"></lineChart>
+                    <!--组件引入-->
+                    <div class="interaction-box">
+                        <interaction :showWechatData="showWechatData"></interaction>
+                    </div>
+                </div>
+
+                <div class="task common-style">
+                    <div class="title">
+                        <div class="icons">
+                            <img src="../assets/img/renwu.png" alt="">
+                        </div>
+                        <div class="title-text">
+                            维系任务量
+                        </div>
+                    </div>
+                    <!--组件引入-->
+                    <div class="mainten-box">
+                        <mainten :maintenData="maintenData" />
                     </div>
                 </div>
             </div>
@@ -61,7 +59,7 @@
                         <numberBord :title="'外部客户累积量'" :bordNumber="externalTotal" :setTime="setTime" />
                     </div>
                     <div class="number-bord-box">
-                        <numberBord :title="'外部客户新增量'" :bordNumber="externalAdd" :setTime="setTime" />
+                        <numberBord :title="'外部客户日新增量'" :bordNumber="externalAdd" :setTime="setTime" />
                     </div>
                 </div>
                 <div class="map-chart-home">
@@ -86,34 +84,40 @@
                 </div>
             </div>
             <div class="right-box">
-                <div class="interaction common-style">
+                <div class="notice-wrap common-style-high">
                     <div class="title">
                         <div class="icons">
-                            <img src="../assets/img/hudong.png" alt="">
+                            <img src="../assets/img/gaoshiban.png" alt="">
                         </div>
                         <div class="title-text">
-                            客户互动分析
+                            告示板
                         </div>
                     </div>
-                    <!--组件引入-->
-                    <div class="interaction-box">
-                        <interaction :showWechatData="showWechatData"></interaction>
+                    <div class="line-chart">
+                        <noticeBord :provinceName="provinceName"
+                                    :userData='noticeBordData.userData'
+                                    :externalData='noticeBordData.externalData' />
                     </div>
                 </div>
-                <div class="task common-style">
+
+                <div class="inside common-style">
                     <div class="title">
                         <div class="icons">
-                            <img src="../assets/img/renwu.png" alt="">
+                            <img src="../assets/img/neibuzengliang.png" alt="">
                         </div>
                         <div class="title-text">
-                            维系任务量
+                            {{provinceName||'全国'}}内部员工新增量
+                        </div>
+                        <div class="query-option">
+                            <div class="options" :class="flag1==11?'opt-active':''" @click="selInside(11)"><div>月</div></div>
+                            <div class="options" :class="flag1==10?'opt-active':''" @click="selInside(10)"><div>日</div></div>
                         </div>
                     </div>
-                    <!--组件引入-->
-                    <div class="mainten-box">
-                        <mainten :maintenData="maintenData" />
+                    <div class="line-chart">
+                        <lineChart :xData="insideXData" :yData="insideYData" :color="'rgba(91, 167, 255, 1)'"></lineChart>
                     </div>
                 </div>
+                
                 
                 <div class="rank common-style-high">
                     <div class="title">
@@ -161,7 +165,7 @@ export default {
         return {
             flag1: 10,
             flag2: 10,
-            flag3: 30,
+            flag3: 7,
             areaCode: 1,
             noticeBordData: {},
             remap:0,
@@ -526,6 +530,7 @@ export default {
             }
         }
         .container{
+            height: 960px;
             display: flex;
             flex-direction: row;
             justify-content: center;
@@ -533,10 +538,10 @@ export default {
             // 通用样式 高的div
             .common-style-high{
                 width: 500px;
-                height: 328px;
+                height: 300px;
                 background: url("../assets/img/dingbukuang.png") no-repeat;
                 background-size: 100% 100%;
-                margin-bottom: 24px;
+                // margin-bottom: 24px;
             }
             // 通用样式 低的div
             .common-style{
@@ -546,22 +551,18 @@ export default {
                 background-size: 100% 100%;
             }
             .left-box{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
                 .external{
-                    margin-bottom: 20px;
                     display: flex;
                     flex-direction: column;
+                    height: 320px;
                     .line-chart{
                         width: 100%;
-                        height: 257px;
+                        height: 277px;
                     }
                 }
-                .inside {
-                    .line-chart{
-                        width: 100%;
-                        height: 257px;
-                    }
-                }
-
             }
             .center-box{
                 width: 860px;
@@ -624,9 +625,12 @@ export default {
                 }
             }
             .right-box{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
                 .rank{
                     width: 500px;
-                    height: 330px;
+                    height: 320px;
                     margin-bottom: 0px;
                     .ranking-box{
                         height: 240px;
@@ -642,6 +646,10 @@ export default {
                 }
                 .task{
                     margin-bottom: 20px;
+                }
+                .line-chart{
+                    width: 100%;
+                    height: 247px;
                 }
             }
         }
