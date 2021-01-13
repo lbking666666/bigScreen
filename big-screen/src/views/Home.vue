@@ -14,8 +14,8 @@
                             {{provinceName||'全国'}}外部客户新增量
                         </div>
                         <div class="query-option">
-                            <div class="options" :class="flag2==11?'opt-active':''" @click="selExternal(11)"><div>月</div></div>
                             <div class="options" :class="flag2==10?'opt-active':''" @click="selExternal(10)"><div>日</div></div>
+                            <div class="options" :class="flag2==11?'opt-active':''" @click="selExternal(11)"><div>月</div></div>
                         </div>
                     </div>
                     <div class="line-chart">
@@ -76,9 +76,9 @@
                         </div>
                     </div>
                     <div class="bar-chart-option">
-                        <div class="options" :class="flag3==365?'opt-active':''" @click="selTotal(365)"><div>年</div></div>
-                        <div class="options" :class="flag3==30?'opt-active':''" @click="selTotal(30)"><div>月</div></div>
                         <div class="options" :class="flag3==7?'opt-active':''" @click="selTotal(7)"><div>日</div></div>
+                        <div class="options" :class="flag3==30?'opt-active':''" @click="selTotal(30)"><div>月</div></div>
+                        <div class="options" :class="flag3==365?'opt-active':''" @click="selTotal(365)"><div>年</div></div>
                     </div>
                     <barChart :xData="barXData" :yData="barYData" :maxDataNum="maxDataNum"></barChart>
                 </div>
@@ -109,8 +109,8 @@
                             {{provinceName||'全国'}}内部员工新增量
                         </div>
                         <div class="query-option">
-                            <div class="options" :class="flag1==11?'opt-active':''" @click="selInside(11)"><div>月</div></div>
                             <div class="options" :class="flag1==10?'opt-active':''" @click="selInside(10)"><div>日</div></div>
+                            <div class="options" :class="flag1==11?'opt-active':''" @click="selInside(11)"><div>月</div></div>
                         </div>
                     </div>
                     <div class="line-chart">
