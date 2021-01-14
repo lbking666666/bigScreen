@@ -60,8 +60,9 @@ import {
     AI_Credit,
     AI_Produce,
     AsynOpen,
-    queryTop10ByProvince,
+    queryUserCountByProvince,
     queryOrderCount,
+    queryTop10ByProvince,
     AI_Billing_00003_YMD,
     AI_Billing_00002_YMD,
     queryCBSSOpenCount
@@ -86,7 +87,7 @@ export default {
     },
     data() {
         return {
-            provinceCode: '00',
+            provinceCode: 'ZZ',
             module1Data: {},
             module2Data: {},
             module3Data: [],
@@ -135,6 +136,12 @@ export default {
             this.AI_Credit()
             this.AI_Produce()
             this.AsynOpen()
+            this.getQueryUserCountByProvince()
+            this.getQueryTop10ByProvince()
+            this.getQueryOrderCount()
+            this.getAI_Billing_00003_YMD()
+            this.getAI_Billing_00002_YMD()
+            this.getQueryCBSSOpenCount()
         },
         AI_Cz_Users() {
             let params = { prov_code: 'ZZ' }
@@ -224,11 +231,48 @@ export default {
                 console.log('AsynOpen', res)
             })
         },
-        getQueryTop10ByProvince() {
-            queryTop10ByProvince().then(res => {
-
+        getQueryUserCountByProvince(){
+            let params = {
+                provinceCode:(this.provinceCode!='ZZ')?this.provinceCode:'00'
+            }
+            queryUserCountByProvince(params).then(res=>{
+                 if (res.code == 200) {
+                    this.module6Data = []
+                    if (res.data.length > 0) { //判断是否返回数据且不为空
+                        let list = []
+                        res.data.map(item => {
+                            if (item.name != '全国总量') {
+                                let arr = item.value.split(',')
+                                let obj = {
+                                    areaName: item.name,
+                                    number: Number(arr[0].split('=')[1]),
+                                    arpu: Number(arr[1].split('=')[1].replace('}', ""))
+                                }
+                                list.push(obj)
+                            }
+                        })
+                        let arr = list.sort(function (a, b) { return b.number - a.number; })     
+                        this.module6Data = arr
+                    }
+                }
             })
         },
+        getQueryTop10ByProvince() {
+            let params = {
+                provinceCode:this.provinceCode,
+                timeDimension:'month'
+            }
+            queryTop10ByProvince(params).then(res => {
+                if (res.code == 200) {
+                    if (res.data.length > 0) {
+                        console.log(res.data)
+                        this.module9Data = res.data
+                    }
+
+                }
+            })
+        },
+
         getQueryOrderCount() {
             queryOrderCount().then(res => {
 
