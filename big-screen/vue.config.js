@@ -15,6 +15,12 @@ module.exports = {
                 ws: false,
                 pathRewrite: { '^/screenapi': '/screenapi' }
             },
+            '/screenapi': {
+                target: 'http://10.161.67.41:9002',
+                changeOrigin: true,
+                ws: false,
+                pathRewrite: { '^/screenapi': '/screenapi' }
+            },
             '/BaseUrlB': {
                 target: 'http://10.161.12.1:9099',
                 changeOrigin: true,

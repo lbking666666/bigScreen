@@ -82,20 +82,20 @@ export function geAllData(data){
 
 // @Param("prov_code") String
 export function AI_Cz_Users(data){
-    const url = '/screenapi/AI_Cz_Users'
+    const url = `/screenapi/AI_Cz_Users`
     return getApi(url, data)
 }
 
 // @Param("prov_code") String
 // @Param("cycle") Number
 export function AI_Cz_Process_Card(data){
-    const url = `/BaseUrlA/screenapi/AI_Cz_Process_Card`
+    const url = `/screenapi/AI_Cz_Process_Card`
     return getApi(url, data)
 }
 
 // @Param("prov_code") String
 export function AI_Billing(data){
-    const url = `/BaseUrlA/screenapi/AI_Billing_00001`
+    const url = `/screenapi/AI_Billing_00001`
     return getApi(url, data)
 }
 

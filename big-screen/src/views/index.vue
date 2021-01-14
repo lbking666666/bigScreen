@@ -52,7 +52,8 @@ import module8 from '@/components/module8.vue';
 import module9 from '@/components/module9.vue';
 import {
     AI_Cz_Users,
-    AI_Cz_Process_Card,queryTop10ByProvince,queryOrderCount,AI_Billing_00003_YMD,AI_Billing_00002_YMD,queryCBSSOpenCount
+    AI_Cz_Process_Card,
+    AI_Billing,queryTop10ByProvince,queryOrderCount,AI_Billing_00003_YMD,AI_Billing_00002_YMD,queryCBSSOpenCount
 
 } from '@/api/index.js';
 import numberBord from '@/components/numberBord.vue';
@@ -119,6 +120,7 @@ export default {
             this.getModule9Data()
             this.AI_Cz_Users()
             this.AI_Cz_Process_Card()
+            this.AI_Billing()
         },
         AI_Cz_Users(){
             let params = {prov_code: 'ZZ'}
@@ -130,6 +132,12 @@ export default {
             let params = {prov_code: 'ZZ', cycle: '202012'}
             AI_Cz_Process_Card(params).then(res=>{
                 console.log('AI_Cz_Process_Card', res)
+            })
+        },
+        AI_Billing(){
+            let params = {prov_code: 'ZZ'}
+            AI_Billing(params).then(res=>{
+                console.log('AI_Billing', res)
             })
         },
         getModule6Data() {
