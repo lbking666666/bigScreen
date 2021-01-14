@@ -35,7 +35,7 @@
 		},
 		data(){
 			return{
-				titleText: '计费信控情况',
+				titleText: '生产运营情况',
 				dataA: 2342,
 				dataB: 342423,
 				dataC: 43412
