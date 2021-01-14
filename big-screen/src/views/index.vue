@@ -42,7 +42,9 @@ import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
 import module9 from '@/components/module9.vue';
-import { geAllData, getMapData, getModule6, getModule7, getModule8,getModule9, getBigData ,AI_Cz_Users} from '@/api/index.js';
+import {
+    AI_Cz_Users
+} from '@/api/index.js';
 import { timestampConversion } from '@/utils/unixToTime.js'
 export default {
     name: 'Home',
@@ -92,202 +94,23 @@ export default {
             // 在这里执行切换整屏的数据
         },
         getMapData() {
-            getMapData().then(res => {
-                if (res.code == 200) {
-                    let list = []
-                    let sort = []
-                    res.data.forEach(item => {
-                        if (item.name !== '全国总量') {
-                            let values = item.value
-                            let params = {
-                                name: item.name,
-                                value: values.usercount,
-                                user: values.cbinnetday,
-                                billuser: values.billuser,
-                                arpu: values.arpu,
-                                code: values.province_code
-                            }
-                            list.push(params)
-                            sort.push(values.usercount)
-                        }
-                    })
-                    sort.sort(function(a, b) {
-                        return a - b;
-                    });
-                    this.min = Number(sort[0])
-                    this.max = Number(sort[30])
-                    this.mapData = list
-                }
-            })
+            
         },
         getData() {
-            this.getBigData();
             this.getModule6Data()
             this.getModule7Data()
             this.getModule8Data()
             this.getModule9Data()
-            this.getAI_Cz_Users()
+            this.AI_Cz_Users()
         },
-        getAI_Cz_Users(){
-            // AI_Cz_Users().then(res=>{
-            //     console.log(1111,res)
-            // })
-        },
-        getBigData() {
-            let params = {
-                provinceCode: this.provinceCode
-            }
-            getBigData(params).then(res => {
-                if (res.code == 200) {
-                    //请求接口获取今日开户量比较数据
-                    geAllData({ provinceCode: this.provinceCode }).then(res => {
-                        let list = res.data.twoIandTkjData.minute
-                        let list2 = res.data.BusinessAcceptanceData.month
-                        if (list && list2) {
-                            let cbTotal = 0 //今日总量
-                            let yesdayTotal = 0; //昨日总量
-                            let oldYesdayTotal = 0;
-                            let sendayTotal = 0; //七日总量
-                            let dayNum = 0; //七日天数七日平均数
-                            for (let i in list) { //循环计算出今日总量
-                                if (this.provinceName.indexOf(i) != -1) {
-                                    let arr = list[i].series['总开户量']
-                                    let len = arr.length
-                                    let num = arr[len - 1]
-                                    cbTotal = Number(num)
-                                }
-
-                            }
-
-                            for (let i in list2) { //循环计算出七日总量及七日具体天数
-                                if (this.provinceName.indexOf(i) != -1) {
-                                    let arr = list2[i].series['总开户量']
-                                    let len = arr.length
-                                    let num = arr[len - 1]
-                                    yesdayTotal = Number(num)
-                                    oldYesdayTotal = Number(arr[len - 2])
-                                    let newArr = []
-                                    if (len > 9) {
-                                        newArr = arr.slice(len - 9, len - 2)
-                                        dayNum = 7
-                                    } else {
-                                        newArr = arr
-                                        dayNum = len - 2
-                                    }
-                                    newArr.forEach((i) => {
-                                        sendayTotal += Number(i)
-                                    })
-                                }
-
-                            }
-
-                            let sevenNum = Number(sendayTotal / dayNum).toFixed(0) //
-                            //组装数据
-                            let data = {
-                                todayCount: cbTotal,
-                                lastDayPercent: (yesdayTotal - oldYesdayTotal) / oldYesdayTotal,
-                                lastSevenPercent: (yesdayTotal - sevenNum) / sevenNum
-                            }
-                            this.module1Data = data
-                        }
-
-                    })
-                    //循环数据拼接module1、2、3、4数据
-                    res.data.map(item => {
-                        if (item.name.indexOf(this.provinceName) != 1) {
-                            let values = item.value
-                            if (values) { //判断数据是否返回
-                                //module1左侧数据
-                                let data1 = {
-                                    userCount: values.usercount,
-                                    onlineCount: values.billuser
-                                }
-                                this.leftData = data1;
-                                //module2数据
-                                let allDayD = Number(values.cbfrontinnetday) + Number(values.woinnetday) + Number(values.otherinnetday)
-                                let allMonD = Number(values.cbfrontinnetmonth) + Number(values.woinnetmonth) + Number(values.otherinnetmonth)
-
-                                let data2Day = [{
-                                    name: 'cB前台',
-                                    value: values.cbfrontinnetday,
-                                    per: (100 * values.cbfrontinnetday / allDayD).toFixed(1),
-                                }, {
-                                    name: '掌沃通',
-                                    value: values.woinnetday,
-                                    per: (100 * values.woinnetday / allDayD).toFixed(1),
-                                }, {
-                                    name: '其他',
-                                    value: values.otherinnetday,
-                                    per: (100 * values.otherinnetday / allDayD).toFixed(1),
-                                }]
-
-                                let data2Month = [{
-                                    name: 'cB前台',
-                                    value: values.cbfrontinnetmonth,
-                                    per: (100 * values.cbfrontinnetmonth / allMonD).toFixed(1),
-                                }, {
-                                    name: '掌沃通',
-                                    value: values.woinnetmonth,
-                                    per: (100 * values.woinnetmonth / allMonD).toFixed(1),
-                                }, {
-                                    name: '其他',
-                                    value: values.otherinnetmonth,
-                                    per: (100 * values.otherinnetmonth / allMonD).toFixed(1),
-                                }]
-
-                                data2Day.sort(function(a, b) {
-                                    return b.value - a.value
-                                })
-                                data2Month.sort(function(a, b) {
-                                    return b.value - a.value
-                                })
-
-                              /*  this.module2Data = {
-                                    day: data2Day,
-                                    month: data2Month
-                                }*/
-
-                                //module3数据
-                                let data3 = [{ value: values.mobile, name: '移网' },
-                                    { value: values.broadband, name: '宽带' },
-                                    { value: values.iptv, name: 'iptv' },
-                                    { value: values.telephone, name: '固话' },
-                                    { value: values.otheruser, name: '其它' }
-                                ]
-                                this.module3Data = data3
-                            }
-
-                        }
-                    })
-
-                }
+        AI_Cz_Users(){
+            let params = {prov_code: 'ZZ'}
+            AI_Cz_Users().then(res=>{
+                console.log('AI_Cz_Users', res)
             })
         },
         getModule6Data() {
-            let params = {
-                provinceCode: this.provinceCode
-            }
-            getModule6(params).then(res => {
-                if (res.code == 200) {
-                    this.module6Data = []
-                    if (res.data.length > 0) { //判断是否返回数据且不为空
-                        let list = []
-                        res.data.map(item => {
-                            if (item.name != '全国总量') {
-                                let arr = item.value.split(',')
-                                let obj = {
-                                    areaName: item.name,
-                                    number: Number(arr[0].split('=')[1]),
-                                    arpu: Number(arr[1].split('=')[1].replace('}', ""))
-                                }
-                                list.push(obj)
-                            }
-                        })
-                        let arr = list.sort(function (a, b) { return b.number - a.number; })     
-                        this.module6Data = arr
-                    }
-                }
-            })
+
         },
         getModule7Data() {
             this.module7Data = [
@@ -320,61 +143,10 @@ export default {
                     saleNum: 166,
                 },
             ]
-            // let params = {
-            //     provinceCode: this.provinceCode,
-            //     month: now.getMonth() + 1
-            // }
-            // getModule7(params).then(res => {
-            //     if (res.code == 200) {
-            //         //过滤数据
-            //         /* let list = [],arr =['营业厅订单','外围订单']
-            //          res.data.forEach(item=>{
-            //              if(arr.indexOf(item.name)!=-1){
-            //                  list.push(item)
-            //              }
-            //          })
-            //          this.module6Data = list*/
-            //         if (res.data.length > 0) {
-            //             this.module7Data = res.data
-            //         }
-            //
-            //     }
-            // })
         },
         getModule8Data() {
-            let params = {
-                provinceCode: this.provinceCode
-            }
-            getModule8(params).then(res => {
-                if (res.code == 200) {
-                    if (res.data[0]) {
-                        this.module8Data = res.data[0].value
-                    }
-                }
-            })
         },
         getModule9Data() {
-            let params = {
-                provinceCode: this.provinceCode
-            }
-            getModule9(params).then(res => {
-                /* //过滤数据
-                 let list = [],arr = ['产品名称','常用功能']
-                 if (res.code == 200) {
-                     res.data.forEach(item=>{
-                         if(arr.indexOf(item.name) != -1){
-                             list.push(item)
-                         }
-                     })
-                     this.module8Data = list
-                 }*/
-                if (res.code == 200) {
-                    if (res.data.length > 0) {
-                        this.module9Data = res.data
-                    }
-
-                }
-            })
         },
         selectName(name, code) {
             this.provinceCode = code
