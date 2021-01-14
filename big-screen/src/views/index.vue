@@ -52,8 +52,7 @@ import module8 from '@/components/module8.vue';
 import module9 from '@/components/module9.vue';
 import {
     AI_Cz_Users,
-    AI_Cz_Process_Card,
-    AI_Cz_Users,queryTop10ByProvince,queryOrderCount,AI_Billing_00003_YMD,AI_Billing_00002_YMD,queryCBSSOpenCount
+    AI_Cz_Process_Card,queryTop10ByProvince,queryOrderCount,AI_Billing_00003_YMD,AI_Billing_00002_YMD,queryCBSSOpenCount
 
 } from '@/api/index.js';
 import numberBord from '@/components/numberBord.vue';
