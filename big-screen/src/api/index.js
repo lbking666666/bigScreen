@@ -1,4 +1,4 @@
-import { getApi, postApi } from './config.js'
+import { getApi, postApi ,getJsonp} from './config.js'
 
 export function addAreaUser(data) {
     const url = '/wep-oms/bigScreen/addAreaUser';
@@ -79,3 +79,12 @@ export function geAllData(data){
     return getApi(url, data)
 }
 
+
+
+export function AI_Cz_Users(){
+    let data = {
+        prov_code:'ZZ'
+    }
+    const url = 'http://10.161.67.41:9002/screenapi/AI_Cz_Users';
+    return getJsonp(url, data)
+}
