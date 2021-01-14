@@ -5,15 +5,15 @@
 		</div>
 		
 		<div class="ball-box ball-1">
-			<p class="num">{{formatter(dataA)}}</p>
+			<p class="num">{{formatter(moduleData.dataA)}}</p>
 			<p class="name">服务工单数</p>
 		</div>
 		<div class="ball-box ball-2">
-			<p class="num">{{formatter(dataB)}}</p>
+			<p class="num">{{formatter(moduleData.dataB)}}</p>
 			<p class="name">停机量 </p>
 		</div>
 		<div class="ball-box ball-3">
-			<p class="num">{{formatter(dataC)}}</p>
+			<p class="num">{{formatter(moduleData.dataC)}}</p>
 			<p class="name">开机量</p>
 		</div>
     </div>
@@ -28,17 +28,16 @@
 			CommonTitle
 		},
 		props: {
-			// moduleData: {
-			// 	type: Array,
-			// 	default: () => ([])
-			// }
+			moduleData: {
+				type: Object
+			}
 		},
 		data(){
 			return{
 				titleText: '生产运营情况',
-				dataA: 2342,
-				dataB: 342423,
-				dataC: 43412
+				// dataA: 2342,
+				// dataB: 342423,
+				// dataC: 43412
 			}
 		},
 		mounted() {

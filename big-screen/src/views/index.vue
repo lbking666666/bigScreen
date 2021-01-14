@@ -208,14 +208,19 @@ export default {
                 console.log('getBigData', res)
             })
         },
-        //生产运营情况
+        //生产运营情况 服务工单数
         ServiceOrder(){
             ServiceOrder().then(res=>{
                 console.log('ServiceOrder', res)
-                this.module4Data = res.data
-
+                this.module4Data.dataA = 0
+                // 日的
+                res.data.day.map(dayObj =>{
+                    this.module4Data.dataA += dayObj.serviceOrder
+                })
+                console.log('this.module4Data.dataA',this.module4Data.dataA)
             })
         },
+        //生产运营情况 停机量
         AI_Credit(){
             //prov_code=ZZ&sqltype=month
             let params = {
@@ -224,8 +229,11 @@ export default {
             }
             AI_Credit(params).then(res=>{
                 console.log('AI_Credit', res)
+                this.module4Data.dataB = res.data.month.stopNum
+
             })
         },
+        //地图今日开户量
         AI_Produce(){
             //prov_code=ZZ&sqltype=day
             let params = {
@@ -236,6 +244,7 @@ export default {
                 console.log('AI_Produce', res)
             })
         },
+        //生产运营情况 开机量
         AsynOpen() {
             //city_code=0010&date=2021-01-14&prov_code=ZZ
             let params = {
@@ -245,6 +254,7 @@ export default {
             }
             AsynOpen(params).then(res => {
                 console.log('AsynOpen', res)
+                this.module4Data.dataC = res.RSP.DATA[0]['0010']
             })
         },
         getQueryUserCountByProvince(){
