@@ -1,9 +1,21 @@
 <template>
-    <div class="ranking">
+    <div class="module-4">
 		<div class="title">
 			<CommonTitle :titleText='titleText' />
 		</div>
 		
+		<div class="ball-box ball-1">
+			<p class="num">{{formatter(dataA)}}</p>
+			<p class="name">服务工单数</p>
+		</div>
+		<div class="ball-box ball-2">
+			<p class="num">{{formatter(dataB)}}</p>
+			<p class="name">停机量 </p>
+		</div>
+		<div class="ball-box ball-3">
+			<p class="num">{{formatter(dataC)}}</p>
+			<p class="name">开机量</p>
+		</div>
     </div>
 </template>
 
@@ -16,14 +28,17 @@
 			CommonTitle
 		},
 		props: {
-			moduleData: {
-				type: Array,
-				default: () => ([])
-			}
+			// moduleData: {
+			// 	type: Array,
+			// 	default: () => ([])
+			// }
 		},
 		data(){
 			return{
 				titleText: '计费信控情况',
+				dataA: 2342,
+				dataB: 342423,
+				dataC: 43412
 			}
 		},
 		mounted() {
@@ -31,202 +46,57 @@
 		updated() {
 		},
 		methods:{
+			formatter(val) {
+				return formatterNumber(val)
+			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
-.ranking{
+.module-4{
 	box-sizing: border-box;
 	width: 460px;
-	height: 500px;
-	background: url(../assets/yaxin/rank-bg.png) no-repeat;
+	height: 150px;
+	background: url(../assets/yaxin/150h.png) no-repeat;
 	background-size: 100% 100%;
-	padding-top: 86px;
 	position: relative;
 	.title{
-		position: absolute;
-		width: 100%;
-		top: 8px;
-		left: 0;
+		margin-top: 6px;
 	}
-	.tab-box{
+
+	.ball-box{
 		position: absolute;
-		top: 46px;
-		left: 80px;
-		width: 300px;
-		height: 30px;
-		display: flex;
-		.tab-item{
-			box-sizing: border-box;
-			position: absolute;
-			width: 150px;
-			line-height: 28px;
-			height: 30px;
-			font-size: 14px;
-			font-family: PingFangSC-Semibold, PingFang SC;
-			font-weight: 600;
-			color: #88D7FD;
-			text-align: center;
-			cursor: pointer;
-			&:first-child{
-				top: 0;
-				left: 0;
-				overflow: hidden;
-				border-radius: 15px 0 0 15px;
-				border-top: 1px solid #3A66D0;
-				border-left: 1px solid #3A66D0;
-				border-bottom: 1px solid #3A66D0;
-			}
-			&:last-child{
-				top: 0;
-				right: 0;
-				overflow: hidden;
-				border-radius: 0 15px 15px 0;
-				border-top: 1px solid #3A66D0;
-				border-right: 1px solid #3A66D0;
-				border-bottom: 1px solid #3A66D0;
-			}
-			&.active{
-				box-shadow: 0 0 11px 8px rgba(66, 157, 249, 0.5) inset;
-				color: #C7FCFC;
-			}
+		top: 48px;
+		width: 110px;
+		height: 110px;
+		background: url(../assets/yaxin/jifeixinkong.png) no-repeat;
+		background-size: cover;
+		text-align: center;
+		p{
+			padding: 0;
+			margin: 0;
 		}
-	}
-	.ranking-box{
-		height: 100%;
-		width: 100%;
-		text-align: left;
-		box-sizing: border-box;
-		color: #fff;
-		font-size: 14px;
-		padding: 0 23px 0 21px;
-		.ranking-header{
-			line-height: 14px;
-			margin-top: 1px;
-			display: flex;
-			.index,
-			.name,
-			.order-num{
-				font-size: 14px;
-				font-family: PingFangSC-Medium, PingFang SC;
-				font-weight: 500;
-				color: #01FFFF;
-				line-height: 14px;
-				text-shadow: 0px 0px 4px rgba(1, 255, 255, 0.6);
-			}
+		&.ball-1{
+			left: 30px;
 		}
-		.ranking-body{
-			text-align: center;
-			margin-top: 12px;
-			.rank-item{
-				height: 34px;
-				line-height: 34px;
-				margin-top: 5px;
-				display: flex;
-				position: relative;
-				&:before{
-					content: '';
-					position: absolute;
-					width: 100%;
-					height: 100%;
-					top: 0;
-					left: 0;
-					background: linear-gradient(90deg, #24517F 0%, rgba(0, 184, 252, 0) 100%);
-					opacity: 0.4;
-				}
-				&:first-child{
-					margin-top: 0;
-				}
-				&:nth-child(1),
-				&:nth-child(2),
-				&:nth-child(3){
-					position: relative;
-					height: 30px;
-					line-height: 30px;
-					&:before{
-						content: '';
-						position: absolute;
-						width: 100%;
-						height: 100%;
-						top: 0;
-						left: 0;
-						opacity: 0.4;
-					}
-					&:after{
-						content: '';
-						position: absolute;
-						top: 0;
-						left: 0;
-						width: 3px;
-						height: 30px;
-					}
-				}
-				&:nth-child(1){
-					&:before{
-						background: linear-gradient(90deg, rgba(255, 243, 60, 0.59) 0%, rgba(0, 184, 252, 0) 100%);
-					}
-					&:after{
-						background: rgba(255, 243, 60, 1);
-					}
-				}
-				&:nth-child(2){
-					&:before{
-						background: linear-gradient(90deg, rgba(102, 241, 154, 0.64) 0%, rgba(0, 184, 252, 0) 100%);
-					}
-					&:after{
-						background: rgba(103, 241, 153, 1);
-					}
-				}
-				&:nth-child(3) {
-					&:before {
-						background: linear-gradient(90deg, rgba(0, 252, 241, 0.5) 0%, rgba(0, 184, 252, 0) 100%);
-					}
-					&:after {
-						background: rgba(1, 255, 255, 1);
-					}
-				}
-				.growth-rate{
-					color: #75EF9E;
-				}
-			}
+		&.ball-2{
+			left: 175px;
 		}
-		.index{
-			width: 73px;
-			text-align: center;
-			padding-right: 31px;
-			.index-icon{
-				display: inline-block;
-				width: 20px;
-				height: 15px;
-				vertical-align: text-top;
-				&.icon-0{
-					background: url('../assets/yaxin/diyi.png') no-repeat;
-					background-size: contain;
-				}
-				&.icon-1{
-					background: url('../assets/yaxin/dier.png') no-repeat;
-					background-size: contain;
-				}
-				&.icon-2{
-					background: url('../assets/yaxin/disan.png') no-repeat;
-					background-size: contain;
-				}
-			}
+		&.ball-3{
+			right: 30px;
+		}
+		.num{
+			font-size: 20px;
+			padding-top: 35px;
+			font-family: PingFangSC-Medium, PingFang SC;
+			font-weight: 500;
+			color: #FFFFFF;
+			line-height: 27px;
 		}
 		.name{
-			width: 220px;
-			text-align: left;
-			font-size: 14px;
-			font-family: PingFangSC-Regular, PingFang SC;
-			font-weight: 400;
-			color: #FFFFFF;
-		}
-		.order-num{
-			width: 133px;
-			text-align: center;
-			// padding-right: 57px;
-			font-size: 14px;
+			font-size: 15px;
+			transform: scale(0.6, 0.6);
 			font-family: PingFangSC-Medium, PingFang SC;
 			font-weight: 500;
 			color: #C7FCFC;

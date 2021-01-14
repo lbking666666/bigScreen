@@ -55,7 +55,7 @@ export default {
         module6,
         module7,
         module8,
-       module9
+        module9
     },
     data() {
         return {
