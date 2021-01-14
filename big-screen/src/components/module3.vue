@@ -1,19 +1,22 @@
 <template>
     <div class="module2">
         <commonTitle :titleText="titleText"></commonTitle>
-        <div class="query-option">
+        <!-- <div class="query-option">
             <div class="options" :class="flag=='day'?'opt-active':''" @click="selExternal('day')">
                 <div>日</div>
             </div>
             <div class="options" :class="flag=='month'?'opt-active':''" @click="selExternal('month')">
                 <div>月</div>
             </div>
+        </div> -->
+        <div class="bar-box">
+            <tabs :barNames="barNames" @checkItem="changeBar"/>
         </div>
-        <div style="margin-top:30px;">
+        <div style="margin-top:5px">
             <span class="top-title-left">触点</span>
             <span class="top-title-right">发展量</span>
         </div>
-        <div style="margin-top: 80px;" v-if="showData">
+        <div v-if="showData">
             <div class="container" v-for="(item,index) in listData" :key="index">
                 <div class="title">{{item.name}}</div>
                 <div class="process">
@@ -27,9 +30,13 @@
 </template>
 <script>
 import commonTitle from "./commonTitle";
+import tabs from '@/components/tabs.vue';
 export default {
     name: "",
-    components: { commonTitle },
+    components: { 
+        commonTitle,
+        tabs 
+    },
     props: {
         moduleData: {
             type: Object,
@@ -38,12 +45,47 @@ export default {
     },
     data() {
         return {
-            showData:false,
-            listData:[],
+            showData:  false,
+            listData:[
+                // {
+                //     name:'wqq',
+                //     per:20,
+
+                // },
+                // {
+                //     name:'wqq',
+                //      per:20,
+
+                // },
+                // {
+                //     name:'wqq',
+                //      per:20,
+
+                // },
+                // {
+                //     name:'wqq',
+                //      per:20,
+
+                // },
+                // {
+                //     name:'wqq',
+                //      per:20,
+
+                // },
+
+            ],
+            barNames: ['新开户分布', '全国用户分布'],
             flag:'day',
-            bg:['linear-gradient(270deg, #FF5353 0%, #FFB378 100%)','linear-gradient(270deg, #8153FF 0%, #78A5FF 100%)','linear-gradient(270deg, #49CCEF 0%, #75F0C2 100%)','linear-gradient(270deg, #376CDE 0%, #2CC9FF 100%)'],  
-            bc:['#FFB278','#78A5FF','#75F0C2','#2CC9FF'], 
-            titleText: '用户类型分布'
+            bg:[
+            'linear-gradient(270deg, #ffb077 0%, #ff5353 100%)',
+            'linear-gradient(270deg, #3efc9f 0%, #f7d54f 100%)',
+            'linear-gradient(270deg, #73eec4 0%, #49ccf0 100%)',
+            'linear-gradient(270deg, #799dff 0%, #8153ff 100%)',
+            'linear-gradient(270deg, #2dc4fe 0%, #366bda 100%)'
+            ],  
+            bc:['#ffb077','#3efc9f','#73eec4','#799dff','#2dc4fe'], 
+            titleText: '用户类型分布',
+            activeIndex:0
         }
     },
     watch:{
@@ -57,6 +99,10 @@ export default {
     	selExternal(type){
         	this.flag = type
             this.listData = this.moduleData[this.flag]
+        },
+        changeBar (num) {
+            console.log('num', num)
+            this.activeIndex = num
         }
     }
 }
@@ -66,7 +112,8 @@ export default {
     width: 100%;
     height: 323px;
     padding: 8px;
-    background: url("../assets/yaxin/kuang_zuozhong.png");
+    // background: url("../assets/yaxin/kuang_zuozhong.png");
+    background:url(../assets/yaxin/kuang_rexiaochangyong.png) no-repeat;
 }
 
 .container {
@@ -74,7 +121,7 @@ export default {
     justify-content: space-around;
     // float: left;
     width: 100%;
-    height: 50px;
+    height: 30px;
     padding: 0 20px;
     font-size: 14px;
     font-family: PingFangSC-Regular, PingFang SC;
@@ -170,5 +217,9 @@ export default {
         color: #FFFFFF;
         background: linear-gradient(270deg, #7CF1E0 0%, #2C48A5 100%);
     }
+}
+.bar-box{
+    display: flex;
+    justify-content: center;
 }
 </style>
