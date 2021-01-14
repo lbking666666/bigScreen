@@ -164,11 +164,11 @@ export default {
                             }], false),
                             normal: {
                                 //柱形图圆角，初始化效果
-                                barBorderRadius:[10, 10, 0, 0]
+                                barBorderRadius:[3, 3, 0, 0]
                             }
                         },
                         barGap:'0%',
-                        barWidth: 15,
+                        barWidth: 10,
                         tooltip:{
                             show:true
                         },
@@ -187,11 +187,11 @@ export default {
                             }], false),
                             normal: {
                                 //柱形图圆角，初始化效果
-                                barBorderRadius:[10, 10, 0, 0]
+                                barBorderRadius:[3, 3, 0, 0]
                             }
                         },
                         // barGap:'-75%',
-                        barWidth: 15,
+                        barWidth: 10,
                         tooltip:{
                             show:true
                         },
