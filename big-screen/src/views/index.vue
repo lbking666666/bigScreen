@@ -19,7 +19,7 @@
                 <module7 :moduleData="module7Data"></module7>
                 <!-- 热销产品/常用功能TOP3 -->
                 <module8 :moduleData="module8Data"></module8>
-                <!-- <module9 :moduleData="module9Data"></module9> -->
+                <module9 :moduleData="module9Data"></module9> 
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@ import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
-// import module9 from '@/components/module9.vue';
+import module9 from '@/components/module9.vue';
 import { geAllData, getMapData, getModule6, getModule7, getModule8,getModule9, getBigData } from '@/api/index.js';
 import { timestampConversion } from '@/utils/unixToTime.js'
 export default {
@@ -48,7 +48,7 @@ export default {
         module6,
         module7,
         module8,
-        // module9
+       module9
     },
     data() {
         return {

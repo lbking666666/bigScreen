@@ -43,7 +43,7 @@
 		},
 		data(){
 			return{
-				titleText: '1月热销产品/常用功能TOP10',
+				titleText: '收入TOP5',
 				tabIndex: 0, // 0: 热销产品； 1: 常用功能；
 				activeList: []
 			}
