@@ -4,6 +4,7 @@ import axios from 'axios';
 
 //设置请求超时时间
 axios.defaults.timeout = 20000;
+
 // 拦截响应response，并做一些错误处理
 axios.interceptors.response.use((response) => {
   /*if(response.data.message == '员工账号已禁用!' || response.data.message =='员工已离职!'){
@@ -39,6 +40,41 @@ axios.interceptors.response.use((response) => {
     console.log('after')
   }
 })
+
+import originJSONP from 'jsonp'
+/*
+jsonp(url,option,callbackFn)
+{name:1,age:20}
+www.aaa.com/?  
+*/
+export function getJsonp(url,data,option){
+   url+=(url.indexOf('?')<0 ? '?' : '&' )+param(data);
+  return new Promise(function(resolve,reject){
+    originJSONP(url,option,function(err,res){
+        if(!err){
+          console.log(res)
+          resolve(res);
+        }else{
+          console.log(err)
+          reject(err)
+        }
+    })
+  })
+}
+/*
+{name='aa',age=20}
+&name=aa&age=20
+*/
+function param(data){
+  let url='';
+  for(let key in data){
+    let item =data[key]!==undefined ? data[key] : '';
+    url+=`&${key}=${encodeURIComponent(item)}`
+  }
+  return url ? url:'';
+}
+
+
 //get 方法
 export function getApi(url, data) {
   return axios.get(url, {params:data}).then((res) => {
