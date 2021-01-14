@@ -53,14 +53,15 @@ import module9 from '@/components/module9.vue';
 import {
     AI_Cz_Users,
     AI_Cz_Process_Card,
-    AI_Billing,queryTop10ByProvince,queryOrderCount,AI_Billing_00003_YMD,AI_Billing_00002_YMD,queryCBSSOpenCount
+    AI_Billing,
+    queryTop10ByProvince,queryOrderCount,AI_Billing_00003_YMD,AI_Billing_00002_YMD,queryCBSSOpenCount
 
 } from '@/api/index.js';
 import numberBord from '@/components/numberBord.vue';
 // import { geAllData, getMapData, getModule6, getModule7, getModule8,getModule9, getBigData ,AI_Cz_Users} from '@/api/index.js';
 import { timestampConversion } from '@/utils/unixToTime.js'
 export default {
-    name: 'Home',
+    name: 'index',
     components: {
         module1,
         module2,
@@ -114,10 +115,6 @@ export default {
             
         },
         getData() {
-            this.getModule6Data()
-            this.getModule7Data()
-            this.getModule8Data()
-            this.getModule9Data()
             this.AI_Cz_Users()
             this.AI_Cz_Process_Card()
             this.AI_Billing()
@@ -140,44 +137,30 @@ export default {
                 console.log('AI_Billing', res)
             })
         },
-        getModule6Data() {
+        getQueryTop10ByProvince(){
+            queryTop10ByProvince().then(res=>{
 
+            })
         },
-        getModule7Data() {
-            this.module7Data = [
-                {
-                    date:'2021-01-01',
-                    saleNum: 123,
-                },
-                {
-                    date:'2021-01-02',
-                    saleNum: 13,
-                },
-                {
-                    date:'2021-01-03',
-                    saleNum: 23,
-                },
-                {
-                    date:'2021-01-04',
-                    saleNum: 223,
-                },
-                {
-                    date:'2021-01-05',
-                    saleNum: 123,
-                },
-                {
-                    date:'2021-01-06',
-                    saleNum: 13,
-                },
-                {
-                    date:'2021-01-07',
-                    saleNum: 166,
-                },
-            ]
+        getQueryOrderCount(){
+            queryOrderCount().then(res=>{
+
+            })
         },
-        getModule8Data() {
+        getAI_Billing_00003_YMD(){
+            AI_Billing_00003_YMD().then(res=>{
+
+            })
         },
-        getModule9Data() {
+        getAI_Billing_00002_YMD(){
+            AI_Billing_00002_YMD().then(res=>{
+
+            })
+        },
+        getQueryCBSSOpenCount(){
+            queryCBSSOpenCount().then(res=>{
+
+            })
         },
         selectName(name, code) {
             this.provinceCode = code
