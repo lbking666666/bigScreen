@@ -42,7 +42,7 @@ import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
 import module9 from '@/components/module9.vue';
-import { geAllData, getMapData, getModule6, getModule7, getModule8,getModule9, getBigData } from '@/api/index.js';
+import { geAllData, getMapData, getModule6, getModule7, getModule8,getModule9, getBigData ,AI_Cz_Users} from '@/api/index.js';
 import { timestampConversion } from '@/utils/unixToTime.js'
 export default {
     name: 'Home',
@@ -63,6 +63,7 @@ export default {
             module1Data: {},
             module2Data: {},
             module3Data: [],
+            module4Data:[],
             module6Data: [],
             module7Data: [],
             module8Data: {},
@@ -125,6 +126,12 @@ export default {
             // this.getModule7Data()
             this.getModule8Data()
             this.getModule9Data()
+            this.getAI_Cz_Users()
+        },
+        getAI_Cz_Users(){
+            AI_Cz_Users().then(res=>{
+                console.log(1111,res)
+            })
         },
         getBigData() {
             let params = {
