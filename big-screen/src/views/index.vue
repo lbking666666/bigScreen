@@ -520,6 +520,8 @@ export default {
                 justify-content: space-evenly;
                 width: 100%;
                 height: 100px;
+                position: absolute;
+                z-index: 999;
                 .number-bord-box{
                     margin-top: 13px;
                     height: 88px;
