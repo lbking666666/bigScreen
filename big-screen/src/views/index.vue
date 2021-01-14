@@ -18,6 +18,14 @@
                 <module4 :moduleData="module4Data"></module4>
             </div>
             <div class="center-box">
+                <div class="number-boxs">
+                    <div class="number-bord-box">
+                        <numberBord :title="'今日开户量'" :bordNumber="externalTotal" :setTime="setTime" />
+                    </div>
+                    <div class="number-bord-box">
+                        <numberBord :title="'今日缴费金额（万元）'" :bordNumber="externalAdd" :setTime="setTime" />
+                    </div>
+                </div>
                 <module5 @reName="selectName" :mapData="mapData" :min="min" :max="max"></module5>
                 <module6 :moduleData="module6Data"></module6>
             </div>
@@ -42,6 +50,7 @@ import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
 import module9 from '@/components/module9.vue';
+import numberBord from '@/components/numberBord.vue';
 import { geAllData, getMapData, getModule6, getModule7, getModule8,getModule9, getBigData ,AI_Cz_Users} from '@/api/index.js';
 import { timestampConversion } from '@/utils/unixToTime.js'
 export default {
@@ -55,7 +64,8 @@ export default {
         module6,
         module7,
         module8,
-        module9
+        module9,
+        numberBord
     },
     data() {
         return {
@@ -76,6 +86,9 @@ export default {
             nowTime: (new Date()).getTime() / 1000,
             dateTimeStr: timestampConversion((new Date()).getTime() / 1000),
             timeIndex: 0, // 0: 日; 1: 月; 2: 年;
+            setTime: false,
+            externalTotal: 0,
+            externalAdd: 0
         }
     },
     mounted() {
@@ -502,6 +515,16 @@ export default {
             padding-top: 10px;
             justify-content: space-between;
             position: relative;
+            .number-boxs{
+                display: flex;
+                justify-content: space-evenly;
+                width: 100%;
+                height: 100px;
+                .number-bord-box{
+                    margin-top: 13px;
+                    height: 88px;
+                }
+            }
         }
 
         .right-box {

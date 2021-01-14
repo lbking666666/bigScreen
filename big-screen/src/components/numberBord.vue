@@ -1,5 +1,5 @@
 <template>
-    <div class="number-bord" :class="title == '外部客户累积量' ? 'bord-a' : 'bord-b'">
+    <div class="number-bord" :class="title == '今日开户量' ? 'bord-a' : 'bord-b'">
         <div class="number-box">
             <div class="number-item" v-for="(item, index) in numberStr" :key="index">
                 <div class="scroll-out-box" v-if="item !== ','">
@@ -92,14 +92,14 @@
     position: relative;
     padding: 7px 16px 0 104px;
     &.bord-a{
-        background: url("../assets/img/number-bg-b.png") no-repeat;
+        background: url("../assets/yaxin/jinrikaihuliang.png") no-repeat;
         background-size: 100% 100%;
         width: 408px;
         height: 89px;
         margin-right: 9px;
     }
     &.bord-b{
-        background: url("../assets/img/number-bg-a.png") no-repeat;
+        background: url("../assets/yaxin/jifeishouru.png") no-repeat;
         background-size: 100% 100%;
         width: 408px;
         height: 89px;
