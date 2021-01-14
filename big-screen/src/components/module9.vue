@@ -10,9 +10,12 @@
 		<div class="ranking-box">
 			<!-- title在Home中 -->
 			<div class="ranking-header">
-				<div class="index">排名</div>
-				<div class="name">业务名称</div>
-				<div class="order-num">订单量(笔)</div>
+				<div class="name">排名&nbsp;&nbsp;&nbsp;&nbsp;费用名称</div>
+				<!-- <div class="name">费用名称</div> -->
+				<div class="order-num">费用(万元)</div>
+				<div class="order-num">用户数(万户)</div>
+				<!-- <div class="name">业务名称</div>
+				<div class="order-num">订单量(笔)</div> -->
 			</div>
 			<div class="ranking-body">
 				<div class="rank-item" v-for="(item, index) in activeList" :key="index">
@@ -20,6 +23,7 @@
 					<div class="index" v-else><i class="index-icon" :class="`icon-${index}`"></i></div>
 
 					<div class="name">{{tabIndex == 0 ? item.product_name : item.function_name}}</div>
+					<div class="order-num">{{tabIndex == 0 ? formatterNumber(item.product_count) : formatterNumber(item.function_count)}}</div>
 					<div class="order-num">{{tabIndex == 0 ? formatterNumber(item.product_count) : formatterNumber(item.function_count)}}</div>
 				</div>
 			</div>
@@ -45,7 +49,28 @@
 			return{
 				titleText: '收入TOP5',
 				tabIndex: 0, // 0: 热销产品； 1: 常用功能；
-				activeList: []
+				activeList: [
+					{
+						product_name:123,
+						product_count:123,
+					},
+					{
+						product_name:123,
+						product_count:123,
+					},
+					{
+						product_name:123,
+						product_count:123,
+					},
+					{
+						product_name:123,
+						product_count:123,
+					},
+					{
+						product_name:123,
+						product_count:123,
+					},
+				]
 			}
 		},
 		mounted() {
@@ -68,7 +93,7 @@
 .ranking{
 	box-sizing: border-box;
 	width: 460px;
-	height: 500px;
+	height: 350px;
 	// background: url(../assets/yaxin/rank-bg.png) no-repeat;
 	background:url(../assets/yaxin/kuang_rexiaochangyong.png) no-repeat;
 	background-size: 100% 100%;
@@ -194,28 +219,29 @@
 				}
 				&:nth-child(1){
 					&:before{
-						background: linear-gradient(90deg, rgba(255, 243, 60, 0.59) 0%, rgba(0, 184, 252, 0) 100%);
+					background: linear-gradient(90deg, rgba(255, 243, 60, 0.59) 0%, rgba(0, 184, 252, 0) 100%);
 					}
 					&:after{
-						background: rgba(255, 243, 60, 1);
+					background: #FFDA3C;
 					}
 				}
 				&:nth-child(2){
 					&:before{
-						background: linear-gradient(90deg, rgba(102, 241, 154, 0.64) 0%, rgba(0, 184, 252, 0) 100%);
+					background: linear-gradient(90deg, rgba(234, 236, 243, 0.5) 0%, rgba(0, 184, 252, 0) 100%);
 					}
 					&:after{
-						background: rgba(103, 241, 153, 1);
+					background: #EAECF3;
 					}
 				}
 				&:nth-child(3) {
 					&:before {
-						background: linear-gradient(90deg, rgba(0, 252, 241, 0.5) 0%, rgba(0, 184, 252, 0) 100%);
+					background: linear-gradient(90deg, rgba(215, 165, 56, 0.51) 0%, rgba(0, 184, 252, 0) 100%);
 					}
 					&:after {
-						background: rgba(1, 255, 255, 1);
+					background: #D7A538;
 					}
 				}
+				
 				.growth-rate{
 					color: #75EF9E;
 				}
@@ -224,7 +250,7 @@
 		.index{
 			width: 73px;
 			text-align: center;
-			padding-right: 31px;
+			padding-right: 20px;
 			.index-icon{
 				display: inline-block;
 				width: 20px;
@@ -254,7 +280,7 @@
 		}
 		.order-num{
 			width: 133px;
-			text-align: center;
+			text-align: left;
 			// padding-right: 57px;
 			font-size: 14px;
 			font-family: PingFangSC-Medium, PingFang SC;
