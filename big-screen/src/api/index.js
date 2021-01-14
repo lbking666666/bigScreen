@@ -161,16 +161,14 @@ export function queryTop10ByProvince(data){
 }
 
 export function AI_Billing_00003_YMD(data){
-    const url = `/screenapi/AI_Billing_00003_YMD`
+    const url = `/webapi/screenapi/AI_Billing_00003_YMD`
     return getApi(url, data)
 }
 
 export function AI_Billing_00002_YMD(data){
-    const url = `/screenapi/AI_Billing_00002_YMD`
+    const url = `/webapi/screenapi/AI_Billing_00002_YMD`
     return getApi(url, data)
 }
-
-
 export function queryCBSSOpenCount(data){
     const url = `/ITTest/queryCBSSOpenCount`
     return getApi(url, data)
