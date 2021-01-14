@@ -157,18 +157,18 @@ export default {
                         itemStyle: {
                             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                 offset: 0,
-                                color: 'rgba(49, 93, 255, 1)' //指0%处的颜色
+                                color: '#23BAFC' //指0%处的颜色
                             }, {
                                 offset: 1,
-                                color: 'rgba(35, 186, 252, 1)' //指100%处的颜色
+                                color: '#315DFF' //指100%处的颜色
                             }], false),
                             normal: {
                                 //柱形图圆角，初始化效果
-                                barBorderRadius:[3, 3, 0, 0]
+                                barBorderRadius:[2, 2, 0, 0]
                             }
                         },
                         barGap:'0%',
-                        barWidth: 10,
+                        barWidth: 8,
                         tooltip:{
                             show:true
                         },
@@ -187,11 +187,11 @@ export default {
                             }], false),
                             normal: {
                                 //柱形图圆角，初始化效果
-                                barBorderRadius:[3, 3, 0, 0]
+                                barBorderRadius:[2, 2, 0, 0]
                             }
                         },
                         // barGap:'-75%',
-                        barWidth: 10,
+                        barWidth: 8,
                         tooltip:{
                             show:true
                         },
