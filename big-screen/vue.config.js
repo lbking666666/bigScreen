@@ -9,11 +9,11 @@ module.exports = {
                 ws: false,
                 pathRewrite: { '^/ITTest': '/ITTest' }
             },
-            '/BaseUrlA': {
+            '/screenapi': {
                 target: 'http://10.161.67.41:9002',
                 changeOrigin: true,
                 ws: false,
-                pathRewrite: { '^/BaseUrlA': '/BaseUrlA' }
+                pathRewrite: { '^/screenapi': '/screenapi' }
             },
             '/BaseUrlB': {
                 target: 'http://10.161.12.1:9099',

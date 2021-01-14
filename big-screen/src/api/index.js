@@ -82,7 +82,7 @@ export function geAllData(data){
 
 // @Param("prov_code") String
 export function AI_Cz_Users(data){
-    const url = `/BaseUrlA/screenapi/AI_Cz_Users`
+    const url = '/screenapi/AI_Cz_Users'
     return getApi(url, data)
 }
 
@@ -142,6 +142,37 @@ export function AI_Produce(data){
 // @Param("date") String '2021-01-14'
 export function AsynOpen(data){
     const url = `/BaseUrlB/asyn/open`
+    return getApi(url, data)
+}
+
+export function queryUserCountByProvince(data){
+    const url = `/ITTest/queryUserCountByProvince`
+    return getApi(url, data)
+}
+
+export function queryOrderCount(data){
+    const url = `/ITTest/queryOrderCount`
+    return getApi(url, data)
+}
+
+export function queryTop10ByProvince(data){
+    const url = `/ITTest/queryTop10ByProvince`
+    return getApi(url, data)
+}
+
+export function AI_Billing_00003_YMD(data){
+    const url = `/screenapi/AI_Billing_00003_YMD`
+    return getApi(url, data)
+}
+
+export function AI_Billing_00002_YMD(data){
+    const url = `/screenapi/AI_Billing_00002_YMD`
+    return getApi(url, data)
+}
+
+
+export function queryCBSSOpenCount(data){
+    const url = `/ITTest/queryCBSSOpenCount`
     return getApi(url, data)
 }
 
