@@ -26,7 +26,7 @@
                 <module7 :moduleData="module7Data"></module7>
                 <!-- 热销产品/常用功能TOP3 -->
                 <module8 :moduleData="module8Data"></module8>
-                <!-- <module9 :moduleData="module9Data"></module9>  -->
+                 <module9 :moduleData="module9Data"></module9>
             </div>
         </div>
     </div>
@@ -129,9 +129,9 @@ export default {
             this.getAI_Cz_Users()
         },
         getAI_Cz_Users(){
-            AI_Cz_Users().then(res=>{
-                console.log(1111,res)
-            })
+            // AI_Cz_Users().then(res=>{
+            //     console.log(1111,res)
+            // })
         },
         getBigData() {
             let params = {

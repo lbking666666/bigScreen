@@ -202,48 +202,15 @@ export default {
 </script>
 <style scoped lang='less'>
 .charts-wrapper {
+    width: 100%;
+    height: 225px;
     background: url(../assets/yaxin/kuang_dingdanliang.png) no-repeat;
     background-size: 100% 100%;
-    height: 254px;
-    padding: 8px;
 }
 
 .line-chart {
     width: 100%;
     position: relative;
     height: calc(100% - 40px);
-}
-
-.query-option {
-    position: absolute;
-    right: 4%;
-    top: 2%;
-    flex: 1;
-    z-index: 9;
-    display: flex;
-    justify-content: flex-end;
-
-    .options {
-        height: 19px;
-        line-height: 19px;
-        padding: 0 8px;
-        font-size: 14px;
-        font-family: PingFangSC-Medium, PingFang SC;
-        font-weight: 500;
-        color: #308BFD;
-        border: 1px solid #308BFD;
-        transform: skew(-45deg);
-        margin-right: 5px;
-        cursor: pointer;
-
-        div {
-            transform: skewX(45deg);
-        }
-    }
-
-    .opt-active {
-        color: #FFFFFF;
-        background: linear-gradient(270deg, #7CF1E0 0%, #2C48A5 100%);
-    }
 }
 </style>
