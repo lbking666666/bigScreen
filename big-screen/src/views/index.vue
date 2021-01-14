@@ -26,7 +26,7 @@
                 <module7 :moduleData="module7Data"></module7>
                 <!-- 热销产品/常用功能TOP3 -->
                 <module8 :moduleData="module8Data"></module8>
-                <!-- <module9 :moduleData="module9Data"></module9>  -->
+                 <module9 :moduleData="module9Data"></module9>
             </div>
         </div>
     </div>
@@ -123,15 +123,15 @@ export default {
         getData() {
             this.getBigData();
             this.getModule6Data()
-            // this.getModule7Data()
+            this.getModule7Data()
             this.getModule8Data()
             this.getModule9Data()
             this.getAI_Cz_Users()
         },
         getAI_Cz_Users(){
-            AI_Cz_Users().then(res=>{
-                console.log(1111,res)
-            })
+            // AI_Cz_Users().then(res=>{
+            //     console.log(1111,res)
+            // })
         },
         getBigData() {
             let params = {
@@ -290,26 +290,56 @@ export default {
             })
         },
         getModule7Data() {
-            let params = {
-                provinceCode: this.provinceCode,
-                month: now.getMonth() + 1
-            }
-            getModule7(params).then(res => {
-                if (res.code == 200) {
-                    //过滤数据
-                    /* let list = [],arr =['营业厅订单','外围订单']
-                     res.data.forEach(item=>{
-                         if(arr.indexOf(item.name)!=-1){
-                             list.push(item)
-                         }
-                     })
-                     this.module6Data = list*/
-                    if (res.data.length > 0) {
-                        this.module7Data = res.data
-                    }
-
-                }
-            })
+            this.module7Data = [
+                {
+                    date:'2021-01-01',
+                    saleNum: 123,
+                },
+                {
+                    date:'2021-01-02',
+                    saleNum: 13,
+                },
+                {
+                    date:'2021-01-03',
+                    saleNum: 23,
+                },
+                {
+                    date:'2021-01-04',
+                    saleNum: 223,
+                },
+                {
+                    date:'2021-01-05',
+                    saleNum: 123,
+                },
+                {
+                    date:'2021-01-06',
+                    saleNum: 13,
+                },
+                {
+                    date:'2021-01-07',
+                    saleNum: 166,
+                },
+            ]
+            // let params = {
+            //     provinceCode: this.provinceCode,
+            //     month: now.getMonth() + 1
+            // }
+            // getModule7(params).then(res => {
+            //     if (res.code == 200) {
+            //         //过滤数据
+            //         /* let list = [],arr =['营业厅订单','外围订单']
+            //          res.data.forEach(item=>{
+            //              if(arr.indexOf(item.name)!=-1){
+            //                  list.push(item)
+            //              }
+            //          })
+            //          this.module6Data = list*/
+            //         if (res.data.length > 0) {
+            //             this.module7Data = res.data
+            //         }
+            //
+            //     }
+            // })
         },
         getModule8Data() {
             let params = {

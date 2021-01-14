@@ -63,14 +63,26 @@ export default {
     flex-direction: column;
 
     .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
         .column{
+            width: 100%;
+            height: 100%;
             h4{
                 font-size:14px;
                 color:#C7FCFC;
                 margin:0;
+                margin-bottom: 8px;
+                text-align: left;
+                padding-left: 20px;
             }
             .box{
                 display:flex;
+                justify-content: space-evenly;
                 .col{
                     background:url(../assets/yaxin/yongxinqingkuang.png) no-repeat;
                     background-size:100%;
