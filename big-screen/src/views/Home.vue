@@ -193,6 +193,7 @@ export default {
         }
     },
     mounted() {
+        // fixme:01.14版本 20210113微信大屏修改
         this.getData()
         let vm = this
         setInterval(()=>{
