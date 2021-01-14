@@ -51,8 +51,10 @@ import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
 import module9 from '@/components/module9.vue';
 import {
+    AI_Cz_Users,
+    AI_Cz_Process_Card,
     AI_Cz_Users,queryTop10ByProvince,queryOrderCount,AI_Billing_00003_YMD,AI_Billing_00002_YMD,queryCBSSOpenCount
-    
+
 } from '@/api/index.js';
 import numberBord from '@/components/numberBord.vue';
 // import { geAllData, getMapData, getModule6, getModule7, getModule8,getModule9, getBigData ,AI_Cz_Users} from '@/api/index.js';
@@ -117,11 +119,18 @@ export default {
             this.getModule8Data()
             this.getModule9Data()
             this.AI_Cz_Users()
+            this.AI_Cz_Process_Card()
         },
         AI_Cz_Users(){
             let params = {prov_code: 'ZZ'}
-            AI_Cz_Users().then(res=>{
+            AI_Cz_Users(params).then(res=>{
                 console.log('AI_Cz_Users', res)
+            })
+        },
+        AI_Cz_Process_Card(){
+            let params = {prov_code: 'ZZ', cycle: '202012'}
+            AI_Cz_Process_Card(params).then(res=>{
+                console.log('AI_Cz_Process_Card', res)
             })
         },
         getModule6Data() {
