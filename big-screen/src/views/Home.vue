@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="line-chart">
-                        <lineChart :xData="externalXData" :yData="externalYData" :color="'rgba(110, 239, 155, 1)'"></lineChart>
+                        <lineChart :xData="externalXData" :yData="externalYData" :color="'rgba(91, 167, 255, 1)'"></lineChart>
                     </div>
                 </div>
 
@@ -114,7 +114,7 @@
                         </div>
                     </div>
                     <div class="line-chart">
-                        <lineChart :xData="insideXData" :yData="insideYData" :color="'rgba(91, 167, 255, 1)'"></lineChart>
+                        <lineChart :xData="insideXData" :yData="insideYData" :color="'rgba(110, 239, 155, 1)'"></lineChart>
                     </div>
                 </div>
                 
