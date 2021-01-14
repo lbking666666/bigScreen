@@ -5,22 +5,22 @@
         <div class="container">
             <div class="box">
                 <div class="box-title">5G订购数</div>
-                <div class="box-count" :class="resizeFontSize(module7Data.order5g)">{{formatterNumber(module7Data.order5g)}}</div>
+                <div class="box-count" :class="resizeFontSize(moduleData.order5g)">{{formatterNumber(moduleData.order5g)}}</div>
             </div>
             <div class="box pointer">
                 <div class="box-title">跨域用户数</div>
-                <div class="box-count" :class="resizeFontSize(module7Data.crossuser)">{{formatterNumber(module7Data.crossuser)}}</div>
+                <div class="box-count" :class="resizeFontSize(moduleData.crossuser)">{{formatterNumber(moduleData.crossuser)}}</div>
                 <div class="pointer-view">
-                    <p>套餐数：{{formatterNumber(module7Data.crossmixmenu)}}</p>
-                    <p>用户数：{{formatterNumber(module7Data.crossmixuser)}}</p>
+                    <p>套餐数：{{formatterNumber(moduleData.crossmixmenu)}}</p>
+                    <p>用户数：{{formatterNumber(moduleData.crossmixuser)}}</p>
                 </div>
             </div>
             <div class="box pointer">
                 <div class="box-title">携号转网</div>
-                <div class="box-count" :class="resizeFontSize(module7Data.portability)">{{formatterNumber(module7Data.portability)}}</div>
+                <div class="box-count" :class="resizeFontSize(moduleData.portability)">{{formatterNumber(moduleData.portability)}}</div>
                 <div class="pointer-view">
-                    <p>携入数：{{formatterNumber(module7Data.portability_in)}}</p>
-                    <p>携出数：{{formatterNumber(module7Data.portability_out)}}</p>
+                    <p>携入数：{{formatterNumber(moduleData.portability_in)}}</p>
+                    <p>携出数：{{formatterNumber(moduleData.portability_out)}}</p>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
         components:{commonTitle},
 
         props: {
-            module7Data:{
+            moduleData:{
                 type: Object,
                 default:{}
             }

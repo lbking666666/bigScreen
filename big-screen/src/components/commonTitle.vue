@@ -1,10 +1,8 @@
 <template>
     <div class="common-title">
-        <div class="left-line"></div>
         <div class="text">
             {{titleText}}
         </div>
-        <div class="right-line"></div>
     </div>
 </template>
 
@@ -25,7 +23,7 @@
         width: 100%;
         height: 36px;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         .left-line{
             flex: 1;

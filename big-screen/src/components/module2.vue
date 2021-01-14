@@ -1,157 +1,214 @@
 <template>
-    <div class="module2">
+    <div class="charts-wrapper">
         <commonTitle :titleText="titleText"></commonTitle>
-        <div class="query-option">
-            <div class="options" :class="flag=='day'?'opt-active':''" @click="selExternal('day')">
-                <div>日</div>
-            </div>
-            <div class="options" :class="flag=='month'?'opt-active':''" @click="selExternal('month')">
-                <div>月</div>
-            </div>
-        </div>
-        <div style="margin-top:30px;">
-            <span class="top-title-left">触点</span>
-            <span class="top-title-right">发展量</span>
-        </div>
-        <div style="margin-top: 80px;" v-if="showData">
-            <div class="container" v-for="(item,index) in listData" :key="index">
-                <div class="title">{{item.name}}</div>
-                <div class="process">
-                	<div class="process-dot" :style="'background:'+bc[index]"></div>
-                    <div class="per" :style="'width:'+ item.per+'%;background:'+bg[index]"></div>
+        <div class="line-chart">
+            <div class="query-option">
+                <div class="options" :class="flag==0?'opt-active':''" @click="selExternal(0)">
+                    <div>营业厅</div>
                 </div>
-                <div class="total">{{String(item.value).length > 4?Number(item.value/10000).toFixed(1)+'万':item.value}}</div>
+                <div class="options" :class="flag==1?'opt-active':''" @click="selExternal(1)">
+                    <div>外围</div>
+                </div>
             </div>
+            <div ref="chart" style="width:100%;height:100%"></div>
         </div>
     </div>
 </template>
 <script>
+import * as echarts from "echarts";
 import commonTitle from "./commonTitle";
 export default {
-    name: "",
+    name: "mixChart",
     components: { commonTitle },
     props: {
-        module2Data: {
-            type: Object,
-            default: ()=>({})
+        color: {
+            type: String,
+            default: '#fff',
+        },
+        moduleData: {
+            type: Array,
+            default: []
         }
     },
     data() {
         return {
-            showData:false,
-            listData:[],
-            flag:'day',
-            bg:['linear-gradient(270deg, #FF5353 0%, #FFB378 100%)','linear-gradient(270deg, #8153FF 0%, #78A5FF 100%)','linear-gradient(270deg, #49CCEF 0%, #75F0C2 100%)','linear-gradient(270deg, #376CDE 0%, #2CC9FF 100%)'],  
-            bc:['#FFB278','#78A5FF','#75F0C2','#2CC9FF'], 
-            titleText: '各触点发展用户分布'
+            titleText: '订单量',
+            flag: 0,
+            xAxisData: [], // x轴坐标
+            seriesData: [], // 显示点数值
+            myChart: null
         }
     },
-    watch:{
-    	'module2Data':function(val){
-			this.showData =true
-            this.listData = val[this.flag]
-    	}
+    mounted() {
+        this.drawChart()
     },
-    mounted() {},
+    updated() {
+        this.drawChart()
+    },
     methods: {
-    	selExternal(type){
-        	this.flag = type
-            this.listData = this.module2Data[this.flag]
+        dealData(arr) {
+            // 清空
+            this.xAxisData = []
+            this.seriesData = []
+            if (arr.length > 0) {
+                arr.forEach(ele => {
+                    this.xAxisData.push(Number(ele.date.split('-')[2]))
+                    if(this.flag==1){
+                        this.seriesData.push(ele.outertrade)
+                    }else{
+                        this.seriesData.push(ele.malltrade)
+                    }
+                    
+                })
+            }
+        },
+        drawChart() {
+            let vm = this
+            // 添加销毁chart判断，避免重复绘制chart dom报错
+           /* if (vm.myChart) {
+                vm.myChart.dispose()
+            }*/
+            if (this.moduleData.length > 0) {
+                this.dealData(this.moduleData[this.flag].value)
+            }
+            let chart = this.$refs.chart
+            vm.myChart = echarts.init(chart)
+            let options = {
+                xAxis: {
+                    type: 'category',
+                    axisLine: {
+                        lineStyle: {
+                            color: '#2EB2B3'
+                        }
+                    },
+                    boundaryGap: false,
+                    splitArea: {
+                        show: true,
+                        areaStyle: {
+                            color: ['rgba(250,250,250,0)', 'rgba(59, 157, 230, 0.16)']
+                        }
+                    },
+                    axisLabel: {
+                        rotate: 0,
+                        fontSize: 10,
+                        interval: 0
+                    },
+                    data: this.xAxisData
+                },
+                tooltip: {
+                    show: true,
+                    trigger: 'item', 
+                    backgroundColor: 'rgba(0,0,0,0.4)',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 14,
+                        fontWeight: 600
+                    },
+
+                    borderWidth: 0,
+                    formatter: function(params) {
+                        let dateStr = vm.moduleData[vm.flag].value[params.dataIndex].date
+                        let nums = (String(params.value).length > 4) ? (Number(params.value / 10000).toFixed(1) + 'W') : String(params.value)
+
+                        return dateStr + '<br>' + '订单量: ' + nums
+                    }
+
+                },
+                yAxis: {
+                    type: 'value',
+                    show: true,
+                    name: '单位：千万',
+                    nameLocation: 'end',
+                    axisLabel: {
+                        formatter: function(value, index) {
+                            let str = ''
+                            // if (value > 10000 && value < 10000000) {
+                            //     str = (value / 10000).toFixed(1) + 'w'
+                            // } else if (value >= 10000000) {
+                            //     str = (value / 10000000).toFixed(1) + 'kw'
+                            // } else {
+                            //     str = value
+                            // }
+                            str = (value / 10000000).toFixed(1)
+                            return str;
+                            // return value
+                        }
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#2EB2B3'
+                        }
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: ['rgba(98, 255, 254, 0.12)'],
+                            width: 1,
+                            type: 'solid'
+                        }
+                    },
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top: '15%',
+                    containLabel: true
+                },
+                series: [{
+                    data: this.seriesData,
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'circle',
+                    symbolSize: 8,
+                    itemStyle: {
+                        color: this.color,
+                        borderColor: "#fff",
+                        borderWidth: 1,
+                        borderType: 'solid'
+                    },
+                    lineStyle: {
+                        color: this.color
+                    },
+                }]
+            }
+            vm.myChart.setOption(options)
+            window.addEventListener("resize", () => { vm.myChart.resize(); });
+        },
+        selExternal(type) {
+            this.flag = type
         }
     }
 }
 </script>
-<style lang="less" scoped>
-.module2 {
-    width: 100%;
-    height: 323px;
+<style scoped lang='less'>
+.charts-wrapper {
+    background: url(../assets/yaxin/kuang_youshang.png) no-repeat;
+    background-size: 100%;
+    height: 254px;
     padding: 8px;
-    background: url("../assets/yaxin/kuang_zuozhong.png");
 }
 
-.container {
-    display: flex;
-    justify-content: space-around;
-    // float: left;
+.line-chart {
     width: 100%;
-    height: 50px;
-    padding: 0 20px;
-    font-size: 14px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: #FFFFFF;
-}
-
-.process {
-    width: 50%;
-    height: 10px;
-    background: rgba(136, 215, 253, 0.2);
-    border-radius: 7px;
     position: relative;
+    height: calc(100% - 40px);
 }
 
-.process .process-dot {
-    position: absolute;
-    top: 0;
-    left: -8px;
-    width: 5px;
-    height: 10px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-
-.process .per {
-    width: 50%;
-    height: 10px;
-    border-radius: 7px;
-}
-
-.title {
-    width: 77px;
-    display: flex;
-    margin-right: 16px;
-    justify-content: flex-start;
-}
-
-.total {
-    width: 101px;
-}
-
-.top-title-left {
-    height: 14px;
-    font-size: 14px;
-    font-family: PingFangSC-Medium, PingFang SC;
-    font-weight: 500;
-    color: #88D7FD;
-    line-height: 14px;
-    text-shadow: 0px 0px 4px rgba(136, 215, 253, 0.6);
-    float: left;
-    margin-left: 20px;
-}
-
-.top-title-right {
-    height: 14px;
-    font-size: 14px;
-    font-family: PingFangSC-Medium, PingFang SC;
-    font-weight: 500;
-    color: #88D7FD;
-    line-height: 14px;
-    text-shadow: 0px 0px 4px rgba(136, 215, 253, 0.6);
-    float: right;
-    margin-right: 20px;
-    width: 100px;
-}
 .query-option {
-   	padding:5px 20px;
+    position: absolute;
+    right: 4%;
+    top: 2%;
     flex: 1;
-    z-index:9;
+    z-index: 9;
     display: flex;
     justify-content: flex-end;
+
     .options {
         height: 19px;
         line-height: 19px;
-        padding:0 8px;
+        padding: 0 8px;
         font-size: 14px;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;

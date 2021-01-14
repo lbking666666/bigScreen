@@ -57,19 +57,19 @@ export function getBigData(data) {
     const url = '/ITTest/queryOtherCountByProvince';
     return getApi(url, data)
 }
-export function getModule5(data) {
+export function getModule6(data) {
     const url = '/ITTest/queryUserCountByProvince';
     return getApi(url, data)
 }
-export function getModule6(data) {
+export function getModule7(data) {
     const url = '/ITTest/queryCBSSTradeCount';
     return getApi(url, data)
 }
-export function getModule7(data) {
+export function getModule8(data) {
     const url = '/ITTest/queryCBSSMainCount';
     return getApi(url, data)
 }
-export function getModule8(data) {
+export function getModule9(data) {
     const url = '/ITTest/queryTop10ByProvince';
     return getApi(url, data)
 }

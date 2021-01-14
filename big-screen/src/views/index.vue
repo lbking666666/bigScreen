@@ -5,18 +5,19 @@
         </div>
         <div class="container">
             <div class="left-box">
-                <module1 :leftData="leftData" :module1Data="module1Data"></module1>
-                <module2 :module2Data="module2Data"></module2>
-                <module3 :module3Data="module3Data"></module3>
+                <module1 :leftData="leftData" :moduleData="module1Data"></module1>
+                <module2 :moduleData="module7Data"></module2>
+                <module3 :moduleData="module3Data"></module3>
+                <module4 :moduleData="module4Data"></module4>
             </div>
             <div class="center-box">
-                <module4 @reName="selectName" :mapData="mapData" :min="min" :max="max"></module4>
-                <module5 :module5Data="module5Data"></module5>
+                <module5 @reName="selectName" :mapData="mapData" :min="min" :max="max"></module5>
+                <module6 :moduleData="module6Data"></module6>
             </div>
             <div class="right-box">
-                <module6 :module6Data="module6Data" :color="'#B085FF'"></module6>
-                <module7 :module7Data="module7Data"></module7>
-                <module8 :module8Data="module8Data"></module8>
+                <module7 :moduleData="module7Data" :color="'#B085FF'"></module7>
+                <module8 :moduleData="module8Data"></module8>
+                <module9 :moduleData="module9Data"></module9>
             </div>
         </div>
     </div>
@@ -31,7 +32,8 @@ import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
 import module8 from '@/components/module8.vue';
-import { geAllData, getMapData, getModule5, getModule6, getModule7, getModule8, getBigData } from '@/api/index.js';
+import module9 from '@/components/module9.vue';
+import { geAllData, getMapData, getModule6, getModule7, getModule8,getModule9, getBigData } from '@/api/index.js';
 import { timestampConversion } from '@/utils/unixToTime.js'
 export default {
     name: 'Home',
@@ -43,7 +45,8 @@ export default {
         module5,
         module6,
         module7,
-        module8
+        module8,
+        module9
     },
     data() {
         return {
@@ -51,10 +54,10 @@ export default {
             module1Data: {},
             module2Data: {},
             module3Data: [],
-            module5Data: [],
             module6Data: [],
-            module7Data: {},
-            module8Data: [],
+            module7Data: [],
+            module8Data: {},
+            module9Data: [],
             mapData: [],
             min: 0,
             max: 100,
@@ -104,10 +107,10 @@ export default {
         },
         getData() {
             this.getBigData();
-            this.getModule5Data()
             this.getModule6Data()
             this.getModule7Data()
             this.getModule8Data()
+            this.getModule9Data()
         },
         getBigData() {
             let params = {
@@ -218,10 +221,10 @@ export default {
                                     return b.value - a.value
                                 })
 
-                                this.module2Data = {
+                              /*  this.module2Data = {
                                     day: data2Day,
                                     month: data2Month
-                                }
+                                }*/
 
                                 //module3数据
                                 let data3 = [{ value: values.mobile, name: '移网' },
@@ -239,13 +242,13 @@ export default {
                 }
             })
         },
-        getModule5Data() {
+        getModule6Data() {
             let params = {
                 provinceCode: this.provinceCode
             }
-            getModule5(params).then(res => {
+            getModule6(params).then(res => {
                 if (res.code == 200) {
-                    this.module5Data = []
+                    this.module6Data = []
                     if (res.data.length > 0) { //判断是否返回数据且不为空
                         let list = []
                         res.data.map(item => {
@@ -260,17 +263,17 @@ export default {
                             }
                         })
                         let arr = list.sort(function (a, b) { return b.number - a.number; })     
-                        this.module5Data = arr
+                        this.module6Data = arr
                     }
                 }
             })
         },
-        getModule6Data() {
+        getModule7Data() {
             let params = {
                 provinceCode: this.provinceCode,
                 month: now.getMonth() + 1
             }
-            getModule6(params).then(res => {
+            getModule7(params).then(res => {
                 if (res.code == 200) {
                     //过滤数据
                     /* let list = [],arr =['营业厅订单','外围订单']
@@ -281,21 +284,9 @@ export default {
                      })
                      this.module6Data = list*/
                     if (res.data.length > 0) {
-                        this.module6Data = res.data
+                        this.module7Data = res.data
                     }
 
-                }
-            })
-        },
-        getModule7Data() {
-            let params = {
-                provinceCode: this.provinceCode
-            }
-            getModule7(params).then(res => {
-                if (res.code == 200) {
-                    if (res.data[0]) {
-                        this.module7Data = res.data[0].value
-                    }
                 }
             })
         },
@@ -304,6 +295,18 @@ export default {
                 provinceCode: this.provinceCode
             }
             getModule8(params).then(res => {
+                if (res.code == 200) {
+                    if (res.data[0]) {
+                        this.module8Data = res.data[0].value
+                    }
+                }
+            })
+        },
+        getModule9Data() {
+            let params = {
+                provinceCode: this.provinceCode
+            }
+            getModule9(params).then(res => {
                 /* //过滤数据
                  let list = [],arr = ['产品名称','常用功能']
                  if (res.code == 200) {
@@ -316,7 +319,7 @@ export default {
                  }*/
                 if (res.code == 200) {
                     if (res.data.length > 0) {
-                        this.module8Data = res.data
+                        this.module9Data = res.data
                     }
 
                 }

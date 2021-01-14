@@ -1,329 +1,236 @@
 <template>
-    <div class="map-chart">
-        <div class="map-shadow" v-show="silent"></div>
-        <div class="tip-show" v-show="tipShow">暂不支持下钻</div>
-        <div ref="map" id="map" style="width:100%;height:100%" v-on:click.stop.prevent="reBack"></div>
+    <div class="ranking">
+		<div class="title">
+			<CommonTitle :titleText='titleText' />
+		</div>
+		
     </div>
 </template>
+
 <script>
-import * as echarts from "echarts";
-import axios from 'axios';
-import {formatterNumber} from '@/utils/filterNum'
-let chinaMap = require('./map/china.json')
-let map = null,
-    time = null
-export default {
-    name: "mapChart",
-    props: {
-        mapData: {
-            type: Array,
-            default: () => ([])
-        },
-        min: {
-            type: Number,
-            default: 0
-        },
-        max: {
-            type: Number,
-            default: 100
-        },
-    },
-    data() {
-        return {
-            back: false,
-            isAll: true,
-            silent: false,
-            cityName: '',
-            tipShow: false,
-            effArr: [],
-            unEffArr: [],
-            //定义全国省份的数组
-            match: {
-                // 23个省
-                '台湾': [121.509062, 25.044332],
-                '河北': [114.502461, 38.045474],
-                '山西': [112.549248, 37.857014],
-                '辽宁': [123.429096, 41.796767],
-                '吉林': [125.3245, 43.886841],
-                '黑龙江': [126.642464, 45.756967],
-                '江苏': [118.767413, 32.041544],
-                '浙江': [120.153576, 30.287459],
-                '安徽': [117.283042, 31.86119],
-                '福建': [119.306239, 26.075302],
-                '江西': [115.892151, 28.676493],
-                '山东': [117.000923, 36.675807],
-                '河南': [113.665412, 34.757975],
-                '湖北': [114.298572, 30.584355],
-                '湖南': [112.982279, 28.19409],
-                '广东': [113.280637, 23.125178],
-                '海南': [110.33119, 20.031971],
-                '四川': [104.065735, 30.659462],
-                '贵州': [106.713478, 26.578343],
-                '云南': [102.712251, 25.040609],
-                '陕西': [108.948024, 34.263161],
-                '甘肃': [103.823557, 36.058039],
-                '青海': [101.778916, 36.623178],
-                // 5个自治区
-                '新疆': [87.617733, 43.792818],
-                '广西': [108.320004, 22.82402],
-                '内蒙古': [111.670801, 40.818311],
-                '宁夏': [106.278179, 38.46637],
-                '西藏': [91.132212, 29.660361],
-                // 4个直辖市
-                '北京': [116.405285, 39.904989],
-                '天津': [117.190182, 39.125596],
-                '上海': [121.472644, 31.231706],
-                '重庆': [106.504962, 29.533155],
-                // 2个特别行政区
-                '香港': [114.173355, 22.320048],
-                '澳门': [113.54909, 22.198951],
-            },
-            provinces: {
-                // 23个省
-                '台湾': "taiwan",
-                '河北': "hebei",
-                '山西': "shanxi",
-                '辽宁': "liaoning",
-                '吉林': "jilin",
-                '黑龙江': "heilongjiang",
-                '江苏': "jiangsu",
-                '浙江': "zhejiang",
-                '安徽': "anhui",
-                '福建': "fujian",
-                '江西': "jiangxi",
-                '山东': "shandong",
-                '河南': "henan",
-                '湖北': "hubei",
-                '湖南': "hunan",
-                '广东': "guangdong",
-                '海南': "hainan",
-                '四川': "sichuan",
-                '贵州': "guizhou",
-                '云南': "yunnan",
-                '陕西': "shanxi1",
-                '甘肃': "gansu",
-                '青海': "qinghai",
-                // 5个自治区
-                '新疆': "xinjiang",
-                '广西': "guangxi",
-                '内蒙古': "neimenggu",
-                '宁夏': "ningxia",
-                '西藏': "xizang",
-                // 4个直辖市
-                '北京': "beijing",
-                '天津': "tianjin",
-                '上海': "shanghai",
-                '重庆': "chongqing",
-                // 2个特别行政区
-                '香港': "xianggang",
-                '澳门': "aomen"
-            }
-        }
-    },
-    mounted() {
-        echarts.registerMap('china', chinaMap);
-        this.initMap('china');
-    },
-    updated() {
-        //echarts.registerMap('china', chinaMap);
-        this.initMap('china');
-    },
-    methods: {
-        initMap(name) { //初始化中国地图
-            map = echarts.getInstanceByDom(document.getElementById('map')); //有的话就获取已有echarts实例的DOM节点。
-            if (map == null) { // 如果不存在，就进行初始化。
-                map = echarts.init(document.getElementById('map'));
-            }
-            this.silent = false
-            if (name == 'china') {
-                this.back = false
-            } else {
-                this.back = true
-            }
-            let option = {
-                tooltip: {
-                    show: true,
-                    backgroundColor: 'rgba(0,0,0,0.4)',
-                    textStyle: {
-                        color: '#fff',
-                        fontSize: 14,
-                    },
-                    borderWidth: 0,
-                    trigger: 'item',
-                    formatter: function(params) {
-                        if (params.value) {
-                            return params.name + '<br/>用户量:' + formatterNumber(params.value)
-                                    + '<br/>今日出账数：' + formatterNumber(params.data.billuser)
-                                    + '<br/>今日开户数:' + formatterNumber(params.data.user)
-                                    + '<br/>arup值:' + formatterNumber(params.data.arpu)
-                        } else {
-                            return params.name
-                        }
-                    }
-                },
-                visualMap: {
-                    type: 'piecewise',
-                    splitNumber: 5,
-                    pieces: [
-                        {gt: 50000000, label: '>=5000W'},
-                        {gt: 40000000, lte: 50000000, label: '4000W-5000W'},
-                        {gt: 20000000, lte: 40000000, label: '2000W-4000W'},
-                        {gt: 10000000, lte: 20000000, label: '1000W-2000W'},
-                        {lte: 10000000, label: '0-999W'}
-                    ],
-                    show: true,
-                    textStyle: {
-                        color: "#ffffff"
-                    },
-                    formatter: (val)=> {
-                        return formatterNumber(val)
-                    },
-                    realtime: false,
-                    calculable: true,
-                    inRange: {
-                        color: ['#62A5E6', '#2569BB']
-                    }
-                },
-                legend: {
-                    show: false,
-                },
-                geo: {
-                    map: name,
-                    roam: false,
-                    zlevel: 1,
-                    zoom: (name == 'china') ? 1.2 : ((name == 'heilongjiang' || name == 'gansu' || name == 'guangdong') ? 0.8 : 1),
-                    top: (name == 'heilongjiang' || name == 'gansu') ? '20%' : 'center',
-                    left: (name == 'heilongjiang' || name == 'gansu') ? '25%' : 'center',
-                    // layoutCenter: ['80%','80%'],
-                    //图形上的文本标签，可用于说明图形的一些数据信息
-                    label: {
-                        show: true,
-                        fontSize: "10",
-                        formatter: function(param) {
-                            // 处理不显示地市
-                            if (name == 'xinjiang') {
-                                let str = String(param.name)
-                                if (str.length > 4) {
-                                    return ''
-                                } else {
-                                    return str
-                                }
-                            }
-                        },
-                        color: "#fff"
-
-                    },
-                    //地图区域的多边形 图形样式，有 normal 和 emphasis 两个状态
-                    itemStyle: {
-                        borderColor: "#2569BB",
-                        areaColor: "#2569BB",
-
-                    },
-                    emphasis: {
-                        label: {
-                            show:true,
-                            color: "#fff"
-                        },
-                        itemStyle: {
-                            color: '#1ACFFF',
-                            areaColor: "#1ACFFF",
-                        }
-                    }
-
-                },
-                series: [{
-                    name: name,
-                    type: "map",
-                    zlevel: 1,
-                    geoIndex: 0,
-                    data: this.mapData,
-                }]
-            };
-            map.setOption(option, true);
-            window.addEventListener("resize", () => { map.resize(); });
-            this.HandleClick()
-            return
-        },
-        reBack() {
-            if (this.back) {
-                this.$emit('reName', '全国','00')
-                this.cityName = ''
-                map.dispose();
-                this.initMap('china');
-            } else {
-               if(this.cityName != ''){
-                    map.dispose();
-                    this.initMap(this.cityName);
-                }
-            }
-        },
-        HandleClick() {
-            // 点击触发
-            map.on("click", param => {
-                // 判断点击省份是否是未托管
-                this.silent = true
-                let code = param.data ? param.data.code : 0
-                if (param.name in this.provinces) {
-                    // 处理省模块
-                    let names = param.name;
-                    for (let key in this.provinces) {
-                        if (names == key) {
-                            this.showProvince(this.provinces[key], key, code);
-                            continue;
-                        } else {
-                            this.cityName = 'china'
-                        }
-                    }
-                } else {
-                    if (param) {
-                        this.tipShow = true
-                        setTimeout(() => {
-                            this.tipShow = false
-                        }, 2000)
-                        this.back = false
-                    }
-                }
-            });
-        },
-        showProvince(eName, param, code) {
-            let self = this
-            axios.get(`./map/province/${eName}.json`).then(res => {
-                echarts.registerMap(eName, res.data);
-                this.$emit('reName',param, code)
-                self.cityName = eName
-                map.dispose();
-                self.initMap(eName);
-            })
-        }
-    }
-}
+	import CommonTitle from './commonTitle'
+	import {formatterNumber} from '@/utils/filterNum'
+    export default {
+		name: "",
+		components: {
+			CommonTitle
+		},
+		props: {
+			moduleData: {
+				type: Array,
+				default: () => ([])
+			}
+		},
+		data(){
+			return{
+				titleText: '计费信控情况',
+			}
+		},
+		mounted() {
+		},
+		updated() {
+		},
+		methods:{
+		}
+	}
 </script>
-<style scoped>
-.map-chart {
-    height: 631px;
-    width: 100%;
-    position: relative;
-}
 
-.map-shadow {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100
-}
-
-.tip-show {
-    position: absolute;
-    top: 50%;
-    z-index: 9;
-    left: 50%;
-    font-size: 0.8rem;
-    color: #fff;
-    padding: 0.2rem 0.3rem;
-    border-radius: 10%;
-    background: rgba(0, 0, 0, 0.4);
+<style lang="less" scoped>
+.ranking{
+	box-sizing: border-box;
+	width: 460px;
+	height: 500px;
+	background: url(../assets/yaxin/rank-bg.png) no-repeat;
+	background-size: 100% 100%;
+	padding-top: 86px;
+	position: relative;
+	.title{
+		position: absolute;
+		width: 100%;
+		top: 8px;
+		left: 0;
+	}
+	.tab-box{
+		position: absolute;
+		top: 46px;
+		left: 80px;
+		width: 300px;
+		height: 30px;
+		display: flex;
+		.tab-item{
+			box-sizing: border-box;
+			position: absolute;
+			width: 150px;
+			line-height: 28px;
+			height: 30px;
+			font-size: 14px;
+			font-family: PingFangSC-Semibold, PingFang SC;
+			font-weight: 600;
+			color: #88D7FD;
+			text-align: center;
+			cursor: pointer;
+			&:first-child{
+				top: 0;
+				left: 0;
+				overflow: hidden;
+				border-radius: 15px 0 0 15px;
+				border-top: 1px solid #3A66D0;
+				border-left: 1px solid #3A66D0;
+				border-bottom: 1px solid #3A66D0;
+			}
+			&:last-child{
+				top: 0;
+				right: 0;
+				overflow: hidden;
+				border-radius: 0 15px 15px 0;
+				border-top: 1px solid #3A66D0;
+				border-right: 1px solid #3A66D0;
+				border-bottom: 1px solid #3A66D0;
+			}
+			&.active{
+				box-shadow: 0 0 11px 8px rgba(66, 157, 249, 0.5) inset;
+				color: #C7FCFC;
+			}
+		}
+	}
+	.ranking-box{
+		height: 100%;
+		width: 100%;
+		text-align: left;
+		box-sizing: border-box;
+		color: #fff;
+		font-size: 14px;
+		padding: 0 23px 0 21px;
+		.ranking-header{
+			line-height: 14px;
+			margin-top: 1px;
+			display: flex;
+			.index,
+			.name,
+			.order-num{
+				font-size: 14px;
+				font-family: PingFangSC-Medium, PingFang SC;
+				font-weight: 500;
+				color: #01FFFF;
+				line-height: 14px;
+				text-shadow: 0px 0px 4px rgba(1, 255, 255, 0.6);
+			}
+		}
+		.ranking-body{
+			text-align: center;
+			margin-top: 12px;
+			.rank-item{
+				height: 34px;
+				line-height: 34px;
+				margin-top: 5px;
+				display: flex;
+				position: relative;
+				&:before{
+					content: '';
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					top: 0;
+					left: 0;
+					background: linear-gradient(90deg, #24517F 0%, rgba(0, 184, 252, 0) 100%);
+					opacity: 0.4;
+				}
+				&:first-child{
+					margin-top: 0;
+				}
+				&:nth-child(1),
+				&:nth-child(2),
+				&:nth-child(3){
+					position: relative;
+					height: 30px;
+					line-height: 30px;
+					&:before{
+						content: '';
+						position: absolute;
+						width: 100%;
+						height: 100%;
+						top: 0;
+						left: 0;
+						opacity: 0.4;
+					}
+					&:after{
+						content: '';
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 3px;
+						height: 30px;
+					}
+				}
+				&:nth-child(1){
+					&:before{
+						background: linear-gradient(90deg, rgba(255, 243, 60, 0.59) 0%, rgba(0, 184, 252, 0) 100%);
+					}
+					&:after{
+						background: rgba(255, 243, 60, 1);
+					}
+				}
+				&:nth-child(2){
+					&:before{
+						background: linear-gradient(90deg, rgba(102, 241, 154, 0.64) 0%, rgba(0, 184, 252, 0) 100%);
+					}
+					&:after{
+						background: rgba(103, 241, 153, 1);
+					}
+				}
+				&:nth-child(3) {
+					&:before {
+						background: linear-gradient(90deg, rgba(0, 252, 241, 0.5) 0%, rgba(0, 184, 252, 0) 100%);
+					}
+					&:after {
+						background: rgba(1, 255, 255, 1);
+					}
+				}
+				.growth-rate{
+					color: #75EF9E;
+				}
+			}
+		}
+		.index{
+			width: 73px;
+			text-align: center;
+			padding-right: 31px;
+			.index-icon{
+				display: inline-block;
+				width: 20px;
+				height: 15px;
+				vertical-align: text-top;
+				&.icon-0{
+					background: url('../assets/yaxin/diyi.png') no-repeat;
+					background-size: contain;
+				}
+				&.icon-1{
+					background: url('../assets/yaxin/dier.png') no-repeat;
+					background-size: contain;
+				}
+				&.icon-2{
+					background: url('../assets/yaxin/disan.png') no-repeat;
+					background-size: contain;
+				}
+			}
+		}
+		.name{
+			width: 220px;
+			text-align: left;
+			font-size: 14px;
+			font-family: PingFangSC-Regular, PingFang SC;
+			font-weight: 400;
+			color: #FFFFFF;
+		}
+		.order-num{
+			width: 133px;
+			text-align: center;
+			// padding-right: 57px;
+			font-size: 14px;
+			font-family: PingFangSC-Medium, PingFang SC;
+			font-weight: 500;
+			color: #C7FCFC;
+		}
+	}
 }
 </style>
