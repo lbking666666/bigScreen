@@ -69,7 +69,8 @@
 	box-sizing: border-box;
 	width: 460px;
 	height: 500px;
-	background: url(../assets/yaxin/rank-bg.png) no-repeat;
+	// background: url(../assets/yaxin/rank-bg.png) no-repeat;
+	background:url(../assets/yaxin/kuang_rexiaochangyong.png) no-repeat;
 	background-size: 100% 100%;
 	padding-top: 86px;
 	position: relative;
