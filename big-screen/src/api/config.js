@@ -4,6 +4,7 @@ import axios from 'axios';
 
 //设置请求超时时间
 axios.defaults.timeout = 20000;
+
 // 拦截响应response，并做一些错误处理
 axios.interceptors.response.use((response) => {
   /*if(response.data.message == '员工账号已禁用!' || response.data.message =='员工已离职!'){
@@ -39,6 +40,9 @@ axios.interceptors.response.use((response) => {
     console.log('after')
   }
 })
+
+
+
 //get 方法
 export function getApi(url, data) {
   return axios.get(url, {params:data}).then((res) => {

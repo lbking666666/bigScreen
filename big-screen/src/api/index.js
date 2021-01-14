@@ -79,3 +79,5 @@ export function geAllData(data){
     return getApi(url, data)
 }
 
+
+
