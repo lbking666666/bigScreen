@@ -61,9 +61,9 @@ export default {
                     third: {name: '换网', val: 687}
                 },
                 {
-                    first: {name: '', val: 86687},
-                    second: {name: '', val: 86687},
-                    third: {name: '', val: 86687}
+                    first: {name: '换补卡', val: 86687},
+                    second: {name: '普通付费关系', val: 86687},
+                    third: {name: '换网', val: 86687}
                 }
             ],
             activeIndex: 0
@@ -116,6 +116,22 @@ export default {
                 width: 168px;
                 background:url(../assets/yaxin/top1.png) no-repeat;
                 background-size: cover;
+                text-align: center;
+                p{
+                    margin: 0;
+                    padding: 0;
+                }
+                .value{
+                    padding-top: 58px;
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: #fff;
+                }
+                .name{
+                    padding-top: 8px;
+                    font-size: 14px;
+                    color: #c3f7f8;
+                }
             }
         }
         .top-2-box{
@@ -132,6 +148,22 @@ export default {
                 width: 124px;
                 background:url(../assets/yaxin/top_2.png) no-repeat;
                 background-size: cover;
+                text-align: center;
+                p{
+                    margin: 0;
+                    padding: 0;
+                }
+                .value{
+                    padding-top: 45px;
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: #fff;
+                }
+                .name{
+                    padding-top: 6px;
+                    font-size: 14px;
+                    color: #c3f7f8;
+                }
             }
         }
         .top-3-box{
@@ -148,6 +180,22 @@ export default {
                 width: 124px;
                 background:url(../assets/yaxin/top_2.png) no-repeat;
                 background-size: cover;
+                text-align: center;
+                p{
+                    margin: 0;
+                    padding: 0;
+                }
+                .value{
+                    padding-top: 45px;
+                    font-size: 22px;
+                    font-weight: 600;
+                    color: #fff;
+                }
+                .name{
+                    padding-top: 6px;
+                    font-size: 14px;
+                    color: #c3f7f8;
+                }
             }
         }
     }

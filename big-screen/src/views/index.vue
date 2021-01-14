@@ -2,6 +2,13 @@
     <div class="home">
         <div class="header">
             <div class="time-box">{{ dateTimeStr }}</div>
+
+            <div class="time-selection">
+                <span class="time-n">Time：</span>
+                <span class="time-option" :class="timeIndex == 0 ? 'active' : ''" @click="checkTime(0)">日</span>
+                <span class="time-option" :class="timeIndex == 1 ? 'active' : ''" @click="checkTime(1)">月</span>
+                <span class="time-option" :class="timeIndex == 2 ? 'active' : ''" @click="checkTime(2)">年</span>
+            </div>
         </div>
         <div class="container">
             <div class="left-box">
@@ -19,7 +26,7 @@
                 <module7 :moduleData="module7Data"></module7>
                 <!-- 热销产品/常用功能TOP3 -->
                 <module8 :moduleData="module8Data"></module8>
-                <module9 :moduleData="module9Data"></module9> 
+                <!-- <module9 :moduleData="module9Data"></module9>  -->
             </div>
         </div>
     </div>
@@ -66,7 +73,8 @@ export default {
             provinceName: '全国',
             leftData: {},
             nowTime: (new Date()).getTime() / 1000,
-            dateTimeStr: timestampConversion((new Date()).getTime() / 1000)
+            dateTimeStr: timestampConversion((new Date()).getTime() / 1000),
+            timeIndex: 0, // 0: 日; 1: 月; 2: 年;
         }
     },
     mounted() {
@@ -78,6 +86,10 @@ export default {
         }, 1000)
     },
     methods: {
+        checkTime(num){
+            this.timeIndex = num
+            // 在这里执行切换整屏的数据
+        },
         getMapData() {
             getMapData().then(res => {
                 if (res.code == 200) {
@@ -393,6 +405,39 @@ export default {
             letter-spacing: .93px;
             text-align: right;
             line-height: 34px;
+        }
+
+        .time-selection{
+            position: absolute;
+            top: 44px;
+            left: 32px;
+            height: 26px;
+            line-height: 26px;
+            text-align: left;
+            font-size: 16px;
+            font-family: Helvetica;
+            color: #FFFFFF;
+            // .time-n{
+                
+            // }
+            .time-option{
+                display: inline-block;
+                height: 26px;
+                width: 72px;
+                line-height: 26px;
+                margin-left: 14px;
+                box-sizing: border-box;
+                border-radius: 4px;
+                border: 2px solid #026D7E;
+                text-align: center;
+                cursor: pointer;
+                &.active{
+                     background: rgba(41, 205, 255, 0.3);
+                    box-shadow: 0px 0px 10px 0px rgba(1, 196, 251, 0.7);
+                    border-radius: 4px;
+                    border: 2px solid #00FFFF;
+                }
+            }
         }
     }
 
