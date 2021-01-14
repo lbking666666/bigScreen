@@ -80,7 +80,7 @@
                         <div class="options" :class="flag3==30?'opt-active':''" @click="selTotal(30)"><div>月</div></div>
                         <div class="options" :class="flag3==365?'opt-active':''" @click="selTotal(365)"><div>年</div></div>
                     </div>
-                    <barChart :xData="barXData" :yData="barYData" :maxDataNum="maxDataNum"></barChart>
+                    <barChart :xData="barXData" :yData="barYData" :yData2="barYData2" :maxDataNum="maxDataNum"></barChart>
                 </div>
             </div>
             <div class="right-box">
@@ -181,6 +181,7 @@ export default {
             provinceTotalList: [], // 各省数据汇总
             barXData: [], // 各省数据汇总x轴数据
             barYData: [], // 各省数据汇总y轴数据
+            barYData2: [], // 各省数据汇总y轴去重数据
             maxDataNum: 0, // 汇总图y轴最大值
             provinceName:'', // 选择的省份
             showWechatData: {}, // 互动数接口
@@ -327,7 +328,11 @@ export default {
                             return data.areaName
                         })
                         this.barYData =  this.provinceTotalList.map(data=>{
-                            return data.addNum
+                            return data.totalNum
+                        })
+                        // 去重的y轴数据
+                        this.barYData2 =  this.provinceTotalList.map(data=>{
+                            return data.distinctTotalNum
                         })
                         this.maxDataNum = Math.max(...this.barYData)
                     }

@@ -6,78 +6,85 @@
 				<p class="bold-text">
 					<span>{{provinceName||'全国'}}昨日：</span>
 				</p>
-				<p>外部客户量{{ externalData.addNum }}，较前日
-					<span class="font-red" v-if="externalData.lastRate&&String(externalData.lastRate).indexOf('-') >= 0">
+				<p>外部客户量{{ externalData.distinctAddNum }}，较前日
+					<span class="font-red" v-if="externalData.distinctLastRate&&String(externalData.distinctLastRate).indexOf('-') >= 0">
 						<img src="../assets/img/xiajiang.png" alt="">
-						{{fixedNum(externalData.lastRate)}}
+						{{fixedNum(externalData.distinctLastRate)}}
 					</span>
-					<span class="font-green" v-else-if="externalData.lastRate&&String(externalData.lastRate).indexOf('-') == -1">
+					<span class="font-green" v-else-if="externalData.distinctLastRate&&String(externalData.distinctLastRate).indexOf('-') == -1">
 						<img src="../assets/img/shangsheng.png" alt="">
-						{{fixedNum(externalData.lastRate)}}
+						{{fixedNum(externalData.distinctLastRate)}}
 					</span>
 					<span v-else>持平</span>，
 				</p>
 				<p>较7日均值
-					<span class="font-red" v-if="externalData.sevenRate&&String(externalData.sevenRate).indexOf('-') >= 0">
+					<span class="font-red" v-if="externalData.distinctSevenRate&&String(externalData.distinctSevenRate).indexOf('-') >= 0">
 						<img src="../assets/img/xiajiang.png" alt="">
-						{{fixedNum(externalData.sevenRate)}}
+						{{fixedNum(externalData.distinctSevenRate)}}
 					</span>
-					<span class="font-green" v-else-if="externalData.sevenRate&&String(externalData.sevenRate).indexOf('-') == -1">
+					<span class="font-green" v-else-if="externalData.distinctSevenRate&&String(externalData.distinctSevenRate).indexOf('-') == -1">
 						<img src="../assets/img/shangsheng.png" alt="">
-						{{fixedNum(externalData.sevenRate)}}
+						{{fixedNum(externalData.distinctSevenRate)}}
 					</span>
 					<span v-else>持平</span>，
 					较上月同期
-					<span class="font-red" v-if="externalData.lastMonthRate&&String(externalData.lastMonthRate).indexOf('-') >= 0">
+					<span class="font-red" v-if="externalData.distinctLastMonthRate&&String(externalData.distinctLastMonthRate).indexOf('-') >= 0">
 						<img src="../assets/img/xiajiang.png" alt="">
-						{{fixedNum(externalData.lastMonthRate)}}
+						{{fixedNum(externalData.distinctLastMonthRate)}};
 					</span>
-					<span class="font-green" v-else-if="externalData.lastMonthRate&&String(externalData.lastMonthRate).indexOf('-') == -1">
+					<span class="font-green" v-else-if="externalData.distinctLastMonthRate&&String(externalData.distinctLastMonthRate).indexOf('-') == -1">
 						<img src="../assets/img/shangsheng.png" alt="">
-						{{fixedNum(externalData.lastMonthRate)}}
+						{{fixedNum(externalData.distinctLastMonthRate)}};
 					</span>
-					<span v-else>持平</span>。
+					<span v-else>持平</span>;
 				</p>
 				<p>
-					外部客户累积量{{externalData.totalNum}}
+					外部客户累积量{{externalData.distinctTotalNum}}，重复占比数据
+					<span class="font-red" v-if="externalData.duplicateRate&&String(externalData.duplicateRate).indexOf('-') >= 0">
+						{{fixedNum(externalData.duplicateRate)}};
+					</span>
+					<span class="font-green" v-else-if="externalData.duplicateRate&&String(externalData.duplicateRate).indexOf('-') == -1">
+						{{fixedNum(externalData.duplicateRate)}};
+					</span>
+					<span v-else>0</span>
 				</p>
 			</div>
 
 			<div class="bord-external">
-				<p>内部员工量{{ userData.addNum }}，较前日
-					<span class="font-red" v-if="userData.lastRate&&String(userData.lastRate).indexOf('-') >= 0">
+				<p>内部员工量{{ userData.distinctAddNum }}，较前日
+					<span class="font-red" v-if="userData.distinctLastRate&&String(userData.distinctLastRate).indexOf('-') >= 0">
 						<img src="../assets/img/xiajiang.png" alt="">
-						{{fixedNum(userData.lastRate)}}
+						{{fixedNum(userData.distinctLastRate)}}
 					</span>
-					<span class="font-green" v-else-if="userData.lastRate&&String(userData.lastRate).indexOf('-') == -1">
+					<span class="font-green" v-else-if="userData.distinctLastRate&&String(userData.distinctLastRate).indexOf('-') == -1">
 						<img src="../assets/img/shangsheng.png" alt="">
-						{{fixedNum(userData.lastRate)}}
+						{{fixedNum(userData.distinctLastRate)}}
 					</span>
 					<span v-else>持平</span>，
 				</p>
 				<p>较7日均值
-					<span class="font-red" v-if="userData.sevenRate&&String(userData.sevenRate).indexOf('-') >= 0">
+					<span class="font-red" v-if="userData.distinctSevenRate&&String(userData.distinctSevenRate).indexOf('-') >= 0">
 						<img src="../assets/img/xiajiang.png" alt="">
-						{{fixedNum(userData.sevenRate)}}
+						{{fixedNum(userData.distinctSevenRate)}}
 					</span>
-					<span class="font-green" v-else-if="userData.sevenRate&&String(userData.sevenRate).indexOf('-') == -1">
+					<span class="font-green" v-else-if="userData.distinctSevenRate&&String(userData.distinctSevenRate).indexOf('-') == -1">
 						<img src="../assets/img/shangsheng.png" alt="">
-						{{fixedNum(userData.sevenRate)}}
+						{{fixedNum(userData.distinctSevenRate)}}
 					</span>
 					<span v-else>持平</span>，
 					较上月同期
-					<span class="font-red" v-if="userData.lastMonthRate&&String(userData.lastMonthRate).indexOf('-') >= 0">
+					<span class="font-red" v-if="userData.distinctLastMonthRate&&String(userData.distinctLastMonthRate).indexOf('-') >= 0">
 						<img src="../assets/img/xiajiang.png" alt="">
-						{{fixedNum(userData.lastMonthRate)}}
+						{{fixedNum(userData.distinctLastMonthRate)}}
 					</span>
-					<span class="font-green" v-else-if="userData.lastMonthRate&&String(userData.lastMonthRate).indexOf('-') == -1">
+					<span class="font-green" v-else-if="userData.distinctLastMonthRate&&String(userData.distinctLastMonthRate).indexOf('-') == -1">
 						<img src="../assets/img/shangsheng.png" alt="">
-						{{fixedNum(userData.lastMonthRate)}}
+						{{fixedNum(userData.distinctLastMonthRate)}}
 					</span>
-					<span v-else>持平</span>；
+					<span v-else>持平</span>
 				</p>
 				<p>
-					内部员工累积量{{userData.totalNum}}
+					内部员工累积量{{userData.distinctTotalNum}}
 				</p>
 			</div>
 		</div>
@@ -91,19 +98,22 @@
 			externalData: {
 				type: Object,
 				default: () => ({
-					lastRate: 0,
-					totalNum: 0,
-					sevenRate: 0,
-					lastMonthRate: 0
+					distinctAddNum: 0,
+					distinctLastRate: 0,
+					distinctTotalNum: 0,
+					distinctSevenRate: 0,
+					distinctLastMonthRate: 0,
+					duplicateRate: 0,
 				})
 			},
 			userData: {
 				type: Object,
 				default: () => ({
-					lastRate: 0,
-					totalNum: 0,
-					sevenRate: 0,
-					lastMonthRate: 0
+					distinctAddNum: 0,
+					distinctLastRate: 0,
+					distinctTotalNum: 0,
+					distinctSevenRate: 0,
+					distinctLastMonthRate: 0
 				})
 			},
 			provinceName:{

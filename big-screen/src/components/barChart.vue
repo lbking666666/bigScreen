@@ -17,6 +17,10 @@ export default {
             type: Array,
             default: []
         },
+        yData2: {
+            type: Array,
+            default: []
+        },
         maxDataNum: {
             type: Number,
             default: 0
@@ -67,6 +71,15 @@ export default {
                         fontSize: 14,
                         fontWeight: 600
                     },
+                },
+                legend: {
+                    show: true,
+                    data: ['未提重数据', '提重数据'],
+                    top: 25,
+                    left: 50,
+                    textStyle:{
+                        color: 'rgba(169, 240, 255, 1)',
+                    }
                 },
                 grid: {
                     left: '3%',
@@ -125,37 +138,65 @@ export default {
                     },
                 }],
                 series: [
-                    { // For shadow
-                        type: 'bar',
-                        itemStyle: {
-                            normal: {color: 'rgba(59, 157, 230, 0.1)'},
-                        },
-                        barWidth:36,
-                        data: this.dataAxis,
-                        tooltip:{
-                            show:false
-                        },
-                        animation: false,
-                        z:1
-                    },
+                    // { // For shadow
+                    //     type: 'bar',
+                    //     itemStyle: {
+                    //         normal: {color: 'rgba(59, 157, 230, 0.1)'},
+                    //     },
+                    //     barWidth:36,
+                    //     data: this.dataAxis,
+                    //     tooltip:{
+                    //         show:false
+                    //     },
+                    //     animation: false,
+                    //     z:1
+                    // },
                     {
                         type: 'bar',
+                        name:'未提重数据',
                         itemStyle: {
                             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                 offset: 0,
-                                color: '#2FFFF9' //指0%处的颜色
+                                color: 'rgba(49, 93, 255, 1)' //指0%处的颜色
                             }, {
                                 offset: 1,
-                                color: '#1800FF' //指100%处的颜色
-                            }], false)
+                                color: 'rgba(35, 186, 252, 1)' //指100%处的颜色
+                            }], false),
+                            normal: {
+                                //柱形图圆角，初始化效果
+                                barBorderRadius:[10, 10, 0, 0]
+                            }
                         },
-                        barGap:'-75%',
-                        barWidth: 18,
+                        barGap:'0%',
+                        barWidth: 15,
                         tooltip:{
                             show:true
                         },
                         data: this.yData,
-                        z:2
+                        // z:2
+                    },{
+                        type: 'bar',
+                        name:'提重数据',
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#7EEEE5' //指0%处的颜色
+                            }, {
+                                offset: 1,
+                                color: '#67C2C2' //指100%处的颜色
+                            }], false),
+                            normal: {
+                                //柱形图圆角，初始化效果
+                                barBorderRadius:[10, 10, 0, 0]
+                            }
+                        },
+                        // barGap:'-75%',
+                        barWidth: 15,
+                        tooltip:{
+                            show:true
+                        },
+                        data: this.yData2,
+                        // z:3
                     },
                     // {
                     //     type: 'custom',
