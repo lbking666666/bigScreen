@@ -126,14 +126,14 @@ export function ServiceOrder(data){
 // @Param("prov_code") String
 // @Param("sqltype") String  'month'
 export function AI_Credit(data){
-    const url = `/BaseUrlA/screenapi/AI_Credit_00004_YMD`
+    const url = `/screenapi/AI_Credit_00004_YMD`
     return getApi(url, data)
 }
 
 // @Param("prov_code") String
 // @Param("sqltype") String 'day'
 export function AI_Produce(data){
-    const url = `/BaseUrlA/screenapi/AI_Produce_00001_YMD`
+    const url = `/screenapi/AI_Produce_00001_YMD`
     return getApi(url, data)
 }
 

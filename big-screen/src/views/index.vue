@@ -53,7 +53,15 @@ import module9 from '@/components/module9.vue';
 import {
     AI_Cz_Users,
     AI_Cz_Process_Card,
-    AI_Billing,queryTop10ByProvince,queryOrderCount,AI_Billing_00003_YMD,AI_Billing_00002_YMD,queryCBSSOpenCount
+    AI_Billing,
+    Trade,
+    Openbusi,
+    getBigData,
+    ServiceOrder,
+    AI_Credit,
+    AI_Produce,
+    AsynOpen,
+    queryTop10ByProvince,queryOrderCount,AI_Billing_00003_YMD,AI_Billing_00002_YMD,queryCBSSOpenCount
 
 } from '@/api/index.js';
 import numberBord from '@/components/numberBord.vue';
@@ -121,6 +129,13 @@ export default {
             this.AI_Cz_Users()
             this.AI_Cz_Process_Card()
             this.AI_Billing()
+            this.Trade()
+            this.Openbusi()
+            this.getBigData()
+            this.ServiceOrder()
+            this.AI_Credit()
+            this.AI_Produce()
+            this.AsynOpen()
         },
         AI_Cz_Users(){
             let params = {prov_code: 'ZZ'}
@@ -138,6 +153,76 @@ export default {
             let params = {prov_code: 'ZZ'}
             AI_Billing(params).then(res=>{
                 console.log('AI_Billing', res)
+            })
+        },
+        Trade(){
+            //busi=00&date=H&end=2021-01-14-23&prov_code=ZZ&start=2021-01-14-00
+            let params = {
+                busi: '00',
+                date: 'H',
+                end: '2021-01-14-23',
+                prov_code: 'ZZ',
+                start: '2021-01-14-00',
+            }
+            Trade(params).then(res=>{
+                console.log('Trade', res)
+            })
+        },
+        Openbusi(){
+            //busi=A&city_code=0010&date=2021-01-14&prov_code=ZZ
+            let params = {
+                busi: 'A',
+                city_code: '0010',
+                date: '2021-01-14',
+                prov_code: 'ZZ',
+            }
+            Openbusi(params).then(res=>{
+                console.log('Openbusi', res)
+            })
+        },
+        getBigData(){
+            //busi=A&city_code=0010&date=2021-01-14&prov_code=ZZ
+            let params = {
+                provinceCode: '10',
+            }
+            getBigData(params).then(res=>{
+                console.log('getBigData', res)
+            })
+        },
+        ServiceOrder(){
+            ServiceOrder().then(res=>{
+                console.log('ServiceOrder', res)
+            })
+        },
+        AI_Credit(){
+            //prov_code=ZZ&sqltype=month
+            let params = {
+                prov_code: 'ZZ',
+                sqltype: 'month',
+            }
+            AI_Credit(params).then(res=>{
+                console.log('AI_Credit', res)
+            })
+        },
+        AI_Produce(){
+            //prov_code=ZZ&sqltype=day
+            let params = {
+                prov_code: 'ZZ',
+                sqltype: 'day',
+            }
+            AI_Produce(params).then(res=>{
+                console.log('AI_Produce', res)
+            })
+        },
+        AsynOpen(){
+            //city_code=0010&date=2021-01-14&prov_code=ZZ
+            let params = {
+                prov_code: 'ZZ',
+                city_code: '0010',
+                date: '2021-01-14',
+            }
+            AsynOpen(params).then(res=>{
+                console.log('AsynOpen', res)
             })
         },
         getModule6Data() {

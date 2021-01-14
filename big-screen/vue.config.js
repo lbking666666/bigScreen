@@ -25,13 +25,13 @@ module.exports = {
                 target: 'http://10.161.12.1:9099',
                 changeOrigin: true,
                 ws: false,
-                pathRewrite: { '^/BaseUrlB': '/BaseUrlB' }
+                pathRewrite: { '^/BaseUrlB': '' }
             },
             '/BaseUrlC': {
                 target: 'http://10.161.12.101:8622',
                 changeOrigin: true,
                 ws: false,
-                pathRewrite: { '^/BaseUrlC': '/BaseUrlC' }
+                pathRewrite: { '^/BaseUrlC': '' }
             },
         }
     }
