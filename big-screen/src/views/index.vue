@@ -122,7 +122,7 @@ export default {
         getData() {
             this.getBigData();
             this.getModule6Data()
-            // this.getModule7Data()
+            this.getModule7Data()
             this.getModule8Data()
             this.getModule9Data()
         },
@@ -283,26 +283,56 @@ export default {
             })
         },
         getModule7Data() {
-            let params = {
-                provinceCode: this.provinceCode,
-                month: now.getMonth() + 1
-            }
-            getModule7(params).then(res => {
-                if (res.code == 200) {
-                    //过滤数据
-                    /* let list = [],arr =['营业厅订单','外围订单']
-                     res.data.forEach(item=>{
-                         if(arr.indexOf(item.name)!=-1){
-                             list.push(item)
-                         }
-                     })
-                     this.module6Data = list*/
-                    if (res.data.length > 0) {
-                        this.module7Data = res.data
-                    }
-
-                }
-            })
+            this.module7Data = [
+                {
+                    date:'2021-01-01',
+                    saleNum: 123,
+                },
+                {
+                    date:'2021-01-02',
+                    saleNum: 13,
+                },
+                {
+                    date:'2021-01-03',
+                    saleNum: 23,
+                },
+                {
+                    date:'2021-01-04',
+                    saleNum: 223,
+                },
+                {
+                    date:'2021-01-05',
+                    saleNum: 123,
+                },
+                {
+                    date:'2021-01-06',
+                    saleNum: 13,
+                },
+                {
+                    date:'2021-01-07',
+                    saleNum: 166,
+                },
+            ]
+            // let params = {
+            //     provinceCode: this.provinceCode,
+            //     month: now.getMonth() + 1
+            // }
+            // getModule7(params).then(res => {
+            //     if (res.code == 200) {
+            //         //过滤数据
+            //         /* let list = [],arr =['营业厅订单','外围订单']
+            //          res.data.forEach(item=>{
+            //              if(arr.indexOf(item.name)!=-1){
+            //                  list.push(item)
+            //              }
+            //          })
+            //          this.module6Data = list*/
+            //         if (res.data.length > 0) {
+            //             this.module7Data = res.data
+            //         }
+            //
+            //     }
+            // })
         },
         getModule8Data() {
             let params = {

@@ -2,14 +2,6 @@
     <div class="charts-wrapper">
         <commonTitle :titleText="titleText"></commonTitle>
         <div class="line-chart">
-            <div class="query-option">
-                <div class="options" :class="flag==0?'opt-active':''" @click="selExternal(0)">
-                    <div>营业厅</div>
-                </div>
-                <div class="options" :class="flag==1?'opt-active':''" @click="selExternal(1)">
-                    <div>外围</div>
-                </div>
-            </div>
             <div ref="chart" style="width:100%;height:100%"></div>
         </div>
     </div>
@@ -23,7 +15,7 @@ export default {
     props: {
         color: {
             type: String,
-            default: '#fff',
+            default: '#B085FF',
         },
         moduleData: {
             type: Array,
@@ -52,14 +44,18 @@ export default {
             this.seriesData = []
             if (arr.length > 0) {
                 arr.forEach(ele => {
+                    console.log(ele)
                     this.xAxisData.push(Number(ele.date.split('-')[2]))
-                    if(this.flag==1){
-                        this.seriesData.push(ele.outertrade)
-                    }else{
-                        this.seriesData.push(ele.malltrade)
-                    }
-                    
+                    this.seriesData.push(Number(ele.saleNum))
+                    // if(this.flag==1){
+                    //     this.seriesData.push(ele.outertrade)
+                    // }else{
+                    //     this.seriesData.push(ele.malltrade)
+                    // }
+                    //
                 })
+                console.log('this.xAxisData',this.xAxisData)
+                console.log('this.seriesData',this.seriesData)
             }
         },
         drawChart() {
@@ -68,19 +64,22 @@ export default {
            /* if (vm.myChart) {
                 vm.myChart.dispose()
             }*/
-            if (this.moduleData.length > 0) {
-                this.dealData(this.moduleData[this.flag].value)
-            }
+            // if (this.moduleData.length > 0) {
+            //     this.dealData(this.moduleData[this.flag].value)
+            // }
+            console.log('this.moduleData',this.moduleData)
+            this.dealData(this.moduleData)
             let chart = this.$refs.chart
             vm.myChart = echarts.init(chart)
             let options = {
                 xAxis: {
                     type: 'category',
-                    axisLine: {
-                        lineStyle: {
-                            color: '#2EB2B3'
-                        }
+                    name: '单位:万',
+                    nameLocation: 'start',
+                    nameTextStyle:{
+                        color:'rgba(169, 240, 255, 0.8)'
                     },
+                    nameGap: 25,
                     boundaryGap: false,
                     splitArea: {
                         show: true,
@@ -89,9 +88,28 @@ export default {
                         }
                     },
                     axisLabel: {
-                        rotate: 0,
-                        fontSize: 10,
-                        interval: 0
+                        rotate: 45,
+                        fontSize: 12,
+                        interval: 0,
+                        color: '#01B4FF'
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: 'rgba(42, 244, 255, 0.08)'
+                        }
+                    },
+                    splitLine: {
+                        show: false,
+                        lineStyle: {
+                            color: ['rgba(98, 255, 254, 0.12)'],
+                            width: 1,
+                            type: 'solid'
+                        }
+                    },
+                    axisTick: {
+                        show:false,
+                        alignWithLabel: true
                     },
                     data: this.xAxisData
                 },
@@ -107,7 +125,7 @@ export default {
 
                     borderWidth: 0,
                     formatter: function(params) {
-                        let dateStr = vm.moduleData[vm.flag].value[params.dataIndex].date
+                        let dateStr = vm.moduleData[params.dataIndex].date
                         let nums = (String(params.value).length > 4) ? (Number(params.value / 10000).toFixed(1) + 'W') : String(params.value)
 
                         return dateStr + '<br>' + '订单量: ' + nums
@@ -117,27 +135,27 @@ export default {
                 yAxis: {
                     type: 'value',
                     show: true,
-                    name: '单位：千万',
-                    nameLocation: 'end',
+
                     axisLabel: {
                         formatter: function(value, index) {
                             let str = ''
-                            // if (value > 10000 && value < 10000000) {
-                            //     str = (value / 10000).toFixed(1) + 'w'
-                            // } else if (value >= 10000000) {
-                            //     str = (value / 10000000).toFixed(1) + 'kw'
-                            // } else {
-                            //     str = value
-                            // }
-                            str = (value / 10000000).toFixed(1)
+                            if (value > 10000 && value < 10000000) {
+                                str = (value / 10000).toFixed(1) + 'w'
+                            } else if (value >= 10000000) {
+                                str = (value / 10000000).toFixed(1) + 'kw'
+                            } else {
+                                str = value
+                            }
+                            // str = (value / 10000).toFixed(1)
                             return str;
                             // return value
-                        }
+                        },
+                        color: '#01B4FF'
                     },
                     axisLine: {
                         show: true,
                         lineStyle: {
-                            color: '#2EB2B3'
+                            color: 'rgba(42, 244, 255, 0.08)'
                         }
                     },
                     splitLine: {
@@ -150,10 +168,10 @@ export default {
                     },
                 },
                 grid: {
-                    left: '3%',
+                    left: '8%',
                     right: '4%',
                     bottom: '3%',
-                    top: '15%',
+                    top: '5%',
                     containLabel: true
                 },
                 series: [{
@@ -161,15 +179,15 @@ export default {
                     type: 'line',
                     smooth: true,
                     symbol: 'circle',
-                    symbolSize: 8,
+                    symbolSize: 5,
                     itemStyle: {
                         color: this.color,
-                        borderColor: "#fff",
-                        borderWidth: 1,
+                        borderColor: "rgba(107, 74, 251, 0.5)",
+                        borderWidth: 10,
                         borderType: 'solid'
                     },
                     lineStyle: {
-                        color: this.color
+                        color: 'rgba(134, 108, 245, 1)'
                     },
                 }]
             }
@@ -184,8 +202,8 @@ export default {
 </script>
 <style scoped lang='less'>
 .charts-wrapper {
-    background: url(../assets/yaxin/kuang_youshang.png) no-repeat;
-    background-size: 100%;
+    background: url(../assets/yaxin/kuang_dingdanliang.png) no-repeat;
+    background-size: 100% 100%;
     height: 254px;
     padding: 8px;
 }
