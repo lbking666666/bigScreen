@@ -1,49 +1,53 @@
 <template>
     <div class="module7">
-        <commonTitle :titleText="titleText"></commonTitle>
-        <div class="unit">单位：笔</div>
+        <div class="title-box">
+            <commonTitle :titleText="titleText"></commonTitle>
+        </div>
         <div class="container">
-            <div class="box">
-                <div class="box-title">5G订购数</div>
-                <div class="box-count" :class="resizeFontSize(moduleData.order5g)">{{formatterNumber(moduleData.order5g)}}</div>
-            </div>
-            <div class="box pointer">
+            <div class="box box-1">
                 <div class="box-title">跨域用户数</div>
-                <div class="box-count" :class="resizeFontSize(moduleData.crossuser)">{{formatterNumber(moduleData.crossuser)}}</div>
-                <div class="pointer-view">
-                    <p>套餐数：{{formatterNumber(moduleData.crossmixmenu)}}</p>
-                    <p>用户数：{{formatterNumber(moduleData.crossmixuser)}}</p>
-                </div>
+                <div class="box-count" >{{formatterNumber(moduleData.dataA)}}</div>
             </div>
-            <div class="box pointer">
+            <div class="box box-2">
+                <div class="box-title">2l 用户数</div>
+                <div class="box-count" >{{formatterNumber(moduleData.dataB)}}</div>
+            </div>
+            <div class="box box-3">
+                <div class="box-title">5G订购数</div>
+                <div class="box-count" >{{formatterNumber(moduleData.dataC)}}</div>
+            </div>
+            <div class="box box-4">
                 <div class="box-title">携号转网</div>
-                <div class="box-count" :class="resizeFontSize(moduleData.portability)">{{formatterNumber(moduleData.portability)}}</div>
-                <div class="pointer-view">
-                    <p>携入数：{{formatterNumber(moduleData.portability_in)}}</p>
-                    <p>携出数：{{formatterNumber(moduleData.portability_out)}}</p>
-                </div>
+                <div class="box-count" >{{formatterNumber(moduleData.dataD)}}</div>
             </div>
         </div>
     </div>
 </template>
-
+ 
 <script>
-    import commonTitle from "./commonTitle";
+    import commonTitle from "./commonTitle"
     import {formatterNumber} from '@/utils/filterNum'
 
     export default {
-		name: "",
-        components:{commonTitle},
-
+        name: "",
+        components: {
+            commonTitle
+        },
         props: {
-            moduleData:{
-                type: Object,
-                default:{}
-            }
+            // moduleData:{
+            //     type: Object,
+            //     default: {}
+            // }
 		},
 		data(){
 			return{
-                titleText:'重点业务场景'
+                titleText:'重点业务场景',
+                moduleData: {
+                    dataA: 41923,
+                    dataB: 12314,
+                    dataC: 239302,
+                    dataD: 97328 
+                }
             }
 		},
 		mounted() {
@@ -85,73 +89,59 @@
     }
     .module7{
         width: 100%;
-        height: 170px;
-        background: url("../assets/yaxin/kuang_youzhong.png");
-        display: flex;
-        flex-direction: column;
-        .unit{
-            width: 100%;
-            text-align: right;
-            height: 20px;
-            font-size: 14px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
-            color: #A9F0FF;
-            line-height: 20px;
-            padding-right: 8px;
+        height: 290px;
+        background: url("../assets/yaxin/kuang_zhongdianyewu.png");
+        position: relative;
+        box-sizing: border-box;
+        .title-box{
+            padding-top: 5px;
         }
         .container{
             width: 100%;
-            flex: 1;
-            display: flex;
-            justify-content: space-around;
+            position: absolute;
+            left: 0;
+            top: 57px;
             .box{
-                width: 140px;
-                height: 90px;
-                background: url("../assets/yaxin/xitongyonghu.png") no-repeat;
-                background-size: 100% 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                &.pointer{
-                    cursor: pointer;
-                    position: relative;
-                    .pointer-view{
-                        position: absolute;
-                        bottom: 40%;
-                        width:auto;
-                        padding: 8px 12px;
-                        background: rgba(0, 0, 0, 0.8);
-                        border-radius: 4px;
-                        color: #fff;
-                        font-size: 13px;
-                        display: none;
-                        p{
-                            margin:4px 0;
-                        }
-                    }
-                    &:hover{
-                        .pointer-view{
-                            display: block;
-                        }
-                    }
-                }
+                width: 205px;
+                height: 100px;
+                position: absolute;
+                padding-left: 85px;
+                text-align: left;
                 .box-title{
-                    font-size: 14px;
-                    font-family: PingFangSC-Regular, PingFang SC;
-                    font-weight: 400;
-                    color: #88D7FD;
-                    line-height: 24px;
-                    text-shadow: 0px 0px 4px rgba(1, 138, 255, 0.6);
-                    margin-bottom: 5px;
+                    margin-top: 30px;
+                    font-size: 12px;
+                    color: #62a5cd;
+                    line-height: 12px;
                 }
                 .box-count{
-                    font-size: 32px;
-                    font-family: PingFangSC-Medium, PingFang SC;
-                    font-weight: 500;
-                    color: #C7FCFC;
-                    line-height: 26px;
+                    margin-top: 12px;
+                    font-size: 24px;
+                    color: #c7fcfc;
+                    line-height: 24px;
+                }
+                &.box-1{
+                    background: url("../assets/yaxin/kuayuyonghushu.png") no-repeat;
+                    background-size: cover;
+                    left: 20px;
+                    top: 0;
+                }
+                &.box-2{
+                    background: url("../assets/yaxin/user.png") no-repeat;
+                    background-size: cover;
+                    right: 20px;
+                    top: 0;
+                }
+                &.box-3{
+                    background: url("../assets/yaxin/5gdinggoushu.png") no-repeat;
+                    background-size: cover;
+                    left: 20px;
+                    top: 110px;
+                }
+                &.box-4{
+                    background: url("../assets/yaxin/xiehaozhuanwang.png") no-repeat;
+                    background-size: cover;
+                    right: 20px;
+                    top: 110px;
                 }
             }
         }
