@@ -137,24 +137,33 @@ export default {
             this.AI_Produce()
             this.AsynOpen()
         },
+        //在网用户
+        // ...
+        //出账用户
         AI_Cz_Users(){
             let params = {prov_code: 'ZZ'}
             AI_Cz_Users(params).then(res=>{
                 console.log('AI_Cz_Users', res)
+                this.module1Data.AI_Cz_Users = res.data
             })
         },
+        //上月出账金额
         AI_Cz_Process_Card(){
             let params = {prov_code: 'ZZ', cycle: '202012'}
             AI_Cz_Process_Card(params).then(res=>{
                 console.log('AI_Cz_Process_Card', res)
+                this.module1Data.AI_Cz_Process_Card = res.data.income
             })
         },
+        //当月实时收入
         AI_Billing(){
             let params = {prov_code: 'ZZ'}
             AI_Billing(params).then(res=>{
                 console.log('AI_Billing', res)
+                this.module1Data.AI_Billing = res.data.cb
             })
         },
+        //订单量
         Trade(){
             //busi=00&date=H&end=2021-01-14-23&prov_code=ZZ&start=2021-01-14-00
             let params = {
@@ -166,8 +175,10 @@ export default {
             }
             Trade(params).then(res=>{
                 console.log('Trade', res)
+                this.module7Data = res.RSP.DATA
             })
         },
+        //用户类型分布
         Openbusi(){
             //busi=A&city_code=0010&date=2021-01-14&prov_code=ZZ
             let params = {
@@ -178,6 +189,8 @@ export default {
             }
             Openbusi(params).then(res=>{
                 console.log('Openbusi', res)
+                this.module3Data = res.RSP.DATA[0]
+                console.log('this.module3Data',this.module3Data)
             })
         },
         getBigData(){
@@ -189,9 +202,12 @@ export default {
                 console.log('getBigData', res)
             })
         },
+        //生产运营情况
         ServiceOrder(){
             ServiceOrder().then(res=>{
                 console.log('ServiceOrder', res)
+                this.module4Data = res.data
+
             })
         },
         AI_Credit(){

@@ -91,14 +91,52 @@ export default {
     watch:{
     	'moduleData':function(val){
 			this.showData =true
-            this.listData = val[this.flag]
+            for(let key in val){
+                console.log(key)
+                let obj = {}
+                if(key == 'M'){
+                    obj = {
+                        name: '移网',
+                        per: val[key]['0010'],
+                        value:val[key]['0010']
+                    }
+                }else if(key == 'G'){
+                    obj = {
+                        name: '固话',
+                        per: val[key]['0010'],
+                        value:val[key]['0010']
+                    }
+                }else if(key == 'K'){
+                    obj = {
+                        name: '宽带',
+                        per: val[key]['0010'],
+                        value:val[key]['0010']
+                    }
+                }else if(key == 'I'){
+                    obj = {
+                        name: 'IPTV',
+                        per: val[key]['0010'],
+                        value:val[key]['0010']
+                    }
+                }else if(key == 'T'){
+                    obj = {
+                        name: '其他',
+                        per: val[key]['0010'],
+                        value:val[key]['0010']
+                    }
+                }
+                this.listData.push(obj)
+            }
+            // this.listData = val[this.flag]
     	}
     },
-    mounted() {},
+    mounted() {
+        console.log('moduleData11111', this.moduleData)
+    },
     methods: {
     	selExternal(type){
         	this.flag = type
-            this.listData = this.moduleData[this.flag]
+            // this.listData = this.moduleData[this.flag]
         },
         changeBar (num) {
             console.log('num', num)

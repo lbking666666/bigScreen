@@ -44,18 +44,9 @@ export default {
             this.seriesData = []
             if (arr.length > 0) {
                 arr.forEach(ele => {
-                    console.log(ele)
-                    this.xAxisData.push(Number(ele.date.split('-')[2]))
-                    this.seriesData.push(Number(ele.saleNum))
-                    // if(this.flag==1){
-                    //     this.seriesData.push(ele.outertrade)
-                    // }else{
-                    //     this.seriesData.push(ele.malltrade)
-                    // }
-                    //
+                    this.xAxisData.push(Number(ele.date))
+                    this.seriesData.push(Number(ele.ZZ))
                 })
-                console.log('this.xAxisData',this.xAxisData)
-                console.log('this.seriesData',this.seriesData)
             }
         },
         drawChart() {

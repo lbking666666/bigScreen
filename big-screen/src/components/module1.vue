@@ -11,7 +11,7 @@
                     </div>
                     <div class="col">
                         <div class="hd">出账用户</div>
-                        <div class="bd">234,567,890</div>
+                        <div class="bd">{{moduleData.AI_Cz_Users}}</div>
                     </div>
                 </div>
             </div>
@@ -20,11 +20,11 @@
                 <div class="box">
                     <div class="col">
                         <div class="hd">本月实时计费收入</div>
-                        <div class="bd">234,567,890</div>
+                        <div class="bd">{{moduleData.AI_Billing}}</div>
                     </div>
                     <div class="col">
                         <div class="hd">上月出账金额</div>
-                        <div class="bd">234,567,890</div>
+                        <div class="bd">{{moduleData.AI_Cz_Process_Card}}</div>
                     </div>
                 </div>
             </div>
