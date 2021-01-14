@@ -55,7 +55,7 @@ export default {
         module6,
         module7,
         module8,
-       module9
+        module9
     },
     data() {
         return {
@@ -63,6 +63,7 @@ export default {
             module1Data: {},
             module2Data: {},
             module3Data: [],
+            module4Data: [],
             module6Data: [],
             module7Data: [],
             module8Data: {},
