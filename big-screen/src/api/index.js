@@ -82,20 +82,20 @@ export function geAllData(data){
 
 // @Param("prov_code") String
 export function AI_Cz_Users(data){
-    const url = `/screenapi/AI_Cz_Users`
+    const url = `/webapi/screenapi/AI_Cz_Users`
     return getApi(url, data)
 }
 
 // @Param("prov_code") String
 // @Param("cycle") Number
 export function AI_Cz_Process_Card(data){
-    const url = `/screenapi/AI_Cz_Process_Card`
+    const url = `/webapi/screenapi/AI_Cz_Process_Card`
     return getApi(url, data)
 }
 
 // @Param("prov_code") String
 export function AI_Billing(data){
-    const url = `/screenapi/AI_Billing_00001`
+    const url = `/webapi/screenapi/AI_Billing_00001`
     return getApi(url, data)
 }
 
@@ -105,7 +105,7 @@ export function AI_Billing(data){
 // @Param("prov_code") String
 // @Param("start") String ['2021-01-14-23', '2021-01-14', '2021-01']
 export function Trade(data){
-    const url = `/BaseUrlB/asyn/trade`
+    const url = `/webapi/asyn/trade`
     return getApi(url, data)
 }
 
@@ -114,26 +114,26 @@ export function Trade(data){
 // @Param("date") String '2021-01-14'
 // @Param("prov_code") String
 export function Openbusi(data){
-    const url = `/BaseUrlB/asyn/openbusi`
+    const url = `/webapi/asyn/openbusi`
     return getApi(url, data)
 }
 
 export function ServiceOrder(data){
-    const url = `/BaseUrlC/cloudwise/business/serviceOrder`
+    const url = `/webapi/cloudwise/business/serviceOrder`
     return getApi(url, data)
 }
 
 // @Param("prov_code") String
 // @Param("sqltype") String  'month'
 export function AI_Credit(data){
-    const url = `/screenapi/AI_Credit_00004_YMD`
+    const url = `/webapi/screenapi/AI_Credit_00004_YMD`
     return getApi(url, data)
 }
 
 // @Param("prov_code") String
 // @Param("sqltype") String 'day'
 export function AI_Produce(data){
-    const url = `/screenapi/AI_Produce_00001_YMD`
+    const url = `/webapi/screenapi/AI_Produce_00001_YMD`
     return getApi(url, data)
 }
 
@@ -141,7 +141,7 @@ export function AI_Produce(data){
 // @Param("prov_code") String
 // @Param("date") String '2021-01-14'
 export function AsynOpen(data){
-    const url = `/BaseUrlB/asyn/open`
+    const url = `/webapi/asyn/open`
     return getApi(url, data)
 }
 

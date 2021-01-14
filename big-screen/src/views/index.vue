@@ -2,7 +2,6 @@
     <div class="home">
         <div class="header">
             <div class="time-box">{{ dateTimeStr }}</div>
-
             <div class="time-selection">
                 <span class="time-n">Time：</span>
                 <span class="time-option" :class="timeIndex == 0 ? 'active' : ''" @click="checkTime(0)">日</span>
@@ -34,7 +33,7 @@
                 <module7 :moduleData="module7Data"></module7>
                 <!-- 热销产品/常用功能TOP3 -->
                 <module8 :moduleData="module8Data"></module8>
-                 <module9 :moduleData="module9Data"></module9>
+                <module9 :moduleData="module9Data"></module9>
             </div>
         </div>
     </div>
@@ -61,14 +60,18 @@ import {
     AI_Credit,
     AI_Produce,
     AsynOpen,
-    queryTop10ByProvince,queryOrderCount,AI_Billing_00003_YMD,AI_Billing_00002_YMD,queryCBSSOpenCount
+    queryTop10ByProvince,
+    queryOrderCount,
+    AI_Billing_00003_YMD,
+    AI_Billing_00002_YMD,
+    queryCBSSOpenCount
 
 } from '@/api/index.js';
 import numberBord from '@/components/numberBord.vue';
 // import { geAllData, getMapData, getModule6, getModule7, getModule8,getModule9, getBigData ,AI_Cz_Users} from '@/api/index.js';
 import { timestampConversion } from '@/utils/unixToTime.js'
 export default {
-    name: 'Home',
+    name: 'index',
     components: {
         module1,
         module2,
@@ -87,7 +90,7 @@ export default {
             module1Data: {},
             module2Data: {},
             module3Data: [],
-            module4Data:[],
+            module4Data: [],
             module6Data: [],
             module7Data: [],
             module8Data: {},
@@ -114,18 +117,14 @@ export default {
         }, 1000)
     },
     methods: {
-        checkTime(num){
+        checkTime(num) {
             this.timeIndex = num
             // 在这里执行切换整屏的数据
         },
         getMapData() {
-            
+
         },
         getData() {
-            this.getModule6Data()
-            this.getModule7Data()
-            this.getModule8Data()
-            this.getModule9Data()
             this.AI_Cz_Users()
             this.AI_Cz_Process_Card()
             this.AI_Billing()
@@ -230,55 +229,41 @@ export default {
                 console.log('AI_Produce', res)
             })
         },
-        AsynOpen(){
+        AsynOpen() {
             //city_code=0010&date=2021-01-14&prov_code=ZZ
             let params = {
                 prov_code: 'ZZ',
                 city_code: '0010',
                 date: '2021-01-14',
             }
-            AsynOpen(params).then(res=>{
+            AsynOpen(params).then(res => {
                 console.log('AsynOpen', res)
             })
         },
-        getModule6Data() {
+        getQueryTop10ByProvince() {
+            queryTop10ByProvince().then(res => {
 
+            })
         },
-        getModule7Data() {
-            this.module7Data = [
-                {
-                    date:'2021-01-01',
-                    saleNum: 123,
-                },
-                {
-                    date:'2021-01-02',
-                    saleNum: 13,
-                },
-                {
-                    date:'2021-01-03',
-                    saleNum: 23,
-                },
-                {
-                    date:'2021-01-04',
-                    saleNum: 223,
-                },
-                {
-                    date:'2021-01-05',
-                    saleNum: 123,
-                },
-                {
-                    date:'2021-01-06',
-                    saleNum: 13,
-                },
-                {
-                    date:'2021-01-07',
-                    saleNum: 166,
-                },
-            ]
+        getQueryOrderCount() {
+            queryOrderCount().then(res => {
+
+            })
         },
-        getModule8Data() {
+        getAI_Billing_00003_YMD() {
+            AI_Billing_00003_YMD().then(res => {
+
+            })
         },
-        getModule9Data() {
+        getAI_Billing_00002_YMD() {
+            AI_Billing_00002_YMD().then(res => {
+
+            })
+        },
+        getQueryCBSSOpenCount() {
+            queryCBSSOpenCount().then(res => {
+
+            })
         },
         selectName(name, code) {
             this.provinceCode = code
@@ -348,7 +333,7 @@ export default {
             line-height: 34px;
         }
 
-        .time-selection{
+        .time-selection {
             position: absolute;
             top: 44px;
             left: 32px;
@@ -359,9 +344,9 @@ export default {
             font-family: Helvetica;
             color: #FFFFFF;
             // .time-n{
-                
+
             // }
-            .time-option{
+            .time-option {
                 display: inline-block;
                 height: 26px;
                 width: 72px;
@@ -372,8 +357,9 @@ export default {
                 border: 2px solid #026D7E;
                 text-align: center;
                 cursor: pointer;
-                &.active{
-                     background: rgba(41, 205, 255, 0.3);
+
+                &.active {
+                    background: rgba(41, 205, 255, 0.3);
                     box-shadow: 0px 0px 10px 0px rgba(1, 196, 251, 0.7);
                     border-radius: 4px;
                     border: 2px solid #00FFFF;
@@ -406,14 +392,16 @@ export default {
             padding-top: 10px;
             justify-content: space-between;
             position: relative;
-            .number-boxs{
+
+            .number-boxs {
                 display: flex;
                 justify-content: space-evenly;
                 width: 100%;
                 height: 100px;
                 position: absolute;
                 z-index: 999;
-                .number-bord-box{
+
+                .number-bord-box {
                     margin-top: 13px;
                     height: 88px;
                 }
