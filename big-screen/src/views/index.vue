@@ -2,7 +2,6 @@
     <div class="home">
         <div class="header">
             <div class="time-box">{{ dateTimeStr }}</div>
-
             <div class="time-selection">
                 <span class="time-n">Time：</span>
                 <span class="time-option" :class="timeIndex == 0 ? 'active' : ''" @click="checkTime(0)">日</span>
@@ -34,7 +33,7 @@
                 <module7 :moduleData="module7Data"></module7>
                 <!-- 热销产品/常用功能TOP3 -->
                 <module8 :moduleData="module8Data"></module8>
-                 <module9 :moduleData="module9Data"></module9>
+                <module9 :moduleData="module9Data"></module9>
             </div>
         </div>
     </div>
@@ -54,7 +53,18 @@ import {
     AI_Cz_Users,
     AI_Cz_Process_Card,
     AI_Billing,
-    queryTop10ByProvince,queryOrderCount,AI_Billing_00003_YMD,AI_Billing_00002_YMD,queryCBSSOpenCount
+    Trade,
+    Openbusi,
+    getBigData,
+    ServiceOrder,
+    AI_Credit,
+    AI_Produce,
+    AsynOpen,
+    queryTop10ByProvince,
+    queryOrderCount,
+    AI_Billing_00003_YMD,
+    AI_Billing_00002_YMD,
+    queryCBSSOpenCount
 
 } from '@/api/index.js';
 import numberBord from '@/components/numberBord.vue';
@@ -80,7 +90,7 @@ export default {
             module1Data: {},
             module2Data: {},
             module3Data: [],
-            module4Data:[],
+            module4Data: [],
             module6Data: [],
             module7Data: [],
             module8Data: {},
@@ -107,58 +117,135 @@ export default {
         }, 1000)
     },
     methods: {
-        checkTime(num){
+        checkTime(num) {
             this.timeIndex = num
             // 在这里执行切换整屏的数据
         },
         getMapData() {
-            
+
         },
         getData() {
             this.AI_Cz_Users()
             this.AI_Cz_Process_Card()
             this.AI_Billing()
+            this.Trade()
+            this.Openbusi()
+            this.getBigData()
+            this.ServiceOrder()
+            this.AI_Credit()
+            this.AI_Produce()
+            this.AsynOpen()
         },
-        AI_Cz_Users(){
-            let params = {prov_code: 'ZZ'}
-            AI_Cz_Users(params).then(res=>{
+        AI_Cz_Users() {
+            let params = { prov_code: 'ZZ' }
+            AI_Cz_Users(params).then(res => {
                 console.log('AI_Cz_Users', res)
             })
         },
-        AI_Cz_Process_Card(){
-            let params = {prov_code: 'ZZ', cycle: '202012'}
-            AI_Cz_Process_Card(params).then(res=>{
+        AI_Cz_Process_Card() {
+            let params = { prov_code: 'ZZ', cycle: '202012' }
+            AI_Cz_Process_Card(params).then(res => {
                 console.log('AI_Cz_Process_Card', res)
             })
         },
-        AI_Billing(){
-            let params = {prov_code: 'ZZ'}
-            AI_Billing(params).then(res=>{
+        AI_Billing() {
+            let params = { prov_code: 'ZZ' }
+            AI_Billing(params).then(res => {
                 console.log('AI_Billing', res)
             })
         },
-        getQueryTop10ByProvince(){
-            queryTop10ByProvince().then(res=>{
+        Trade() {
+            //busi=00&date=H&end=2021-01-14-23&prov_code=ZZ&start=2021-01-14-00
+            let params = {
+                busi: '00',
+                date: 'H',
+                end: '2021-01-14-23',
+                prov_code: 'ZZ',
+                start: '2021-01-14-00',
+            }
+            Trade(params).then(res => {
+                console.log('Trade', res)
+            })
+        },
+        Openbusi() {
+            //busi=A&city_code=0010&date=2021-01-14&prov_code=ZZ
+            let params = {
+                busi: 'A',
+                city_code: '0010',
+                date: '2021-01-14',
+                prov_code: 'ZZ',
+            }
+            Openbusi(params).then(res => {
+                console.log('Openbusi', res)
+            })
+        },
+        getBigData() {
+            //busi=A&city_code=0010&date=2021-01-14&prov_code=ZZ
+            let params = {
+                provinceCode: '10',
+            }
+            getBigData(params).then(res => {
+                console.log('getBigData', res)
+            })
+        },
+        ServiceOrder() {
+            ServiceOrder().then(res => {
+                console.log('ServiceOrder', res)
+            })
+        },
+        AI_Credit() {
+            //prov_code=ZZ&sqltype=month
+            let params = {
+                prov_code: 'ZZ',
+                sqltype: 'month',
+            }
+            AI_Credit(params).then(res => {
+                console.log('AI_Credit', res)
+            })
+        },
+        AI_Produce() {
+            //prov_code=ZZ&sqltype=day
+            let params = {
+                prov_code: 'ZZ',
+                sqltype: 'day',
+            }
+            AI_Produce(params).then(res => {
+                console.log('AI_Produce', res)
+            })
+        },
+        AsynOpen() {
+            //city_code=0010&date=2021-01-14&prov_code=ZZ
+            let params = {
+                prov_code: 'ZZ',
+                city_code: '0010',
+                date: '2021-01-14',
+            }
+            AsynOpen(params).then(res => {
+                console.log('AsynOpen', res)
+            })
+        },
+        getQueryTop10ByProvince() {
+            queryTop10ByProvince().then(res => {
 
             })
         },
-        getQueryOrderCount(){
-            queryOrderCount().then(res=>{
+        getQueryOrderCount() {
+            queryOrderCount().then(res => {
 
             })
         },
-        getAI_Billing_00003_YMD(){
-            AI_Billing_00003_YMD().then(res=>{
+        getAI_Billing_00003_YMD() {
+            AI_Billing_00003_YMD().then(res => {
 
             })
         },
-        getAI_Billing_00002_YMD(){
-            AI_Billing_00002_YMD().then(res=>{
+        getAI_Billing_00002_YMD() {
+            AI_Billing_00002_YMD().then(res => {
 
             })
         },
-        getQueryCBSSOpenCount(){
-            queryCBSSOpenCount().then(res=>{
+        getQueryCBSSOpenCount() {
+            queryCBSSOpenCount().then(res => {
 
             })
         },
@@ -230,7 +317,7 @@ export default {
             line-height: 34px;
         }
 
-        .time-selection{
+        .time-selection {
             position: absolute;
             top: 44px;
             left: 32px;
@@ -241,9 +328,9 @@ export default {
             font-family: Helvetica;
             color: #FFFFFF;
             // .time-n{
-                
+
             // }
-            .time-option{
+            .time-option {
                 display: inline-block;
                 height: 26px;
                 width: 72px;
@@ -254,8 +341,9 @@ export default {
                 border: 2px solid #026D7E;
                 text-align: center;
                 cursor: pointer;
-                &.active{
-                     background: rgba(41, 205, 255, 0.3);
+
+                &.active {
+                    background: rgba(41, 205, 255, 0.3);
                     box-shadow: 0px 0px 10px 0px rgba(1, 196, 251, 0.7);
                     border-radius: 4px;
                     border: 2px solid #00FFFF;
@@ -288,14 +376,16 @@ export default {
             padding-top: 10px;
             justify-content: space-between;
             position: relative;
-            .number-boxs{
+
+            .number-boxs {
                 display: flex;
                 justify-content: space-evenly;
                 width: 100%;
                 height: 100px;
                 position: absolute;
                 z-index: 999;
-                .number-bord-box{
+
+                .number-bord-box {
                     margin-top: 13px;
                     height: 88px;
                 }
