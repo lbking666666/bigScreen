@@ -73,7 +73,10 @@ export default {
     },
     watch: {
         'moduleData': function(val) {
-            this.listData = this.getData(val)
+            if(this.activeIndex == 0){
+                this.listData = this.getData(val)
+            }
+            
             // this.listData = val[this.flag]
         }
     },
