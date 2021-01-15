@@ -12,8 +12,8 @@
         <div class="container">
             <div class="left-box">
                 <module1 :leftData="leftData" :moduleData="module1Data"></module1>
-                <module2 :moduleData="module7Data"></module2>
-                <module3 :moduleData="module3Data"></module3>
+                <module2 :moduleData="module2Data"></module2>
+                <module3 :moduleData="module3Data" :code="provinceCode" :list="dataList2"></module3>
                 <module4 :moduleData="module4Data"></module4>
             </div>
             <div class="center-box">
@@ -33,7 +33,7 @@
                 <module7 :moduleData="module7Data"></module7>
                 <!-- 热销产品/常用功能TOP3 -->
                 <module8 :moduleData="module8Data"></module8>
-                <module9 :moduleData="module9Data"></module9>
+                <module9 :list1="list1" :list2="list2"></module9>
             </div>
         </div>
     </div>
@@ -60,6 +60,7 @@ import {
     AI_Credit,
     AI_Produce,
     AsynOpen,
+    getMapData,
     queryUserCountByProvince,
     queryOrderCount,
     queryTop10ByProvince,
@@ -95,23 +96,33 @@ export default {
             module6Data: [],
             module7Data: [],
             module8Data: {},
+            list1: [],
+            list2: [],
             module9Data: [],
             mapData: [],
+            sqltype:'day',
             min: 0,
             max: 100,
             provinceName: '全国',
-            leftData: {},
+            leftData: 0,
             nowTime: (new Date()).getTime() / 1000,
             dateTimeStr: timestampConversion((new Date()).getTime() / 1000),
             timeIndex: 0, // 0: 日; 1: 月; 2: 年;
             setTime: false,
+            date:now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate(),
             externalTotal: 0,
+            dateB:'H',
+            startDate:now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-00',
+            endDate:now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-23',
             externalAdd: 0
         }
     },
     mounted() {
         this.getData()
         this.getMapData()
+        setInterval(()=>{
+            this.getSetTime() 
+        },3000)
         setInterval(() => {
             this.nowTime += 1
             this.dateTimeStr = timestampConversion(this.nowTime)
@@ -120,10 +131,32 @@ export default {
     methods: {
         checkTime(num) {
             this.timeIndex = num
+            if (num == 0) {
+                this.sqltype = 'day'
+                this.dateB = 'H'
+                this.date =now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate();
+                this.startDate = now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-00'
+                this.endDate = now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-23'
+            } else if (num == 1) {
+                 this.sqltype = 'month'
+                 this.dateB = 'D'
+                 this.date = now.getFullYear() +'-'+ now.getMonth()+1
+                this.startDate = now.getFullYear() +'-'+ now.getMonth()+1 +'-01'
+                this.endDate = now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() 
+            } else if (num == 2) {
+                 this.sqltype = 'year'
+                 this.dateB = 'M'
+                 this.date = now.getFullYear()
+                 this.startDate = now.getFullYear() +'-01'
+                 this.endDate = now.getFullYear() +'-'+ now.getMonth()+1 
+            }
+            this.getData()
             // 在这里执行切换整屏的数据
         },
-        getMapData() {
-
+        getSetTime() {
+            this.AsynOpen()
+            this.AI_Produce()
+            this.AI_Billing()
         },
         getData() {
             this.AI_Cz_Users()
@@ -143,126 +176,154 @@ export default {
             this.getAI_Billing_00002_YMD()
             this.getQueryCBSSOpenCount()
         },
+        getMapData() {
+            getMapData().then(res => {
+                if (res.code == 200) {
+                    let list = []
+                    let sort = []
+                    res.data.forEach(item => {
+                        if (item.name !== '全国总量') {
+                            let values = item.value
+                            let params = {
+                                name: item.name,
+                                value: values.usercount,
+                                user: values.cbinnetday,
+                                billuser: values.billuser,
+                                arpu: values.arpu,
+                                code: values.province_code
+                            }
+                            list.push(params)
+                            sort.push(values.usercount)
+                        }
+                    })
+                    sort.sort(function(a, b) {
+                        return a - b;
+                    });
+                    this.min = Number(sort[0])
+                    this.max = Number(sort[30])
+                    this.mapData = list
+                }
+            })
+        },
         //在网用户
         // ...
         //出账用户
-        AI_Cz_Users(){
-            let params = {prov_code: 'ZZ'}
-            AI_Cz_Users(params).then(res=>{
-                console.log('AI_Cz_Users', res)
+        AI_Cz_Users() {
+            let params = { prov_code: this.provinceCode }
+            AI_Cz_Users(params).then(res => {
                 this.module1Data.AI_Cz_Users = res.data
             })
         },
         //上月出账金额
-        AI_Cz_Process_Card(){
-            let params = {prov_code: 'ZZ', cycle: '202012'}
-            AI_Cz_Process_Card(params).then(res=>{
-                console.log('AI_Cz_Process_Card', res)
+        AI_Cz_Process_Card() {
+            let params = { prov_code: this.provinceCode, cycle: '202012' }
+            AI_Cz_Process_Card(params).then(res => {
                 this.module1Data.AI_Cz_Process_Card = res.data.income
             })
         },
         //当月实时收入
-        AI_Billing(){
-            let params = {prov_code: 'ZZ'}
-            AI_Billing(params).then(res=>{
-                console.log('AI_Billing', res)
+        AI_Billing() {
+            let params = { prov_code: this.provinceCode }
+            AI_Billing(params).then(res => {
                 this.module1Data.AI_Billing = res.data.cb
             })
         },
         //订单量
-        Trade(){
+        Trade() {
             //busi=00&date=H&end=2021-01-14-23&prov_code=ZZ&start=2021-01-14-00
             let params = {
                 busi: '00',
-                date: 'H',
-                end: '2021-01-14-23',
-                prov_code: 'ZZ',
-                start: '2021-01-14-00',
+                date: this.dateB,
+                end: this.endDate,
+                prov_code: this.provinceCode,
+                start: this.startDate,
             }
-            Trade(params).then(res=>{
+            Trade(params).then(res => {
                 console.log('Trade', res)
-                this.module7Data = res.RSP.DATA
+                this.module2Data = res.RSP.DATA
             })
         },
         //用户类型分布
-        Openbusi(){
+        Openbusi() {
             //busi=A&city_code=0010&date=2021-01-14&prov_code=ZZ
             let params = {
                 busi: 'A',
-                city_code: '0010',
-                date: '2021-01-14',
-                prov_code: 'ZZ',
+                date: this.date,
+                prov_code: this.provinceCode,
             }
-            Openbusi(params).then(res=>{
-                console.log('Openbusi', res)
+            Openbusi(params).then(res => {
+                console.log('Openbusi434234', res)
                 this.module3Data = res.RSP.DATA[0]
-                console.log('this.module3Data',this.module3Data)
+                console.log('this.module3Data', this.module3Data)
             })
         },
-        getBigData(){
+        getBigData() {
             //busi=A&city_code=0010&date=2021-01-14&prov_code=ZZ
             let params = {
-                provinceCode: '10',
+                provinceCode: this.provinceCode,
             }
-            getBigData(params).then(res=>{
-                console.log('getBigData', res)
+            getBigData(params).then(res => {
+                console.log(res, 11378342)
+                this.dataList2 = res.data[0]
+                this.leftData = Number(res.data[0].value.usercount)
             })
         },
         //生产运营情况 服务工单数
-        ServiceOrder(){
-            ServiceOrder().then(res=>{
-                console.log('ServiceOrder', res)
+        ServiceOrder() {
+            ServiceOrder().then(res => {
                 this.module4Data.dataA = 0
                 // 日的
-                res.data.day.map(dayObj =>{
+                res.data[this.sqltype].map(dayObj => {
                     this.module4Data.dataA += dayObj.serviceOrder
                 })
-                console.log('this.module4Data.dataA',this.module4Data.dataA)
             })
         },
         //生产运营情况 停机量
-        AI_Credit(){
+        AI_Credit() {
             //prov_code=ZZ&sqltype=month
             let params = {
-                prov_code: 'ZZ',
-                sqltype: 'month',
+                prov_code: this.provinceCode,
+                sqltype: this.sqltype,
             }
-            AI_Credit(params).then(res=>{
-                console.log('AI_Credit', res)
-                this.module4Data.dataB = res.data.month.stopNum
+            AI_Credit(params).then(res => {
+                console.log('AI_Credit111111', res)
+                this.module4Data.dataB = res.data[this.sqltype].stopNum
+                this.module4Data.dataC = res.data[this.sqltype].openNum
 
             })
         },
-        //地图今日开户量
-        AI_Produce(){
+        //今日缴费
+        AI_Produce() {
             //prov_code=ZZ&sqltype=day
             let params = {
-                prov_code: 'ZZ',
-                sqltype: 'day',
+                prov_code: this.provinceCode,
+                sqltype: this.sqltype,
             }
-            AI_Produce(params).then(res=>{
-                console.log('AI_Produce', res)
+            AI_Produce(params).then(res => {
+                this.externalAdd = Number(res.data[this.sqltype].pay_money).toFixed(0)
+                this.leftData += Number(this.externalAdd)
             })
         },
-        //生产运营情况 开机量
+        //今日开户量
         AsynOpen() {
             //city_code=0010&date=2021-01-14&prov_code=ZZ
             let params = {
-                prov_code: 'ZZ',
-                city_code: '0010',
-                date: '2021-01-14',
+                prov_code: this.provinceCode,
+                date: this.date,
             }
             AsynOpen(params).then(res => {
-                console.log('AsynOpen', res)
-                this.module4Data.dataC = res.RSP.DATA[0]['0010']
+                console.log('AsynOpen', res.RSP.DATA[0][this.provinceCode])
+
+                this.externalTotal = res.RSP.DATA[0][this.provinceCode]
             })
         },
-        getQueryUserCountByProvince(){
+        //全国31省用户量/arpu值
+        getQueryUserCountByProvince() {
             let params = {
-                provinceCode:(this.provinceCode!='ZZ')?this.provinceCode:'00'
+                provinceCode: (this.provinceCode != 'ZZ') ? this.provinceCode : '00'
             }
-            queryUserCountByProvince(params).then(res=>{
-                 if (res.code == 200) {
+            queryUserCountByProvince(params).then(res => {
+                if (res.code == 200) {
                     this.module6Data = []
                     if (res.data.length > 0) { //判断是否返回数据且不为空
                         let list = []
@@ -277,45 +338,87 @@ export default {
                                 list.push(obj)
                             }
                         })
-                        let arr = list.sort(function (a, b) { return b.number - a.number; })     
+                        let arr = list.sort(function(a, b) { return b.number - a.number; })
                         this.module6Data = arr
                     }
                 }
             })
         },
+        //热销产品/常用功能TOP3
         getQueryTop10ByProvince() {
             let params = {
-                provinceCode:this.provinceCode,
-                timeDimension:'month'
+                provinceCode: this.provinceCode,
+                timeDimension: this.sqltype,
             }
             queryTop10ByProvince(params).then(res => {
                 if (res.code == 200) {
                     if (res.data.length > 0) {
-                        console.log(res.data)
-                        this.module9Data = res.data
+                        let list = []
+                        let arr1 = [],
+                            arr2 = []
+                        res.data[0].value.forEach(child => {
+                            let data = {
+                                name: child.product_name,
+                                num: child.product_count
+                            }
+                            arr1.push(data)
+                        })
+                        res.data[1].value.forEach(child => {
+                            let data = {
+                                name: child.function_name,
+                                num: child.function_count
+                            }
+                            arr2.push(data)
+                        })
+                        list = [{ list: arr1 }, { list: arr2 }]
+                        this.module8Data = list
                     }
 
                 }
             })
         },
-
+        //重点业务
         getQueryOrderCount() {
-            queryOrderCount().then(res => {
-
+            let params = {
+                provinceCode: this.provinceCode,
+                timeDimension: 'year'
+            }
+            queryOrderCount(params).then(res => {
+                if (res.code == 200) {
+                    this.module7Data = res.data[0]
+                    console.log(this.module7Data)
+                }
             })
         },
         getAI_Billing_00003_YMD() {
-            AI_Billing_00003_YMD().then(res => {
+            let params = {
+                prov_code: this.provinceCode,
+                sqltype: this.sqltype
+            }
+            AI_Billing_00003_YMD(params).then(res => {
+                if (res.code == 200) {
+                    console.log(323121, res.data['day'])
+                    this.list1 = res.data[this.sqltype].slice(0, 5)
+                }
 
             })
         },
         getAI_Billing_00002_YMD() {
-            AI_Billing_00002_YMD().then(res => {
-
+            let params = {
+                prov_code: this.provinceCode,
+                sqltype: this.sqltype
+            }
+            AI_Billing_00002_YMD(params).then(res => {
+                if (res.code == 200) {
+                    this.list2 = res.data[this.sqltype].slice(0, 5)
+                }
             })
         },
         getQueryCBSSOpenCount() {
-            queryCBSSOpenCount().then(res => {
+            let params = {
+                provinceCode: this.provinceCode,
+            }
+            queryCBSSOpenCount(params).then(res => {
 
             })
         },

@@ -12,22 +12,22 @@
             <div class="top-2-box">
                 <div class="title">TOP2</div>
                 <div class="bg">
-                    <p class="value">{{moduleData[activeIndex].second.val}}</p>
-                    <p class="name">{{moduleData[activeIndex].second.name}}</p>
+                    <p class="value">{{list[1]?list[1].name:''}}</p>
+                    <p class="name">{{list[1]?list[1].num:''}}</p>
                 </div>
             </div>
             <div class="top-1-box">
                 <div class="title">TOP1</div>
                 <div class="bg">
-                    <p class="value">{{moduleData[activeIndex].first.val}}</p>
-                    <p class="name">{{moduleData[activeIndex].first.name}}</p>
+                    <p class="value">{{list[0]?list[0].name:''}}</p>
+                    <p class="name">{{list[0]?list[0].num:''}}</p>
                 </div>
             </div>
             <div class="top-3-box">
                 <div class="title">TOP3</div>
                 <div class="bg">
-                    <p class="value">{{moduleData[activeIndex].third.val}}</p>
-                    <p class="name">{{moduleData[activeIndex].third.name}}</p>
+                    <p class="value">{{list[2]?list[2].name:''}}</p>
+                    <p class="name">{{list[2]?list[2].num:''}}</p>
                 </div>
             </div>
         </div>
@@ -54,29 +54,25 @@ export default {
         return {
             titleText:'热销产品/常用功能TOP3',
             barNames: ['热销产品', '常用功能'],
-            moduleData: [
-                {
-                    first: {name: '普通付费关系', val: 86687},
-                    second: {name: '换补卡', val: 6687},
-                    third: {name: '换网', val: 687}
-                },
-                {
-                    first: {name: '换补卡', val: 86687},
-                    second: {name: '普通付费关系', val: 86687},
-                    third: {name: '换网', val: 86687}
-                }
-            ],
-            activeIndex: 0
+            activeIndex: 0,
+            list:[]
         }
     },
     mounted() {
+        if(this.moduleData[this.activeIndex]){
+            this.list = this.moduleData[this.activeIndex].list
+        }
+        
     },
     updated() {
+        this.list = this.moduleData[this.activeIndex].list
     },
     methods: {
         changeBar (num) {
-            console.log('num', num)
+            console.log(num)
             this.activeIndex = num
+            this.list = []
+            this.list = this.moduleData[num].list
         }
     }
 }

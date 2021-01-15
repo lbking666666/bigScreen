@@ -246,7 +246,7 @@ export default {
         },
         reBack() {
             if (this.back) {
-                this.$emit('reName', '全国','00')
+                this.$emit('reName', '全国','ZZ')
                 this.cityName = ''
                 map.dispose();
                 this.initMap('china');

@@ -7,7 +7,7 @@
                 <div class="box">
                     <div class="col">
                         <div class="hd">在网用户</div>
-                        <div class="bd">234,567,890</div>
+                        <div class="bd">{{formatter(leftData)}}</div>
                     </div>
                     <div class="col">
                         <div class="hd">出账用户</div>
@@ -38,6 +38,10 @@ export default {
     name: "",
     components: { commonTitle },
     props: {
+        leftData: {
+            type: Number,
+            default: 0
+        },
         moduleData: {
             type: Object,
             default: {}
@@ -93,6 +97,7 @@ export default {
                     .hd{
                         color:#88D7FD;
                         font-size:12px;
+                        padding:5px 0;
                     }
                     .bd{
                         color:#C7FCFC;

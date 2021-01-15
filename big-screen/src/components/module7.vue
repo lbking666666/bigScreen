@@ -6,19 +6,19 @@
         <div class="container">
             <div class="box box-1">
                 <div class="box-title">跨域用户数</div>
-                <div class="box-count" >{{formatterNumber(moduleData.dataA)}}</div>
+                <div class="box-count" >{{moduleData.crossuser?formatterNumber(moduleData.crossuser):0}}</div>
             </div>
             <div class="box box-2">
                 <div class="box-title">2l 用户数</div>
-                <div class="box-count" >{{formatterNumber(moduleData.dataB)}}</div>
+                <div class="box-count" >{{moduleData.user2i?formatterNumber(moduleData.user2i):0}}</div>
             </div>
             <div class="box box-3">
                 <div class="box-title">5G订购数</div>
-                <div class="box-count" >{{formatterNumber(moduleData.dataC)}}</div>
+                <div class="box-count" >{{moduleData.order5g?formatterNumber(moduleData.order5g):0}}</div>
             </div>
             <div class="box box-4">
                 <div class="box-title">携号转网</div>
-                <div class="box-count" >{{formatterNumber(moduleData.dataD)}}</div>
+                <div class="box-count" >{{moduleData.portability?formatterNumber(moduleData.portability):0}}</div>
             </div>
         </div>
     </div>
@@ -34,41 +34,46 @@
             commonTitle
         },
         props: {
-            // moduleData:{
-            //     type: Object,
-            //     default: {}
-            // }
+            moduleData:{
+                type: Object,
+                default: {}
+            }
 		},
 		data(){
 			return{
                 titleText:'重点业务场景',
-                moduleData: {
-                    dataA: 41923,
-                    dataB: 12314,
-                    dataC: 239302,
-                    dataD: 97328 
-                }
             }
 		},
 		mounted() {
 		},
 		methods:{
 			formatterNumber(val){
-                return formatterNumber(val)
+                if(val){
+
+                 return formatterNumber(val)
+                }else{
+                    return 0
+                }
             },
             resizeFontSize(num){
-                let numStr = String(num)
-                let returnClass = ''
-                if (numStr.length <= 6) {
-                    returnClass = 'font-size-32'
-                } else if (numStr.length == 7) {
-                    returnClass = 'font-size-28'
-                } else if (numStr.length == 8) {
-                    returnClass = 'font-size-25'
-                } else if (numStr.length == 9) {
-                    returnClass = 'font-size-23'
+                if(num){
+                    let numStr = String(num)
+                    let returnClass = ''
+                    if (numStr.length <= 6) {
+                        returnClass = 'font-size-32'
+                    } else if (numStr.length == 7) {
+                        returnClass = 'font-size-28'
+                    } else if (numStr.length == 8) {
+                        returnClass = 'font-size-25'
+                    } else if (numStr.length == 9) {
+                        returnClass = 'font-size-23'
+                    }
+                    return returnClass
+                    
+                }else{
+                    return 0
                 }
-                return returnClass
+                
             }
 		}
 	}

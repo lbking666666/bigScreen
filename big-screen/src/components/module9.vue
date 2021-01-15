@@ -4,8 +4,8 @@
             <CommonTitle :titleText='titleText' />
         </div>
         <div class="tab-box">
-            <div class="tab-item" :class="tabIndex===0 ? 'active' : ''" @click="tabChange(0)">热销产品</div>
-            <div class="tab-item" :class="tabIndex===1 ? 'active' : ''" @click="tabChange(1)">常用功能</div>
+            <div class="tab-item" :class="tabIndex===0 ? 'active' : ''" @click="tabChange(0)">产品</div>
+            <div class="tab-item" :class="tabIndex===1 ? 'active' : ''" @click="tabChange(1)">费用</div>
         </div>
         <div class="ranking-box">
             <!-- title在Home中 -->
@@ -21,9 +21,9 @@
                 <div class="rank-item" v-for="(item, index) in activeList" :key="index">
                     <div class="index" v-if="index >= 3">{{String(index+1)}}</div>
                     <div class="index" v-else><i class="index-icon" :class="`icon-${index}`"></i></div>
-                    <div class="name">{{tabIndex == 0 ? item.product_name : item.function_name}}</div>
-                    <div class="order-num">{{tabIndex == 0 ? formatterNumber(item.product_count) : formatterNumber(item.function_count)}}</div>
-                    <div class="order-num">{{tabIndex == 0 ? formatterNumber(item.product_count) : formatterNumber(item.function_count)}}</div>
+                    <div class="name">{{(tabIndex==0)?item.product_name:item.item_name}}</div>
+                    <div class="order-num">{{formatterNumber(item.bill_fee)}}</div>
+                    <div class="order-num">{{formatterNumber(item.user_num)}}</div>
                 </div>
             </div>
         </div>
@@ -38,7 +38,11 @@ export default {
         CommonTitle
     },
     props: {
-        moduleData: {
+        list1: {
+            type: Array,
+            default: () => ([])
+        },
+        list2: {
             type: Array,
             default: () => ([])
         }
@@ -47,36 +51,31 @@ export default {
         return {
             titleText: '收入TOP5',
             tabIndex: 0, // 0: 热销产品； 1: 常用功能；
-            activeList: [{
-                    product_name: 123,
-                    product_count: 123,
-                },
-                {
-                    product_name: 123,
-                    product_count: 123,
-                },
-                {
-                    product_name: 123,
-                    product_count: 123,
-                },
-                {
-                    product_name: 123,
-                    product_count: 123,
-                },
-                {
-                    product_name: 123,
-                    product_count: 123,
-                },
-            ]
+            activeList:[]
         }
     },
-    mounted() {},
+    mounted() {
+        this.activeList =this.list1
+    },
     updated() {
-        this.activeList = this.moduleData.length > 0 ? this.moduleData[this.tabIndex].value : []
+
+        if(this.tabIndex ==0){
+            this.activeList = this.list1
+        }else{
+
+            this.activeList = this.list2
+        }
     },
     methods: {
         tabChange(tab) {
             this.tabIndex = tab
+            if(tab ==0){
+                this.activeList = this.list1
+            }else{
+
+                this.activeList = this.list2
+            }
+            console.log(this.activeList)
         },
         formatterNumber(val) {
             return formatterNumber(val)

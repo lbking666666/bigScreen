@@ -10,7 +10,7 @@
             </div>
         </div> -->
         <div class="bar-box">
-            <tabs :barNames="barNames" @checkItem="changeBar"/>
+            <tabs :barNames="barNames" @checkItem="changeBar" />
         </div>
         <div style="margin-top:5px">
             <span class="top-title-left">触点</span>
@@ -20,7 +20,7 @@
             <div class="container" v-for="(item,index) in listData" :key="index">
                 <div class="title">{{item.name}}</div>
                 <div class="process">
-                	<div class="process-dot" :style="'background:'+bc[index]"></div>
+                    <div class="process-dot" :style="'background:'+bc[index]"></div>
                     <div class="per" :style="'width:'+ item.per+'%;background:'+bg[index]"></div>
                 </div>
                 <div class="total">{{String(item.value).length > 4?Number(item.value/10000).toFixed(1)+'万':item.value}}</div>
@@ -33,114 +33,138 @@ import commonTitle from "./commonTitle";
 import tabs from '@/components/tabs.vue';
 export default {
     name: "",
-    components: { 
+    components: {
         commonTitle,
-        tabs 
+        tabs
     },
     props: {
         moduleData: {
             type: Object,
-            default: ()=>({})
+            default: () => ({})
+        },
+        code: {
+            type: Number,
+            default: 0,
+        },
+        list: {
+            type: Object,
+            default: () => ({})
         }
     },
     data() {
         return {
-            showData:  false,
-            listData:[
-                // {
-                //     name:'wqq',
-                //     per:20,
-
-                // },
-                // {
-                //     name:'wqq',
-                //      per:20,
-
-                // },
-                // {
-                //     name:'wqq',
-                //      per:20,
-
-                // },
-                // {
-                //     name:'wqq',
-                //      per:20,
-
-                // },
-                // {
-                //     name:'wqq',
-                //      per:20,
-
-                // },
+            showData: false,
+            listData: [
 
             ],
             barNames: ['新开户分布', '全国用户分布'],
-            flag:'day',
-            bg:[
-            'linear-gradient(270deg, #ffb077 0%, #ff5353 100%)',
-            'linear-gradient(270deg, #3efc9f 0%, #f7d54f 100%)',
-            'linear-gradient(270deg, #73eec4 0%, #49ccf0 100%)',
-            'linear-gradient(270deg, #799dff 0%, #8153ff 100%)',
-            'linear-gradient(270deg, #2dc4fe 0%, #366bda 100%)'
-            ],  
-            bc:['#ffb077','#3efc9f','#73eec4','#799dff','#2dc4fe'], 
+            flag: 'day',
+            bg: [
+                'linear-gradient(270deg, #ffb077 0%, #ff5353 100%)',
+                'linear-gradient(270deg, #3efc9f 0%, #f7d54f 100%)',
+                'linear-gradient(270deg, #73eec4 0%, #49ccf0 100%)',
+                'linear-gradient(270deg, #799dff 0%, #8153ff 100%)',
+                'linear-gradient(270deg, #2dc4fe 0%, #366bda 100%)'
+            ],
+            bc: ['#ffb077', '#3efc9f', '#73eec4', '#799dff', '#2dc4fe'],
             titleText: '用户类型分布',
-            activeIndex:0
+            activeIndex: 0
         }
     },
-    watch:{
-    	'moduleData':function(val){
-			this.showData =true
-            for(let key in val){
-                console.log(key)
-                let obj = {}
-                if(key == 'M'){
-                    obj = {
-                        name: '移网',
-                        per: val[key]['0010'],
-                        value:val[key]['0010']
-                    }
-                }else if(key == 'G'){
-                    obj = {
-                        name: '固话',
-                        per: val[key]['0010'],
-                        value:val[key]['0010']
-                    }
-                }else if(key == 'K'){
-                    obj = {
-                        name: '宽带',
-                        per: val[key]['0010'],
-                        value:val[key]['0010']
-                    }
-                }else if(key == 'I'){
-                    obj = {
-                        name: 'IPTV',
-                        per: val[key]['0010'],
-                        value:val[key]['0010']
-                    }
-                }else if(key == 'T'){
-                    obj = {
-                        name: '其他',
-                        per: val[key]['0010'],
-                        value:val[key]['0010']
-                    }
-                }
-                this.listData.push(obj)
-            }
+    watch: {
+        'moduleData': function(val) {
+            this.listData = this.getData(val)
             // this.listData = val[this.flag]
-    	}
+        }
     },
     mounted() {
         console.log('moduleData11111', this.moduleData)
     },
     methods: {
-    	selExternal(type){
-        	this.flag = type
+        selExternal(type) {
+            this.flag = type
             // this.listData = this.moduleData[this.flag]
         },
-        changeBar (num) {
-            console.log('num', num)
+        getData(val) {
+            this.showData = true
+            let list = []
+            let total = 0;
+            for (let key in val) {
+                total += val[key][this.code]
+            }
+            total = total / 100
+            for (let key in val) {
+                let obj = {}
+                if (key == 'M') {
+                    obj = {
+                        name: '移网',
+                        per: val[key][this.code] / total,
+                        value: val[key][this.code]
+                    }
+                } else if (key == 'G') {
+                    obj = {
+                        name: '固话',
+                        per: val[key][this.code] / total,
+                        value: val[key][this.code]
+                    }
+                } else if (key == 'K') {
+                    obj = {
+                        name: '宽带',
+                        per: val[key][this.code] / total,
+                        value: val[key][this.code]
+                    }
+                } else if (key == 'I') {
+                    obj = {
+                        name: 'IPTV',
+                        per: val[key][this.code] / total,
+                        value: val[key][this.code]
+                    }
+                } else if (key == 'T') {
+                    obj = {
+                        name: '其他',
+                        per: val[key][this.code] / total,
+                        value: val[key][this.code]
+                    }
+                }
+                list.push(obj)
+            }
+                return list
+        },
+        getList(data) {
+            let total = Number(data.mobile)+ Number(data.telephone)+Number(data.broadband) +Number(data.iptv)+Number(data.otheruser)
+            console.log(total)
+            let list = [{
+                        name: '移网',
+                        per: Number(data.mobile) / (total/100),
+                        value: data.mobile
+                    },{
+                        name: '固话',
+                        per: data.telephone / (total/100),
+                        value: data.telephone
+                    },{
+                        name: '宽带',
+                        per: data.broadband / (total/100),
+                        value: data.broadband
+                    },{
+                        name: 'IPTV',
+                        per: data.iptv / (total/100),
+                        value: data.iptv
+                    },{
+                        name: '其他',
+                        per: data.otheruser / (total/100),
+                        value: data.otheruser
+                    }]
+            return list
+        },
+        changeBar(num) {
             this.activeIndex = num
+            if (num == 0) {
+                this.listData = this.getData(this.moduleData)
+            } else {
+                this.listData = this.getList(this.list.value)
+                console.log('22listData',this.listData)
+            }
+
         }
     }
 }
@@ -151,7 +175,7 @@ export default {
     height: 270px;
     padding: 8px;
     // background: url("../assets/yaxin/kuang_zuozhong.png");
-    background:url(../assets/yaxin/kuang_rexiaochangyong.png) no-repeat;
+    background: url(../assets/yaxin/kuang_rexiaochangyong.png) no-repeat;
 }
 
 .container {
@@ -227,16 +251,18 @@ export default {
     margin-right: 20px;
     width: 100px;
 }
+
 .query-option {
-   	padding:5px 20px;
+    padding: 5px 20px;
     flex: 1;
-    z-index:9;
+    z-index: 9;
     display: flex;
     justify-content: flex-end;
+
     .options {
         height: 19px;
         line-height: 19px;
-        padding:0 8px;
+        padding: 0 8px;
         font-size: 14px;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;
@@ -256,7 +282,8 @@ export default {
         background: linear-gradient(270deg, #7CF1E0 0%, #2C48A5 100%);
     }
 }
-.bar-box{
+
+.bar-box {
     display: flex;
     justify-content: center;
 }

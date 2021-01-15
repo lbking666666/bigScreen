@@ -61,6 +61,7 @@ export function getModule6(data) {
     const url = '/ITTest/queryUserCountByProvince';
     return getApi(url, data)
 }
+
 export function getModule7(data) {
     const url = '/ITTest/queryCBSSTradeCount';
     return getApi(url, data)
