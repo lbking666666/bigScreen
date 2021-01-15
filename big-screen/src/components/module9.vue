@@ -91,7 +91,7 @@ export default {
     // background: url(../assets/yaxin/rank-bg.png) no-repeat;
     background: url(../assets/yaxin/kuang_rexiaochangyong.png) no-repeat;
     background-size: 100% 100%;
-    padding-top: 86px;
+    padding-top: 110px;
     position: relative;
 
     .title {
@@ -103,7 +103,7 @@ export default {
 
     .tab-box {
         position: absolute;
-        top: 46px;
+        top: 60px;
         left: 80px;
         width: 300px;
         height: 30px;
@@ -120,6 +120,7 @@ export default {
             font-weight: 600;
             color: #88D7FD;
             text-align: center;
+            margin-bottom:5px;
             cursor: pointer;
 
             &:first-child {

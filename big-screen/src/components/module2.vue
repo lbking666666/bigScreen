@@ -44,7 +44,7 @@ export default {
             this.seriesData = []
             if (arr.length > 0) {
                 arr.forEach(ele => {
-                    this.xAxisData.push(Number(ele.date))
+                    this.xAxisData.push(ele.date)
                     this.seriesData.push(Number(ele.ZZ))
                 })
             }
@@ -58,7 +58,7 @@ export default {
             // if (this.moduleData.length > 0) {
             //     this.dealData(this.moduleData[this.flag].value)
             // }
-            console.log('this.moduleData',this.moduleData)
+            console.log('this.moduleData111',this.moduleData)
             this.dealData(this.moduleData)
             let chart = this.$refs.chart
             vm.myChart = echarts.init(chart)

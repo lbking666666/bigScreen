@@ -113,7 +113,7 @@ export default {
             externalTotal: 0,
             dateB:'H',
             startDate:now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-00',
-            endDate:now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-23',
+            endDate:now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-'+now.getHours(),
             externalAdd: 0
         }
     },
@@ -121,8 +121,9 @@ export default {
         this.getData()
         this.getMapData()
         setInterval(()=>{
+            this.setTime = true
             this.getSetTime() 
-        },3000)
+        },5000)
         setInterval(() => {
             this.nowTime += 1
             this.dateTimeStr = timestampConversion(this.nowTime)
@@ -136,7 +137,7 @@ export default {
                 this.dateB = 'H'
                 this.date =now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate();
                 this.startDate = now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-00'
-                this.endDate = now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-23'
+                this.endDate = now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-'+now.getHours()
             } else if (num == 1) {
                  this.sqltype = 'month'
                  this.dateB = 'D'

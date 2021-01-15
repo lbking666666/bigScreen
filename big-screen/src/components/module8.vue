@@ -12,22 +12,22 @@
             <div class="top-2-box">
                 <div class="title">TOP2</div>
                 <div class="bg">
-                    <p class="value">{{list[1]?list[1].name:''}}</p>
-                    <p class="name">{{list[1]?list[1].num:''}}</p>
+                    <p class="value">{{list[1]?list[1].num:''}}</p>
+                    <p class="name">{{list[1]?list[1].name:''}}</p>
                 </div>
             </div>
             <div class="top-1-box">
                 <div class="title">TOP1</div>
                 <div class="bg">
-                    <p class="value">{{list[0]?list[0].name:''}}</p>
-                    <p class="name">{{list[0]?list[0].num:''}}</p>
+                    <p class="value">{{list[0]?list[0].num:''}}</p>
+                    <p class="name">{{list[0]?list[0].name:''}}</p>
                 </div>
             </div>
             <div class="top-3-box">
                 <div class="title">TOP3</div>
                 <div class="bg">
-                    <p class="value">{{list[2]?list[2].name:''}}</p>
-                    <p class="name">{{list[2]?list[2].num:''}}</p>
+                    <p class="value">{{list[2]?list[2].num:''}}</p>
+                    <p class="name">{{list[2]?list[2].name:''}}</p>
                 </div>
             </div>
         </div>
@@ -127,6 +127,9 @@ export default {
                     padding-top: 8px;
                     font-size: 14px;
                     color: #c3f7f8;
+                    overflow:hidden;
+                    padding:6px 20px;
+                    height:14px;
                 }
             }
         }
@@ -158,6 +161,9 @@ export default {
                 .name{
                     padding-top: 6px;
                     font-size: 14px;
+                    padding:6px 20px;
+                    overflow:hidden;
+                    height:14px;
                     color: #c3f7f8;
                 }
             }
@@ -190,6 +196,9 @@ export default {
                 .name{
                     padding-top: 6px;
                     font-size: 14px;
+                    overflow:hidden;
+                    height:14px;
+                    padding:6px 20px;
                     color: #c3f7f8;
                 }
             }

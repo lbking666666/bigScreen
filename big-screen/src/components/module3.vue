@@ -87,47 +87,33 @@ export default {
         },
         getData(val) {
             this.showData = true
-            let list = []
             let total = 0;
             for (let key in val) {
                 total += val[key][this.code]
             }
-            total = total / 100
-            for (let key in val) {
-                let obj = {}
-                if (key == 'M') {
-                    obj = {
-                        name: '移网',
-                        per: val[key][this.code] / total,
-                        value: val[key][this.code]
-                    }
-                } else if (key == 'G') {
-                    obj = {
-                        name: '固话',
-                        per: val[key][this.code] / total,
-                        value: val[key][this.code]
-                    }
-                } else if (key == 'K') {
-                    obj = {
-                        name: '宽带',
-                        per: val[key][this.code] / total,
-                        value: val[key][this.code]
-                    }
-                } else if (key == 'I') {
-                    obj = {
-                        name: 'IPTV',
-                        per: val[key][this.code] / total,
-                        value: val[key][this.code]
-                    }
-                } else if (key == 'T') {
-                    obj = {
-                        name: '其他',
-                        per: val[key][this.code] / total,
-                        value: val[key][this.code]
-                    }
-                }
-                list.push(obj)
-            }
+            total = total 
+             let list = [{
+                name: '移网',
+                per: val['M'][this.code] / (total/100),
+                value: val['M'][this.code]
+            },{
+                name: '固话',
+                per: val['G'][this.code] / (total/100),
+                value: val['G'][this.code]
+            },{
+                name: '宽带',
+                per: val['K'][this.code] / (total/100),
+                value: val['K'][this.code]
+            },{
+                name: 'IPTV',
+                per: val['I'][this.code]/ (total/100),
+                value: val['I'][this.code]
+            },{
+                name: '其他',
+                per: val['T'][this.code] / (total/100),
+                value: val['T'][this.code]
+            }]
+            
                 return list
         },
         getList(data) {
@@ -286,5 +272,6 @@ export default {
 .bar-box {
     display: flex;
     justify-content: center;
+    margin:10px 0;
 }
 </style>
