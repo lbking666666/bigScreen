@@ -18,13 +18,12 @@
             </div>
             <div class="box box-4" @mouseover="()=>{showTip =true}" @mouseout="()=>{showTip=false}">
                 <div class="tip-box" v-show="showTip">
-                    <div class="label">携入 
-                    {{moduleData.portability_in?formatterNumber(moduleData.portability_in):0}} </div>
-
-                    <div class="label">携出 
-                    {{moduleData.portability_out?formatterNumber(moduleData.portability_out):0}} </div>
+                    <div class="label">携入量：
+                        {{moduleData.portability_in?formatterNumber(moduleData.portability_in):0}} </div>
+                    <div class="label">携出量：
+                        {{moduleData.portability_out?formatterNumber(moduleData.portability_out):0}} </div>
                 </div>
-                <div class="box-title">携号转网</div>
+                <div class="box-title">携号转网 <i class="wenhao"></i></div>
                 <div class="box-count">{{moduleData.portability?formatterNumber(moduleData.portability):0}}</div>
             </div>
         </div>
@@ -129,13 +128,14 @@ export default {
                 color: #fff;
                 position: fixed;
                 right: 80px;
-                padding: 4px 20px;
-                font-size: 12px;
-                border-radius: 8px;
-                border: 1px solid #00FFFF;
-                top: 232px;
-                background: rgba(0, 0, 0, 0.4);
-                display:flex;
+                font-size: 13px;
+                justify-content: space-around;
+                top: 218px;
+                background: url(../assets/yaxin/tip.png) no-repeat;
+                width: 236px;
+                height: 48px;
+                display: flex;
+                align-items: center;
 
                 .label {
                     margin: 2px 5px;
@@ -148,6 +148,16 @@ export default {
                 font-size: 16px;
                 color: #62a5cd;
                 line-height: 16px;
+                display: flex;
+                align-items: center;
+
+                .wenhao {
+                    background: url(../assets/yaxin/wenhao.png) no-repeat;
+                    height: 18px;
+                    width: 18px;
+                    display: inline;
+                    margin: 0 3px;
+                }
             }
 
             .box-count {
