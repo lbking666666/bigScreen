@@ -161,7 +161,7 @@ export default {
 <style lang="less" scoped>
 .module2 {
     width: 100%;
-    height: 270px;
+    height: 275px;
     padding: 8px;
     // background: url("../assets/yaxin/kuang_zuozhong.png");
     background: url(../assets/yaxin/kuang_rexiaochangyong.png) no-repeat;

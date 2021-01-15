@@ -121,14 +121,14 @@ export default {
     mounted() {
         this.getData()
         this.getMapData()
-        setInterval(()=>{
+        /*setInterval(()=>{
             this.setTime = true
             this.getSetTime() 
-        },5000)
-        setInterval(() => {
+        },5000)*/
+       /* setInterval(() => {
             this.nowTime += 1
             this.dateTimeStr = timestampConversion(this.nowTime)
-        }, 1000)
+        }, 1000)*/
     },
     methods: {
         checkTime(num) {
@@ -389,7 +389,7 @@ export default {
         getQueryOrderCount() {
             let params = {
                 provinceCode: this.provinceCode,
-                timeDimension: 'year'
+                timeDimension: this.sqltype
             }
             queryOrderCount(params).then(res => {
                 if (res.code == 200) {
@@ -538,7 +538,8 @@ export default {
         flex-direction: row;
         justify-content: center;
         margin: 0 auto;
-        height: calc(100% - 100px);
+        height: 970px;
+        margin-top: -6px;
 
         .left-box {
             width: 460px;

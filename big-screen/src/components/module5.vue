@@ -3,6 +3,7 @@
         <div class="map-shadow" v-show="silent"></div>
         <div class="tip-show" v-show="tipShow">暂不支持下钻</div>
         <div ref="map" id="map" style="width:100%;height:100%" v-on:click.stop.prevent="reBack"></div>
+        <div class="tip-icon">用户量</div>
     </div>
 </template>
 <script>
@@ -303,6 +304,16 @@ export default {
     height: 631px;
     width: 100%;
     position: relative;
+}
+.tip-icon{
+    position: absolute;
+    bottom: 123px;
+    left: 4px;
+    font-size: 12px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #88D7FD;
+    line-height: 17px;
 }
 
 .map-shadow {

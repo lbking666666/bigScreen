@@ -27,7 +27,7 @@
 		},
 		data(){
 			return{
-				titleText: '全国31省用户量/arpu值',
+				titleText: '全国31省用户量/ARPU值',
 				dataAxis: [], // 
 				xData: [],
 				yDataA: [], // 柱状图 用户量

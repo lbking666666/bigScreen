@@ -113,10 +113,10 @@
                 padding-left: 85px;
                 text-align: left;
                 .box-title{
-                    margin-top: 30px;
-                    font-size: 12px;
+                    margin-top: 26px;
+                    font-size: 16px;
                     color: #62a5cd;
-                    line-height: 12px;
+                    line-height: 16px;
                 }
                 .box-count{
                     margin-top: 12px;

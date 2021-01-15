@@ -4,8 +4,9 @@
             <CommonTitle :titleText='titleText' />
         </div>
         <div class="tab-box">
-            <div class="tab-item" :class="tabIndex===0 ? 'active' : ''" @click="tabChange(0)">产品</div>
-            <div class="tab-item" :class="tabIndex===1 ? 'active' : ''" @click="tabChange(1)">费用</div>
+            <!-- <div class="tab-item" :class="tabIndex===0 ? 'active' : ''" @click="tabChange(0)">热销产品</div>
+            <div class="tab-item" :class="tabIndex===1 ? 'active' : ''" @click="tabChange(1)">常用功能</div> -->
+            <tabs :barNames="barNames" @checkItem="tabChange" />
         </div>
         <div class="ranking-box">
             <!-- title在Home中 -->
@@ -31,11 +32,13 @@
 </template>
 <script>
 import CommonTitle from './commonTitle'
+import tabs from '@/components/tabs.vue';
 import { formatterNumber } from '@/utils/filterNum'
 export default {
     name: "",
     components: {
-        CommonTitle
+        CommonTitle,
+        tabs
     },
     props: {
         list1: {
@@ -51,15 +54,15 @@ export default {
         return {
             titleText: '收入TOP5',
             tabIndex: 0, // 0: 热销产品； 1: 常用功能；
-            activeList:[]
+            activeList: [],
+            barNames: ['热销产品', '常用功能'],
         }
     },
     mounted() {
         this.activeList =this.list1
     },
     updated() {
-
-        if(this.tabIndex ==0){
+         if(this.tabIndex ==0){
             this.activeList = this.list1
         }else{
 
@@ -68,14 +71,12 @@ export default {
     },
     methods: {
         tabChange(tab) {
-            this.tabIndex = tab
             if(tab ==0){
                 this.activeList = this.list1
             }else{
 
                 this.activeList = this.list2
             }
-            console.log(this.activeList)
         },
         formatterNumber(val) {
             return formatterNumber(val)
@@ -87,23 +88,23 @@ export default {
 .ranking {
     box-sizing: border-box;
     width: 460px;
-    height: 350px;
+    height: 355px;
     // background: url(../assets/yaxin/rank-bg.png) no-repeat;
     background: url(../assets/yaxin/kuang_rexiaochangyong.png) no-repeat;
     background-size: 100% 100%;
-    padding-top: 110px;
+    padding-top: 86px;
     position: relative;
 
     .title {
         position: absolute;
         width: 100%;
-        top: 8px;
+        top: 10px;
         left: 0;
     }
 
     .tab-box {
         position: absolute;
-        top: 60px;
+        top: 50px;
         left: 80px;
         width: 300px;
         height: 30px;
@@ -120,7 +121,6 @@ export default {
             font-weight: 600;
             color: #88D7FD;
             text-align: center;
-            margin-bottom:5px;
             cursor: pointer;
 
             &:first-child {
@@ -151,7 +151,9 @@ export default {
     }
 
     .ranking-box {
-        height: 100%;
+        position: absolute;
+        top: 102px;
+        left: 0;
         width: 100%;
         text-align: left;
         box-sizing: border-box;
@@ -183,7 +185,7 @@ export default {
             .rank-item {
                 height: 34px;
                 line-height: 34px;
-                margin-top: 5px;
+                margin-top: 9px;
                 display: flex;
                 position: relative;
 
