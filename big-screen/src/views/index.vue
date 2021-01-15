@@ -121,14 +121,14 @@ export default {
     mounted() {
         this.getData()
         this.getMapData()
-        /*setInterval(()=>{
+        setInterval(()=>{
             this.setTime = true
             this.getSetTime() 
-        },5000)*/
-       /* setInterval(() => {
+        },5000)
+        setInterval(() => {
             this.nowTime += 1
             this.dateTimeStr = timestampConversion(this.nowTime)
-        }, 1000)*/
+        }, 1000)
     },
     methods: {
         checkTime(num) {
