@@ -1,6 +1,9 @@
 <template>
     <div class="charts-wrapper">
-        <commonTitle :titleText="titleText"></commonTitle>
+        <div class="title-box">
+            <commonTitle :titleText="titleText"></commonTitle>
+        </div>
+        
         <div class="line-chart">
             <div ref="chart" style="width:100%;height:100%"></div>
         </div>
@@ -194,9 +197,12 @@ export default {
 <style scoped lang='less'>
 .charts-wrapper {
     width: 100%;
-    height: 225px;
+    height: 230px;
     background: url(../assets/yaxin/kuang_dingdanliang.png) no-repeat;
     background-size: 100% 100%;
+    .title-box{
+        padding-top: 7px;
+    }
 }
 
 .line-chart {

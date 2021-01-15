@@ -86,7 +86,7 @@ export default {
 .rose-charts{
     box-sizing: border-box;
 	width:100%;
-	height:280px;
+	height:295px;
 	background:url(../assets/yaxin/kuang_rexiaochangyong.png) no-repeat;
     background-size: cover;
     position: relative;

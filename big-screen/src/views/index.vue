@@ -427,7 +427,8 @@ export default {
         flex-direction: row;
         justify-content: center;
         margin: 0 auto;
-        height: calc(100% - 100px);
+        height: 970px;
+        margin-top: -6px;
 
         .left-box {
             width: 460px;

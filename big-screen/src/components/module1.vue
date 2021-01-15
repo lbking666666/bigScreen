@@ -1,6 +1,9 @@
 <template>
     <div class="module1">
-        <commonTitle :titleText="titleText"></commonTitle>
+        <div class="title-box">
+            <commonTitle :titleText="titleText"></commonTitle>
+        </div>
+        
         <div class="container">
             <div class="column">
                 <h4>用户情况</h4>
@@ -59,11 +62,14 @@ export default {
 <style lang="less" scoped>
 .module1 {
     width: 100%;
-    height: 265px;
+    height: 270px;
     background: url("../assets/yaxin/kuang_gailan.png");
     display: flex;
     flex-direction: column;
 
+    .title-box{
+        padding-top: 5px;
+    }
     .container {
         width: 100%;
         height: 100%;
