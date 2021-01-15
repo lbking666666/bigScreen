@@ -17,6 +17,10 @@ export default {
             type: String,
             default: '#B085FF',
         },
+        code:{
+            type:Number,
+            default:0
+        },
         moduleData: {
             type: Array,
             default: []
@@ -45,7 +49,7 @@ export default {
             if (arr.length > 0) {
                 arr.forEach(ele => {
                     this.xAxisData.push(ele.date)
-                    this.seriesData.push(Number(ele.ZZ))
+                    this.seriesData.push(Number(ele[this.code]))
                 })
             }
         },

@@ -12,7 +12,7 @@
         <div class="container">
             <div class="left-box">
                 <module1 :leftData="leftData" :moduleData="module1Data"></module1>
-                <module2 :moduleData="module2Data"></module2>
+                <module2 :code="provinceCode" :moduleData="module2Data"></module2>
                 <module3 :moduleData="module3Data" :code="provinceCode" :list="dataList2"></module3>
                 <module4 :moduleData="module4Data"></module4>
             </div>
@@ -105,6 +105,7 @@ export default {
             max: 100,
             provinceName: '全国',
             leftData: 0,
+            leftdata1:0,
             nowTime: (new Date()).getTime() / 1000,
             dateTimeStr: timestampConversion((new Date()).getTime() / 1000),
             timeIndex: 0, // 0: 日; 1: 月; 2: 年;
@@ -158,6 +159,9 @@ export default {
             this.AsynOpen()
             this.AI_Produce()
             this.AI_Billing()
+            this.ServiceOrder()
+        this.AI_Credit()
+
         },
         getData() {
             this.AI_Cz_Users()
@@ -266,7 +270,7 @@ export default {
             getBigData(params).then(res => {
                 console.log(res, 11378342)
                 this.dataList2 = res.data[0]
-                this.leftData = Number(res.data[0].value.usercount)
+                this.leftdata1 = Number(res.data[0].value.usercount)
             })
         },
         //生产运营情况 服务工单数
@@ -274,8 +278,11 @@ export default {
             ServiceOrder().then(res => {
                 this.module4Data.dataA = 0
                 // 日的
-                res.data[this.sqltype].map(dayObj => {
-                    this.module4Data.dataA += dayObj.serviceOrder
+                 res.data[this.sqltype].map(dayObj => {
+                    if(this.provinceCode == dayObj.provinceCode){
+
+                        this.module4Data.dataA =dayObj.serviceOrder
+                    }
                 })
             })
         },
@@ -302,7 +309,7 @@ export default {
             }
             AI_Produce(params).then(res => {
                 this.externalAdd = Number(res.data[this.sqltype].pay_money).toFixed(0)
-                this.leftData += Number(this.externalAdd)
+                this.leftData= this.leftdata1+ Number(this.externalAdd)
             })
         },
         //今日开户量

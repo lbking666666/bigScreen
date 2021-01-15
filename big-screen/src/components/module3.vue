@@ -12,8 +12,8 @@
         <div class="bar-box">
             <tabs :barNames="barNames" @checkItem="changeBar" />
         </div>
-        <div style="margin-top:5px">
-            <span class="top-title-left">触点</span>
+        <div style="margin:5px 0">
+            <span class="top-title-left">触 点</span>
             <span class="top-title-right">发展量</span>
         </div>
         <div v-if="showData">
@@ -216,7 +216,6 @@ export default {
 .top-title-left {
     height: 14px;
     font-size: 14px;
-    font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 500;
     color: #88D7FD;
     line-height: 14px;
