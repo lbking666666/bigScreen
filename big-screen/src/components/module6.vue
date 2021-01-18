@@ -106,7 +106,7 @@
 						backgroundColor: 'rgba(50,50,50,0.7)',
 					},
 					legend: {
-						data: ['用户数', 'arpu值'],
+						data: ['用户数', 'ARPU值'],
 						right: '40px',
 						top: '13px',
 						textStyle: {
@@ -225,7 +225,7 @@
 						{
 							type: 'bar',
 							yAxisIndex: 1,
-							name: 'arpu值',
+							name: 'ARPU值',
 							itemStyle: {
 								color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
 										offset: 0,

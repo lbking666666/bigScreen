@@ -9,10 +9,12 @@
 <script>
 import * as echarts from "echarts";
 import axios from 'axios';
+import {AsynOpen} from '@/api/index.js';
 import {formatterNumber} from '@/utils/filterNum'
 let chinaMap = require('./map/china.json')
 let map = null,
     time = null
+let now = new Date()
 export default {
     name: "mapChart",
     props: {
@@ -151,12 +153,22 @@ export default {
                     },
                     borderWidth: 0,
                     trigger: 'item',
-                    formatter: function(params) {
+                    formatter: function(params,ticket,callback) {
                         if (params.value) {
-                            return params.name + '<br/>用户量:' + formatterNumber(params.value)
-                                    + '<br/>今日出账数：' + formatterNumber(params.data.billuser)
-                                    + '<br/>今日开户数:' + formatterNumber(params.data.user)
-                                    + '<br/>arup值:' + formatterNumber(params.data.arpu)
+                            if(params.data.code){
+                                 //今日开户量
+                                let data = {
+                                    prov_code: params.data.code,
+                                    date: now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate(),
+                                }
+                                 AsynOpen(data).then(res => {
+                                    callback(ticket,params.name + '<br/>用户量:' + formatterNumber(params.value)
+                                    + '<br/>今日开户数:' + formatterNumber(res.RSP.DATA[0][params.data.code])
+                                    + '<br/>arup值:' + formatterNumber(params.data.arpu))
+                                })
+                                 return 'loading'
+                            }
+                            
                         } else {
                             return params.name
                         }
