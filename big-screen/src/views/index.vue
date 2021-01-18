@@ -165,6 +165,7 @@ export default {
             this.AsynOpen()
             this.AI_Produce()
             this.AI_Billing()
+            this.getQueryOrderCount()
             if(this.serverQuer == true){
                 this.ServiceOrder()
             }else{
@@ -208,8 +209,6 @@ export default {
                             let params = {
                                 name: item.name,
                                 value: values.usercount,
-                                user: values.cbinnetday,
-                                billuser: values.billuser,
                                 arpu: values.arpu,
                                 code: values.province_code
                             }
