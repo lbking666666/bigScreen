@@ -46,8 +46,8 @@ export default {
     },
     props: {
         moduleData:{
-            type:Array,
-            default:[]
+            type:Object,
+            default:()=>{{}}
         }
     },
     data() {
@@ -69,7 +69,6 @@ export default {
     },
     methods: {
         changeBar (num) {
-            console.log(num)
             this.activeIndex = num
             this.list = []
             this.list = this.moduleData[num].list

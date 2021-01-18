@@ -76,7 +76,6 @@ export default {
     },
     methods: {
         tabChange(tab) {
-            console.log(1111,tab)
             this.tabIndex = tab
             if(tab ==0){
                 this.activeList = this.list1
@@ -84,8 +83,6 @@ export default {
 
                 this.activeList = this.list2
             }
-            console.log(1222,this.list2)
-            console.log(1222,this.activeList)
         },
         formatterNumber(val) {
             return formatterNumber(val)

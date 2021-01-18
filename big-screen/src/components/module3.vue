@@ -43,8 +43,8 @@ export default {
             default: () => ({})
         },
         code: {
-            type: Number,
-            default: 0,
+            type: String,
+            default: 'ZZ',
         },
         list: {
             type: Object,
@@ -81,7 +81,6 @@ export default {
         }
     },
     mounted() {
-        console.log('moduleData11111', this.moduleData)
     },
     methods: {
         selExternal(type) {

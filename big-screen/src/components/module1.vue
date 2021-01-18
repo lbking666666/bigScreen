@@ -22,11 +22,11 @@
                 <h4>收入情况 (万元)</h4>
                 <div class="box">
                     <div class="col">
-                        <div class="hd">本月实时计费收入</div>
+                        <div class="hd"><span>本 月 实 时 计 费 收 入</span></div>
                         <div class="bd">{{formatter(moduleData.AI_Billing)}}</div>
                     </div>
                     <div class="col">
-                        <div class="hd">上月出账金额</div>
+                        <div class="hd"><span>上月出账金额</span></div>
                         <div class="bd">{{formatter(moduleData.AI_Cz_Process_Card)}}</div>
                     </div>
                 </div>

@@ -193,7 +193,7 @@ export default {
                     roam: false,
                     zlevel: 1,
                     zoom: (name == 'china') ? 1 : ((name == 'heilongjiang' || name == 'gansu' || name == 'guangdong') ? 0.8 : 1),
-                    top: (name == 'heilongjiang' || name == 'gansu') ? '20%' : 'center',
+                    top: (name == 'heilongjiang' || name == 'gansu') ? '20%' : '16%',
                     left: (name == 'heilongjiang' || name == 'gansu') ? '25%' : 'center',
                     // layoutCenter: ['80%','80%'],
                     //图形上的文本标签，可用于说明图形的一些数据信息

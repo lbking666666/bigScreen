@@ -5,7 +5,8 @@ export function formatterNumber (number){
     if (num.split('.')[1]) {
         let numInt = num.split('.')[0],
             numFlo = num.split('.')[1];
-        result = formatter(numInt) + '.' + numFlo
+        //result = formatter(numInt) + '.' + numFlo
+        result = formatter(numInt)
     } else {
         result = formatter(num);
     }

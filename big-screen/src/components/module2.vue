@@ -21,12 +21,12 @@ export default {
             default: '#B085FF',
         },
         code:{
-            type:Number,
-            default:0
+            type:String,
+            default:'ZZ'
         },
         moduleData: {
-            type: Array,
-            default: []
+            type: Object,
+            default: ()=>{{}}
         }
     },
     data() {
@@ -65,7 +65,6 @@ export default {
             // if (this.moduleData.length > 0) {
             //     this.dealData(this.moduleData[this.flag].value)
             // }
-            console.log('this.moduleData111',this.moduleData)
             this.dealData(this.moduleData)
             let chart = this.$refs.chart
             vm.myChart = echarts.init(chart)

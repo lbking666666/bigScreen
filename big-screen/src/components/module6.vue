@@ -21,8 +21,8 @@
 		},
 		props: {
 			moduleData: {
-				type: Array,
-				default: []
+				type: Object,
+				default: ()=>{{}}
 			}
 		},
 		data(){

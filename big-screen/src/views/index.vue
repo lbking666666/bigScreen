@@ -89,9 +89,12 @@ export default {
     data() {
         return {
             provinceCode: 'ZZ',
+            totalServer:0,
+            serverNum:0,
             module1Data: {},
             module2Data: {},
             module3Data: [],
+            dataList2:[],
             module4Data: [],
             module6Data: [],
             module7Data: [],
@@ -125,6 +128,9 @@ export default {
             this.setTime = true
             this.getSetTime() 
         },5000)
+        setInterval(()=>{
+            this.serverQuer = true
+        },300000)
         setInterval(() => {
             this.nowTime += 1
             this.dateTimeStr = timestampConversion(this.nowTime)
@@ -159,9 +165,19 @@ export default {
             this.AsynOpen()
             this.AI_Produce()
             this.AI_Billing()
-            this.ServiceOrder()
-        this.AI_Credit()
-
+            if(this.serverQuer == true){
+                this.ServiceOrder()
+            }else{
+                if(this.serverNum == 0){
+                    console.log(333,this.totalServer)
+                    this.module4Data.dataA  = this.module4Data.dataA + 1
+                }else{
+                    console.log(111122222,this.module4Data.dataA)
+                    this.module4Data.dataA  = this.module4Data.dataA + this.serverNum/60
+                }
+                
+            }
+            this.AI_Credit()
         },
         getData() {
             this.AI_Cz_Users()
@@ -244,7 +260,6 @@ export default {
                 start: this.startDate,
             }
             Trade(params).then(res => {
-                console.log('Trade', res)
                 this.module2Data = res.RSP.DATA
             })
         },
@@ -257,9 +272,7 @@ export default {
                 prov_code: this.provinceCode,
             }
             Openbusi(params).then(res => {
-                console.log('Openbusi434234', res)
                 this.module3Data = res.RSP.DATA[0]
-                console.log('this.module3Data', this.module3Data)
             })
         },
         getBigData() {
@@ -268,7 +281,6 @@ export default {
                 provinceCode: this.provinceCode,
             }
             getBigData(params).then(res => {
-                console.log(res, 11378342)
                 this.dataList2 = res.data[0]
                 this.leftdata1 = Number(res.data[0].value.usercount)
             })
@@ -280,8 +292,19 @@ export default {
                 // 日的
                  res.data[this.sqltype].map(dayObj => {
                     if(this.provinceCode == dayObj.provinceCode){
-
-                        this.module4Data.dataA =dayObj.serviceOrder
+                        console.log(dayObj.serviceOrder)
+                        //存储有值
+                        if(this.serverQuer){
+                            this.module4Data.dataA = this.totalServer
+                            //五分钟直接数据差值
+                            this.serverNum = dayObj.serviceOrder - this.totalServer
+                            //新的数据值
+                            this.totalServer = dayObj.serviceOrder
+                            this.serverQuer = false
+                        }else{
+                            this.totalServer = dayObj.serviceOrder
+                            this.module4Data.dataA = this.totalServer - 60
+                        }
                     }
                 })
             })
@@ -294,7 +317,6 @@ export default {
                 sqltype: this.sqltype,
             }
             AI_Credit(params).then(res => {
-                console.log('AI_Credit111111', res)
                 this.module4Data.dataB = res.data[this.sqltype].stopNum
                 this.module4Data.dataC = res.data[this.sqltype].openNum
 
@@ -305,10 +327,10 @@ export default {
             //prov_code=ZZ&sqltype=day
             let params = {
                 prov_code: this.provinceCode,
-                sqltype: this.sqltype,
+                sqltype: 'day',
             }
             AI_Produce(params).then(res => {
-                this.externalAdd = Number(res.data[this.sqltype].pay_money).toFixed(0)
+                this.externalAdd = Number(Number(res.data[this.sqltype].pay_money).toFixed(0))
                 this.leftData= this.leftdata1+ Number(this.externalAdd)
             })
         },
@@ -317,10 +339,9 @@ export default {
             //city_code=0010&date=2021-01-14&prov_code=ZZ
             let params = {
                 prov_code: this.provinceCode,
-                date: this.date,
+                date: now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate(),
             }
             AsynOpen(params).then(res => {
-                console.log('AsynOpen', res.RSP.DATA[0][this.provinceCode])
 
                 this.externalTotal = res.RSP.DATA[0][this.provinceCode]
             })
@@ -392,10 +413,7 @@ export default {
                 timeDimension: this.sqltype
             }
             queryOrderCount(params).then(res => {
-                if (res.code == 200) {
-                    this.module7Data = res.data[0]
-                    console.log(this.module7Data)
-                }
+                this.module7Data = res.RSP.DATA[0]
             })
         },
         getAI_Billing_00003_YMD() {
@@ -405,7 +423,6 @@ export default {
             }
             AI_Billing_00003_YMD(params).then(res => {
                 if (res.code == 200) {
-                    console.log(323121, res.data['day'])
                     this.list1 = res.data[this.sqltype].slice(0, 5)
                 }
 
