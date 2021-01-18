@@ -11,7 +11,9 @@
         <div class="ranking-box">
             <!-- title在Home中 -->
             <div class="ranking-header">
-                <div class="name">排名&nbsp;&nbsp;&nbsp;&nbsp;费用名称</div>
+                <div class="index">排名</div>
+                <div class="name" v-if="tabIndex==1">费用名称</div>
+                <div class="name" v-if="tabIndex == 0">产品名称</div>
                 <!-- <div class="name">费用名称</div> -->
                 <div class="order-num">费用(万元)</div>
                 <div class="order-num">用户数(万户)</div>
@@ -55,7 +57,7 @@ export default {
             titleText: '收入TOP5',
             tabIndex: 0, // 0: 热销产品； 1: 常用功能；
             activeList: [],
-            barNames: ['热销产品', '常用功能'],
+            barNames: ['产品', '费用项'],
         }
     },
     mounted() {
@@ -171,9 +173,22 @@ export default {
             line-height: 14px;
             margin-top: 1px;
             display: flex;
-
-            .index,
-            .name,
+            .index{
+                width: 73px;
+                text-align: center;
+                color: #01FFFF;
+                padding-right: 20px;
+            }
+            .name {
+                width: 220px;
+                text-align: left;
+                font-size: 14px;
+                font-family: PingFangSC-Regular, PingFang SC;
+                font-weight: 400;
+                overflow: hidden;
+                color: #01FFFF;
+                padding-right: 10px;
+            }
             .order-num {
                 font-size: 14px;
                 font-family: PingFangSC-Medium, PingFang SC;

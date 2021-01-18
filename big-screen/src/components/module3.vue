@@ -13,7 +13,7 @@
             <tabs :barNames="barNames" @checkItem="changeBar" />
         </div>
         <div style="margin:5px 0">
-            <span class="top-title-left">触 点</span>
+            <span class="top-title-left">类型</span>
             <span class="top-title-right">发展量</span>
         </div>
         <div v-if="showData">
