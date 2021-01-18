@@ -170,10 +170,10 @@ export default {
                 this.ServiceOrder()
             }else{
                 if(this.serverNum == 0){
-                    console.log(333,this.totalServer)
+                    // console.log(333,this.totalServer)
                     this.module4Data.dataA  = this.module4Data.dataA + 1
                 }else{
-                    console.log(111122222,this.module4Data.dataA)
+                    // console.log(111122222,this.module4Data.dataA)
                     this.module4Data.dataA  = this.module4Data.dataA + this.serverNum/60
                 }
                 
@@ -291,7 +291,7 @@ export default {
                 // 日的
                  res.data[this.sqltype].map(dayObj => {
                     if(this.provinceCode == dayObj.provinceCode){
-                        console.log(dayObj.serviceOrder)
+                        // console.log(dayObj.serviceOrder)
                         //存储有值
                         if(this.serverQuer){
                             this.module4Data.dataA = this.totalServer
@@ -412,7 +412,8 @@ export default {
                 timeDimension: this.sqltype
             }
             queryOrderCount(params).then(res => {
-                this.module7Data = res.RSP.DATA[0]
+                // 该接口暂时切换为原来的静态数据
+                this.module7Data = res.data[0]
             })
         },
         getAI_Billing_00003_YMD() {

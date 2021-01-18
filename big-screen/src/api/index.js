@@ -152,7 +152,7 @@ export function queryUserCountByProvince(data){
 }
 
 export function queryOrderCount(data){
-    const url = `/webapi/queryOrderCount`
+    const url = `/ITTest/queryOrderCount`
     return getApi(url, data)
 }
 
