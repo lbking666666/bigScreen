@@ -16,7 +16,7 @@
                 <div class="name" v-if="tabIndex == 0">产品名称</div>
                 <!-- <div class="name">费用名称</div> -->
                 <div class="order-num">费用(万元)</div>
-                <div class="order-num">用户数(万户)</div>
+                <div class="order-num">用户数(户)</div>
                 <!-- <div class="name">业务名称</div>
 				<div class="order-num">订单量(笔)</div> -->
             </div>
