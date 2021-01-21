@@ -12,7 +12,7 @@
         <div class="bar-box">
             <tabs :barNames="barNames" @checkItem="changeBar" />
         </div>
-        <div style="margin:5px 0">
+        <div style="padding:5px 0 15px; display: flex; justify-content: space-between;">
             <span class="top-title-left">类型</span>
             <span class="top-title-right">发展量</span>
         </div>
