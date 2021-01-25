@@ -129,10 +129,10 @@ export default {
 
             .tip-box {
                 color: #fff;
-                position: fixed;
-                right: 64px;
+                position: absolute;
+                left: 66px;
                 justify-content: space-around;
-                top: 214px;
+                top: -33px;
                 background: url(../assets/yaxin/tooltip-bg.png) no-repeat;
                 width: 120px;
                 height: 54px;
@@ -175,8 +175,8 @@ export default {
             &.box-1 {
                 background: url("../assets/yaxin/kuayuyonghushu.png") no-repeat;
                 background-size: cover;
-                left: 20px;
-                top: 0;
+                right: 20px;
+                top: 110px;
             }
 
             &.box-2 {
@@ -189,14 +189,16 @@ export default {
             &.box-3 {
                 background: url("../assets/yaxin/5gdinggoushu.png") no-repeat;
                 background-size: cover;
+                
                 left: 20px;
-                top: 110px;
+                top: 0;
             }
 
             &.box-4 {
                 background: url("../assets/yaxin/xiehaozhuanwang.png") no-repeat;
                 background-size: cover;
-                right: 20px;
+                
+                left: 20px;
                 top: 110px;
             }
         }
