@@ -18,9 +18,9 @@
             </div>
             <div class="box box-4" @mouseover="()=>{showTip =true}" @mouseout="()=>{showTip=false}">
                 <div class="tip-box" v-show="showTip">
-                    <div class="label">携入量：
+                    <div class="label">入：
                         {{moduleData.portability_in?formatterNumber(moduleData.portability_in):0}} </div>
-                    <div class="label">携出量：
+                    <div class="label">出：
                         {{moduleData.portability_out?formatterNumber(moduleData.portability_out):0}} </div>
                 </div>
                 <div class="box-title">携号转网 <i class="wenhao"></i></div>

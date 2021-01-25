@@ -123,9 +123,9 @@ export default {
                     borderWidth: 0,
                     formatter: function(params) {
                         let dateStr = vm.moduleData[params.dataIndex].date
-                        let nums = (String(params.value).length > 4) ? (Number(params.value / 10000).toFixed(1) + 'W') : String(params.value)
+                        // let nums = (String(params.value).length > 4) ? (Number(params.value / 10000).toFixed(1) + 'W') : String(params.value)
 
-                        return dateStr + '<br>' + '订单量: ' + nums
+                        return dateStr + '<br>' + '订单量: ' + String(params.value) + 'W'
                     }
 
                 },
