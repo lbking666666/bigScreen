@@ -4,18 +4,16 @@
             <commonTitle :titleText="titleText"></commonTitle>
         </div>
         <div class="container">
-            <div class="box box-1">
-                <div class="box-title">跨域用户数</div>
-                <div class="box-count">{{moduleData.crossuser?formatterNumber(moduleData.crossuser):0}}</div>
-            </div>
-            <div class="box box-2">
-                <div class="box-title">2l 用户数</div>
-                <div class="box-count">{{moduleData.user2i?formatterNumber(moduleData.user2i):0}}</div>
-            </div>
             <div class="box box-3">
                 <div class="box-title">5G订购数</div>
                 <div class="box-count">{{moduleData.order5g?formatterNumber(moduleData.order5g):0}}</div>
             </div>
+
+            <div class="box box-2">
+                <div class="box-title">2l 用户数</div>
+                <div class="box-count">{{moduleData.user2i?formatterNumber(moduleData.user2i):0}}</div>
+            </div>
+
             <div class="box box-4" @mouseover="()=>{showTip =true}" @mouseout="()=>{showTip=false}">
                 <div class="tip-box" v-show="showTip">
                     <div class="label">入：
@@ -25,6 +23,11 @@
                 </div>
                 <div class="box-title">携号转网 <i class="wenhao"></i></div>
                 <div class="box-count">{{moduleData.portability?formatterNumber(moduleData.portability):0}}</div>
+            </div>
+
+            <div class="box box-1">
+                <div class="box-title">跨域用户数</div>
+                <div class="box-count">{{moduleData.crossuser?formatterNumber(moduleData.crossuser):0}}</div>
             </div>
         </div>
     </div>
