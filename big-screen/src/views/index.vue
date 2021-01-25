@@ -499,7 +499,7 @@ export default {
         display: flex;
         width: 100%;
         height: 86px;
-        background: url("../assets/yaxin/dingbubiaoti.png") no-repeat;
+        background: url("../assets/yaxin/header-bg.png") no-repeat;
         background-size: 100% 100%;
 
         .time-box {

@@ -127,18 +127,20 @@ export default {
             .tip-box {
                 color: #fff;
                 position: fixed;
-                right: 80px;
-                font-size: 13px;
+                right: 64px;
                 justify-content: space-around;
-                top: 218px;
-                background: url(../assets/yaxin/tip.png) no-repeat;
-                width: 236px;
-                height: 48px;
-                display: flex;
-                align-items: center;
+                top: 214px;
+                background: url(../assets/yaxin/tooltip-bg.png) no-repeat;
+                width: 120px;
+                height: 54px;
+                padding-top: 7px;
+                padding-left: 13px;
 
                 .label {
                     margin: 2px 5px;
+                    font-size: 12px;
+                    line-height: 17px;
+                    margin-bottom: 3px;
                 }
 
             }
