@@ -7,8 +7,8 @@
             <tabs :barNames="barNames" @checkItem="changeBar" />
         </div>
         <div class="list-title">
-            <div class="title-1">触点</div>
-            <div class="title-2">发展量</div>
+            <div class="title-1">{{chartName[activeIndex]}}</div>
+            <div class="title-2">{{countStr[activeIndex]}}</div>
         </div>
         <div class="list-box">
             <div class="container" v-for="(item, index) in list" :key="index">
@@ -42,6 +42,8 @@ export default {
         return {
             titleText: '热销产品/常用功能TOP5',
             barNames: ['热销产品', '常用功能'],
+            chartName: ['产品', '功能'],
+            countStr: ['订购量', '使用次数'],
             activeIndex: 0,
             list: [],
             bg: [

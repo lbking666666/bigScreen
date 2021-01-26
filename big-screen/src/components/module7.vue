@@ -136,6 +136,7 @@ export default {
                 display: flex;
                 align-items: center;
                 width: 100%;
+                padding: 0 20px;
 
                 .label {
                     font-size: 13px;
