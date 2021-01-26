@@ -12,7 +12,7 @@
         <div class="container">
             <div class="left-box">
                 <module1 :leftData="leftData" :moduleData="module1Data"></module1>
-                <module2 :code="provinceCode" :moduleData="module2Data"></module2>
+                <module2 :code="provinceCode" :moduleData="module2Data" :countStr="countStr"></module2>
                 <module3 :moduleData="module3Data" :code="provinceCode" :list="dataList2"></module3>
                 <module4 :moduleData="module4Data"></module4>
             </div>
@@ -118,7 +118,8 @@ export default {
             dateB:'H',
             startDate:now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-00',
             endDate:now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-'+now.getHours(),
-            externalAdd: 0
+            externalAdd: 0,
+            countStr: '万'
         }
     },
     mounted() {
@@ -170,10 +171,8 @@ export default {
                 this.ServiceOrder()
             }else{
                 if(this.serverNum == 0){
-                    // console.log(333,this.totalServer)
                     this.module4Data.dataA  = this.module4Data.dataA + 1
                 }else{
-                    // console.log(111122222,this.module4Data.dataA)
                     this.module4Data.dataA  = this.module4Data.dataA + this.serverNum/60
                 }
                 
@@ -259,7 +258,26 @@ export default {
                 start: this.startDate,
             }
             Trade(params).then(res => {
-                this.module2Data = res.RSP.DATA
+                if (this.dateB == 'H') {
+                    this.countStr = '万'
+                    this.module2Data = res.RSP.DATA
+                } else if (this.dateB == 'D') {
+                    this.countStr = '千万'
+                    let list = []
+                    res.RSP.DATA.map(item => {
+                        let obj = {
+                            date: item.date.slice(5),
+                            ZZ: item.ZZ
+                        }
+                        list.push(obj)
+                    })
+                    this.module2Data = list
+                } else {
+                    this.countStr = '千万'
+                    this.module2Data = res.RSP.DATA
+                }
+                
+                // console.log(params, this.module2Data)
             })
         },
         //用户类型分布
@@ -291,7 +309,6 @@ export default {
                 // 日的
                  res.data[this.sqltype].map(dayObj => {
                     if(this.provinceCode == dayObj.provinceCode){
-                        // console.log(dayObj.serviceOrder)
                         //存储有值
                         if(this.serverQuer){
                             this.module4Data.dataA = this.totalServer
@@ -374,61 +391,57 @@ export default {
         },
         //热销产品/常用功能TOP3
         getQueryTop10ByProvince() {
-            // let params = {
-            //     provinceCode: this.provinceCode,
-            //     timeDimension: this.sqltype,
-            // }
-            // queryTop10ByProvince(params).then(res => {
-            //     if (res.code == 200) {
-            //         if (res.data.length > 0) {
-            //             let list = []
-            //             let arr1 = [],
-            //                 arr2 = []
-            //             let max1 = 0,
-            //                 max2 = 0
-            //             res.data[0].value.forEach(ele => {
-            //                 if (ele.product_count>max1) {max1=ele.product_count}
-            //             })
-            //             res.data[1].value.forEach(ele => {
-            //                 if (ele.product_count>max2) {max2=ele.product_count}
-            //             })
-            //             res.data[0].value.forEach(child => {
-            //                 let data = {
-            //                     name: child.product_name,
-            //                     num: child.product_count,
-            //                     percent: Number((child.product_count/max1).toFixed(2)) * 100
-            //                 }
-            //                 arr1.push(data)
-            //             })
-            //             res.data[1].value.forEach(child => {
-            //                 let data = {
-            //                     name: child.function_name,
-            //                     num: child.function_count,
-            //                     percent: Number((child.product_count/max2).toFixed(2)) * 100
-            //                 }
-            //                 arr2.push(data)
-            //             })
-            //             list = [{ list: arr1 }, { list: arr2 }]
-            //             this.module8Data = list
-            //         }
-            //     }
-            // })
-            this.module8Data=[
-                {list: [
-                    {name: '普通付费关系变更', num: 2763873, percent: 100},
-                    {name: '普通付费关系变更换入', num: 2163873, percent: 90},
-                    {name: 'fakeName', num: 1763873, percent: 80},
-                    {name: 'fakeName', num: 1063873, percent: 50},
-                    {name: 'fakeName', num: 763873, percent: 40},
-                ]},
-                {list: [
-                    {name: '普通付费关系变更', num: 2763873, percent: 100},
-                    {name: '普通付费关系变更换入', num: 2163873, percent: 90},
-                    {name: 'fakeName', num: 1763873, percent: 80},
-                    {name: 'fakeName', num: 1063873, percent: 50},
-                    {name: 'fakeName', num: 763873, percent: 40},
-                ]}
-            ]
+            let params = {
+                provinceCode: this.provinceCode,
+                timeDimension: this.sqltype,
+            }
+            queryTop10ByProvince(params).then(res => {
+                if (res.code == 200) {
+                    if (res.data.length > 0) {
+                        let list = []
+                        let arr1 = [],
+                            arr2 = []
+
+                        let max1 = res.data[0].value[0].product_count
+                        let max2 = res.data[1].value[0].function_count
+
+                        res.data[0].value.forEach(child => {
+                            let data = {
+                                name: child.product_name,
+                                num: child.product_count,
+                                percent: Number((child.product_count * 100/max1).toFixed(0))
+                            }
+                            arr1.push(data)
+                        })
+                        res.data[1].value.forEach(child => {
+                            let data = {
+                                name: child.function_name,
+                                num: child.function_count,
+                                percent: Number((child.function_count * 100/max2).toFixed(0))
+                            }
+                            arr2.push(data)
+                        })
+                        list = [{ list: arr1 }, { list: arr2 }]
+                        this.module8Data = list
+                    }
+                }
+            })
+            // this.module8Data=[
+            //     {list: [
+            //         {name: '普通付费关系变更', num: 2763873, percent: 100},
+            //         {name: '普通付费关系变更换入', num: 2163873, percent: 90},
+            //         {name: 'fakeName', num: 1763873, percent: 80},
+            //         {name: 'fakeName', num: 1063873, percent: 50},
+            //         {name: 'fakeName', num: 763873, percent: 40},
+            //     ]},
+            //     {list: [
+            //         {name: '普通付费关系变更', num: 2763873, percent: 100},
+            //         {name: '普通付费关系变更换入', num: 2163873, percent: 90},
+            //         {name: 'fakeName', num: 1763873, percent: 80},
+            //         {name: 'fakeName', num: 1063873, percent: 50},
+            //         {name: 'fakeName', num: 763873, percent: 40},
+            //     ]}
+            // ]
         },
         //重点业务
         getQueryOrderCount() {
