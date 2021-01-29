@@ -1,7 +1,9 @@
 <template>
     <div class="home">
         <div class="header">
-            <div class="time-box">{{ dateTimeStr }}</div>
+            <div class="time-box">
+                <div class="time-str" v-for="(item, index) in dateTimeStr" :key="index">{{item}}</div>
+            </div>
             <div class="time-selection">
                 <span class="time-n">Time：</span>
                 <span class="time-option" :class="timeIndex == 0 ? 'active' : ''" @click="checkTime(0)">日</span>
@@ -110,7 +112,7 @@ export default {
             leftData: 0,
             leftdata1:0,
             nowTime: (new Date()).getTime() / 1000,
-            dateTimeStr: timestampConversion((new Date()).getTime() / 1000),
+            dateTimeStr: timestampConversion((new Date()).getTime() / 1000).split(''),
             timeIndex: 0, // 0: 日; 1: 月; 2: 年;
             setTime: false,
             date:now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate(),
@@ -134,7 +136,7 @@ export default {
         },300000)
         setInterval(() => {
             this.nowTime += 1
-            this.dateTimeStr = timestampConversion(this.nowTime)
+            this.dateTimeStr = timestampConversion(this.nowTime).split('')
         }, 1000)
     },
     methods: {
@@ -554,6 +556,12 @@ export default {
             letter-spacing: .93px;
             text-align: right;
             line-height: 34px;
+            display: flex;
+            justify-content: flex-end;
+            .time-str{
+                width: 13px;
+                text-align: center;
+            }
         }
 
         .time-selection {
