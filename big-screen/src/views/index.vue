@@ -167,6 +167,9 @@ export default {
             this.AI_Produce()
             this.AI_Billing()
             this.getQueryOrderCount()
+            this.Trade()
+            this.Openbusi()
+            this.getBigData()
             if(this.serverQuer == true){
                 this.ServiceOrder()
             }else{
