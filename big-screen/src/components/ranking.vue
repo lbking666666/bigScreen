@@ -87,7 +87,7 @@
 		.rank-item{
 			height: 34px;
 			line-height: 34px;
-			margin-top: 14px;
+			margin-top: 9px;
 			display: flex;
 			&:first-child{
 				margin-top: 0;
@@ -95,6 +95,7 @@
 			&:nth-child(1),
 			&:nth-child(2),
 			&:nth-child(3){
+				margin-top: 14px;
 				position: relative;
 				&:before{
 					content: '';
