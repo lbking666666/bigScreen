@@ -40,6 +40,12 @@
 </template>
 <script>
 let now = new Date()
+let month = Number(now.getMonth()+1)
+let monthLen = String(month).length
+let month_num = (monthLen>1)?month:0+String(month)
+let day = now.getDate()
+let dayLen = String(day).length;
+let day_num = (dayLen>1)?day: 0 + String(day)
 import module1 from '@/components/module1.vue';
 import module2 from '@/components/module2.vue';
 import module3 from '@/components/module3.vue';
@@ -113,11 +119,11 @@ export default {
             dateTimeStr: timestampConversion((new Date()).getTime() / 1000),
             timeIndex: 0, // 0: 日; 1: 月; 2: 年;
             setTime: false,
-            date:now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate(),
+            date:now.getFullYear() +'-'+ month_num +'-'+day_num,
             externalTotal: 0,
             dateB:'H',
-            startDate:now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-00',
-            endDate:now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-'+now.getHours(),
+            startDate:now.getFullYear() +'-'+  month_num +'-'+day_num + '-00',
+            endDate:now.getFullYear() +'-'+  month_num +'-'+day_num + '-'+now.getHours(),
             externalAdd: 0
         }
     },
@@ -142,21 +148,21 @@ export default {
             if (num == 0) {
                 this.sqltype = 'day'
                 this.dateB = 'H'
-                this.date =now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate();
-                this.startDate = now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-00'
-                this.endDate = now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() + '-'+now.getHours()
+                this.date =now.getFullYear() +'-'+  month_num +'-'+day_num;
+                this.startDate = now.getFullYear() +'-'+  month_num +'-'+day_num + '-00'
+                this.endDate = now.getFullYear() +'-'+  month_num +'-'+day_num + '-'+now.getHours()
             } else if (num == 1) {
                  this.sqltype = 'month'
                  this.dateB = 'D'
-                 this.date = now.getFullYear() +'-'+ now.getMonth()+1
-                this.startDate = now.getFullYear() +'-'+ now.getMonth()+1 +'-01'
-                this.endDate = now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate() 
+                 this.date = now.getFullYear() +'-'+ month_num
+                this.startDate = now.getFullYear() +'-'+ month_num +'-01'
+                this.endDate = now.getFullYear() +'-'+  month_num +'-'+day_num
             } else if (num == 2) {
                  this.sqltype = 'year'
                  this.dateB = 'M'
                  this.date = now.getFullYear()
                  this.startDate = now.getFullYear() +'-01'
-                 this.endDate = now.getFullYear() +'-'+ now.getMonth()+1 
+                 this.endDate = now.getFullYear() +'-'+ month_num
             }
             this.getData()
             // 在这里执行切换整屏的数据
@@ -316,8 +322,13 @@ export default {
                 sqltype: this.sqltype,
             }
             AI_Credit(params).then(res => {
+                console.log(this.sqltype)
+                console.log(res.data[this.sqltype])
+                if(res.data[this.sqltype]){
+                    
                 this.module4Data.dataB = res.data[this.sqltype].stopNum
                 this.module4Data.dataC = res.data[this.sqltype].openNum
+                }
 
             })
         },
@@ -329,16 +340,22 @@ export default {
                 sqltype: 'day',
             }
             AI_Produce(params).then(res => {
-                this.externalAdd = Number(Number(res.data[this.sqltype].pay_money).toFixed(0))
+                this.externalAdd = Number(Number(res.data['day'].pay_money).toFixed(0))
                 this.leftData= this.leftdata1+ Number(this.externalAdd)
             })
         },
         //今日开户量
         AsynOpen() {
             //city_code=0010&date=2021-01-14&prov_code=ZZ
+            let month = Number(now.getMonth()+1)
+            let monthLen = String(month).length
+            let month_num = (monthLen>1)?month:0+String(month)
+            let day = now.getDate()
+            let dayLen = String(day).length;
+            let day_num = (dayLen>1)?day: 0 + String(day)
             let params = {
                 prov_code: this.provinceCode,
-                date: now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate(),
+                date: now.getFullYear() +'-'+ month_num +'-'+day_num,
             }
             AsynOpen(params).then(res => {
 
