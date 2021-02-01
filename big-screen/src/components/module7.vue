@@ -15,13 +15,13 @@
             </div>
 
             <div class="box box-4" @mouseover="()=>{showTip =true}" @mouseout="()=>{showTip=false}">
-                <div class="tip-box" v-show="showTip">
+                <div class="tip-box">
                     <div class="label">入：
                         {{moduleData.portability_in?formatterNumber(moduleData.portability_in):0}} </div>
                     <div class="label">出：
                         {{moduleData.portability_out?formatterNumber(moduleData.portability_out):0}} </div>
                 </div>
-                <div class="box-title">携号转网 <i class="wenhao"></i></div>
+                <div class="box-title">携号转网</div>
                 <div class="box-count">{{moduleData.portability?formatterNumber(moduleData.portability):0}}</div>
             </div>
 
@@ -130,20 +130,17 @@ export default {
             .tip-box {
                 color: #fff;
                 position: absolute;
-                left: 66px;
+                left: 0;
+                bottom: 3px;
                 justify-content: space-around;
-                top: -33px;
-                background: url(../assets/yaxin/tooltip-bg.png) no-repeat;
-                width: 120px;
-                height: 54px;
-                padding-top: 7px;
-                padding-left: 13px;
+                display: flex;
+                align-items: center;
+                width: 100%;
+                padding: 0 20px;
 
                 .label {
-                    margin: 2px 5px;
-                    font-size: 12px;
-                    line-height: 17px;
-                    margin-bottom: 3px;
+                    font-size: 13px;
+                    transform: scale(.85, .85);
                 }
 
             }

@@ -1,7 +1,9 @@
 <template>
     <div class="home">
         <div class="header">
-            <div class="time-box">{{ dateTimeStr }}</div>
+            <div class="time-box">
+                <div class="time-str" v-for="(item, index) in dateTimeStr" :key="index">{{item}}</div>
+            </div>
             <div class="time-selection">
                 <span class="time-n">Time：</span>
                 <span class="time-option" :class="timeIndex == 0 ? 'active' : ''" @click="checkTime(0)">日</span>
@@ -12,7 +14,7 @@
         <div class="container">
             <div class="left-box">
                 <module1 :leftData="leftData" :moduleData="module1Data"></module1>
-                <module2 :code="provinceCode" :moduleData="module2Data"></module2>
+                <module2 :code="provinceCode" :moduleData="module2Data" :countStr="countStr"></module2>
                 <module3 :moduleData="module3Data" :code="provinceCode" :list="dataList2"></module3>
                 <module4 :moduleData="module4Data"></module4>
             </div>
@@ -53,7 +55,7 @@ import module4 from '@/components/module4.vue';
 import module5 from '@/components/module5.vue';
 import module6 from '@/components/module6.vue';
 import module7 from '@/components/module7.vue';
-import module8 from '@/components/module8.vue';
+import module8 from '@/components/module8-B.vue';
 import module9 from '@/components/module9.vue';
 import {
     AI_Cz_Users,
@@ -104,7 +106,7 @@ export default {
             module4Data: [],
             module6Data: [],
             module7Data: [],
-            module8Data: {},
+            module8Data: [],
             list1: [],
             list2: [],
             module9Data: [],
@@ -116,7 +118,7 @@ export default {
             leftData: 0,
             leftdata1:0,
             nowTime: (new Date()).getTime() / 1000,
-            dateTimeStr: timestampConversion((new Date()).getTime() / 1000),
+            dateTimeStr: timestampConversion((new Date()).getTime() / 1000).split(''),
             timeIndex: 0, // 0: 日; 1: 月; 2: 年;
             setTime: false,
             date:now.getFullYear() +'-'+ month_num +'-'+day_num,
@@ -139,7 +141,7 @@ export default {
         },300000)
         setInterval(() => {
             this.nowTime += 1
-            this.dateTimeStr = timestampConversion(this.nowTime)
+            this.dateTimeStr = timestampConversion(this.nowTime).split('')
         }, 1000)
     },
     methods: {
@@ -172,14 +174,15 @@ export default {
             this.AI_Produce()
             this.AI_Billing()
             this.getQueryOrderCount()
+            this.Trade()
+            this.Openbusi()
+            this.getBigData()
             if(this.serverQuer == true){
                 this.ServiceOrder()
             }else{
                 if(this.serverNum == 0){
-                    // console.log(333,this.totalServer)
                     this.module4Data.dataA  = this.module4Data.dataA + 1
                 }else{
-                    // console.log(111122222,this.module4Data.dataA)
                     this.module4Data.dataA  = this.module4Data.dataA + this.serverNum/60
                 }
                 
@@ -265,7 +268,26 @@ export default {
                 start: this.startDate,
             }
             Trade(params).then(res => {
-                this.module2Data = res.RSP.DATA
+                if (this.dateB == 'H') {
+                    this.countStr = '万'
+                    this.module2Data = res.RSP.DATA
+                } else if (this.dateB == 'D') {
+                    this.countStr = '千万'
+                    let list = []
+                    res.RSP.DATA.map(item => {
+                        let obj = {
+                            date: item.date.slice(5),
+                            ZZ: item.ZZ
+                        }
+                        list.push(obj)
+                    })
+                    this.module2Data = list
+                } else {
+                    this.countStr = '千万'
+                    this.module2Data = res.RSP.DATA
+                }
+
+                // console.log(params, this.module2Data)
             })
         },
         //用户类型分布
@@ -297,7 +319,6 @@ export default {
                 // 日的
                  res.data[this.sqltype].map(dayObj => {
                     if(this.provinceCode == dayObj.provinceCode){
-                        // console.log(dayObj.serviceOrder)
                         //存储有值
                         if(this.serverQuer){
                             this.module4Data.dataA = this.totalServer
@@ -325,7 +346,7 @@ export default {
                 console.log(this.sqltype)
                 console.log(res.data[this.sqltype])
                 if(res.data[this.sqltype]){
-                    
+
                 this.module4Data.dataB = res.data[this.sqltype].stopNum
                 this.module4Data.dataC = res.data[this.sqltype].openNum
                 }
@@ -401,26 +422,47 @@ export default {
                         let list = []
                         let arr1 = [],
                             arr2 = []
+
+                        let max1 = res.data[0].value[0].product_count
+                        let max2 = res.data[1].value[0].function_count
+
                         res.data[0].value.forEach(child => {
                             let data = {
                                 name: child.product_name,
-                                num: child.product_count
+                                num: child.product_count,
+                                percent: Number((child.product_count * 100/max1).toFixed(0))
                             }
                             arr1.push(data)
                         })
                         res.data[1].value.forEach(child => {
                             let data = {
                                 name: child.function_name,
-                                num: child.function_count
+                                num: child.function_count,
+                                percent: Number((child.function_count * 100/max2).toFixed(0))
                             }
                             arr2.push(data)
                         })
                         list = [{ list: arr1 }, { list: arr2 }]
                         this.module8Data = list
                     }
-
                 }
             })
+            // this.module8Data=[
+            //     {list: [
+            //         {name: '普通付费关系变更', num: 2763873, percent: 100},
+            //         {name: '普通付费关系变更换入', num: 2163873, percent: 90},
+            //         {name: 'fakeName', num: 1763873, percent: 80},
+            //         {name: 'fakeName', num: 1063873, percent: 50},
+            //         {name: 'fakeName', num: 763873, percent: 40},
+            //     ]},
+            //     {list: [
+            //         {name: '普通付费关系变更', num: 2763873, percent: 100},
+            //         {name: '普通付费关系变更换入', num: 2163873, percent: 90},
+            //         {name: 'fakeName', num: 1763873, percent: 80},
+            //         {name: 'fakeName', num: 1063873, percent: 50},
+            //         {name: 'fakeName', num: 763873, percent: 40},
+            //     ]}
+            // ]
         },
         //重点业务
         getQueryOrderCount() {

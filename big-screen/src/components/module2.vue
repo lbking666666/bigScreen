@@ -12,6 +12,7 @@
 <script>
 import * as echarts from "echarts";
 import commonTitle from "./commonTitle";
+import { formatterNumber } from '@/utils/filterNum'
 export default {
     name: "mixChart",
     components: { commonTitle },
@@ -27,6 +28,10 @@ export default {
         moduleData: {
             type: Object,
             default: ()=>{{}}
+        },
+        countStr: {
+            type: String,
+            default: '万'
         }
     },
     data() {
@@ -71,7 +76,7 @@ export default {
             let options = {
                 xAxis: {
                     type: 'category',
-                    name: '单位:万',
+                    name: `单位:${this.countStr}`,
                     nameLocation: 'start',
                     nameTextStyle:{
                         color:'rgba(169, 240, 255, 0.8)'
@@ -125,7 +130,7 @@ export default {
                         let dateStr = vm.moduleData[params.dataIndex].date
                         // let nums = (String(params.value).length > 4) ? (Number(params.value / 10000).toFixed(1) + 'W') : String(params.value)
 
-                        return dateStr + '<br>' + '订单量: ' + String(params.value) + 'W'
+                        return dateStr + '<br>' + '订单量: ' + formatterNumber(params.value) + ' W'
                     }
 
                 },
