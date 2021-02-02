@@ -141,25 +141,46 @@ export function queryUserCountByProvince(data) {
 }
 //重点业务场景
 export function queryOrderCount(data) {
-    const url = `/ITTest/QueryOrderCount`
-    //const url = `/webapi/queryOrderCount`
+    //const url = `/ITTest/QueryOrderCount`
+    const url = `/webapi/queryOrderCount`
     return getApi(url, data)
 }
 //热销产品/常用功能TOP5
 export function queryTop10ByProvince(data) {
-    const url = `/ITTest/queryTop10ByProvince`
-    //const url = `/webapi/queryTop10ByProvince`
+    //const url = `/ITTest/queryTop10ByProvince`
+    const url = `/webapi/queryTop10ByProvince`
     return getApi(url, data)
 }
 //收入TOP5产品
 export function AI_Billing_00003_YMD(data) {
-  const url = `/ITTest/getAI_Billing_00003_YMD`
-    //const url = `/webapi/screenapi/BILLING_YMD`
+  //const url = `/ITTest/getAI_Billing_00003_YMD`
+    const url = `/webapi/screenapi/BILLING_YMD`
     return getApi(url, data)
 }
 //收入TOP5费用项
 export function AI_Billing_00002_YMD(data) {
-    const url = `/ITTest/AI_Billing_00002_Data`
-     //const url = `/webapi/screenapi/AI_Billing_00002_YMD`
+    //const url = `/ITTest/AI_Billing_00002_Data`
+     const url = `/webapi/screenapi/AI_Billing_00002_YMD`
+    return getApi(url, data)
+}
+
+//异地缴费
+export function yd_payment(data) {
+    // const url = `/ITTest/yd_payment`
+    const url = `/webapi/screenapi/yd_payment`
+    return getApi(url, data)
+}
+
+//异地单产品套餐变更
+export function yd_change(data) {
+     //const url = `/ITTest/yd_change`
+    const url = `/webapi/screenapi/yd_change`
+    return getApi(url, data)
+}
+
+//异地补换卡
+export function yd_chg_card(data) {
+     //const url = `/ITTest/yd_chg_card`
+   const url = `/webapi/screenapi/yd_chg_card`
     return getApi(url, data)
 }

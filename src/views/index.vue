@@ -32,7 +32,7 @@
             </div>
             <div class="right-box">
                 <!-- 重点业务场景 -->
-                <module7 :moduleData="module7Data"></module7>
+                <module7 :moduleData="module7Data" :pop1="pop1List" :pop2="pop2List" :pop3="pop3List" :pop4="pop4List"></module7>
                 <!-- 热销产品/常用功能TOP3 -->
                 <module8 :moduleData="module8Data"></module8>
                 <module9 :list1="list1" :list2="list2"></module9>
@@ -74,7 +74,9 @@ import {
     queryTop10ByProvince,
     AI_Billing_00003_YMD,
     AI_Billing_00002_YMD,
-    queryCBSSOpenCount
+    yd_payment,
+    yd_change,
+    yd_chg_card
 
 } from '@/api/index.js';
 import numberBord from '@/components/numberBord.vue';
@@ -105,7 +107,11 @@ export default {
             dataList2: [],
             module4Data: [],
             module6Data: [],
-            module7Data: [],
+            module7Data: {},
+            pop1List: [],
+            pop2List: [],
+            pop3List: [],
+            pop4List: [],
             module8Data: [],
             list1: [],
             list2: [],
@@ -126,13 +132,13 @@ export default {
             dateB: 'H',
             startDate: now.getFullYear() + '-' + month_num + '-' + day_num + '-00',
             endDate: now.getFullYear() + '-' + month_num + '-' + day_num + '-' + now.getHours(),
-            externalAdd: 0
+            externalAdd: 0,
         }
     },
     mounted() {
         this.getData()
         this.getMapData()
-        /*setInterval(() => {
+        setInterval(() => {
             this.setTime = true
             this.getSetTime()
         }, 5000)
@@ -142,7 +148,7 @@ export default {
         setInterval(() => {
             this.nowTime += 1
             this.dateTimeStr = timestampConversion(this.nowTime).split('')
-        }, 1000)*/
+        }, 1000)
     },
     methods: {
         checkTime(num) {
@@ -394,7 +400,6 @@ export default {
             }
             AI_Produce(params).then(res => {
                 this.externalAdd = Number(Number(res.data['day'].pay_money).toFixed(0))
-                this.leftData = this.leftdata1 + Number(this.externalAdd)
             })
         },
         //今日开户量
@@ -410,10 +415,9 @@ export default {
                 prov_code: this.provinceCode,
                 date: now.getFullYear() + '-' + month_num + '-' + day_num,
             }
-            console.log(params)
             AsynOpen(params).then(res => {
-
                 this.externalTotal = res.RSP.DATA[0][this.provinceCode]
+                this.leftData = this.leftdata1 + Number(this.externalTotal)
             })
         },
         //全国31省用户量/arpu值
@@ -446,11 +450,10 @@ export default {
         //热销产品/常用功能TOP3
         getQueryTop10ByProvince() {
             let params = {
-                provinceCode: this.provinceCode,
+                prov_code: this.provinceCode,
                 timeDimension: this.sqltype,
             }
             queryTop10ByProvince(params).then(res => {
-                console.log(2222,res)
                 if (res.code == 200) {
                     if (res.data.length > 0) {
                         let list = []
@@ -485,12 +488,133 @@ export default {
         //重点业务
         getQueryOrderCount() {
             let params = {
-                provinceCode: this.provinceCode,
+                prov_code: this.provinceCode == 'ZZ' ? '' : this.provinceCode,
                 timeDimension: this.sqltype
             }
             queryOrderCount(params).then(res => {
-                // 该接口暂时切换为原来的静态数据
-                this.module7Data = res.RSP.DATA[0]
+                Promise.all([this.getYdPayment(), this.getYdChange(), this.getYdChgCard()]).then((resData) => {
+                    let data1 = resData[0].data[0][this.sqltype]
+                    let data2 = resData[1].data[0][this.sqltype]
+                    let data3 = resData[2].data[0][this.sqltype]
+                    let list1 = [],
+                        list2 = [],
+                        list3 = [],
+                        list4 = []
+                    if (this.provinceCode == 'ZZ') {
+
+                    // 该接口暂时切换为原来的静态数据
+                    let data = res.RSP.DATA
+                        data.forEach((item, index) => {
+                            if (item.province_code == this.provinceCode) {
+
+                                this.module7Data = item
+                            } else {
+                                let changeCard = data3.filter(count => count.province_name == item.province_name)
+                                let pay = data1.filter(count => count.province_name == item.province_name)
+                                let changePackage = data2.filter(count => count.province_name == item.province_name)
+                                let params1 = {
+                                    'title': item.province_name,
+                                    'user': item.crossuser,
+                                    'changeCard': changeCard[0] ? changeCard[0].count : 0,
+                                    'pay': pay[0] ? pay[0].count : 0,
+                                    'changePackage': changePackage[0] ? changePackage[0].count : 0
+                                }
+                                let params2 = {
+                                    'title': item.province_name,
+                                    '2i': item.user2i,
+                                    '5g': item.user2i5g
+                                }
+                                let params3 = {
+                                    'title': item.province_name,
+                                    '5g': item.order5g,
+                                    '4g': item.order5g4t5
+                                }
+                                let params4 = {
+                                    'title': item.province_name,
+                                    'in': item.portability_in,
+                                    'out': item.portability_out
+                                }
+                                list1.push(params1)
+                                list2.push(params2)
+                                list3.push(params3)
+                                list4.push(params4)
+                            }
+
+                        })
+                    } else {
+                        let data = res.RSP.DATA.filter(count => count.province_code == this.provinceCode)[0]
+                        this.module7Data = data
+                        let changeCard = data3[0]
+                        let pay = data1[0]
+                        let changePackage = data2[0]
+                        let params1 = {
+                            'title': data.province_name,
+                            'user': data.crossuser,
+                            'changeCard': changeCard ? changeCard.count : 0,
+                            'pay': pay ? pay.count : 0,
+                            'changePackage': changePackage ? changePackage.count : 0
+                        }
+                        let params2 = {
+                            'title': data.province_name,
+                            '2i': data.user2i,
+                            '5g': data.user2i5g
+                        }
+                        let params3 = {
+                            'title': data.province_name,
+                            '5g': data.order5g,
+                            '4g': data.order5g4t5
+                        }
+                        let params4 = {
+                            'title': data.province_name,
+                            'in': data.portability_in,
+                            'out': data.portability_out
+                        }
+                        list1.push(params1)
+                        list2.push(params2)
+                        list3.push(params3)
+                        list4.push(params4)
+                    }
+                    this.pop1List = list1 
+                    this.pop2List = list2 
+                    this.pop3List = list3 
+                    this.pop4List = list4
+                })
+            })
+        },
+        //异地缴费
+        getYdPayment() {
+            let params = {
+                prov_code: this.provinceCode == 'ZZ' ? '' : this.provinceCode,
+                sqltype: this.sqltype
+            }
+            return new Promise(resolve => {
+                yd_payment(params).then(res => {
+                    resolve(res)
+                })
+            })
+        },
+        //异地单产品套餐变更
+        getYdChange() {
+            let params = {
+                prov_code: this.provinceCode == 'ZZ' ? '' : this.provinceCode,
+                sqltype: this.sqltype
+            }
+            return new Promise(resolve => {
+                yd_change(params).then(res => {
+                    resolve(res)
+                })
+            })
+        },
+        //异地补换卡
+        getYdChgCard() {
+            let params = {
+                prov_code: this.provinceCode == 'ZZ' ? '' : this.provinceCode,
+                sqltype: this.sqltype
+            }
+            return new Promise(resolve => {
+                yd_chg_card(params).then(res => {
+                    resolve(res)
+                })
             })
         },
         //收入TOP5产品
@@ -500,14 +624,13 @@ export default {
                 sqltype: this.sqltype
             }
             AI_Billing_00003_YMD(params).then(res => {
-                console.log(res)
                 if (res.code == 200) {
-                    if(res.data[0][this.sqltype].length>5){
+                    if (res.data[0][this.sqltype].length > 5) {
                         this.list1 = res.data[0][this.sqltype].slice(0, 5)
-                    }else{
+                    } else {
                         this.list1 = res.data[0][this.sqltype]
                     }
-                    
+
                 }
 
             })

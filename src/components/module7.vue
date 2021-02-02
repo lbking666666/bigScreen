@@ -3,10 +3,10 @@
         <div class="title-box">
             <commonTitle :titleText="titleText"></commonTitle>
         </div>
-        <div class="pop-tip" v-if="popIndex!=0" :class="popIndex==1?'max-width':''" :style="{top:top+'px',left:left+'px'}">
-            <div class="pop-col" v-if="popIndex==1" v-for="item in pop1List">
+        <div class="pop-tip" v-if="popIndex!=0" :class="popIndex==4?'max-width':''" :style="{top:top+'px',left:left+'px'}">
+            <div class="pop-col" v-if="popIndex==4 && pop4.length>0" v-for="item in pop1">
                 <div class="hd">
-                    {{item.title}}
+                    {{item.title?item.title:''}}
                 </div>
                 <div class="bd">
                     <div class="col" style="width:40%">跨域用户数：{{item.user}}</div>
@@ -15,27 +15,27 @@
                     <div class="col" style="width:60%">异地单产品套餐变更：{{item.changePackage}}</div>
                 </div>
             </div>
-            <div class="pop-col" v-if="popIndex==2" v-for="item in pop2List">
+            <div class="pop-col" v-if="popIndex==2 && pop2.length>0" v-for="item in pop2">
                 <div class="hd">
-                    {{item.title}}
+                    {{item.title?item.title:''}}
                 </div>
                 <div class="bd">
                     <div class="col">2i 用户数：{{item['2i']}}</div>
                     <div class="col">5G 2i 用户数：{{item['5g']}}</div>
                 </div>
             </div>
-            <div class="pop-col" v-if="popIndex==3" v-for="item in pop3List">
+            <div class="pop-col" v-if="popIndex==1 && pop1.length>0" v-for="item in pop3">
                 <div class="hd">
-                    {{item.title}}
+                    {{item.title?item.title:''}}
                 </div>
                 <div class="bd">
                     <div class="col">5G订购数：{{item['5g']}}</div>
                     <div class="col">4G转5G：{{item['4g']}}</div>
                 </div>
             </div>
-            <div class="pop-col" v-if="popIndex==4" v-for="item in pop4List">
+            <div class="pop-col" v-if="popIndex==3 && pop3.length>0" v-for="item in pop4">
                 <div class="hd">
-                    {{item.title}}
+                    {{item.title?item.title:''}}
                 </div>
                 <div class="bd">
                     <div class="col">入：{{item.in}}</div>
@@ -82,6 +82,22 @@ export default {
         moduleData: {
             type: Object,
             default: {}
+        },
+        pop1:{
+            type:Array,
+            default:[]
+        },
+        pop2:{
+            type:Array,
+            default:[]
+        },
+        pop3:{
+            type:Array,
+            default:[]
+        },
+        pop4:{
+            type:Array,
+            default:[]
         }
     },
     data() {
@@ -91,91 +107,11 @@ export default {
             top: 0,
             left: 0,
             titleText: '重点业务场景',
-            pop1List: [{
-                title: '黑龙江',
-                user: 10,
-                changeCard: 20,
-                pay: 10,
-                changePackage: 40
-            }],
-            pop2List: [{
-                title: '黑龙江',
-                '2i': 10,
-                '5g': 20
-            }],
-            pop3List: [{
-                title: '黑龙江',
-                '5g': 10,
-                '4g': 20
-            }],
-            pop4List: [{
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }, {
-                title: '黑龙江',
-                in: 200,
-                out: 200
-            }]
+            
         }
     },
     mounted() {
+        console.log(this.pop1)
         this.handleWin()
     },
     methods: {
@@ -200,7 +136,7 @@ export default {
                 this.left = 1420
             } else if (index == 4) {
                 this.top = 300
-                this.left = 1650
+                this.left = 1580
             }
 
             this.popIndex = index
@@ -257,11 +193,11 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    width: 254px;
+    width: 264px;
     max-height: 520px;
     overflow-x: hidden;
     border: 1px solid #f79146;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.9);
     overflow-y: auto;
     z-index: 999;
     color: #fff;
@@ -271,7 +207,7 @@ export default {
     line-height: 18px;
 
     &.max-width {
-        width: 280px;
+        width: 320px;
     }
 
     &::-webkit-scrollbar {
