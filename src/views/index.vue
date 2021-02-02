@@ -170,14 +170,34 @@ export default {
             // 在这里执行切换整屏的数据
         },
         getSetTime() {
+            //今日开户量
             this.AsynOpen()
+            //概览-收入情况当月实时收入
             this.AI_Produce()
+            //今日缴费金额
             this.AI_Billing()
+            //重点业务场景
             this.getQueryOrderCount()
+            //订单量
             this.Trade()
+            //用户类型分布 新增
             this.Openbusi()
+            //用户类型分布
             this.getBigData()
+            //生产运营情况停机量开机量
+            this.AI_Credit()
+            //出账用户
+            this.AI_Cz_Users()
+            //上月出账金额
+            this.AI_Cz_Process_Card()
+            //热销产品/常用功能TOP5
+            this.getQueryTop10ByProvince()
+            //收入TOP5产品
+            this.getAI_Billing_00003_YMD()
+            //收入TOP5费用项
+            this.getAI_Billing_00002_YMD()
             if (this.serverQuer == true) {
+                //生产运营情况服务工单数
                 this.ServiceOrder()
             } else {
                 if (this.serverNum == 0) {
@@ -187,26 +207,40 @@ export default {
                 }
 
             }
-            this.AI_Credit()
         },
         getData() {
+            //出账用户
             this.AI_Cz_Users()
+            //上月出账金额
             this.AI_Cz_Process_Card()
+            // 今日缴费金额
             this.AI_Billing()
+            //订单量
             this.Trade()
+            //用户类型分布 新增
             this.Openbusi()
+            //用户类型分布
             this.getBigData()
+            //生产运营情况服务工单数
             this.ServiceOrder()
+            //生产运营情况停机量开机量
             this.AI_Credit()
+            //概览-收入情况当月实时收入
             this.AI_Produce()
+            //今日开户量
             this.AsynOpen()
+            //31省柱状图
             this.getQueryUserCountByProvince()
+            //热销产品/常用功能TOP5
             this.getQueryTop10ByProvince()
+            //重点业务场景
             this.getQueryOrderCount()
+            //收入TOP5产品
             this.getAI_Billing_00003_YMD()
+            //收入TOP5费用项
             this.getAI_Billing_00002_YMD()
-            this.getQueryCBSSOpenCount()
         },
+        //地图
         getMapData() {
             getMapData().then(res => {
                 if (res.code == 200) {
@@ -250,7 +284,7 @@ export default {
                 this.module1Data.AI_Cz_Process_Card = res.data.income
             })
         },
-        //当月实时收入
+        //今日缴费金额
         AI_Billing() {
             let params = { prov_code: this.provinceCode }
             AI_Billing(params).then(res => {
@@ -302,6 +336,7 @@ export default {
                 this.module3Data = res.RSP.DATA[0]
             })
         },
+        //用户类型分布
         getBigData() {
             //busi=A&city_code=0010&date=2021-01-14&prov_code=ZZ
             let params = {
@@ -343,10 +378,7 @@ export default {
                 sqltype: this.sqltype,
             }
             AI_Credit(params).then(res => {
-                console.log(this.sqltype)
-                console.log(res.data[this.sqltype])
                 if (res.data[this.sqltype]) {
-
                     this.module4Data.dataB = res.data[this.sqltype].stopNum
                     this.module4Data.dataC = res.data[this.sqltype].openNum
                 }
@@ -378,6 +410,7 @@ export default {
                 prov_code: this.provinceCode,
                 date: now.getFullYear() + '-' + month_num + '-' + day_num,
             }
+            console.log(params)
             AsynOpen(params).then(res => {
 
                 this.externalTotal = res.RSP.DATA[0][this.provinceCode]
@@ -417,6 +450,7 @@ export default {
                 timeDimension: this.sqltype,
             }
             queryTop10ByProvince(params).then(res => {
+                console.log(2222,res)
                 if (res.code == 200) {
                     if (res.data.length > 0) {
                         let list = []
@@ -447,22 +481,6 @@ export default {
                     }
                 }
             })
-            // this.module8Data=[
-            //     {list: [
-            //         {name: '普通付费关系变更', num: 2763873, percent: 100},
-            //         {name: '普通付费关系变更换入', num: 2163873, percent: 90},
-            //         {name: 'fakeName', num: 1763873, percent: 80},
-            //         {name: 'fakeName', num: 1063873, percent: 50},
-            //         {name: 'fakeName', num: 763873, percent: 40},
-            //     ]},
-            //     {list: [
-            //         {name: '普通付费关系变更', num: 2763873, percent: 100},
-            //         {name: '普通付费关系变更换入', num: 2163873, percent: 90},
-            //         {name: 'fakeName', num: 1763873, percent: 80},
-            //         {name: 'fakeName', num: 1063873, percent: 50},
-            //         {name: 'fakeName', num: 763873, percent: 40},
-            //     ]}
-            // ]
         },
         //重点业务
         getQueryOrderCount() {
@@ -472,38 +490,39 @@ export default {
             }
             queryOrderCount(params).then(res => {
                 // 该接口暂时切换为原来的静态数据
-                this.module7Data = res.data[0]
+                this.module7Data = res.RSP.DATA[0]
             })
         },
+        //收入TOP5产品
         getAI_Billing_00003_YMD() {
             let params = {
                 prov_code: this.provinceCode,
                 sqltype: this.sqltype
             }
             AI_Billing_00003_YMD(params).then(res => {
+                console.log(res)
                 if (res.code == 200) {
-                    this.list1 = res.data[this.sqltype].slice(0, 5)
+                    if(res.data[0][this.sqltype].length>5){
+                        this.list1 = res.data[0][this.sqltype].slice(0, 5)
+                    }else{
+                        this.list1 = res.data[0][this.sqltype]
+                    }
+                    
                 }
 
             })
         },
+        //收入TOP5费用项
         getAI_Billing_00002_YMD() {
             let params = {
                 prov_code: this.provinceCode,
                 sqltype: this.sqltype
             }
             AI_Billing_00002_YMD(params).then(res => {
+
                 if (res.code == 200) {
                     this.list2 = res.data[this.sqltype].slice(0, 5)
                 }
-            })
-        },
-        getQueryCBSSOpenCount() {
-            let params = {
-                provinceCode: this.provinceCode,
-            }
-            queryCBSSOpenCount(params).then(res => {
-
             })
         },
         selectName(name, code) {

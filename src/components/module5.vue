@@ -15,6 +15,12 @@ let chinaMap = require('./map/china.json')
 let map = null,
     time = null
 let now = new Date()
+let month = Number(now.getMonth() + 1)
+let monthLen = String(month).length
+let month_num = (monthLen > 1) ? month : 0 + String(month)
+let day = now.getDate()
+let dayLen = String(day).length;
+let day_num = (dayLen > 1) ? day : 0 + String(day)
 export default {
     name: "mapChart",
     props: {
@@ -159,7 +165,7 @@ export default {
                                  //今日开户量
                                 let data = {
                                     prov_code: params.data.code,
-                                    date: now.getFullYear() +'-'+ now.getMonth()+1 +'-'+now.getDate(),
+                                    date: now.getFullYear() +'-'+ month_num +'-'+day_num,
                                 }
                                  AsynOpen(data).then(res => {
                                     callback(ticket,params.name + '<br/>用户量:' + formatterNumber(params.value)

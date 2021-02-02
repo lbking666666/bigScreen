@@ -44,15 +44,15 @@
             </div>
         </div>
         <div class="container">
-            <div class="box box-3" @click="showPop($event,1)">
+            <div class="box box-3" @click.stop="showPop($event,1)">
                 <div class="box-title">5G订购数 <i class="wenhao"></i></div>
                 <div class="box-count">{{moduleData.order5g?formatterNumber(moduleData.order5g):0}}</div>
             </div>
-            <div class="box box-2" @click="showPop($event,2)">
+            <div class="box box-2" @click.stop="showPop($event,2)">
                 <div class="box-title">2l 用户数 <i class="wenhao"></i></div>
                 <div class="box-count">{{moduleData.user2i?formatterNumber(moduleData.user2i):0}}</div>
             </div>
-            <div class="box box-4" @click="showPop($event,3)">
+            <div class="box box-4" @click.stop="showPop($event,3)">
                 <!-- <div class="tip-box">
                     <div class="label">入：
                         {{moduleData.portability_in?formatterNumber(moduleData.portability_in):0}} </div>
@@ -62,7 +62,7 @@
                 <div class="box-title">携号转网 <i class="wenhao"></i></div>
                 <div class="box-count">{{moduleData.portability?formatterNumber(moduleData.portability):0}}</div>
             </div>
-            <div class="box box-1" @click="showPop($event,4)">
+            <div class="box box-1" @click.stop="showPop($event,4)">
                 <div class="box-title">跨域用户数 <i class="wenhao"></i></div>
                 <div class="box-count">{{moduleData.crossuser?formatterNumber(moduleData.crossuser):0}}</div>
             </div>
@@ -91,107 +91,118 @@ export default {
             top: 0,
             left: 0,
             titleText: '重点业务场景',
-            pop1List:[{
-                title:'黑龙江',
-                user:10,
-                changeCard:20,
-                pay:10,
-                changePackage:40
+            pop1List: [{
+                title: '黑龙江',
+                user: 10,
+                changeCard: 20,
+                pay: 10,
+                changePackage: 40
             }],
-            pop2List:[{
-                title:'黑龙江',
-                '2i':10,
-                '5g':20
+            pop2List: [{
+                title: '黑龙江',
+                '2i': 10,
+                '5g': 20
             }],
-            pop3List:[{
-                title:'黑龙江',
-                '5g':10,
-                '4g':20
+            pop3List: [{
+                title: '黑龙江',
+                '5g': 10,
+                '4g': 20
             }],
-            pop4List:[{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
-            },{
-                title:'黑龙江',
-                in:200,
-                out:200
+            pop4List: [{
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
+            }, {
+                title: '黑龙江',
+                in: 200,
+                out: 200
             }]
         }
     },
-    mounted() {},
+    mounted() {
+        this.handleWin()
+    },
     methods: {
+        handleWin() {
+            let self = this
+            document.addEventListener('click', function(e) {
+                // 这里that代表组件，this代表document
+                // 冒泡也不会隐藏
+                
+                self.popIndex = 0
+            })
+        },
         showPop(e, index) {
-            if(index==1){
+            if (index == 1) {
                 this.top = 190
                 this.left = 1420
-            }else if(index ==2){
+            } else if (index == 2) {
                 this.top = 190
                 this.left = 1650
-            }else if(index ==3){
+            } else if (index == 3) {
                 this.top = 300
                 this.left = 1420
-            }else if(index ==4){
+            } else if (index == 4) {
                 this.top = 300
                 this.left = 1650
             }
-            
+
             this.popIndex = index
         },
         formatterNumber(val) {
@@ -253,41 +264,55 @@ export default {
     background: rgba(0, 0, 0, 0.8);
     overflow-y: auto;
     z-index: 999;
-    color:#fff;
-    font-size:12px;
-    text-align:left;
-    padding:4px 15px;
-    line-height:18px;
-    &.max-width{
-        width:280px;
+    color: #fff;
+    font-size: 12px;
+    text-align: left;
+    padding: 4px 15px;
+    line-height: 18px;
+
+    &.max-width {
+        width: 280px;
     }
+
     &::-webkit-scrollbar {
-          width: 6px;
-    } /* 这是针对缺省样式 (必须的) */
+        width: 6px;
+    }
+
+    /* 这是针对缺省样式 (必须的) */
     &::-webkit-scrollbar-track {
-          background-color:rgba(0,0,0,0.8);
-    } /* 滚动条的滑轨背景颜色 */
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* 滚动条的滑轨背景颜色 */
 
     &::-webkit-scrollbar-thumb {
-          background-color: rgba(255,255,255,0.9); 
-          border-radius:10px;
-    } /* 滑块颜色 */
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+    }
+
+    /* 滑块颜色 */
 
     &::-webkit-scrollbar-button {
-          background-color: none;
-    } /* 滑轨两头的监听按钮颜色 */
+        background-color: none;
+    }
+
+    /* 滑轨两头的监听按钮颜色 */
 
     &::-webkit-scrollbar-corner {
-          background-color: black;
-    } /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
-    .hd{
-        margin-top:5px;
+        background-color: black;
     }
-    .bd{
-        display:flex;
-            flex-wrap:wrap;
-        .col{
-            width:50%;
+
+    /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
+    .hd {
+        margin-top: 5px;
+    }
+
+    .bd {
+        display: flex;
+        flex-wrap: wrap;
+
+        .col {
+            width: 50%;
         }
     }
 }
@@ -317,7 +342,7 @@ export default {
             padding-left: 85px;
             text-align: left;
             cursor: pointer;
-            margin:4px 0 8px;
+            margin: 4px 0 8px;
 
 
             .tip-box {

@@ -1310,8 +1310,33 @@ const module8Data = function() {
     }
 }
 
+const AI_Billing_00002_Data = function() {
+    return {
+        "code": 200,
+        "msg": "获取数据成功",
+        "data": { "day": [{ "user_num": 7485981, "item_code": "1001", "bill_fee": 43133.67, "item_name": "月固定费" }, { "user_num": 791471, "item_code": "1002", "bill_fee": 2939.96, "item_name": "增值业务费" }, { "user_num": 1020667, "item_code": "1005", "bill_fee": 135.06, "item_name": "语音通话费" }, { "user_num": 970992, "item_code": "1009", "bill_fee": 120.26, "item_name": "上网费" }, { "user_num": 10409, "item_code": "1007", "bill_fee": 91.64, "item_name": "调增减项" }, { "user_num": 11, "item_code": "1006", "bill_fee": 0.04, "item_name": "违约金" }, { "user_num": 102, "item_code": "1008", "bill_fee": 0.00, "item_name": "可视电话费" }] }
+    }
+}
+const getAI_Billing_00003_YMD = function() {
+    return { "msg": "获取数据成功", "code": "200", "data": [{ "day": [{ "user_num": "3089", "bill_fee": "275878.59", "product_id": "90657927", "product_name": "4G畅爽冰激凌国内流量套餐-99元/月（放心用版）" }, { "user_num": "10344", "bill_fee": "527130.24", "product_id": "90063345", "product_name": "腾讯大王卡" }, { "user_num": "7352", "bill_fee": "629992.88", "product_id": "90356341", "product_name": "4G畅爽冰激凌国内流量套餐-99元/月" }, { "user_num": "7365", "bill_fee": "836369.40", "product_id": "90657326", "product_name": "畅爽冰激凌5G套餐129元" }, { "user_num": "2735", "bill_fee": "315509.60", "product_id": "90356344", "product_name": "4G畅爽冰激凌国内流量套餐-129元/月" }] }] }
+}
+
+const queryTop10Data = function() {
+    return {"code":200,"data":[{"name":"产品名称","value":[{"ranking":"1","product_name":"腾讯大王卡","product_count":"88282"},{"ranking":"2","product_name":"5G副卡基本套餐(优享服务)","product_count":"24759"},{"ranking":"3","product_name":"4G主副卡业务-语音副卡基本套餐","product_count":"14252"},{"ranking":"4","product_name":"智慧沃家组合优化版（5G）","product_count":"9271"},{"ranking":"5","product_name":"智慧到家-家庭组网业务","product_count":"9144"}]},{"name":"常用功能","value":[{"ranking":"1","function_name":"移网产品/服务变更","function_count":"2017470"},{"ranking":"2","function_name":"欠费半停机","function_count":"1418592"},{"ranking":"3","function_name":"缴费开机","function_count":"1414907"},{"ranking":"4","function_name":"中高端升降级","function_count":"1399945"},{"ranking":"5","function_name":"高额半停机","function_count":"748093"}]}],"message":"操作成功"}
+}
+
+const QueryOrderCountData = function(){
+    return {"STATUS":"0000","MSG":"服务调用成功！","TXID":"TxidError0000!","RSP":{"RSP_CODE":"0000","RSP_DESC":"执行成功!","SUB_CODE":"0000","SUB_DESC":"执行成功!","DATA":[{"portability":1743612,"date":"2021","crossuser":70535,"portability_in":479872,"portability_out":1263740,"user2i":901442,"user2i5g":44,"order5g4t5":5730,"order5g":3626921,"province_code":"ZZ"}]}}
+}
+
 Mock.mock(RegExp('/ITTest/queryOtherCountByProvince' + ".*"), 'get', bigData);
 Mock.mock(RegExp('/ITTest/queryUserCountByProvince' + ".*"), 'get', module5Data);
 Mock.mock(RegExp('/ITTest/queryCBSSTradeCount' + ".*"), 'get', module6Data);
 Mock.mock(RegExp('/ITTest/queryCBSSMainCount' + ".*"), 'get', module7Data);
-Mock.mock(RegExp('/ITTest/queryTop10' + ".*"), 'get', module8Data);
+
+Mock.mock(RegExp('/ITTest/queryTop10ByProvince' + ".*"), 'get', queryTop10Data)
+Mock.mock(RegExp('/ITTest/getAI_Billing_00003_YMD' + ".*"), 'get', getAI_Billing_00003_YMD)
+Mock.mock(RegExp('/ITTest/AI_Billing_00002_Data' + ".*"), 'get', AI_Billing_00002_Data)
+Mock.mock(RegExp('/ITTest/QueryOrderCount' + ".*"), 'get', QueryOrderCountData)
+
+

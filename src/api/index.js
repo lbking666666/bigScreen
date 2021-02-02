@@ -49,53 +49,36 @@ export function showExternal(data) {
 }
 
 //yaxin
-export function getMapData(data){
+//地图
+export function getMapData(data) {
     const url = '/ITTest/queryOtherCountAll';
     return getApi(url, data)
 }
+//用户类型分布
 export function getBigData(data) {
     const url = '/ITTest/queryOtherCountByProvince';
     return getApi(url, data)
 }
-export function getModule6(data) {
-    const url = '/ITTest/queryUserCountByProvince';
-    return getApi(url, data)
-}
 
-export function getModule7(data) {
-    const url = '/ITTest/queryCBSSTradeCount';
-    return getApi(url, data)
-}
-export function getModule8(data) {
-    const url = '/ITTest/queryCBSSMainCount';
-    return getApi(url, data)
-}
-export function getModule9(data) {
-    const url = '/ITTest/queryTop10ByProvince';
-    return getApi(url, data)
-}
-
-export function geAllData(data){
-    const url = '/ITTest/queryTodayInnet';
-    return getApi(url, data)
-}
 
 
 // @Param("prov_code") String
-export function AI_Cz_Users(data){
+//出账用户
+export function AI_Cz_Users(data) {
     const url = `/webapi/screenapi/AI_Cz_Users`
     return getApi(url, data)
 }
 
 // @Param("prov_code") String
 // @Param("cycle") Number
-export function AI_Cz_Process_Card(data){
+//上月出账金额
+export function AI_Cz_Process_Card(data) {
     const url = `/webapi/screenapi/AI_Cz_Process_Card`
     return getApi(url, data)
 }
 
-// @Param("prov_code") String
-export function AI_Billing(data){
+// 今日缴费金额
+export function AI_Billing(data) {
     const url = `/webapi/screenapi/AI_Billing_00001`
     return getApi(url, data)
 }
@@ -105,7 +88,8 @@ export function AI_Billing(data){
 // @Param("end") String ['2021-01-14-23', '2021-01-14', '2021-01']
 // @Param("prov_code") String
 // @Param("start") String ['2021-01-14-23', '2021-01-14', '2021-01']
-export function Trade(data){
+//订单量
+export function Trade(data) {
     const url = `/webapi/asyn/trade`
     return getApi(url, data)
 }
@@ -114,26 +98,30 @@ export function Trade(data){
 // @Param("city_code") String
 // @Param("date") String '2021-01-14'
 // @Param("prov_code") String
-export function Openbusi(data){
+
+//用户类型分布 新增
+export function Openbusi(data) {
     const url = `/webapi/asyn/openbusi`
     return getApi(url, data)
 }
-
-export function ServiceOrder(data){
+//生产运营情况服务工单数
+export function ServiceOrder(data) {
     const url = `/webapi/cloudwise/business/serviceOrder`
     return getApi(url, data)
 }
 
 // @Param("prov_code") String
 // @Param("sqltype") String  'month'
-export function AI_Credit(data){
+//生产运营情况停机量开机量
+export function AI_Credit(data) {
     const url = `/webapi/screenapi/AI_Credit_00004_YMD`
     return getApi(url, data)
 }
 
 // @Param("prov_code") String
 // @Param("sqltype") String 'day'
-export function AI_Produce(data){
+//概览-收入情况当月实时收入
+export function AI_Produce(data) {
     const url = `/webapi/screenapi/AI_Produce_00001_YMD`
     return getApi(url, data)
 }
@@ -141,37 +129,37 @@ export function AI_Produce(data){
 // @Param("city_code") String
 // @Param("prov_code") String
 // @Param("date") String '2021-01-14'
-export function AsynOpen(data){
+//今日开户量
+export function AsynOpen(data) {
     const url = `/webapi/asyn/open`
     return getApi(url, data)
 }
-
-export function queryUserCountByProvince(data){
+//31省柱状图
+export function queryUserCountByProvince(data) {
     const url = `/ITTest/queryUserCountByProvince`
     return getApi(url, data)
 }
-
-export function queryOrderCount(data){
-    const url = `/ITTest/queryOrderCount`
+//重点业务场景
+export function queryOrderCount(data) {
+    const url = `/ITTest/QueryOrderCount`
+    //const url = `/webapi/queryOrderCount`
     return getApi(url, data)
 }
-
-export function queryTop10ByProvince(data){
+//热销产品/常用功能TOP5
+export function queryTop10ByProvince(data) {
     const url = `/ITTest/queryTop10ByProvince`
+    //const url = `/webapi/queryTop10ByProvince`
     return getApi(url, data)
 }
-
-export function AI_Billing_00003_YMD(data){
-    const url = `/webapi/screenapi/AI_Billing_00003_YMD`
+//收入TOP5产品
+export function AI_Billing_00003_YMD(data) {
+  const url = `/ITTest/getAI_Billing_00003_YMD`
+    //const url = `/webapi/screenapi/BILLING_YMD`
     return getApi(url, data)
 }
-
-export function AI_Billing_00002_YMD(data){
-    const url = `/webapi/screenapi/AI_Billing_00002_YMD`
+//收入TOP5费用项
+export function AI_Billing_00002_YMD(data) {
+    const url = `/ITTest/AI_Billing_00002_Data`
+     //const url = `/webapi/screenapi/AI_Billing_00002_YMD`
     return getApi(url, data)
 }
-export function queryCBSSOpenCount(data){
-    const url = `/ITTest/queryCBSSOpenCount`
-    return getApi(url, data)
-}
-
