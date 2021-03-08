@@ -285,9 +285,48 @@ export default {
         },
         //上月出账金额
         AI_Cz_Process_Card() {
-            let params = { prov_code: this.provinceCode, cycle: '202012' }
-            AI_Cz_Process_Card(params).then(res => {
-                this.module1Data.AI_Cz_Process_Card = res.data.income
+            let dateA = ''
+            let dateB = ''
+            let year = now.getFullYear()
+            let month = ''
+            let beforeMonth = ''
+            if (now.getMonth() == 0) {
+                month = '12'
+                beforeMonth = '11'
+                dateA = String(year - 1) + month
+                dateB = String(year - 1) + beforeMonth
+            } else if (now.getMonth() == 1) {
+                month = '01'
+                beforeMonth = '12'
+                dateA = String(year) + month
+                dateB = String(year - 1) + beforeMonth
+            } else if(now.getMonth() == 10) {
+                dateA = String(year) + '10'
+                dateB = String(year) + '09'
+            } else {
+                if (now.getMonth() < 10) {
+                    month = '0' + String(now.getMonth())
+                    beforeMonth = '0' + String(now.getMonth() - 1)
+                    dateA = String(year) + month
+                    dateB = String(year) + beforeMonth
+                } else {
+                    dateA = String(year) + String(now.getMonth())
+                    dateB = String(year) + String(now.getMonth() - 1)
+                }
+            }
+            
+            let paramsA = { prov_code: this.provinceCode, cycle: dateA }
+            let paramsB = { prov_code: this.provinceCode, cycle: dateB }
+            console.log(paramsA)
+            AI_Cz_Process_Card(paramsA).then(res => {
+                if (res.data.income > 0) {
+                    this.module1Data.AI_Cz_Process_Card = res.data.income
+                } else {
+                    console.log(paramsB)
+                    AI_Cz_Process_Card(paramsB).then(resB => {
+                        this.module1Data.AI_Cz_Process_Card = resB.data.income
+                    })
+                }
             })
         },
         //今日缴费金额
