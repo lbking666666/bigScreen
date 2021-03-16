@@ -53,12 +53,12 @@
                 <div class="box-count">{{moduleData.user2i?formatterNumber(moduleData.user2i):0}}</div>
             </div>
             <div class="box box-4" @click.stop="showPop($event,3)">
-                <!-- <div class="tip-box">
+                <div class="tip-box">
                     <div class="label">入：
                         {{moduleData.portability_in?formatterNumber(moduleData.portability_in):0}} </div>
                     <div class="label">出：
                         {{moduleData.portability_out?formatterNumber(moduleData.portability_out):0}} </div>
-                </div> -->
+                </div>
                 <div class="box-title">携号转网 <i class="wenhao"></i></div>
                 <div class="box-count">{{moduleData.portability?formatterNumber(moduleData.portability):0}}</div>
             </div>
@@ -111,7 +111,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.pop1)
         this.handleWin()
     },
     methods: {
@@ -120,7 +119,6 @@ export default {
             document.addEventListener('click', function(e) {
                 // 这里that代表组件，this代表document
                 // 冒泡也不会隐藏
-                
                 self.popIndex = 0
             })
         },
@@ -279,6 +277,7 @@ export default {
             text-align: left;
             cursor: pointer;
             margin: 4px 0 8px;
+            position: relative;
 
 
             .tip-box {
