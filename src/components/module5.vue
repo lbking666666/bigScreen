@@ -11,7 +11,7 @@ import * as echarts from "echarts";
 import axios from 'axios';
 import {AsynOpen} from '@/api/index.js';
 import {formatterNumber} from '@/utils/filterNum'
-let chinaMap = require('./map/china.json')
+let chinaMap = require('./map/china.json');
 let map = null,
     time = null
 let now = new Date()
@@ -21,6 +21,9 @@ let month_num = (monthLen > 1) ? month : 0 + String(month)
 let day = now.getDate()
 let dayLen = String(day).length;
 let day_num = (dayLen > 1) ? day : 0 + String(day)
+
+ 
+
 export default {
     name: "mapChart",
     props: {
@@ -36,6 +39,14 @@ export default {
             type: Number,
             default: 100
         },
+        mapCity:{
+            type:String,
+            default:"全国"
+        },
+        mapCode:{
+            type:String,
+            default:"ZZ"
+        }
     },
     data() {
         return {
@@ -130,12 +141,22 @@ export default {
         }
     },
     mounted() {
-        echarts.registerMap('china', chinaMap);
-        this.initMap('china');
+        console.log(this.mapCity)
+        if(this.mapCity!="全国"){
+            this.showProvince(this.provinces[this.mapCity],this.mapCity,this.mapCode)
+        }else{
+
+            echarts.registerMap("china", chinaMap);
+            this.initMap("china");
+        }
     },
     updated() {
         //echarts.registerMap('china', chinaMap);
-        this.initMap('china');
+        if(this.mapCity!="全国"){
+            this.showProvince(this.provinces[this.mapCity],this.mapCity,this.mapCode)
+        }else{
+            this.initMap("china");
+        }
     },
     methods: {
         initMap(name) { //初始化中国地图
@@ -264,7 +285,7 @@ export default {
             return
         },
         reBack() {
-            if (this.back) {
+            if (this.back && this.mapCity == "全国") {
                 this.$emit('reName', '全国','ZZ')
                 this.cityName = ''
                 map.dispose();
@@ -310,7 +331,9 @@ export default {
                 echarts.registerMap(eName, res.data);
                 this.$emit('reName',param, code)
                 self.cityName = eName
-                map.dispose();
+                if(map!=null){
+                    map.dispose();
+                }
                 self.initMap(eName);
             })
         }

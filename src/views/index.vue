@@ -4,6 +4,9 @@
             <div class="time-box">
                 <div class="time-str" v-for="(item, index) in dateTimeStr" :key="index">{{item}}</div>
             </div>
+            <div class="header-title">
+                cBSS全景运营视图
+            </div>
             <div class="time-selection">
                 <span class="time-n">Time：</span>
                 <span class="time-option" :class="timeIndex == 0 ? 'active' : ''" @click="checkTime(0)">日</span>
@@ -27,7 +30,7 @@
                         <numberBord :title="'今日缴费金额（万元）'" :bordNumber="externalAdd" :setTime="setTime" />
                     </div>
                 </div>
-                <module5 @reName="selectName" :mapData="mapData" :min="min" :max="max"></module5>
+                <module5 @reName="selectName" :mapCity="mapCity" :mapCode="provinceCode" :mapData="mapData" :min="min" :max="max"></module5>
                 <module6 :moduleData="module6Data"></module6>
             </div>
             <div class="right-box">
@@ -121,6 +124,7 @@ export default {
             min: 0,
             max: 100,
             provinceName: '全国',
+            mapCity:"全国",
             leftData: 0,
             leftdata1: 0,
             nowTime: (new Date()).getTime() / 1000,
@@ -133,11 +137,54 @@ export default {
             startDate: now.getFullYear() + '-' + month_num + '-' + day_num + '-00',
             endDate: now.getFullYear() + '-' + month_num + '-' + day_num + '-' + now.getHours(),
             externalAdd: 0,
+            mapOrign:{
+               "内蒙古": 10,
+                "北京": 11,
+                "天津": 13,
+                "山东": 17,
+                "河北": 18,
+                "山西": 19,
+                "安徽": 30,
+                "上海": 31,
+                "江苏": 34,
+                "浙江": 36,
+                "福建": 38,
+                "海南": 50,
+                "广东": 51,
+                "广西": 59,
+                "青海": 70,
+                "湖北": 71,
+                "湖南": 74,
+                "江西": 75,
+                "河南": 76,
+                "西藏": 79,
+                "四川": 81,
+                "重庆": 83,
+                "陕西": 84,
+                "贵州": 85,
+                "云南": 86,
+                "甘肃": 87,
+                "宁夏": 88,
+                "新疆": 89,
+                "吉林": 90,
+                "辽宁": 91,
+                "黑龙江": 97
+            }
+        }
+    },
+    created(){
+        let code = this.$route.query.code 
+        if(code){
+            this.provinceCode = code
+            this.mapCity = this.findKey(this.mapOrign,Number(code))
+            console.log(this.mapCity)
+        }else{
+            this.mapCity = "全国"
+            this.getMapData()
         }
     },
     mounted() {
         this.getData()
-        this.getMapData()
         setInterval(() => {
             this.setTime = true
             this.getSetTime()
@@ -151,6 +198,9 @@ export default {
         }, 1000)
     },
     methods: {
+        findKey (obj,value, compare = (a, b) => a === b) {  
+            return Object.keys(obj).find(k => compare(obj[k], value))
+        },
         checkTime(num) {
             this.timeIndex = num
             if (num == 0) {
@@ -700,9 +750,21 @@ export default {
         display: flex;
         width: 100%;
         height: 86px;
-        background: url("../assets/yaxin/header-bg.png") no-repeat;
+        background: url("../assets/yaxin/Title.png") no-repeat;
         background-size: 100% 100%;
-
+        justify-content:center;
+        .header-title{
+            font-size: 38px;
+            margin-top:12px;
+            font-family: PingFangSC-Semibold, PingFang SC;
+            font-weight: 600;
+            line-height: 53px;
+            height:53px;
+            text-shadow: 0 2px 14px rgba(91,227,255,0.42);
+            background: linear-gradient(to top, #88D7FD, #FFFFFF,#FFFFFF);
+            -webkit-background-clip: text;
+                color: transparent;
+        }
         .time-box {
             position: absolute;
             top: 33px;
