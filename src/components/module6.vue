@@ -23,6 +23,10 @@
 			moduleData: {
 				type: Object,
 				default: ()=>{{}}
+			},
+			provinceName:{
+				type:String,
+				default:"全国"
 			}
 		},
 		data(){
@@ -42,6 +46,11 @@
 		updated() {
 			this.transData(this.moduleData)
 			this.drawChart()
+			if(this.provinceName =="全国"){
+				this.titleText= '全国31省用户量/ARPU值'
+			}else{
+				this.titleText= this.provinceName+'用户量/ARPU值'
+			}
 		},
 		methods:{
 			transData(data) {
